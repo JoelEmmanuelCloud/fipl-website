@@ -74,7 +74,7 @@ export default function HomePage() {
       {/* ══════════════════════════════════
           1 · HERO
       ══════════════════════════════════ */}
-      <section className="relative h-[520px] md:h-[600px] lg:h-[680px] overflow-hidden bg-gray-900">
+      <section className="relative h-[600px] md:h-[660px] lg:h-[740px] overflow-hidden bg-gray-900">
 
         {/* Background image */}
         <div
@@ -84,44 +84,24 @@ export default function HomePage() {
         {/* Dark overlay */}
         <div className="absolute inset-0 bg-black/50" />
 
-        {/* Copy – centred over full hero width */}
-        <div className="absolute inset-0 z-10 flex items-center justify-center text-center px-4">
-          <div className="max-w-[520px] w-full">
-            <h1 className="text-[34px] md:text-[44px] lg:text-[52px] font-bold text-white leading-tight mb-4">
-              Committed to<br />Efficient Power Generation
-            </h1>
-            <p className="text-white/75 text-[14px] leading-relaxed mb-8 max-w-[400px] mx-auto">
-              First Independent Power Limited operates cutting-edge gas turbine power plants in
-              Rivers State, generating electricity that supports Nigeria&apos;s industrial growth.
-            </p>
-            <div className="flex flex-wrap gap-3 justify-center">
-              <Link
-                href="/power-plants"
-                className="bg-primary hover:bg-primary-dark text-white font-semibold text-sm px-7 py-3 rounded-md transition-colors"
-              >
-                Explore Our Plants ↗
-              </Link>
-              <Link
-                href="/about"
-                className="border border-white/60 bg-white/10 hover:bg-white/20 text-white font-semibold text-sm px-7 py-3 rounded-md transition-colors backdrop-blur-sm"
-              >
-                Learn More
-              </Link>
-            </div>
-          </div>
+        {/* Title only – shifted up to leave room for the card overlay */}
+        <div className="absolute inset-0 z-10 flex items-end justify-center text-center px-4 pb-[260px] md:pb-[280px] lg:pb-[320px]">
+          <h1 className="font-sans text-[24px] md:text-[32px] lg:text-[38px] font-bold text-white leading-tight">
+            Committed to<br />Efficient Power Generation
+          </h1>
         </div>
       </section>
 
       {/* ══════════════════════════════════
-          2 · OUR POWER PLANTS  (3-panel card)
+          2 · OUR POWER PLANTS — card overlays hero bottom
       ══════════════════════════════════ */}
-      <section className="py-12 md:py-16 bg-gray-100">
-        <div className="max-w-[1100px] mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px_1fr] rounded-2xl overflow-hidden shadow-xl">
+      <section className="relative z-10 -mt-[220px] md:-mt-[240px] lg:-mt-[260px] pb-16">
+        <div className="max-w-[1060px] mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px_1fr] rounded-2xl overflow-hidden shadow-2xl">
 
             {/* Left image panel */}
             <div
-              className="hidden lg:block relative h-[340px] bg-cover bg-center"
+              className="hidden lg:block relative h-[300px] bg-cover bg-center"
               style={{ backgroundImage: `url('${IMAGES.home.workerLeft}')` }}
             >
               <div className="absolute inset-0 bg-black/35" />
@@ -129,7 +109,6 @@ export default function HomePage() {
 
             {/* Centre card */}
             <div className="bg-white flex flex-col items-center justify-center text-center px-8 py-10">
-              {/* Icon badge */}
               <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center mb-5 shadow-md">
                 <svg viewBox="0 0 32 32" width="28" height="28" fill="white" aria-hidden="true">
                   <rect x="3" y="16" width="6" height="13" rx="1" />
@@ -142,7 +121,7 @@ export default function HomePage() {
               <h2 className="text-xl md:text-2xl font-bold text-gray-800 leading-snug mb-4">
                 Our Power Plants,<br />Our Impact
               </h2>
-              <p className="text-gray-500 text-[13px] leading-relaxed max-w-[300px]">
+              <p className="text-gray-500 text-[13px] leading-relaxed max-w-[280px]">
                 FIPL operates four world-class thermal power plants – Omoku, Afam, Trans-Amadi, and
                 Eleme – generating electricity that supports Nigeria&apos;s industrial and economic growth.
               </p>
@@ -150,7 +129,7 @@ export default function HomePage() {
 
             {/* Right image panel */}
             <div
-              className="hidden lg:block relative h-[340px] bg-cover bg-center"
+              className="hidden lg:block relative h-[300px] bg-cover bg-center"
               style={{ backgroundImage: `url('${IMAGES.home.workerRight}')` }}
             >
               <div className="absolute inset-0 bg-black/35" />

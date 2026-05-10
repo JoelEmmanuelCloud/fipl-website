@@ -21,6 +21,7 @@ export function Header() {
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10)
+    onScroll() // set correct state on mount
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
@@ -39,11 +40,16 @@ export function Header() {
     <>
       {/* ─── Desktop / Tablet header ─── */}
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          transparent
-            ? 'bg-transparent'
-            : `bg-white ${scrolled ? 'shadow-md' : 'shadow-sm'}`
-        }`}
+        className="fixed top-0 left-0 right-0 z-50"
+        style={{
+          backgroundColor: transparent ? 'transparent' : '#ffffff',
+          boxShadow: transparent
+            ? 'none'
+            : scrolled
+              ? '0 4px 6px -1px rgb(0 0 0 / 0.1)'
+              : '0 1px 2px 0 rgb(0 0 0 / 0.05)',
+          transition: 'background-color 0.3s ease, box-shadow 0.3s ease',
+        }}
       >
         <div className="max-w-[1280px] mx-auto px-6 flex items-center gap-4 h-[72px]">
 

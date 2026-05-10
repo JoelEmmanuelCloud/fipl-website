@@ -86,31 +86,51 @@ export default function HomePage() {
 
         {/* Title only – shifted up to leave room for the card overlay */}
         <div className="absolute inset-0 z-10 flex items-end justify-center text-center px-4 pb-[260px] md:pb-[280px] lg:pb-[320px]">
-          <h1 className="font-sans text-[24px] md:text-[32px] lg:text-[38px] font-bold text-white leading-tight">
+          <h1
+            className="text-white text-center"
+            style={{
+              fontFamily: 'Arial',
+              fontWeight: 700,
+              fontSize: '38px',
+              lineHeight: '100%',
+              letterSpacing: '0%',
+            }}
+          >
             Committed to<br />Efficient Power Generation
           </h1>
         </div>
       </section>
 
       {/* ══════════════════════════════════
-          2 · OUR POWER PLANTS — card overlays hero bottom
+          2 · OUR POWER PLANTS — three separate floating cards
       ══════════════════════════════════ */}
-      <section className="relative z-10 -mt-[220px] md:-mt-[240px] lg:-mt-[260px] pb-16">
-        <div className="max-w-[1060px] mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px_1fr] rounded-2xl overflow-hidden shadow-2xl">
+      <section className="relative z-10 -mt-[200px] md:-mt-[200px] lg:-mt-[200px] pb-16">
+        <div className="max-w-[1200px] mx-auto px-6">
+          {/* Three cards — each with its own explicit width and height */}
+          <div style={{ display: 'flex', gap: '2px', alignItems: 'flex-start', justifyContent: 'center' }}>
 
-            {/* Left image panel */}
-            <div
-              className="hidden lg:block relative h-[300px] bg-cover bg-center"
-              style={{ backgroundImage: `url('${IMAGES.home.workerLeft}')` }}
-            >
-              <div className="absolute inset-0 bg-black/35" />
-            </div>
+            {/* Left — image card */}
+            <div style={{
+              width: '420px', height: '430px', flexShrink: 0,
+              borderTopLeftRadius: '16px', borderTopRightRadius: '16px',
+              backgroundImage: `url('${IMAGES.home.workerLeft}')`,
+              backgroundSize: 'contain', backgroundPosition: 'center', backgroundRepeat: 'no-repeat',
+            }} />
 
-            {/* Centre card */}
-            <div className="bg-white flex flex-col items-center justify-center text-center px-8 py-10">
-              <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center mb-5 shadow-md">
-                <svg viewBox="0 0 32 32" width="28" height="28" fill="white" aria-hidden="true">
+            {/* Centre — white content card */}
+            <div style={{
+              width: '308px', height: '250px', flexShrink: 0,
+              background: '#fff', borderRadius: '16px',
+              boxShadow: '0 10px 25px -5px rgb(0 0 0 / 0.15)',
+              display: 'flex', flexDirection: 'column', alignItems: 'center',
+              justifyContent: 'center', textAlign: 'center', padding: '20px 24px',
+            }}>
+              <div style={{
+                width: '36px', height: '36px', borderRadius: '50%',
+                background: '#E03027', display: 'flex', alignItems: 'center',
+                justifyContent: 'center', marginBottom: '10px', flexShrink: 0,
+              }}>
+                <svg viewBox="0 0 32 32" width="16" height="16" fill="white" aria-hidden="true">
                   <rect x="3" y="16" width="6" height="13" rx="1" />
                   <rect x="13" y="11" width="6" height="18" rx="1" />
                   <rect x="23" y="7" width="6" height="22" rx="1" />
@@ -118,22 +138,22 @@ export default function HomePage() {
                   <path d="M16 3 L20 9 H17 V13 H15 V9 H12 Z" />
                 </svg>
               </div>
-              <h2 className="text-xl md:text-2xl font-bold text-gray-800 leading-snug mb-4">
+              <h2 style={{ fontSize: '14px', fontWeight: 700, color: '#1f2937', lineHeight: 1.3, marginBottom: '6px' }}>
                 Our Power Plants,<br />Our Impact
               </h2>
-              <p className="text-gray-500 text-[13px] leading-relaxed max-w-[280px]">
+              <p style={{ fontSize: '11px', color: '#6b7280', lineHeight: 1.5, maxWidth: '240px', margin: 0 }}>
                 FIPL operates four world-class thermal power plants – Omoku, Afam, Trans-Amadi, and
                 Eleme – generating electricity that supports Nigeria&apos;s industrial and economic growth.
               </p>
             </div>
 
-            {/* Right image panel */}
-            <div
-              className="hidden lg:block relative h-[300px] bg-cover bg-center"
-              style={{ backgroundImage: `url('${IMAGES.home.workerRight}')` }}
-            >
-              <div className="absolute inset-0 bg-black/35" />
-            </div>
+            {/* Right — image card */}
+            <div style={{
+              width: '420px', height: '430px', flexShrink: 0,
+              borderTopLeftRadius: '16px', borderTopRightRadius: '16px',
+              backgroundImage: `url('${IMAGES.home.workerRight}')`,
+              backgroundSize: 'contain', backgroundPosition: 'center', backgroundRepeat: 'no-repeat',
+            }} />
           </div>
         </div>
       </section>

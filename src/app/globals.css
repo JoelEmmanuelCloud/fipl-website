@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font-poppins), Poppins, sans-serif; }
+}
+
+/* ── Custom gradient utilities ───────────────────── */
+@layer utilities {
+  .bg-gradient-fipl {
+    background: linear-gradient(135deg, #E03027 0%, #F47820 100%);
+  }
+  .text-gradient-fipl {
+    background: linear-gradient(135deg, #E03027, #F47820);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  /* Lightning bolt watermark — decorative background element */
+  .bolt-watermark {
+    position: relative;
+    overflow: hidden;
+  }
+  .bolt-watermark::after {
+    content: '';
+    position: absolute;
+    right: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 300px;
+    height: 400px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 320'%3E%3Cpath d='M130 10 L50 160 H110 L30 310 L190 140 H120 Z' fill='%23F47820' opacity='0.06'/%3E%3C/svg%3E") no-repeat center/contain;
+    pointer-events: none;
+  }
+}
+
+/* ── Article prose ──────────────────────────────── */
+.prose p {
+  color: #555;
+  line-height: 1.75;
+  margin-bottom: 1rem;
+}
+
+/* ── Tailwind override helpers ───────────────────── */
+/* These repeat colours that Tailwind resolves via config,
+   but ensure inline-style-free elements inherit correctly. */
+.text-accent   { color: #F47820 !important; }
+.bg-accent     { background-color: #F47820 !important; }
+.text-primary  { color: #E03027 !important; }
+.bg-primary    { background-color: #E03027 !important; }

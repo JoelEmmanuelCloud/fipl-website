@@ -1,0 +1,193 @@
+'use client'
+
+import Link from 'next/link'
+import { useState } from 'react'
+import type { NewsArticle } from '@/lib/news'
+
+const CATEGORIES = ['All', 'Operations', 'Community', 'Corporate', 'Partnerships', 'Updates'] as const
+const MK_TABS = ['Our Plants', 'People', 'Events', 'FIPL Foundation'] as const
+
+export function NewsTabs({ articles }: { articles: NewsArticle[] }) {
+  const [mainTab, setMainTab] = useState<'press' | 'media'>('press')
+  const [filter, setFilter] = useState('All')
+  const [mkTab, setMkTab] = useState('Our Plants')
+  const [page, setPage] = useState(1)
+  const PER_PAGE = 3
+
+  const pressArticles = articles.filter(
+    (a) => filter === 'All' || a.category === filter
+  )
+  const totalPages = Math.ceil(pressArticles.length / PER_PAGE)
+  const paged = pressArticles.slice((page - 1) * PER_PAGE, page * PER_PAGE)
+  const recent = [...articles]
+    .sort((a, b) => new Date(b.dateISO).getTime() - new Date(a.dateISO).getTime())
+    .slice(0, 7)
+
+  return (
+    <section className="py-16 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-6">
+        {/* Main tabs */}
+        <div className="flex gap-1 border-b-2 border-gray-200 mb-8">
+          {(['press', 'media'] as const).map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setMainTab(tab)}
+              className={`px-5 py-2.5 text-sm font-medium -mb-0.5 border-b-2 transition-colors ${
+                mainTab === tab
+                  ? 'text-primary border-primary font-semibold'
+                  : 'text-gray-500 border-transparent hover:text-gray-700'
+              }`}
+            >
+              {tab === 'press' ? '📰 Press Releases' : '📷 Media Kits'}
+            </button>
+          ))}
+        </div>
+
+        {/* PRESS RELEASES */}
+        {mainTab === 'press' && (
+          <>
+            {/* Filter bar */}
+            <div className="flex flex-wrap items-center gap-3 mb-7">
+              <select
+                className="border border-gray-200 rounded-md px-4 py-2 text-sm bg-white focus:outline-none focus:border-primary"
+                value={filter}
+                onChange={(e) => { setFilter(e.target.value); setPage(1) }}
+              >
+                {CATEGORIES.map((c) => (
+                  <option key={c}>{c}</option>
+                ))}
+              </select>
+              <div className="relative flex-1 min-w-[200px]">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">🔍</span>
+                <input
+                  type="search"
+                  placeholder="Search articles…"
+                  className="w-full border border-gray-200 rounded-md pl-9 pr-4 py-2 text-sm bg-white focus:outline-none focus:border-primary"
+                />
+              </div>
+            </div>
+
+            {/* Two-column: articles + sidebar */}
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-10">
+              {/* Articles */}
+              <div>
+                {paged.map((article, i) => (
+                  <article
+                    key={article.id}
+                    className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow mb-6"
+                  >
+                    {/* Image placeholder */}
+                    <div className={`bg-gray-200 flex items-center justify-center text-gray-400 text-sm ${i === 0 ? 'h-64' : 'h-48'}`}>
+                      [ {article.imagePlaceholder} ]
+                    </div>
+                    <div className="p-7">
+                      <div className="text-[11px] font-bold text-primary uppercase tracking-wider mb-2">
+                        {article.category}
+                      </div>
+                      <div className="flex items-center gap-3 text-xs text-gray-400 mb-3">
+                        <span>📅 {article.date}</span>
+                        <span>·</span>
+                        <span>{article.readTime}</span>
+                      </div>
+                      <h2 className="text-lg font-bold text-gray-800 mb-3 leading-snug">
+                        <Link href={`/news/${article.slug}`} className="hover:text-primary transition-colors">
+                          {article.title}
+                        </Link>
+                      </h2>
+                      <p className="text-sm text-gray-600 mb-4 leading-relaxed">{article.excerpt}</p>
+                      <Link
+                        href={`/news/${article.slug}`}
+                        className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:gap-3 transition-all"
+                      >
+                        Read More ↗
+                      </Link>
+                    </div>
+                  </article>
+                ))}
+
+                {/* Pagination */}
+                {totalPages > 1 && (
+                  <div className="flex gap-2 justify-center mt-6">
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
+                      <button
+                        key={p}
+                        onClick={() => setPage(p)}
+                        className={`w-9 h-9 rounded-md text-sm font-medium border transition-colors ${
+                          p === page
+                            ? 'bg-primary text-white border-primary'
+                            : 'bg-white text-gray-600 border-gray-200 hover:border-primary hover:text-primary'
+                        }`}
+                      >
+                        {p}
+                      </button>
+                    ))}
+                    {page < totalPages && (
+                      <button
+                        onClick={() => setPage(page + 1)}
+                        className="w-9 h-9 rounded-md text-sm font-medium border bg-white text-gray-600 border-gray-200 hover:border-primary hover:text-primary transition-colors"
+                      >
+                        ›
+                      </button>
+                    )}
+                  </div>
+                )}
+              </div>
+
+              {/* Sidebar */}
+              <aside className="hidden lg:block">
+                <div className="text-sm font-bold text-gray-800 mb-4 pb-3 border-b-2 border-primary">
+                  Recent Posts
+                </div>
+                {recent.map((a) => (
+                  <div key={a.id} className="flex gap-3 py-3 border-b border-gray-100">
+                    <div className="w-16 h-16 shrink-0 bg-gray-200 rounded-lg" />
+                    <div>
+                      <div className="text-[11px] text-gray-400 mb-1">{a.date}</div>
+                      <Link
+                        href={`/news/${a.slug}`}
+                        className="text-[13px] font-semibold text-gray-800 leading-snug hover:text-primary transition-colors"
+                      >
+                        {a.title}
+                      </Link>
+                    </div>
+                  </div>
+                ))}
+              </aside>
+            </div>
+          </>
+        )}
+
+        {/* MEDIA KITS */}
+        {mainTab === 'media' && (
+          <>
+            <div className="flex flex-wrap gap-2 mb-7">
+              {MK_TABS.map((tab) => (
+                <button
+                  key={tab}
+                  onClick={() => setMkTab(tab)}
+                  className={`px-5 py-2 rounded-full text-sm font-medium border transition-colors ${
+                    mkTab === tab
+                      ? 'bg-primary text-white border-primary'
+                      : 'bg-gray-50 text-gray-600 border-gray-200 hover:border-primary'
+                  }`}
+                >
+                  {tab}
+                </button>
+              ))}
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+              {Array.from({ length: 8 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="aspect-square bg-gray-200 rounded-xl overflow-hidden flex items-center justify-center text-gray-400 text-xs cursor-pointer hover:scale-[1.03] transition-transform"
+                >
+                  [ {mkTab} {i + 1} ]
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+    </section>
+  )
+}

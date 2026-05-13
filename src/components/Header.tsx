@@ -54,30 +54,40 @@ export function Header() {
         <div className="max-w-[1280px] mx-auto px-6 flex items-center gap-4 h-[72px]">
 
           {/* Logo — inverted to white when nav is transparent over dark hero */}
-          <Logo height={40} className="shrink-0" />
+          <Logo className="shrink-0" />
 
-          {/* ── Desktop nav + Register With Us (all inside one ul for consistent spacing) ── */}
-          <nav className="hidden lg:flex ml-auto">
+          {/* ── Desktop nav + Register With Us ── */}
+          <nav className="hidden lg:flex ml-auto items-center gap-2">
             <ul className="flex items-center gap-0.5">
               {[...navLinks, { href: '/register', label: 'Register With Us' }].map(({ href, label }) => (
                 <li key={href}>
                   <Link
                     href={href}
-                    className={`block px-[11px] py-2 text-[13px] font-medium rounded transition-colors whitespace-nowrap ${
+                    className={`block px-[11px] py-2 rounded transition-colors whitespace-nowrap ${
                       pathname === href
                         ? transparent
-                          ? 'text-white font-semibold'
-                          : 'text-primary font-semibold'
+                          ? 'text-white'
+                          : 'text-primary'
                         : transparent
                           ? 'text-white/85 hover:text-white'
                           : 'text-gray-700 hover:text-primary'
                     }`}
+                    style={{
+                      fontFamily: 'Arial, sans-serif',
+                      fontWeight: 400,
+                      fontStyle: 'normal',
+                      fontSize: '14px',
+                      lineHeight: '100%',
+                      letterSpacing: '0%',
+                      verticalAlign: 'middle',
+                    }}
                   >
                     {label}
                   </Link>
                 </li>
               ))}
             </ul>
+
           </nav>
 
           {/* ── Burger (mobile / tablet) ── */}

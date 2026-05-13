@@ -33,7 +33,7 @@ export function Footer() {
 
           {/* Brand — full-width on mobile, 2-span on sm, 1-col on lg */}
           <div className="sm:col-span-2 lg:col-span-1">
-            <Logo height={44} className="mb-4" />
+            <Logo className="mb-4" />
             <p className="text-sm leading-relaxed mb-6" style={{ color: '#888' }}>
               FIPL is committed to delivering reliable power generation solutions while driving
               innovation and contributing to Nigeria&apos;s sustainable energy future.

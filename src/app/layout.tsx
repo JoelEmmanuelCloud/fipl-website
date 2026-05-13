@@ -27,6 +27,11 @@ export const metadata: Metadata = {
   },
   description:
     'FIPL operates four world-class gas turbine power plants in Rivers State, providing reliable and sustainable energy solutions across Nigeria.',
+  icons: {
+    icon: '/images/sustainability/logoimage.png',
+    shortcut: '/images/sustainability/logoimage.png',
+    apple: '/images/sustainability/logoimage.png',
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

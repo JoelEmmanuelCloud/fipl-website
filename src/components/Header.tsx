@@ -21,6 +21,7 @@ export function Header() {
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10)
+    onScroll() // set correct state on mount
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
@@ -39,39 +40,54 @@ export function Header() {
     <>
       {/* ─── Desktop / Tablet header ─── */}
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          transparent
-            ? 'bg-transparent'
-            : `bg-white ${scrolled ? 'shadow-md' : 'shadow-sm'}`
-        }`}
+        className="fixed top-0 left-0 right-0 z-50"
+        style={{
+          backgroundColor: transparent ? 'transparent' : '#ffffff',
+          boxShadow: transparent
+            ? 'none'
+            : scrolled
+              ? '0 4px 6px -1px rgb(0 0 0 / 0.1)'
+              : '0 1px 2px 0 rgb(0 0 0 / 0.05)',
+          transition: 'background-color 0.3s ease, box-shadow 0.3s ease',
+        }}
       >
         <div className="max-w-[1280px] mx-auto px-6 flex items-center gap-4 h-[72px]">
 
           {/* Logo — inverted to white when nav is transparent over dark hero */}
-          <Logo height={40} className="shrink-0" />
+          <Logo className="shrink-0" />
 
-          {/* ── Desktop nav + Register With Us (all inside one ul for consistent spacing) ── */}
-          <nav className="hidden lg:flex ml-auto">
+          {/* ── Desktop nav + Register With Us ── */}
+          <nav className="hidden lg:flex ml-auto items-center gap-2">
             <ul className="flex items-center gap-0.5">
               {[...navLinks, { href: '/register', label: 'Register With Us' }].map(({ href, label }) => (
                 <li key={href}>
                   <Link
                     href={href}
-                    className={`block px-[11px] py-2 text-[13px] font-medium rounded transition-colors whitespace-nowrap ${
+                    className={`block px-[11px] py-2 rounded transition-colors whitespace-nowrap ${
                       pathname === href
                         ? transparent
-                          ? 'text-white font-semibold'
-                          : 'text-primary font-semibold'
+                          ? 'text-white'
+                          : 'text-primary'
                         : transparent
                           ? 'text-white/85 hover:text-white'
                           : 'text-gray-700 hover:text-primary'
                     }`}
+                    style={{
+                      fontFamily: 'Arial, sans-serif',
+                      fontWeight: 400,
+                      fontStyle: 'normal',
+                      fontSize: '14px',
+                      lineHeight: '100%',
+                      letterSpacing: '0%',
+                      verticalAlign: 'middle',
+                    }}
                   >
                     {label}
                   </Link>
                 </li>
               ))}
             </ul>
+
           </nav>
 
           {/* ── Burger (mobile / tablet) ── */}

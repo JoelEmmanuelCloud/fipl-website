@@ -14,8 +14,8 @@ export const IMAGES = {
     community:     'https://picsum.photos/seed/fipl-h2/1920/900',
     plantOverview: 'https://picsum.photos/seed/fipl-h3/900/650',
     team:          'https://picsum.photos/seed/fipl-h4/900/650',
-    workerLeft:    'https://picsum.photos/seed/fipl-wl/600/800',
-    workerRight:   'https://picsum.photos/seed/fipl-wr/600/800',
+    workerLeft:    '/images/home/leftheroimage.png',
+    workerRight:   '/images/home/rightsideimage.png',
   },
   about: {
     hero:     'https://picsum.photos/seed/fipl-a1/1920/1080',

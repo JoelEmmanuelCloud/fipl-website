@@ -11,9 +11,9 @@
 export const IMAGES = {
   home: {
     hero:          '/images/home/backgroundimage.png',
-    community:     'https://picsum.photos/seed/fipl-h2/1920/900',
+    community:     '/images/home/csr-community.jpg',
     plantOverview: 'https://picsum.photos/seed/fipl-h3/900/650',
-    team:          'https://picsum.photos/seed/fipl-h4/900/650',
+    team:          '/images/home/careers-team.png',
     workerLeft:    '/images/home/leftheroimage.png',
     workerRight:   '/images/home/rightsideimage.png',
     whoWeAre:      '/images/home/who-we-are.jpg',

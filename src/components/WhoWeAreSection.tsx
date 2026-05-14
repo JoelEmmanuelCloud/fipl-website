@@ -74,20 +74,21 @@ export function WhoWeAreSection() {
               style={{
                 fontFamily: 'Arial, sans-serif',
                 fontWeight: 400,
-                fontSize: '12px',
-                lineHeight: '20px',
+                fontStyle: 'normal',
+                fontSize: '14px',
+                lineHeight: '22px',
+                letterSpacing: '0%',
+                verticalAlign: 'middle',
                 color: '#6b7280',
-                textAlign: 'justify',
               }}
             >
-              First Independent Power Limited (FIPL) is a leader in responsible<br />
-              and sustainable power generation in Nigeria. Strategically located<br />
-              in Rivers State, we operate four cutting-edge gas turbine power<br />
-              plants in Trans-Amadi (Port Harcourt), Afam, Omoku, and Eleme,<br />
-              with a combined capacity of 541MW.
+              First Independent Power Limited (FIPL) is a leader in responsible and sustainable
+              power generation in Nigeria. Strategically located in Rivers State, we operate four
+              cutting-edge gas turbine power plants in Trans-Amadi Port-Harcourt, Afam, Omoku,
+              and Eleme, with a combined capacity of 541MW.
             </p>
-            <p className="text-gray-700 text-[11px] font-medium mb-2">
-              FIPL operates four world-class thermal power plants such as:
+            <p style={{ fontFamily: 'Arial, sans-serif', fontWeight: 400, fontSize: '14px', lineHeight: '22px', color: '#6b7280', marginBottom: '8px' }}>
+              FIPL operates four world-class thermal power plants Such as:
             </p>
             <div className="grid grid-cols-2 gap-x-24 gap-y-1 mb-5" style={{ width: 'fit-content' }}>
               {['Afam Plant', 'Omoku Plant', 'Trans-Amadi Plant', 'Eleme Plant'].map(plant => (

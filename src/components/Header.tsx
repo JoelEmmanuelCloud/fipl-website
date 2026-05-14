@@ -63,14 +63,14 @@ export function Header() {
                 <li key={href}>
                   <Link
                     href={href}
-                    className={`block px-[11px] py-2 rounded transition-colors whitespace-nowrap ${
+                    className={`block px-[11px] py-2 rounded transition-colors whitespace-nowrap border-b-2 ${
                       pathname === href
                         ? transparent
-                          ? 'text-white'
-                          : 'text-primary'
+                          ? 'text-white border-white'
+                          : 'text-primary border-[#F47820]'
                         : transparent
-                          ? 'text-white/85 hover:text-white'
-                          : 'text-gray-700 hover:text-primary'
+                          ? 'text-white/85 hover:text-[#F47820] border-transparent'
+                          : 'text-gray-700 hover:text-[#F47820] border-transparent'
                     }`}
                     style={{
                       fontFamily: 'Arial, sans-serif',

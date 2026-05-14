@@ -37,20 +37,38 @@ function Counter({ stat }: { stat: Stat }) {
   }, [stat.value])
 
   return (
-    <div ref={ref} className="text-center p-7 bg-white/10 rounded-xl">
-      <div className="text-3xl mb-2.5">{stat.icon}</div>
-      <div className="text-4xl font-extrabold text-white leading-none">
+    <div ref={ref} className="text-center py-6 flex flex-col items-center">
+      {/* Icon on top */}
+      <div className="mb-3" style={{ width: 40, height: 40 }}>{stat.icon}</div>
+      {/* Number */}
+      <div className="text-4xl font-extrabold text-white leading-none mb-2">
         {stat.display ?? `${count}${stat.suffix ?? ''}`}
       </div>
-      <div className="text-sm text-white/80 mt-2">{stat.label}</div>
+      {/* Label */}
+      <div className="text-sm text-white/80">{stat.label}</div>
     </div>
   )
 }
 
 export function CounterStats({ stats }: { stats: Stat[] }) {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
-      {stats.map((s) => <Counter key={s.label} stat={s} />)}
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-0">
+      {stats.map((s, i) => (
+        <div key={s.label} className="relative">
+          {/* Faded vertical divider — hidden on first item and on mobile */}
+          {i > 0 && (
+            <div
+              className="hidden md:block absolute left-0 top-1/2 -translate-y-1/2"
+              style={{
+                width: '2px',
+                height: '70%',
+                background: 'linear-gradient(to bottom, transparent, rgba(255,255,255,0.85), transparent)',
+              }}
+            />
+          )}
+          <Counter stat={s} />
+        </div>
+      ))}
     </div>
   )
 }

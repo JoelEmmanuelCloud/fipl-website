@@ -16,6 +16,7 @@ export const IMAGES = {
     team:          'https://picsum.photos/seed/fipl-h4/900/650',
     workerLeft:    '/images/home/leftheroimage.png',
     workerRight:   '/images/home/rightsideimage.png',
+    whoWeAre:      '/images/home/who-we-are.jpg',
   },
   about: {
     hero:     'https://picsum.photos/seed/fipl-a1/1920/1080',

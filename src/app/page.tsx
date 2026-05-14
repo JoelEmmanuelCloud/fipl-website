@@ -1,8 +1,10 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Accordion } from '@/components/Accordion'
 import { CounterStats } from '@/components/CounterStats'
 import { SectionImage } from '@/components/SectionImage'
+import { WhoWeAreSection } from '@/components/WhoWeAreSection'
 import { IMAGES } from '@/lib/images'
 
 export const metadata: Metadata = {
@@ -13,10 +15,19 @@ export const metadata: Metadata = {
 const PlantIcon = (
   <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5"
     strokeLinecap="round" strokeLinejoin="round" width="28" height="28">
-    <rect x="3" y="3" width="7" height="7" rx="1" />
-    <rect x="14" y="3" width="7" height="7" rx="1" />
-    <rect x="3" y="14" width="7" height="7" rx="1" />
-    <rect x="14" y="14" width="7" height="7" rx="1" />
+    {/* Fan blades — multi-blade farm windmill wheel */}
+    <circle cx="12" cy="7" r="5" />
+    <line x1="12" y1="2" x2="12" y2="12" />
+    <line x1="7" y1="7" x2="17" y2="7" />
+    <line x1="8.5" y1="3.5" x2="15.5" y2="10.5" />
+    <line x1="15.5" y1="3.5" x2="8.5" y2="10.5" />
+    {/* Hub */}
+    <circle cx="12" cy="7" r="1.2" fill="white" />
+    {/* Tower legs */}
+    <path d="M10 12 L8 22" />
+    <path d="M14 12 L16 22" />
+    {/* Cross brace */}
+    <line x1="9" y1="17" x2="15" y2="17" />
   </svg>
 )
 const TimerIcon = (
@@ -25,10 +36,11 @@ const TimerIcon = (
     <circle cx="12" cy="13" r="8" /><path d="M12 9v4l2.5 2.5M9.5 3h5M12 3v2" />
   </svg>
 )
-const BoltIcon = (
+const BulbIcon = (
   <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5"
     strokeLinecap="round" strokeLinejoin="round" width="28" height="28">
-    <path d="M13 2L4.5 13.5H11L10 22l9.5-11.5H13L14 2z" />
+    <path d="M9 21h6M12 3a6 6 0 0 1 6 6c0 2.5-1.5 4.5-3 6H9c-1.5-1.5-3-3.5-3-6a6 6 0 0 1 6-6z" />
+    <path d="M9 17v1a3 3 0 0 0 6 0v-1" />
   </svg>
 )
 const HomeIcon = (
@@ -39,10 +51,10 @@ const HomeIcon = (
 )
 
 const stats = [
-  { icon: PlantIcon, value: 4,    display: '4',             label: 'Plants'                         },
-  { icon: TimerIcon, value: 0,    display: '0.1+ Man-Hrs',  label: 'Without Lost Time Injury'       },
-  { icon: BoltIcon,  value: 541,  suffix: ' MW',            label: 'Installed Capacity'             },
-  { icon: HomeIcon,  value: 1000, suffix: '+',              label: 'Households & Industries Powered'},
+  { icon: PlantIcon, value: 4,       display: '4',          label: 'Plants'                          },
+  { icon: TimerIcon, value: 2500000, display: '2.5M+',      label: 'Man-Hrs Without Lost Time Injury' },
+  { icon: BulbIcon,  value: 541,     suffix: 'MW',          label: 'Installed Capacity'              },
+  { icon: HomeIcon,  value: 7000,    display: '7,000',      label: 'Households & Industries Powered' },
 ]
 
 const faqs = [
@@ -104,40 +116,34 @@ export default function HomePage() {
       {/* ══════════════════════════════════
           2 · OUR POWER PLANTS — three separate floating cards
       ══════════════════════════════════ */}
-      <section className="relative z-10 -mt-[200px] md:-mt-[200px] lg:-mt-[200px] pb-16">
+      <section className="relative z-10 -mt-[200px] md:-mt-[200px] lg:-mt-[200px]">
         <div className="max-w-[1200px] mx-auto px-6">
           {/* Three cards — each with its own explicit width and height */}
-          <div style={{ display: 'flex', gap: '2px', alignItems: 'flex-start', justifyContent: 'center' }}>
+          <div style={{ display: 'flex', gap: '0px', alignItems: 'stretch', justifyContent: 'center' }}>
 
             {/* Left — image card */}
             <div style={{
               width: '420px', height: '430px', flexShrink: 0,
               borderTopLeftRadius: '16px', borderTopRightRadius: '16px',
               backgroundImage: `url('${IMAGES.home.workerLeft}')`,
-              backgroundSize: 'contain', backgroundPosition: 'center', backgroundRepeat: 'no-repeat',
+              backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat',
             }} />
 
             {/* Centre — white content card */}
             <div style={{
-              width: '308px', height: '250px', flexShrink: 0,
+              width: '308px', height: '257px', flexShrink: 0,
               background: '#fff', borderRadius: '16px',
               boxShadow: '0 10px 25px -5px rgb(0 0 0 / 0.15)',
               display: 'flex', flexDirection: 'column', alignItems: 'center',
               justifyContent: 'center', textAlign: 'center', padding: '20px 24px',
             }}>
-              <div style={{
-                width: '36px', height: '36px', borderRadius: '50%',
-                background: '#E03027', display: 'flex', alignItems: 'center',
-                justifyContent: 'center', marginBottom: '10px', flexShrink: 0,
-              }}>
-                <svg viewBox="0 0 32 32" width="16" height="16" fill="white" aria-hidden="true">
-                  <rect x="3" y="16" width="6" height="13" rx="1" />
-                  <rect x="13" y="11" width="6" height="18" rx="1" />
-                  <rect x="23" y="7" width="6" height="22" rx="1" />
-                  <rect x="1" y="28" width="30" height="2" rx="1" />
-                  <path d="M16 3 L20 9 H17 V13 H15 V9 H12 Z" />
-                </svg>
-              </div>
+              <Image
+                src="/images/home/hero-icon.png"
+                alt=""
+                width={36}
+                height={36}
+                style={{ flexShrink: 0, marginBottom: '10px' }}
+              />
               <h2 style={{ fontSize: '14px', fontWeight: 700, color: '#1f2937', lineHeight: 1.3, marginBottom: '6px' }}>
                 Our Power Plants,<br />Our Impact
               </h2>
@@ -152,31 +158,42 @@ export default function HomePage() {
               width: '420px', height: '430px', flexShrink: 0,
               borderTopLeftRadius: '16px', borderTopRightRadius: '16px',
               backgroundImage: `url('${IMAGES.home.workerRight}')`,
-              backgroundSize: 'contain', backgroundPosition: 'center', backgroundRepeat: 'no-repeat',
+              backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat',
             }} />
           </div>
         </div>
       </section>
 
       {/* ══════════════════════════════════
-          3 · STATS BAND  (diagonal top)
+          3 · WHO WE ARE
+      ══════════════════════════════════ */}
+      <div className="-mt-[60px]">
+        <WhoWeAreSection />
+      </div>
+
+      {/* ══════════════════════════════════
+          4 · STATS BAND  (diagonal top)
       ══════════════════════════════════ */}
       <section
-        className="bg-gradient-fipl pb-16 md:pb-20"
+        className="pb-16 md:pb-20"
         style={{
-          clipPath: 'polygon(0 60px, 100% 0, 100% 100%, 0 100%)',
-          paddingTop: 'calc(60px + 3.5rem)',
+          background: 'linear-gradient(270.14deg, #D97300 0.14%, #DB1B0C 98.03%)',
+          clipPath: 'polygon(0 70px, 54% 0, 50% 90px, 100% 25px, 100% 100%, 0 100%)',
+          paddingTop: 'calc(90px + 3.5rem)',
         }}
       >
         <div className="max-w-[1280px] mx-auto px-6">
-          <div className="mb-10 md:mb-14">
+          <div className="mb-10 md:mb-14 text-center">
             <p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-2">
-              Sustainability &amp; CSR ⚡
+              Sustainability &amp; CSR{' '}
+              <svg viewBox="0 0 24 24" width="12" height="12" fill="white" style={{ display: 'inline', verticalAlign: 'middle' }} aria-hidden="true">
+                <path d="M13 2L4.5 13.5H11L10 22l9.5-11.5H13L14 2z" />
+              </svg>
             </p>
             <h2 className="text-[28px] md:text-[36px] lg:text-[40px] font-bold text-white leading-tight mb-3">
               Sustainability Beyond Power
             </h2>
-            <p className="text-white/75 text-[14px] leading-relaxed max-w-2xl">
+            <p className="text-white/75 text-[14px] leading-relaxed max-w-2xl mx-auto">
               Our responsibility goes beyond megawatts. Through CSR and sustainable practices we are
               empowering communities, protecting the environment, and driving progress aligned with
               the UN SDGs.

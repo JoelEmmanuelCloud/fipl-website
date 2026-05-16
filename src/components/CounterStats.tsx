@@ -38,7 +38,7 @@ function Counter({ stat }: { stat: Stat }) {
 
   return (
     <div ref={ref} className="text-center py-6 flex flex-col items-center">
-      <div className="mb-3" style={{ width: 40, height: 40 }}>{stat.icon}</div>
+      <div className="mb-3 flex items-center justify-center" style={{ width: 40, height: 40 }}>{stat.icon}</div>
       <div className="text-4xl font-extrabold text-white leading-none mb-2">
         {stat.display ?? `${count}${stat.suffix ?? ''}`}
       </div>

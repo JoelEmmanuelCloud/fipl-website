@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import Image from 'next/image'
 import { SplashGlobe } from '@/components/SplashGlobe'
+import { markSplashDone, SPLASH_EVENT } from '@/lib/splashState'
 
 export function SplashScreen() {
   const [textReady, setTextReady] = useState(false)
@@ -19,7 +20,11 @@ export function SplashScreen() {
     if (!textReady) return
     // 4.5 s of text sequence, then lift
     const t1 = setTimeout(() => setLifting(true), 3200)
-    const t2 = setTimeout(() => setDone(true), 4100)
+    const t2 = setTimeout(() => {
+      setDone(true)
+      markSplashDone()
+      window.dispatchEvent(new CustomEvent(SPLASH_EVENT))
+    }, 4100)
     return () => { clearTimeout(t1); clearTimeout(t2) }
   }, [textReady])
 

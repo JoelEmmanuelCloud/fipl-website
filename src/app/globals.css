@@ -89,12 +89,20 @@
   padding-bottom: 5px;
 }
 
+/* Default: invisible, animation paused at the "from" frame */
 .hero-word {
   display: inline-block;
   animation: heroWordIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-play-state: paused;
   will-change: transform, filter;
 }
 
+/* Triggered by JS after splash completes */
+.hero-word-animate {
+  animation-play-state: running;
+}
+
+/* Scan line — only mounted when ready, so animation starts from mount */
 .hero-scan-line {
   height: 2px;
   width: 0;
@@ -102,8 +110,8 @@
   border-radius: 2px;
   margin: 14px auto 0;
   animation:
-    heroScanSweep 0.65s ease 1.0s forwards,
-    heroScanFade  0.6s  ease 2.0s forwards;
+    heroScanSweep 0.65s ease 0.85s forwards,
+    heroScanFade  0.6s  ease 1.8s  forwards;
   box-shadow: 0 0 12px rgba(244,120,32,0.7), 0 0 28px rgba(224,48,39,0.35);
 }
 

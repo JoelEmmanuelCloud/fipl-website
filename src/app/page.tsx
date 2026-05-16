@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { FaqSection } from '@/components/FaqSection'
 import { CounterStats } from '@/components/CounterStats'
 import { WhoWeAreSection } from '@/components/WhoWeAreSection'
+import { HeroHeadline } from '@/components/HeroHeadline'
 import { IMAGES } from '@/lib/images'
 
 export const metadata: Metadata = {
@@ -84,23 +85,7 @@ export default function HomePage() {
         />
         <div className="absolute inset-0 bg-black/50" />
         <div className="absolute inset-0 z-10 flex items-end justify-center text-center px-4 pb-[260px] md:pb-[280px] lg:pb-[320px]">
-          <div>
-            <h1
-              className="text-white text-center"
-              style={{ fontFamily: 'Arial', fontWeight: 700, fontSize: 'clamp(28px, 5vw, 44px)', lineHeight: 1.25 }}
-            >
-              <span className="hero-word-wrap"><span className="hero-word" style={{ animationDelay: '0.15s' }}>Committed</span></span>
-              {' '}
-              <span className="hero-word-wrap"><span className="hero-word" style={{ animationDelay: '0.28s' }}>to</span></span>
-              <br />
-              <span className="hero-word-wrap"><span className="hero-word" style={{ animationDelay: '0.42s' }}>Efficient</span></span>
-              {' '}
-              <span className="hero-word-wrap"><span className="hero-word" style={{ animationDelay: '0.56s' }}>Power</span></span>
-              {' '}
-              <span className="hero-word-wrap"><span className="hero-word" style={{ animationDelay: '0.70s' }}>Generation</span></span>
-            </h1>
-            <div className="hero-scan-line" />
-          </div>
+          <HeroHeadline />
         </div>
       </section>
 

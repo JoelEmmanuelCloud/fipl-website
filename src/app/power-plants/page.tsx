@@ -49,7 +49,6 @@ const steps = [
 export default function PowerPlantsPage() {
   return (
     <>
-      {/* HERO */}
       <section
         className="relative mt-[72px] min-h-[260px] md:min-h-[380px] lg:min-h-[460px] flex items-center bg-gray-800 bg-no-repeat bg-cover bg-center"
         style={{ backgroundImage: `url('${IMAGES.plants.hero}')` }}
@@ -75,7 +74,6 @@ export default function PowerPlantsPage() {
         </div>
       </section>
 
-      {/* INTRO */}
       <section className="py-12 md:py-16 bg-gray-50">
         <div className="max-w-3xl mx-auto px-6 text-center">
           <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-primary mb-3">Our Portfolio ⚡</span>
@@ -88,7 +86,6 @@ export default function PowerPlantsPage() {
         </div>
       </section>
 
-      {/* PLANT ITEMS — alternating layout */}
       <section className="py-8 md:py-12">
         <div className="max-w-[1280px] mx-auto px-6">
           {plants.map((plant, i) => (
@@ -119,7 +116,6 @@ export default function PowerPlantsPage() {
         </div>
       </section>
 
-      {/* HOW WE WORK */}
       <section id="how-we-work" className="py-12 md:py-16 lg:py-20 bg-gray-50">
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="text-center max-w-2xl mx-auto mb-12 md:mb-14">

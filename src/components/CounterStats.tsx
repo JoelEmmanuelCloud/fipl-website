@@ -38,13 +38,10 @@ function Counter({ stat }: { stat: Stat }) {
 
   return (
     <div ref={ref} className="text-center py-6 flex flex-col items-center">
-      {/* Icon on top */}
       <div className="mb-3" style={{ width: 40, height: 40 }}>{stat.icon}</div>
-      {/* Number */}
       <div className="text-4xl font-extrabold text-white leading-none mb-2">
         {stat.display ?? `${count}${stat.suffix ?? ''}`}
       </div>
-      {/* Label */}
       <div className="text-sm text-white/80">{stat.label}</div>
     </div>
   )
@@ -55,7 +52,6 @@ export function CounterStats({ stats }: { stats: Stat[] }) {
     <div className="grid grid-cols-2 md:grid-cols-4 gap-0">
       {stats.map((s, i) => (
         <div key={s.label} className="relative">
-          {/* Faded vertical divider — hidden on first item and on mobile */}
           {i > 0 && (
             <div
               className="hidden md:block absolute left-0 top-1/2 -translate-y-1/2"

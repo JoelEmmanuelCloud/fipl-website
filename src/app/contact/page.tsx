@@ -6,7 +6,6 @@ export const metadata: Metadata = { title: 'Contact Us' }
 export default function ContactPage() {
   return (
     <>
-      {/* HERO */}
       <section
         className="relative mt-[72px] min-h-[240px] md:min-h-[320px] lg:min-h-[380px] flex items-center bg-gray-800 bg-no-repeat bg-cover bg-center"
         style={{ backgroundImage: "url('https://picsum.photos/seed/fipl-ct1/1920/1080')" }}
@@ -25,7 +24,6 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* FORM + INFO */}
       <section className="py-20 bolt-watermark">
         <div className="max-w-7xl mx-auto px-6">
           <div className="mb-12">
@@ -70,7 +68,6 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* MAP */}
       <section className="pb-10">
         <div className="max-w-7xl mx-auto px-6">
           <div className="rounded-2xl overflow-hidden h-[360px] bg-gray-200">
@@ -86,7 +83,6 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* SUBSCRIBE */}
       <section className="py-10">
         <div className="max-w-7xl mx-auto px-6">
           <div className="bg-gradient-fipl rounded-2xl p-10 md:p-14 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">

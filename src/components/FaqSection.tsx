@@ -33,8 +33,6 @@ export function FaqSection({ items }: { items: FaqItem[] }) {
           style={{ height: '340px' }}
         >
           <div ref={sectionRef} className="grid grid-cols-1 lg:grid-cols-[320px_480px] gap-6 lg:gap-10 items-start justify-center">
-
-            {/* left — slides in from the left */}
             <div
               style={{
                 transform: visible ? 'translateX(0)' : 'translateX(-60px)',
@@ -58,7 +56,6 @@ export function FaqSection({ items }: { items: FaqItem[] }) {
               </p>
             </div>
 
-            {/* right — slides in from the right */}
             <div
               style={{
                 transform: visible ? 'translateX(0)' : 'translateX(60px)',

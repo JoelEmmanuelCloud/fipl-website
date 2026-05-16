@@ -11,12 +11,6 @@ interface Props {
   priority?: boolean
 }
 
-/**
- * Content image with a graceful fallback.
- * – Tries to load the real photo first.
- * – On any load error (missing file, 404, 400), shows a styled placeholder.
- * – Once the real asset is dropped into public/images/, it renders immediately.
- */
 export function SectionImage({
   src,
   alt,
@@ -28,7 +22,6 @@ export function SectionImage({
 
   return (
     <div className={`relative overflow-hidden bg-gray-100 ${className}`}>
-      {/* ── Placeholder shown while image is missing ── */}
       <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 text-gray-400 p-4">
         <svg
           viewBox="0 0 56 56"
@@ -50,7 +43,6 @@ export function SectionImage({
         </span>
       </div>
 
-      {/* ── Actual image renders on top, hides the placeholder ── */}
       {!failed && (
         <Image
           src={src}

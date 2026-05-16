@@ -8,7 +8,6 @@ export const metadata: Metadata = { title: 'Sustainability & CSR' }
 export default function SustainabilityPage() {
   return (
     <>
-      {/* HERO */}
       <section
         className="relative mt-[72px] min-h-[260px] md:min-h-[360px] lg:min-h-[420px] flex items-center bg-gray-700 bg-no-repeat bg-cover bg-center"
         style={{ backgroundImage: `url('${IMAGES.sustainability.hero}')` }}
@@ -27,7 +26,6 @@ export default function SustainabilityPage() {
         </div>
       </section>
 
-      {/* ESG */}
       <section className="py-12 md:py-16 lg:py-20">
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="text-center max-w-2xl mx-auto mb-12">
@@ -52,7 +50,6 @@ export default function SustainabilityPage() {
         </div>
       </section>
 
-      {/* SUSTAINABILITY PRACTICES */}
       <section className="py-12 md:py-16 lg:py-20 bg-gray-50">
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
@@ -85,7 +82,6 @@ export default function SustainabilityPage() {
         </div>
       </section>
 
-      {/* HSE */}
       <section className="py-12 md:py-16 lg:py-20 bolt-watermark">
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
@@ -120,7 +116,6 @@ export default function SustainabilityPage() {
         </div>
       </section>
 
-      {/* CORPORATE GOVERNANCE */}
       <section className="py-12 md:py-16 lg:py-20 bg-gray-50">
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
@@ -146,7 +141,6 @@ export default function SustainabilityPage() {
         </div>
       </section>
 
-      {/* SDG */}
       <section className="py-12 md:py-16 lg:py-20">
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
@@ -180,7 +174,6 @@ export default function SustainabilityPage() {
         </div>
       </section>
 
-      {/* COMMUNITY */}
       <section className="py-12 md:py-16 lg:py-20 bg-gray-50">
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="mb-10">

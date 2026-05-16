@@ -12,22 +12,17 @@ export const metadata: Metadata = {
   title: 'Home – First Independent Power Limited (FIPL)',
 }
 
-/* ─── stat icons ─────────────────────────────────────────── */
 const PlantIcon = (
   <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5"
     strokeLinecap="round" strokeLinejoin="round" width="28" height="28">
-    {/* Fan blades — multi-blade farm windmill wheel */}
     <circle cx="12" cy="7" r="5" />
     <line x1="12" y1="2" x2="12" y2="12" />
     <line x1="7" y1="7" x2="17" y2="7" />
     <line x1="8.5" y1="3.5" x2="15.5" y2="10.5" />
     <line x1="15.5" y1="3.5" x2="8.5" y2="10.5" />
-    {/* Hub */}
     <circle cx="12" cy="7" r="1.2" fill="white" />
-    {/* Tower legs */}
     <path d="M10 12 L8 22" />
     <path d="M14 12 L16 22" />
-    {/* Cross brace */}
     <line x1="9" y1="17" x2="15" y2="17" />
   </svg>
 )
@@ -84,20 +79,12 @@ const faqs = [
 export default function HomePage() {
   return (
     <>
-      {/* ══════════════════════════════════
-          1 · HERO
-      ══════════════════════════════════ */}
       <section className="relative h-[600px] md:h-[660px] lg:h-[740px] overflow-hidden bg-gray-900">
-
-        {/* Background image */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: `url('${IMAGES.home.hero}')` }}
         />
-        {/* Dark overlay */}
         <div className="absolute inset-0 bg-black/50" />
-
-        {/* Title only – shifted up to leave room for the card overlay */}
         <div className="absolute inset-0 z-10 flex items-end justify-center text-center px-4 pb-[260px] md:pb-[280px] lg:pb-[320px]">
           <h1
             className="text-white text-center"
@@ -114,23 +101,15 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════
-          2 · OUR POWER PLANTS — three separate floating cards
-      ══════════════════════════════════ */}
       <section className="relative z-10 -mt-[200px] md:-mt-[200px] lg:-mt-[200px]">
         <div className="max-w-[1200px] mx-auto px-6">
-          {/* Three cards — each with its own explicit width and height */}
           <div style={{ display: 'flex', gap: '0px', alignItems: 'stretch', justifyContent: 'center' }}>
-
-            {/* Left — image card */}
             <div style={{
               width: '420px', height: '430px', flexShrink: 0,
               borderTopLeftRadius: '16px', borderTopRightRadius: '16px',
               backgroundImage: `url('${IMAGES.home.workerLeft}')`,
               backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat',
             }} />
-
-            {/* Centre — white content card */}
             <div style={{
               width: '308px', height: '257px', flexShrink: 0,
               background: '#fff', borderRadius: '16px',
@@ -153,8 +132,6 @@ export default function HomePage() {
                 Eleme – generating electricity that supports Nigeria&apos;s industrial and economic growth.
               </p>
             </div>
-
-            {/* Right — image card */}
             <div style={{
               width: '420px', height: '430px', flexShrink: 0,
               borderTopLeftRadius: '16px', borderTopRightRadius: '16px',
@@ -165,16 +142,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════
-          3 · WHO WE ARE
-      ══════════════════════════════════ */}
       <div className="-mt-[60px]">
         <WhoWeAreSection />
       </div>
 
-      {/* ══════════════════════════════════
-          4 · STATS BAND  (diagonal top)
-      ══════════════════════════════════ */}
       <section
         className="pb-16 md:pb-20"
         style={{
@@ -204,9 +175,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════
-          4 · CSR / COMMUNITY
-      ══════════════════════════════════ */}
       <div className="bg-white h-4 md:h-6" />
       <section
         className="relative py-20 md:py-28 bg-cover bg-center"
@@ -244,16 +212,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════
-          5 · CAREERS
-      ══════════════════════════════════ */}
       <section className="py-16 md:py-24 bg-white bolt-watermark">
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-
-            {/* left – image: top half one diagonal, bottom half a second wider diagonal creating a kinked edge */}
             <div className="relative h-[300px] md:h-[420px] lg:h-[500px] w-full">
-              {/* Top half — right edge slants inward (left) toward the kink point */}
               <div
                 className="absolute inset-0 bg-cover bg-center"
                 style={{
@@ -261,7 +223,6 @@ export default function HomePage() {
                   clipPath: 'polygon(0 0, 90% 0, 78% 50%, 0 50%)',
                 }}
               />
-              {/* Bottom half — right edge flares outward (right) from the kink point */}
               <div
                 className="absolute inset-0 bg-cover bg-center"
                 style={{
@@ -270,8 +231,6 @@ export default function HomePage() {
                 }}
               />
             </div>
-
-            {/* right – content */}
             <div>
               <p className="text-xs font-bold uppercase tracking-widest text-primary mb-3">
                 Careers{' '}
@@ -314,9 +273,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════
-          6 · FAQ
-      ══════════════════════════════════ */}
       <FaqSection items={faqs} />
     </>
   )

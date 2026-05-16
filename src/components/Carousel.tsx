@@ -23,7 +23,6 @@ export function Carousel({ testimonials }: { testimonials: Testimonial[] }) {
 
   return (
     <div>
-      {/* Active card */}
       <div className="bg-white rounded-2xl p-8 shadow-md relative overflow-hidden">
         <span className="absolute top-4 left-6 text-[80px] text-primary/10 font-serif leading-none select-none">
           &ldquo;
@@ -37,7 +36,6 @@ export function Carousel({ testimonials }: { testimonials: Testimonial[] }) {
         </div>
       </div>
 
-      {/* Next card preview */}
       {total > 1 && (
         <div className="bg-white rounded-2xl px-8 py-5 shadow-md mt-3 opacity-50">
           <div className="font-bold text-sm text-gray-700">{testimonials[(current + 1) % total].name}</div>
@@ -45,7 +43,6 @@ export function Carousel({ testimonials }: { testimonials: Testimonial[] }) {
         </div>
       )}
 
-      {/* Dots */}
       <div className="flex gap-2 mt-5">
         {testimonials.map((_, i) => (
           <button

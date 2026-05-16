@@ -2,9 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
-
-const LAT_Y = [100, 200, 300, 400, 500]
-const LON_X = Array.from({ length: 21 }, (_, i) => i * 60)
+import { SplashGlobe } from '@/components/SplashGlobe'
 
 export function SplashScreen() {
   const [lifting, setLifting] = useState(false)
@@ -27,16 +25,7 @@ export function SplashScreen() {
       }}
     >
       <div className="splash-globe-wrap" aria-hidden="true">
-        <div className="splash-globe">
-          <svg width="1200" height="600" className="splash-globe-svg" aria-hidden="true">
-            {LAT_Y.map((y) => (
-              <line key={y} x1="0" y1={y} x2="1200" y2={y} stroke="white" strokeWidth="1" opacity="0.7" />
-            ))}
-            {LON_X.map((x) => (
-              <line key={x} x1={x} y1="0" x2={x} y2="600" stroke="white" strokeWidth="1" opacity="0.7" />
-            ))}
-          </svg>
-        </div>
+        <SplashGlobe />
       </div>
 
       <div className="splash-stage">

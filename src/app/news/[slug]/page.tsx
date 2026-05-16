@@ -27,7 +27,7 @@ export default function ArticlePage({ params }: Props) {
   const recent = getRecentArticles(5).filter((a) => a.slug !== params.slug)
 
   return (
-    <div className="mt-[72px]">
+    <div>
       <section
         className="relative min-h-[320px] flex items-end bg-gray-800 bg-no-repeat bg-cover bg-center pb-12"
         style={{ backgroundImage: "url('https://picsum.photos/seed/fipl-n2/1920/700')" }}

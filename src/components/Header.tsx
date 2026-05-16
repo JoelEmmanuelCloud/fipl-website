@@ -33,7 +33,7 @@ export function Header() {
     return () => { document.body.style.overflow = '' }
   }, [menuOpen])
 
-  const transparent = pathname === '/' && !scrolled
+  const transparent = !scrolled
 
   return (
     <>

@@ -34,7 +34,7 @@ export default function AboutPage() {
   return (
     <>
       <section
-        className="relative mt-[72px] min-h-[260px] md:min-h-[360px] lg:min-h-[420px] flex items-center bg-gray-800 bg-no-repeat bg-cover bg-center"
+        className="relative min-h-[260px] md:min-h-[360px] lg:min-h-[420px] flex items-center bg-gray-800 bg-no-repeat bg-cover bg-center"
         style={{ backgroundImage: `url('${IMAGES.about.hero}')` }}
       >
         <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/30" />

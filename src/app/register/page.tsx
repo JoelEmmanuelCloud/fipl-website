@@ -80,7 +80,7 @@ export default function RegisterPage() {
   return (
     <>
       <section
-        className="relative mt-[72px] min-h-[240px] md:min-h-[320px] lg:min-h-[380px] flex items-center bg-gray-800 bg-no-repeat bg-cover bg-center"
+        className="relative min-h-[240px] md:min-h-[320px] lg:min-h-[380px] flex items-center bg-gray-800 bg-no-repeat bg-cover bg-center"
         style={{ backgroundImage: "url('https://picsum.photos/seed/fipl-r1/1920/1080')" }}
       >
         <div className="absolute inset-0 bg-gradient-to-r from-black/65 to-black/30" />

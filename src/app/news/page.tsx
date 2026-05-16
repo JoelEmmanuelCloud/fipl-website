@@ -12,7 +12,7 @@ export default function NewsPage() {
   return (
     <>
       <section
-        className="relative mt-[72px] min-h-[220px] md:min-h-[300px] lg:min-h-[360px] flex items-center bg-gray-800 bg-no-repeat bg-cover bg-center"
+        className="relative min-h-[220px] md:min-h-[300px] lg:min-h-[360px] flex items-center bg-gray-800 bg-no-repeat bg-cover bg-center"
         style={{ backgroundImage: `url('${IMAGES.news.hero}')` }}
       >
         <div className="absolute inset-0 bg-gradient-to-r from-black/65 to-black/30" />

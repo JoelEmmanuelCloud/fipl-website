@@ -18,16 +18,11 @@ const NAV: NavItem[] = [
       { href: '/sustainability', label: 'Sustainability & CSR' },
     ],
   },
-  { label: 'Operations',  href: '/power-plants' },
-  { label: 'News & Media', href: '/news' },
-  {
-    label: 'Get Involved',
-    children: [
-      { href: '/careers',  label: 'Careers' },
-      { href: '/contact',  label: 'Contact' },
-      { href: '/register', label: 'Register With Us' },
-    ],
-  },
+  { label: 'Power Plants',  href: '/power-plants' },
+  { label: 'News & Media',  href: '/news' },
+  { label: 'Careers',       href: '/careers' },
+  { label: 'Contact',       href: '/contact' },
+  { label: 'Register With Us', href: '/register' },
 ]
 
 const LINK_FONT: React.CSSProperties = {

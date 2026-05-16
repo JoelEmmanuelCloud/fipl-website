@@ -59,14 +59,12 @@
   will-change: transform;
 }
 
-@keyframes slideProgress {
+@keyframes slideProgressLine {
   from { width: 0%; }
   to   { width: 100%; }
 }
-.hero-slide-progress {
-  background: linear-gradient(90deg, #E03027, #F47820);
-  animation: slideProgress 7s linear forwards;
-  box-shadow: 0 0 8px rgba(244,120,32,0.7);
+.hero-slide-progress-line {
+  animation: slideProgressLine 7s linear forwards;
 }
 
 /* ── Hero headline — cinematic word materialisation ── */

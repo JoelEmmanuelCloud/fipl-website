@@ -79,11 +79,34 @@ export default function HomePage() {
   return (
     <>
       <section className="relative h-[600px] md:h-[660px] lg:h-[740px] overflow-hidden bg-gray-900">
+
+        {/* Video background — muted autoplay loop, desaturated for a professional grade */}
+        <video
+          className="absolute inset-0 w-full h-full object-cover"
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster={IMAGES.home.hero}
+          style={{ filter: 'brightness(0.78) contrast(1.08) saturate(0.75)' }}
+        >
+          <source src="/videos/IMG_8924.MOV" type="video/mp4" />
+        </video>
+
+        {/* Cinematic gradient — heavier top & bottom, open in the middle */}
         <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url('${IMAGES.home.hero}')` }}
+          className="absolute inset-0"
+          style={{
+            background:
+              'linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.08) 30%, rgba(0,0,0,0.08) 60%, rgba(0,0,0,0.65) 100%)',
+          }}
         />
-        <div className="absolute inset-0 bg-black/50" />
+
+        {/* Letterbox bars — widescreen film feel */}
+        <div className="absolute top-0 left-0 right-0 h-[6px] bg-black" />
+        <div className="absolute bottom-0 left-0 right-0 h-[6px] bg-black" />
+
+        {/* Hero text */}
         <div className="absolute inset-0 z-10 flex items-end justify-center text-center px-4 pb-[260px] md:pb-[280px] lg:pb-[320px]">
           <HeroHeadline />
         </div>

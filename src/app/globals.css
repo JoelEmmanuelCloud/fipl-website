@@ -48,31 +48,64 @@
   }
 }
 
-/* ── Hero headline reveal ───────────────────────── */
-@keyframes heroLineReveal {
-  from {
-    transform: translateY(105%);
+/* ── Hero headline — cinematic word materialisation ── */
+
+/* Each word rises from below its clip boundary,
+   blur clears, and letter-spacing tightens to zero */
+@keyframes heroWordIn {
+  0% {
+    transform: translateY(115%);
+    filter: blur(10px);
+    letter-spacing: 0.18em;
     opacity: 0;
   }
-  to {
+  55% {
+    filter: blur(0);
+    opacity: 1;
+  }
+  100% {
     transform: translateY(0);
+    filter: blur(0);
+    letter-spacing: 0;
     opacity: 1;
   }
 }
 
-.hero-line-wrap {
-  display: block;
+/* Scan line: sweeps right then fades out */
+@keyframes heroScanSweep {
+  0%   { width: 0%;   opacity: 0; }
+  8%   { opacity: 1; }
+  100% { width: 100%; opacity: 1; }
+}
+@keyframes heroScanFade {
+  0%   { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.hero-word-wrap {
+  display: inline-block;
   overflow: hidden;
-  padding-bottom: 4px; /* prevents descender clipping */
+  vertical-align: bottom;
+  padding-bottom: 5px;
 }
 
-.hero-line {
-  display: block;
-  animation: heroLineReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+.hero-word {
+  display: inline-block;
+  animation: heroWordIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform, filter;
 }
 
-.hero-line-1 { animation-delay: 0.35s; }
-.hero-line-2 { animation-delay: 0.6s; }
+.hero-scan-line {
+  height: 2px;
+  width: 0;
+  background: linear-gradient(90deg, #E03027, #F47820, rgba(244,120,32,0.2));
+  border-radius: 2px;
+  margin: 14px auto 0;
+  animation:
+    heroScanSweep 0.65s ease 1.0s forwards,
+    heroScanFade  0.6s  ease 2.0s forwards;
+  box-shadow: 0 0 12px rgba(244,120,32,0.7), 0 0 28px rgba(224,48,39,0.35);
+}
 
 /* ── Article prose ──────────────────────────────── */
 .prose p {

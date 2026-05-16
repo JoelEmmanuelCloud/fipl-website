@@ -42,8 +42,8 @@ export default function AboutPage() {
           <span className="inline-flex items-center gap-2 border border-white/30 bg-white/10 text-white text-sm px-4 py-1.5 rounded-full mb-5 backdrop-blur-sm">
             About Us ⚡
           </span>
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight max-w-xl">
-            Change to Powering<br />Nigeria&apos;s Progress since 2006
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight max-w-xl">
+            Change to Powering Nigeria&apos;s Progress since 2006
           </h1>
           <p className="text-white/80 mt-4 max-w-lg leading-relaxed text-sm md:text-base">
             From a single power plant to four world-class facilities, FIPL has grown into one of

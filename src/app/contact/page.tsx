@@ -34,7 +34,7 @@ export default function ContactPage() {
               Our team is ready to answer your questions and connect you with the right people.
             </p>
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16">
             <ContactForm />
             <div>
               <h3 className="text-xl font-bold text-gray-800 mb-7">Contact Information</h3>
@@ -83,7 +83,7 @@ export default function ContactPage() {
 
       <section className="pb-10">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="rounded-2xl overflow-hidden h-[360px] bg-gray-200">
+          <div className="rounded-2xl overflow-hidden h-[220px] sm:h-[280px] md:h-[360px] bg-gray-200">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3975.5673856263!2d7.0135!3d4.8156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sPort+Harcourt%2C+Rivers+State!5e0!3m2!1sen!2sng!4v1234567890"
               className="w-full h-full border-0"

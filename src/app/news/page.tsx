@@ -39,7 +39,7 @@ export default function NewsPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {insights.map((article) => (
               <div key={article.id} className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-1 transition-all">
-                <div className="h-44 bg-gray-200 flex items-center justify-center text-gray-400 text-sm">
+                <div className="h-36 sm:h-40 md:h-44 bg-gray-200 flex items-center justify-center text-gray-400 text-sm">
                   [ {article.imagePlaceholder} ]
                 </div>
                 <div className="p-5">

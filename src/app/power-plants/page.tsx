@@ -63,7 +63,7 @@ export default function PowerPlantsPage() {
             Four strategically located power plants delivering reliable electricity across Rivers State —
             the backbone of Nigeria&apos;s industrial power supply.
           </p>
-          <div className="flex gap-8 md:gap-12 flex-wrap">
+          <div className="flex gap-6 md:gap-12 flex-wrap">
             {[['541MW', 'Combined Capacity'], ['4', 'Power Plants'], ['0%', 'Lost Time Injury Rate']].map(([val, lbl]) => (
               <div key={lbl}>
                 <div className="text-2xl md:text-3xl font-extrabold text-white">{val}</div>

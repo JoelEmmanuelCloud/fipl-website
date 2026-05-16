@@ -165,7 +165,7 @@ export default function HomePage() {
                 <path d="M13 2L4.5 13.5H11L10 22l9.5-11.5H13L14 2z" />
               </svg>
             </p>
-            <h2 className="text-white mb-5" style={{ fontFamily: 'Arial, sans-serif', fontWeight: 700, fontSize: '40px', lineHeight: '100%' }}>
+            <h2 className="text-white mb-5" style={{ fontFamily: 'Arial, sans-serif', fontWeight: 700, fontSize: 'clamp(24px, 5vw, 40px)', lineHeight: '1.15' }}>
               Empowering Communities,<br />Preserving the Environment
             </h2>
             <p className="mb-7" style={{ fontFamily: 'Arial, sans-serif', fontWeight: 400, fontSize: '15px', lineHeight: '26px', color: 'rgba(255,255,255,0.88)', maxWidth: '400px' }}>

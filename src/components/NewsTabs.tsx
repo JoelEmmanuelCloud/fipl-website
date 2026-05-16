@@ -79,7 +79,7 @@ export function NewsTabs({ articles }: { articles: NewsArticle[] }) {
                     key={article.id}
                     className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow mb-6"
                   >
-                    <div className={`bg-gray-200 flex items-center justify-center text-gray-400 text-sm ${i === 0 ? 'h-64' : 'h-48'}`}>
+                    <div className={`bg-gray-200 flex items-center justify-center text-gray-400 text-sm ${i === 0 ? 'h-44 sm:h-52 md:h-64' : 'h-36 sm:h-40 md:h-48'}`}>
                       [ {article.imagePlaceholder} ]
                     </div>
                     <div className="p-7">

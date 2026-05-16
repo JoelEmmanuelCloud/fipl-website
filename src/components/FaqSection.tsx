@@ -27,12 +27,9 @@ export function FaqSection({ items }: { items: FaqItem[] }) {
       className="pt-2 md:pt-4 pb-40 bolt-watermark-left"
       style={{ position: 'relative', overflow: 'hidden' }}
     >
-      <div className="max-w-[1280px] mx-auto px-24">
-        <div
-          className="bg-[#EFEFEF] rounded-2xl px-5 md:px-6 pt-20 md:pt-24 pb-5 md:pb-6"
-          style={{ height: '340px' }}
-        >
-          <div ref={sectionRef} className="grid grid-cols-1 lg:grid-cols-[320px_480px] gap-6 lg:gap-10 items-start justify-center">
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-12 lg:px-24">
+        <div className="bg-[#EFEFEF] rounded-2xl px-5 md:px-8 pt-10 md:pt-16 pb-8 md:pb-10">
+          <div ref={sectionRef} className="grid grid-cols-1 lg:grid-cols-[320px_480px] gap-8 lg:gap-10 items-start justify-center">
             <div
               style={{
                 transform: visible ? 'translateX(0)' : 'translateX(-60px)',

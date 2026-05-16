@@ -87,7 +87,7 @@ export function WhoWeAreSection() {
             <p style={{ fontFamily: 'Arial, sans-serif', fontWeight: 400, fontSize: '14px', lineHeight: '22px', color: '#6b7280', marginBottom: '8px' }}>
               FIPL operates four world-class thermal power plants Such as:
             </p>
-            <div className="grid grid-cols-2 gap-x-24 gap-y-1 mb-5" style={{ width: 'fit-content' }}>
+            <div className="grid grid-cols-2 gap-x-6 sm:gap-x-12 lg:gap-x-24 gap-y-1 mb-5" style={{ width: 'fit-content' }}>
               {['Afam Plant', 'Omoku Plant', 'Trans-Amadi Plant', 'Eleme Plant'].map(plant => (
                 <div key={plant} className="flex items-center gap-1.5">
                   <span

@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { isSplashDone, SPLASH_EVENT } from '@/lib/splashState'
 
 const LINE1 = ['Committed', 'to']
@@ -10,17 +10,25 @@ export function HeroHeadline() {
   const [ready, setReady] = useState(false)
 
   useEffect(() => {
-    // SPA navigation back to home — splash already completed this session
     if (isSplashDone()) {
       const t = setTimeout(() => setReady(true), 200)
       return () => clearTimeout(t)
     }
-
-    // First load — wait for splash curtain to finish
     const handler = () => setReady(true)
     window.addEventListener(SPLASH_EVENT, handler)
     return () => window.removeEventListener(SPLASH_EVENT, handler)
   }, [])
+
+  const wordSpan = (word: string, delay: number) => (
+    <span className="hero-word-wrap">
+      <span
+        className={`hero-word${ready ? ' hero-word-animate' : ''}`}
+        style={{ animationDelay: ready ? `${delay}s` : undefined }}
+      >
+        {word}
+      </span>
+    </span>
+  )
 
   return (
     <div>
@@ -33,33 +41,23 @@ export function HeroHeadline() {
           lineHeight: 1.25,
         }}
       >
-        {/* Line 1 */}
+        {/* Line 1 — spaces live OUTSIDE the overflow:hidden wrapper */}
         <span style={{ display: 'block' }}>
           {LINE1.map((word, i) => (
-            <span key={word} className="hero-word-wrap">
-              <span
-                className={`hero-word${ready ? ' hero-word-animate' : ''}`}
-                style={{ animationDelay: ready ? `${i * 0.14}s` : undefined }}
-              >
-                {word}
-              </span>
-              {' '}
-            </span>
+            <Fragment key={word}>
+              {wordSpan(word, i * 0.14)}
+              {i < LINE1.length - 1 && ' '}
+            </Fragment>
           ))}
         </span>
 
         {/* Line 2 */}
         <span style={{ display: 'block' }}>
           {LINE2.map((word, i) => (
-            <span key={word} className="hero-word-wrap">
-              <span
-                className={`hero-word${ready ? ' hero-word-animate' : ''}`}
-                style={{ animationDelay: ready ? `${(LINE1.length + i) * 0.14}s` : undefined }}
-              >
-                {word}
-              </span>
-              {i < LINE2.length - 1 ? ' ' : ''}
-            </span>
+            <Fragment key={word}>
+              {wordSpan(word, (LINE1.length + i) * 0.14)}
+              {i < LINE2.length - 1 && ' '}
+            </Fragment>
           ))}
         </span>
       </h1>
@@ -68,4 +66,3 @@ export function HeroHeadline() {
     </div>
   )
 }
-

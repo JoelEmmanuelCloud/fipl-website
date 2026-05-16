@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { FaqSection } from '@/components/FaqSection'
 import { CounterStats } from '@/components/CounterStats'
 import { WhoWeAreSection } from '@/components/WhoWeAreSection'
+import { HeroHeadline } from '@/components/HeroHeadline'
 import { IMAGES } from '@/lib/images'
 
 export const metadata: Metadata = {
@@ -84,18 +85,7 @@ export default function HomePage() {
         />
         <div className="absolute inset-0 bg-black/50" />
         <div className="absolute inset-0 z-10 flex items-end justify-center text-center px-4 pb-[260px] md:pb-[280px] lg:pb-[320px]">
-          <h1
-            className="text-white text-center"
-            style={{
-              fontFamily: 'Arial',
-              fontWeight: 700,
-              fontSize: '38px',
-              lineHeight: '100%',
-              letterSpacing: '0%',
-            }}
-          >
-            Committed to<br />Efficient Power Generation
-          </h1>
+          <HeroHeadline />
         </div>
       </section>
 

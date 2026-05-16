@@ -51,7 +51,7 @@ export function Header() {
       >
         <div className="max-w-[1280px] mx-auto px-6 flex items-center gap-4 h-[72px]">
 
-          <Logo className="shrink-0" invert={transparent} />
+          <Logo className="shrink-0" />
 
           <nav className="hidden lg:flex ml-auto items-center gap-2">
             <ul className="flex items-center gap-0.5">

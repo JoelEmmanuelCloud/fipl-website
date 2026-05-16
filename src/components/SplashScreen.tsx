@@ -18,8 +18,8 @@ export function SplashScreen() {
   useEffect(() => {
     if (!textReady) return
     // 4.5 s of text sequence, then lift
-    const t1 = setTimeout(() => setLifting(true), 4500)
-    const t2 = setTimeout(() => setDone(true), 5400)
+    const t1 = setTimeout(() => setLifting(true), 3200)
+    const t2 = setTimeout(() => setDone(true), 4100)
     return () => { clearTimeout(t1); clearTimeout(t2) }
   }, [textReady])
 

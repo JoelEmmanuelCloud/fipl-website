@@ -219,7 +219,7 @@ export function SplashGlobe({ onReady }: Props) {
       // Signal ready after first full frame — give globe 300ms of solo screen time
       if (!readyCalled.current) {
         readyCalled.current = true
-        setTimeout(() => onReady?.(), 300)
+        setTimeout(() => onReady?.(), 150)
       }
 
       rot.current = (rot.current + 0.1) % 360

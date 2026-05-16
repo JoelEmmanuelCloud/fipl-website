@@ -149,7 +149,7 @@
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.4);
   margin: 0 0 12px;
-  animation: weAreSmallLife 3.7s ease 0.1s both;
+  animation: weAreSmallLife 2.3s ease 0.1s both;
 }
 
 /* Fixed-height slot for cycling words */
@@ -172,21 +172,21 @@
   line-height: 1;
   margin: 0;
   white-space: nowrap;
-  animation: wordCycle 1.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: wordCycle 0.75s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .splash-w1 {
   color: #ffffff;
-  animation-delay: 0.2s;
+  animation-delay: 0.1s;
 }
 .splash-w2 {
   color: #F47820;
-  animation-delay: 1.4s;
+  animation-delay: 0.9s;
   text-shadow: 0 0 80px rgba(244, 120, 32, 0.4);
 }
 .splash-w3 {
   color: #ffffff;
-  animation-delay: 2.6s;
+  animation-delay: 1.7s;
   text-shadow: 0 0 80px rgba(224, 48, 39, 0.45), 0 0 160px rgba(224, 48, 39, 0.2);
 }
 
@@ -195,13 +195,12 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  /* initial transform set in keyframe; animation: finaleIn handles both */
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0;
   width: max-content;
-  animation: finaleIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) 3.7s both;
+  animation: finaleIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) 2.5s both;
 }
 
 /* Big "WE ARE" — same scale as the cycling words, this is the payoff */
@@ -228,7 +227,7 @@
     transparent 100%
   );
   margin-bottom: 20px;
-  animation: barSweep 0.6s ease 3.95s both;
+  animation: barSweep 0.5s ease 2.65s both;
 }
 
 /* Logo rises */
@@ -260,6 +259,6 @@
 .splash-bar-fill {
   height: 100%;
   background: linear-gradient(90deg, #E03027, #F47820);
-  animation: splashProgress 4.5s linear 0s both;
+  animation: splashProgress 3.2s linear 0s both;
   box-shadow: 0 0 18px rgba(244, 120, 32, 0.9), 0 0 36px rgba(224, 48, 39, 0.4);
 }

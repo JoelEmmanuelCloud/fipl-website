@@ -3,13 +3,18 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 
+const GLOBE_W = 1200
+const GLOBE_H = 600
+const LAT_Y = [100, 200, 300, 400, 500]
+const LON_X = Array.from({ length: 21 }, (_, i) => i * 60)
+
 export function SplashScreen() {
   const [lifting, setLifting] = useState(false)
   const [done, setDone] = useState(false)
 
   useEffect(() => {
-    const t1 = setTimeout(() => setLifting(true), 3900)
-    const t2 = setTimeout(() => setDone(true), 4800)
+    const t1 = setTimeout(() => setLifting(true), 4300)
+    const t2 = setTimeout(() => setDone(true), 5200)
     return () => { clearTimeout(t1); clearTimeout(t2) }
   }, [])
 
@@ -23,21 +28,49 @@ export function SplashScreen() {
         transition: lifting ? 'transform 0.9s cubic-bezier(0.76, 0, 0.24, 1)' : 'none',
       }}
     >
-      <div className="splash-glow" aria-hidden="true" />
+      <div className="splash-globe-wrap" aria-hidden="true">
+        <div className="splash-globe">
+          <svg
+            width={GLOBE_W}
+            height={GLOBE_H}
+            className="splash-globe-svg"
+            aria-hidden="true"
+          >
+            {LAT_Y.map((y) => (
+              <line
+                key={`lat-${y}`}
+                x1="0" y1={y} x2={GLOBE_W} y2={y}
+                stroke="white" strokeWidth="0.5" opacity="0.5"
+              />
+            ))}
+            {LON_X.map((x) => (
+              <line
+                key={`lon-${x}`}
+                x1={x} y1="0" x2={x} y2={GLOBE_H}
+                stroke="white" strokeWidth="0.5" opacity="0.5"
+              />
+            ))}
+          </svg>
+        </div>
+      </div>
 
       <div className="splash-stage">
-        <p className="splash-word splash-w1">RELIABLE.</p>
-        <p className="splash-word splash-w2">SUSTAINABLE.</p>
-        <p className="splash-word splash-w3">POWERFUL.</p>
+        <p className="splash-we-are">WE ARE</p>
 
-        <div className="splash-brand-reveal">
-          <div className="splash-brand-line" aria-hidden="true" />
+        <div className="splash-word-slot">
+          <p className="splash-word splash-w1">RELIABLE.</p>
+          <p className="splash-word splash-w2">SUSTAINABLE.</p>
+          <p className="splash-word splash-w3">POWERFUL.</p>
+        </div>
+
+        <div className="splash-brand">
+          <div className="splash-brand-bar" aria-hidden="true" />
           <div className="splash-brand-logo">
             <Image
               src="/images/sustainability/logoimage.png"
               alt="First Independent Power Limited"
-              width={144}
-              height={66}
+              width={150}
+              height={69}
               priority
             />
           </div>

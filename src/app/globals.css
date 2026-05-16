@@ -62,3 +62,204 @@
 .bg-accent     { background-color: #F47820 !important; }
 .text-primary  { color: #E03027 !important; }
 .bg-primary    { background-color: #E03027 !important; }
+
+/* ── Splash screen ──────────────────────────────── */
+
+/* Small "WE ARE" label: fades in, holds, fades out before finale */
+@keyframes weAreSmallLife {
+  0%    { opacity: 0; }
+  6%    { opacity: 1; }
+  80%   { opacity: 1; }
+  100%  { opacity: 0; }
+}
+
+/* Cycling words: slide up in, hold, slide up out */
+@keyframes wordCycle {
+  0%   { opacity: 0; transform: translateY(48px); }
+  13%  { opacity: 1; transform: translateY(0); }
+  72%  { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-36px); }
+}
+
+/* Finale block rises into place */
+@keyframes finaleIn {
+  0%   { opacity: 0; transform: translate(-50%, calc(-50% + 24px)); }
+  100% { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+/* Divider bar sweeps outward from center */
+@keyframes barSweep {
+  0%   { clip-path: inset(0 50% 0 50%); opacity: 0; }
+  20%  { opacity: 1; }
+  100% { clip-path: inset(0 0% 0 0%); opacity: 1; }
+}
+
+@keyframes splashProgress {
+  0%   { width: 0%; }
+  100% { width: 100%; }
+}
+
+/* ── Root ── */
+.splash-root {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #06060d;
+  overflow: hidden;
+}
+
+/* ── Globe ── */
+.splash-globe-wrap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.splash-globe-canvas {
+  display: block;
+  border-radius: 50%;
+}
+
+/* ── Stage ── */
+.splash-stage {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 24px;
+  /* tall enough to hold both cycling phase and finale without jumping */
+  min-height: clamp(180px, 30vw, 280px);
+}
+
+/* Small "WE ARE" label during cycling phase */
+.splash-we-are-small {
+  font-family: var(--font-poppins), Poppins, sans-serif;
+  font-size: clamp(10px, 1.6vw, 12px);
+  font-weight: 700;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+  margin: 0 0 12px;
+  animation: weAreSmallLife 2.3s ease 0.1s both;
+}
+
+/* Fixed-height slot for cycling words */
+.splash-word-slot {
+  position: relative;
+  height: clamp(58px, 11.5vw, 108px);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Cycling words — all absolutely stacked */
+.splash-word {
+  position: absolute;
+  font-family: var(--font-poppins), Poppins, sans-serif;
+  font-weight: 800;
+  font-size: clamp(46px, 10vw, 100px);
+  letter-spacing: -0.025em;
+  line-height: 1;
+  margin: 0;
+  white-space: nowrap;
+  animation: wordCycle 0.75s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.splash-w1 {
+  color: #ffffff;
+  animation-delay: 0.1s;
+}
+.splash-w2 {
+  color: #F47820;
+  animation-delay: 0.9s;
+  text-shadow: 0 0 80px rgba(244, 120, 32, 0.4);
+}
+.splash-w3 {
+  color: #ffffff;
+  animation-delay: 1.7s;
+  text-shadow: 0 0 80px rgba(224, 48, 39, 0.45), 0 0 160px rgba(224, 48, 39, 0.2);
+}
+
+/* ── Finale block — absolutely overlays the stage, centered ── */
+.splash-finale {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  width: max-content;
+  animation: finaleIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) 2.5s both;
+}
+
+/* Big "WE ARE" — same scale as the cycling words, this is the payoff */
+.splash-we-are-big {
+  font-family: var(--font-poppins), Poppins, sans-serif;
+  font-weight: 800;
+  font-size: clamp(46px, 10vw, 100px);
+  letter-spacing: -0.025em;
+  line-height: 1;
+  color: #ffffff;
+  margin: 0 0 20px;
+  text-shadow: 0 0 100px rgba(255, 255, 255, 0.08);
+}
+
+/* Gradient divider line sweeps out from centre */
+.splash-finale-bar {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(224, 48, 39, 0.8) 25%,
+    rgba(244, 120, 32, 0.8) 75%,
+    transparent 100%
+  );
+  margin-bottom: 20px;
+  animation: barSweep 0.5s ease 2.65s both;
+}
+
+/* Logo rises */
+.splash-finale-logo {
+  filter: drop-shadow(0 0 24px rgba(224, 48, 39, 0.2));
+  margin-bottom: 12px;
+}
+
+/* Company name */
+.splash-finale-name {
+  font-family: var(--font-poppins), Poppins, sans-serif;
+  font-size: clamp(8px, 1.1vw, 10px);
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.3);
+  margin: 0;
+}
+
+/* ── Progress bar ── */
+.splash-bar-track {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.04);
+}
+.splash-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #E03027, #F47820);
+  animation: splashProgress 3.2s linear 0s both;
+  box-shadow: 0 0 18px rgba(244, 120, 32, 0.9), 0 0 36px rgba(224, 48, 39, 0.4);
+}

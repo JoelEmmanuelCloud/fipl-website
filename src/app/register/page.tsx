@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Accordion } from '@/components/Accordion'
 import { SectionImage } from '@/components/SectionImage'
+import { IMAGES } from '@/lib/images'
 
 export const metadata: Metadata = { title: 'Register With Us – Vendor Programme' }
 
@@ -81,10 +82,10 @@ export default function RegisterPage() {
     <>
       <section
         className="relative min-h-[240px] md:min-h-[320px] lg:min-h-[380px] flex items-center bg-gray-800 bg-no-repeat bg-cover bg-center"
-        style={{ backgroundImage: "url('https://picsum.photos/seed/fipl-r1/1920/1080')" }}
+        style={{ backgroundImage: `url('${IMAGES.register.hero}')` }}
       >
         <div className="absolute inset-0 bg-gradient-to-r from-black/65 to-black/30" />
-        <div className="relative z-10 max-w-7xl mx-auto px-6 py-16">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 pt-24 pb-16">
           <span className="inline-flex items-center gap-2 border border-white/30 bg-white/10 text-white text-sm px-4 py-1.5 rounded-full mb-5 backdrop-blur-sm">
             Vendor Programme ⚡
           </span>
@@ -100,7 +101,7 @@ export default function RegisterPage() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
-              <SectionImage src="https://picsum.photos/seed/fipl-r2/900/650" alt="FIPL vendor registration" className="h-[280px] md:h-[360px] lg:h-[380px] w-full rounded-2xl" />
+              <SectionImage src={IMAGES.register.vendor} alt="FIPL vendor registration" className="h-[280px] md:h-[360px] lg:h-[380px] w-full rounded-2xl" />
             </div>
             <div>
               <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-primary mb-4">Register With Us ⚡</span>

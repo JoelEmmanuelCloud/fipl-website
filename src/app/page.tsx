@@ -1,10 +1,8 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Accordion } from '@/components/Accordion'
 import { FaqSection } from '@/components/FaqSection'
 import { CounterStats } from '@/components/CounterStats'
-import { SectionImage } from '@/components/SectionImage'
 import { WhoWeAreSection } from '@/components/WhoWeAreSection'
 import { IMAGES } from '@/lib/images'
 
@@ -101,42 +99,32 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="relative z-10 -mt-[200px] md:-mt-[200px] lg:-mt-[200px]">
+      <section className="relative z-10 -mt-[200px]">
         <div className="max-w-[1200px] mx-auto px-6">
-          <div style={{ display: 'flex', gap: '0px', alignItems: 'stretch', justifyContent: 'center' }}>
-            <div style={{
-              width: '420px', height: '430px', flexShrink: 0,
-              borderTopLeftRadius: '16px', borderTopRightRadius: '16px',
+          <div className="flex items-stretch justify-center">
+            <div className="hidden lg:block shrink-0 rounded-t-2xl bg-cover bg-center" style={{
+              width: '420px', height: '430px',
               backgroundImage: `url('${IMAGES.home.workerLeft}')`,
-              backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat',
             }} />
-            <div style={{
-              width: '308px', height: '257px', flexShrink: 0,
-              background: '#fff', borderRadius: '16px',
-              boxShadow: '0 10px 25px -5px rgb(0 0 0 / 0.15)',
-              display: 'flex', flexDirection: 'column', alignItems: 'center',
-              justifyContent: 'center', textAlign: 'center', padding: '20px 24px',
-            }}>
+            <div className="shrink-0 bg-white rounded-2xl shadow-xl flex flex-col items-center justify-center text-center px-6 py-5 w-[280px] sm:w-[308px] h-[240px] sm:h-[257px]">
               <Image
                 src="/images/home/hero-icon.png"
                 alt=""
                 width={36}
                 height={36}
-                style={{ flexShrink: 0, marginBottom: '10px' }}
+                className="shrink-0 mb-2.5"
               />
-              <h2 style={{ fontSize: '14px', fontWeight: 700, color: '#1f2937', lineHeight: 1.3, marginBottom: '6px' }}>
+              <h2 className="text-sm font-bold text-gray-800 leading-snug mb-1.5">
                 Our Power Plants,<br />Our Impact
               </h2>
-              <p style={{ fontSize: '11px', color: '#6b7280', lineHeight: 1.5, maxWidth: '240px', margin: 0 }}>
+              <p className="text-[11px] text-gray-500 leading-relaxed max-w-[240px]">
                 FIPL operates four world-class thermal power plants – Omoku, Afam, Trans-Amadi, and
                 Eleme – generating electricity that supports Nigeria&apos;s industrial and economic growth.
               </p>
             </div>
-            <div style={{
-              width: '420px', height: '430px', flexShrink: 0,
-              borderTopLeftRadius: '16px', borderTopRightRadius: '16px',
+            <div className="hidden lg:block shrink-0 rounded-t-2xl bg-cover bg-center" style={{
+              width: '420px', height: '430px',
               backgroundImage: `url('${IMAGES.home.workerRight}')`,
-              backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat',
             }} />
           </div>
         </div>
@@ -194,7 +182,7 @@ export default function HomePage() {
                 <path d="M13 2L4.5 13.5H11L10 22l9.5-11.5H13L14 2z" />
               </svg>
             </p>
-            <h2 className="text-white mb-5" style={{ fontFamily: 'Arial, sans-serif', fontWeight: 700, fontStyle: 'normal', fontSize: '40px', lineHeight: '100%', letterSpacing: '0%', verticalAlign: 'middle', whiteSpace: 'nowrap' }}>
+            <h2 className="text-white mb-5" style={{ fontFamily: 'Arial, sans-serif', fontWeight: 700, fontSize: '40px', lineHeight: '100%' }}>
               Empowering Communities,<br />Preserving the Environment
             </h2>
             <p className="mb-7" style={{ fontFamily: 'Arial, sans-serif', fontWeight: 400, fontSize: '15px', lineHeight: '26px', color: 'rgba(255,255,255,0.88)', maxWidth: '400px' }}>

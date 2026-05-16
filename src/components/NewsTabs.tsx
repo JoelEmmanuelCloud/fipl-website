@@ -10,13 +10,17 @@ const MK_TABS = ['Our Plants', 'People', 'Events', 'FIPL Foundation'] as const
 export function NewsTabs({ articles }: { articles: NewsArticle[] }) {
   const [mainTab, setMainTab] = useState<'press' | 'media'>('press')
   const [filter, setFilter] = useState('All')
+  const [query, setQuery] = useState('')
   const [mkTab, setMkTab] = useState('Our Plants')
   const [page, setPage] = useState(1)
   const PER_PAGE = 3
 
-  const pressArticles = articles.filter(
-    (a) => filter === 'All' || a.category === filter
-  )
+  const pressArticles = articles.filter((a) => {
+    const matchesCategory = filter === 'All' || a.category === filter
+    const q = query.trim().toLowerCase()
+    const matchesQuery = !q || a.title.toLowerCase().includes(q) || a.excerpt.toLowerCase().includes(q)
+    return matchesCategory && matchesQuery
+  })
   const totalPages = Math.ceil(pressArticles.length / PER_PAGE)
   const paged = pressArticles.slice((page - 1) * PER_PAGE, page * PER_PAGE)
   const recent = [...articles]
@@ -30,7 +34,7 @@ export function NewsTabs({ articles }: { articles: NewsArticle[] }) {
           {(['press', 'media'] as const).map((tab) => (
             <button
               key={tab}
-              onClick={() => setMainTab(tab)}
+              onClick={() => { setMainTab(tab); setPage(1) }}
               className={`px-5 py-2.5 text-sm font-medium -mb-0.5 border-b-2 transition-colors ${
                 mainTab === tab
                   ? 'text-primary border-primary font-semibold'
@@ -55,10 +59,14 @@ export function NewsTabs({ articles }: { articles: NewsArticle[] }) {
                 ))}
               </select>
               <div className="relative flex-1 min-w-[200px]">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">🔍</span>
+                <svg className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+                </svg>
                 <input
                   type="search"
                   placeholder="Search articles…"
+                  value={query}
+                  onChange={(e) => { setQuery(e.target.value); setPage(1) }}
                   className="w-full border border-gray-200 rounded-md pl-9 pr-4 py-2 text-sm bg-white focus:outline-none focus:border-primary"
                 />
               </div>
@@ -79,7 +87,10 @@ export function NewsTabs({ articles }: { articles: NewsArticle[] }) {
                         {article.category}
                       </div>
                       <div className="flex items-center gap-3 text-xs text-gray-400 mb-3">
-                        <span>📅 {article.date}</span>
+                        <span className="flex items-center gap-1">
+                          <svg className="w-3 h-3 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                          {article.date}
+                        </span>
                         <span>·</span>
                         <span>{article.readTime}</span>
                       </div>

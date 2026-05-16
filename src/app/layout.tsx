@@ -4,6 +4,7 @@ import './globals.css'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { BackToTop } from '@/components/BackToTop'
+import { SplashScreen } from '@/components/SplashScreen'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -38,6 +39,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${poppins.variable} ${barlowCondensed.variable}`}>
       <body className="antialiased text-gray-800 bg-white overflow-x-hidden">
+        <SplashScreen />
         <Header />
         <main>{children}</main>
         <Footer />

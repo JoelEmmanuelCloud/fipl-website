@@ -81,7 +81,7 @@ export function Footer() {
 
           <div>
             <h4 className="font-semibold mb-4 text-[15px]" style={{ color: '#fff' }}>Quick Links</h4>
-            <ul className="grid grid-cols-2 sm:grid-cols-1 gap-y-2.5 gap-x-3">
+            <ul className="grid grid-cols-1 gap-y-2.5">
               {quickLinks.map(({ href, label }) => (
                 <li key={href}>
                   <Link
@@ -99,7 +99,7 @@ export function Footer() {
 
           <div>
             <h4 className="font-semibold mb-4 text-[15px]" style={{ color: '#fff' }}>Our Plants</h4>
-            <ul className="grid grid-cols-2 sm:grid-cols-1 gap-y-2.5 gap-x-3">
+            <ul className="grid grid-cols-1 gap-y-2.5">
               {plants.map(({ href, label }) => (
                 <li key={href}>
                   <Link

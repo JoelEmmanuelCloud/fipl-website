@@ -149,7 +149,7 @@ export function Header() {
 
           {/* Burger */}
           <button
-            className="lg:hidden ml-auto p-2 flex flex-col gap-[5px] shrink-0"
+            className="lg:hidden ml-auto p-3 flex flex-col gap-[5px] shrink-0 min-w-[44px] min-h-[44px] items-center justify-center"
             aria-label="Open navigation menu"
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen(true)}

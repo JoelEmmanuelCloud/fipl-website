@@ -33,8 +33,8 @@ export default function CareersPage() {
           <span className="inline-flex items-center gap-2 border border-white/30 bg-white/10 text-white text-sm px-4 py-1.5 rounded-full mb-5 backdrop-blur-sm">
             Join Our Team ⚡
           </span>
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight max-w-xl">
-            Powering the Future<br />Starts With You
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight max-w-xl">
+            Powering the Future Starts With You
           </h1>
           <p className="text-white/80 mt-4 max-w-lg leading-relaxed text-sm md:text-base">
             Be part of the team driving Nigeria&apos;s energy transition. At FIPL, your work keeps the
@@ -136,7 +136,7 @@ export default function CareersPage() {
               </div>
             ))}
           </div>
-          <div className="bg-gradient-fipl rounded-2xl p-8 md:p-12 text-center mt-12">
+          <div className="bg-gradient-fipl rounded-2xl p-6 md:p-8 lg:p-12 text-center mt-12">
             <h3 className="text-xl md:text-2xl font-bold text-white mb-3">Don&apos;t See Your Role?</h3>
             <p className="text-white/85 mb-6 max-w-lg mx-auto text-sm md:text-base">
               We&apos;re always looking for talented individuals. Join our talent pool and we&apos;ll reach out

@@ -99,7 +99,7 @@ export default function RegisterPage() {
 
       <section className="py-20 bolt-watermark">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
             <div>
               <SectionImage src={IMAGES.register.vendor} alt="FIPL vendor registration" className="h-[280px] md:h-[360px] lg:h-[380px] w-full rounded-2xl" />
             </div>

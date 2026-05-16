@@ -122,7 +122,7 @@ export function HeroSlideshow() {
 
   const arrowCls =
     'absolute top-1/2 -translate-y-1/2 z-[6] flex items-center justify-center ' +
-    'w-10 h-10 rounded-full text-white transition-all duration-200 ' +
+    'w-9 h-9 md:w-11 md:h-11 rounded-full text-white transition-all duration-200 ' +
     'bg-white/10 border border-white/20 backdrop-blur-sm ' +
     'hover:bg-white/25 hover:scale-110 active:scale-95'
 
@@ -184,7 +184,7 @@ export function HeroSlideshow() {
 
       {/* ── Text ── */}
       {textReady && (
-        <div className="absolute inset-0 z-[5] flex items-end justify-center text-center px-4 pb-[280px] md:pb-[300px] lg:pb-[340px]">
+        <div className="absolute inset-0 z-[5] flex items-end justify-center text-center px-4 pb-[180px] sm:pb-[220px] md:pb-[260px] lg:pb-[320px]">
           <SlideText key={textKey} slide={SLIDES[current]} />
         </div>
       )}

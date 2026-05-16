@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { FaqSection } from '@/components/FaqSection'
 import { CounterStats } from '@/components/CounterStats'
 import { WhoWeAreSection } from '@/components/WhoWeAreSection'
-import { HeroHeadline } from '@/components/HeroHeadline'
+import { HeroSlideshow } from '@/components/HeroSlideshow'
 import { IMAGES } from '@/lib/images'
 
 export const metadata: Metadata = {
@@ -78,15 +78,8 @@ const faqs = [
 export default function HomePage() {
   return (
     <>
-      <section className="relative h-[600px] md:h-[660px] lg:h-[740px] overflow-hidden bg-gray-900">
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url('${IMAGES.home.hero}')` }}
-        />
-        <div className="absolute inset-0 bg-black/50" />
-        <div className="absolute inset-0 z-10 flex items-end justify-center text-center px-4 pb-[260px] md:pb-[280px] lg:pb-[320px]">
-          <HeroHeadline />
-        </div>
+      <section className="relative h-[600px] md:h-[660px] lg:h-[740px] bg-gray-900">
+        <HeroSlideshow />
       </section>
 
       <section className="relative z-10 -mt-[200px]">

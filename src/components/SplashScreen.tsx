@@ -8,15 +8,8 @@ export function SplashScreen() {
   const [done, setDone] = useState(false)
 
   useEffect(() => {
-    if (sessionStorage.getItem('splashSeen')) {
-      setDone(true)
-      return
-    }
     const t1 = setTimeout(() => setLifting(true), 3900)
-    const t2 = setTimeout(() => {
-      setDone(true)
-      sessionStorage.setItem('splashSeen', '1')
-    }, 4700)
+    const t2 = setTimeout(() => setDone(true), 4700)
     return () => { clearTimeout(t1); clearTimeout(t2) }
   }, [])
 

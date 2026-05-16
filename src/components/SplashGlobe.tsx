@@ -6,16 +6,6 @@ const D = Math.PI / 180
 
 type Ring = [number, number][]
 
-// Nigeria outline [lon, lat] — used for brand highlight
-const NIGERIA: Ring = [
-  [3.4,4.2],[4.2,3.3],[5.0,3.0],[5.8,2.7],[6.5,2.7],[7.0,3.0],[8.5,3.8],
-  [9.5,3.7],[10.5,4.0],[12.0,4.0],[13.0,4.0],[13.5,4.5],[14.0,5.0],
-  [14.5,6.0],[14.8,8.0],[14.5,10.0],[14.0,11.0],[13.5,12.0],[13.0,13.0],
-  [12.5,13.5],[12.0,14.0],[11.0,13.5],[10.0,13.3],[9.0,12.8],[8.0,12.5],
-  [7.0,13.0],[6.0,13.0],[5.0,13.5],[4.5,13.0],[4.2,12.0],[3.8,11.0],
-  [3.5,10.0],[3.2,9.0],[3.0,8.0],[2.8,7.0],[2.7,6.0],[2.8,5.0],[3.4,4.2],
-]
-
 function project(lon: number, lat: number, rot: number, R: number) {
   const phi = lat * D
   const lam = (lon - rot) * D
@@ -53,7 +43,7 @@ export function SplashGlobe({ onReady }: Props) {
   const rafRef = useRef<number>()
   const rot = useRef(20)
   const ringsRef = useRef<Ring[]>([])
-  const nigeriaRef = useRef<Ring>(NIGERIA)
+  const nigeriaRings = useRef<Ring[]>([])
   const readyCalled = useRef(false)
 
   useEffect(() => {
@@ -69,26 +59,23 @@ export function SplashGlobe({ onReady }: Props) {
     const cy = SIZE / 2
     const R = SIZE * 0.47
 
-    // Load Natural Earth land data via topojson
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const { feature } = require('topojson-client')
+
+    // ── Land masses (land-110m) ──
     try {
       // eslint-disable-next-line @typescript-eslint/no-require-imports
       const topo = require('world-atlas/land-110m.json')
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
-      const { feature } = require('topojson-client')
       const geo = feature(topo, topo.objects.land)
-
       const collected: Ring[] = []
-
-      const extractRings = (geom: { type: string; coordinates: unknown }) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const extractRings = (geom: any) => {
         if (geom.type === 'Polygon') {
-          const coords = geom.coordinates as Ring[]
-          collected.push(coords[0]) // outer ring only
+          collected.push(geom.coordinates[0] as Ring)
         } else if (geom.type === 'MultiPolygon') {
-          const coords = geom.coordinates as Ring[][]
-          coords.forEach(poly => collected.push(poly[0]))
+          geom.coordinates.forEach((poly: Ring[]) => collected.push(poly[0]))
         }
       }
-
       if (geo.type === 'FeatureCollection') {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         geo.features.forEach((f: any) => extractRings(f.geometry))
@@ -97,11 +84,29 @@ export function SplashGlobe({ onReady }: Props) {
       } else {
         extractRings(geo)
       }
-
       ringsRef.current = collected
-    } catch {
-      // data unavailable — globe still shows grid
-    }
+    } catch { /* globe still shows grid */ }
+
+    // ── Nigeria exact boundary (countries-110m, ISO 3166-1 numeric = 566) ──
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
+      const countriesTopo = require('world-atlas/countries-110m.json')
+      const countriesGeo = feature(countriesTopo, countriesTopo.objects.countries)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const nigeria = (countriesGeo as any).features?.find(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (f: any) => String(f.id) === '566',
+      )
+      if (nigeria) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const geom = nigeria.geometry as any
+        if (geom.type === 'Polygon') {
+          nigeriaRings.current = [geom.coordinates[0] as Ring]
+        } else if (geom.type === 'MultiPolygon') {
+          nigeriaRings.current = geom.coordinates.map((p: Ring[]) => p[0])
+        }
+      }
+    } catch { /* highlight skipped */ }
 
     function frame() {
       ctx.clearRect(0, 0, SIZE, SIZE)
@@ -115,13 +120,12 @@ export function SplashGlobe({ onReady }: Props) {
       ctx.fillStyle = bg
       ctx.fill()
 
-      // Clip everything inside the sphere circle
       ctx.save()
       ctx.beginPath()
       ctx.arc(cx, cy, R, 0, Math.PI * 2)
       ctx.clip()
 
-      // ── Latitude grid lines ──
+      // ── Latitude grid ──
       ctx.strokeStyle = 'rgba(255,255,255,0.10)'
       ctx.lineWidth = 0.5
       for (let lat = -60; lat <= 60; lat += 30) {
@@ -138,7 +142,7 @@ export function SplashGlobe({ onReady }: Props) {
         ctx.stroke()
       }
 
-      // ── Longitude grid lines ──
+      // ── Longitude grid ──
       for (let lo = 0; lo < 360; lo += 30) {
         ctx.beginPath()
         let first = true
@@ -155,13 +159,11 @@ export function SplashGlobe({ onReady }: Props) {
 
       // ── Land masses ──
       if (ringsRef.current.length > 0) {
-        // Fill pass
         ctx.beginPath()
         ringsRef.current.forEach(ring => drawRing(ctx, ring, cx, cy, rot.current, R))
         ctx.fillStyle = 'rgba(255,255,255,0.13)'
         ctx.fill()
 
-        // Stroke pass
         ctx.strokeStyle = 'rgba(255,255,255,0.55)'
         ctx.lineWidth = 0.7
         ringsRef.current.forEach(ring => {
@@ -171,22 +173,22 @@ export function SplashGlobe({ onReady }: Props) {
         })
       }
 
-      // ── Nigeria highlight ──
-      ctx.beginPath()
-      drawRing(ctx, nigeriaRef.current, cx, cy, rot.current, R)
-      ctx.fillStyle = 'rgba(224,48,39,0.6)'
-      ctx.fill()
-      ctx.strokeStyle = 'rgba(244,120,32,1)'
-      ctx.lineWidth = 1.5
-      ctx.beginPath()
-      drawRing(ctx, nigeriaRef.current, cx, cy, rot.current, R)
-      ctx.stroke()
+      // ── Nigeria highlight (exact Natural Earth boundary) ──
+      if (nigeriaRings.current.length > 0) {
+        ctx.beginPath()
+        nigeriaRings.current.forEach(ring => drawRing(ctx, ring, cx, cy, rot.current, R))
+        ctx.fillStyle = 'rgba(224,48,39,0.65)'
+        ctx.fill()
 
-      // ── 3D lighting: dark rim + lit upper-left ──
-      const light = ctx.createRadialGradient(
-        cx - R * 0.4, cy - R * 0.4, 0,
-        cx, cy, R * 1.05,
-      )
+        ctx.strokeStyle = 'rgba(244,120,32,1)'
+        ctx.lineWidth = 1.5
+        ctx.beginPath()
+        nigeriaRings.current.forEach(ring => drawRing(ctx, ring, cx, cy, rot.current, R))
+        ctx.stroke()
+      }
+
+      // ── 3D lighting ──
+      const light = ctx.createRadialGradient(cx - R * 0.4, cy - R * 0.4, 0, cx, cy, R * 1.05)
       light.addColorStop(0,   'rgba(200,210,255,0.06)')
       light.addColorStop(0.5, 'rgba(0,0,0,0)')
       light.addColorStop(1,   'rgba(0,0,10,0.88)')
@@ -195,7 +197,7 @@ export function SplashGlobe({ onReady }: Props) {
       ctx.arc(cx, cy, R, 0, Math.PI * 2)
       ctx.fill()
 
-      // ── Specular highlight (upper-left glint) ──
+      // ── Specular highlight ──
       const spec = ctx.createRadialGradient(
         cx - R * 0.38, cy - R * 0.42, 0,
         cx - R * 0.38, cy - R * 0.42, R * 0.28,
@@ -216,7 +218,6 @@ export function SplashGlobe({ onReady }: Props) {
       ctx.lineWidth = 1.5
       ctx.stroke()
 
-      // Signal ready after first full frame — give globe 300ms of solo screen time
       if (!readyCalled.current) {
         readyCalled.current = true
         setTimeout(() => onReady?.(), 150)
@@ -228,7 +229,7 @@ export function SplashGlobe({ onReady }: Props) {
 
     frame()
     return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current) }
-  }, [])
+  }, [onReady])
 
   return <canvas ref={canvasRef} className="splash-globe-canvas" aria-hidden="true" />
 }

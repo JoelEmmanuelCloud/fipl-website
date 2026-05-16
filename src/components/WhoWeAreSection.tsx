@@ -24,8 +24,6 @@ export function WhoWeAreSection() {
     <section className="bg-white pt-4 pb-16 md:pb-24 bolt-watermark overflow-hidden">
       <div className="max-w-[1280px] mx-auto px-6">
         <div ref={ref} className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-
-          {/* Left — image slides in from the left */}
           <div
             className="relative"
             style={{
@@ -55,7 +53,6 @@ export function WhoWeAreSection() {
             </div>
           </div>
 
-          {/* Right — content slides in from the right */}
           <div
             style={{
               transform: visible ? 'translateX(0)' : 'translateX(80px)',

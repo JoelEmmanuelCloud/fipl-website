@@ -11,7 +11,6 @@ const insights = articles.slice(0, 3)
 export default function NewsPage() {
   return (
     <>
-      {/* HERO */}
       <section
         className="relative mt-[72px] min-h-[220px] md:min-h-[300px] lg:min-h-[360px] flex items-center bg-gray-800 bg-no-repeat bg-cover bg-center"
         style={{ backgroundImage: `url('${IMAGES.news.hero}')` }}
@@ -29,10 +28,8 @@ export default function NewsPage() {
         </div>
       </section>
 
-      {/* TABS — client component receives pre-fetched articles */}
       <NewsTabs articles={articles} />
 
-      {/* INSIGHTS */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center max-w-xl mx-auto mb-12">

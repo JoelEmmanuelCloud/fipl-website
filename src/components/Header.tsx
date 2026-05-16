@@ -21,7 +21,7 @@ export function Header() {
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10)
-    onScroll() // set correct state on mount
+    onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
@@ -33,12 +33,10 @@ export function Header() {
     return () => { document.body.style.overflow = '' }
   }, [menuOpen])
 
-  // Transparent only on the homepage before scrolling
   const transparent = pathname === '/' && !scrolled
 
   return (
     <>
-      {/* ─── Desktop / Tablet header ─── */}
       <header
         className="fixed top-0 left-0 right-0 z-50"
         style={{
@@ -53,10 +51,8 @@ export function Header() {
       >
         <div className="max-w-[1280px] mx-auto px-6 flex items-center gap-4 h-[72px]">
 
-          {/* Logo — inverted to white when nav is transparent over dark hero */}
           <Logo className="shrink-0" />
 
-          {/* ── Desktop nav + Register With Us ── */}
           <nav className="hidden lg:flex ml-auto items-center gap-2">
             <ul className="flex items-center gap-0.5">
               {[...navLinks, { href: '/register', label: 'Register With Us' }].map(({ href, label }) => (
@@ -90,7 +86,6 @@ export function Header() {
 
           </nav>
 
-          {/* ── Burger (mobile / tablet) ── */}
           <button
             className="lg:hidden ml-auto p-2 flex flex-col gap-[5px] shrink-0"
             aria-label="Open navigation menu"
@@ -104,7 +99,6 @@ export function Header() {
         </div>
       </header>
 
-      {/* ─── Mobile / Tablet full-screen menu overlay ─── */}
       <div
         className={`lg:hidden fixed inset-0 z-[200] flex flex-col px-6 py-5 overflow-y-auto transition-transform duration-[360ms] ease-[cubic-bezier(.4,0,.2,1)] ${
           menuOpen ? 'translate-x-0' : '-translate-x-full'
@@ -114,7 +108,6 @@ export function Header() {
         aria-modal="true"
         aria-label="Navigation menu"
       >
-        {/* Close */}
         <button
           className="self-start text-white text-[32px] leading-none p-1 mb-10"
           aria-label="Close menu"
@@ -123,7 +116,6 @@ export function Header() {
           &times;
         </button>
 
-        {/* Links */}
         <nav className="flex-1">
           <ul className="flex flex-col gap-1">
             {navLinks.map(({ href, label }) => (
@@ -144,7 +136,6 @@ export function Header() {
           </ul>
         </nav>
 
-        {/* Register CTA */}
         <div className="mt-6 pt-6 border-t border-white/25">
           <Link
             href="/register"

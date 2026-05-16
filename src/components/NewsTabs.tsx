@@ -26,7 +26,6 @@ export function NewsTabs({ articles }: { articles: NewsArticle[] }) {
   return (
     <section className="py-16 bg-gray-50">
       <div className="max-w-7xl mx-auto px-6">
-        {/* Main tabs */}
         <div className="flex gap-1 border-b-2 border-gray-200 mb-8">
           {(['press', 'media'] as const).map((tab) => (
             <button
@@ -43,10 +42,8 @@ export function NewsTabs({ articles }: { articles: NewsArticle[] }) {
           ))}
         </div>
 
-        {/* PRESS RELEASES */}
         {mainTab === 'press' && (
           <>
-            {/* Filter bar */}
             <div className="flex flex-wrap items-center gap-3 mb-7">
               <select
                 className="border border-gray-200 rounded-md px-4 py-2 text-sm bg-white focus:outline-none focus:border-primary"
@@ -67,16 +64,13 @@ export function NewsTabs({ articles }: { articles: NewsArticle[] }) {
               </div>
             </div>
 
-            {/* Two-column: articles + sidebar */}
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-10">
-              {/* Articles */}
               <div>
                 {paged.map((article, i) => (
                   <article
                     key={article.id}
                     className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow mb-6"
                   >
-                    {/* Image placeholder */}
                     <div className={`bg-gray-200 flex items-center justify-center text-gray-400 text-sm ${i === 0 ? 'h-64' : 'h-48'}`}>
                       [ {article.imagePlaceholder} ]
                     </div>
@@ -105,7 +99,6 @@ export function NewsTabs({ articles }: { articles: NewsArticle[] }) {
                   </article>
                 ))}
 
-                {/* Pagination */}
                 {totalPages > 1 && (
                   <div className="flex gap-2 justify-center mt-6">
                     {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
@@ -133,7 +126,6 @@ export function NewsTabs({ articles }: { articles: NewsArticle[] }) {
                 )}
               </div>
 
-              {/* Sidebar */}
               <aside className="hidden lg:block">
                 <div className="text-sm font-bold text-gray-800 mb-4 pb-3 border-b-2 border-primary">
                   Recent Posts
@@ -157,7 +149,6 @@ export function NewsTabs({ articles }: { articles: NewsArticle[] }) {
           </>
         )}
 
-        {/* MEDIA KITS */}
         {mainTab === 'media' && (
           <>
             <div className="flex flex-wrap gap-2 mb-7">

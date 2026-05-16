@@ -42,7 +42,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main>{children}</main>
         <Footer />
         <BackToTop />
-        {/* Floating chat button */}
         <a
           href="/contact"
           aria-label="Chat with us"

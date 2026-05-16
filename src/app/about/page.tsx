@@ -33,7 +33,6 @@ const timeline = [
 export default function AboutPage() {
   return (
     <>
-      {/* HERO */}
       <section
         className="relative mt-[72px] min-h-[260px] md:min-h-[360px] lg:min-h-[420px] flex items-center bg-gray-800 bg-no-repeat bg-cover bg-center"
         style={{ backgroundImage: `url('${IMAGES.about.hero}')` }}
@@ -53,7 +52,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* PURPOSE */}
       <section className="py-12 md:py-16 lg:py-20 bolt-watermark">
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="text-center max-w-2xl mx-auto mb-12">
@@ -109,7 +107,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* TIMELINE */}
       <section className="py-12 md:py-16 lg:py-20 bg-gray-50">
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="text-center max-w-2xl mx-auto mb-14">
@@ -136,7 +133,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* CORE VALUES */}
       <section className="py-12 md:py-16 lg:py-20">
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="text-center max-w-2xl mx-auto mb-12">
@@ -156,7 +152,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* CEO */}
       <section className="py-12 md:py-16 lg:py-20 bg-gray-50">
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
@@ -195,7 +190,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* TESTIMONIALS */}
       <section className="py-12 md:py-16 lg:py-20">
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">

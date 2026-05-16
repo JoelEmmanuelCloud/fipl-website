@@ -28,7 +28,6 @@ export default function ArticlePage({ params }: Props) {
 
   return (
     <div className="mt-[72px]">
-      {/* Article header */}
       <section
         className="relative min-h-[320px] flex items-end bg-gray-800 bg-no-repeat bg-cover bg-center pb-12"
         style={{ backgroundImage: "url('https://picsum.photos/seed/fipl-n2/1920/700')" }}
@@ -49,29 +48,24 @@ export default function ArticlePage({ params }: Props) {
         </div>
       </section>
 
-      {/* Body */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-12">
             <article>
-              {/* Back link */}
               <Link href="/news" className="inline-flex items-center gap-2 text-sm text-primary font-semibold mb-8 hover:-translate-x-1 transition-transform">
                 ← Back to News
               </Link>
 
-              {/* Image placeholder */}
               <div className="h-[320px] bg-gray-200 rounded-2xl flex items-center justify-center text-gray-400 text-sm mb-10">
                 [ {article.imagePlaceholder} ]
               </div>
 
-              {/* Content */}
               <div
                 className="prose prose-gray max-w-none prose-a:text-primary"
                 dangerouslySetInnerHTML={{ __html: article.content }}
               />
             </article>
 
-            {/* Sidebar */}
             <aside>
               <div className="text-sm font-bold text-gray-800 mb-4 pb-3 border-b-2 border-primary">
                 Recent Posts

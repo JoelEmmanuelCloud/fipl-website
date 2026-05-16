@@ -58,11 +58,7 @@ export function Footer() {
   return (
     <footer style={{ background: '#13132B' }} className="pt-14 pb-0">
       <div className="max-w-[1280px] mx-auto px-6">
-
-        {/* ── Main grid ── */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-white/10">
-
-          {/* Brand — full-width on mobile, 2-span on sm, 1-col on lg */}
           <div className="sm:col-span-2 lg:col-span-1">
             <Logo className="mb-4" />
             <p className="text-sm leading-relaxed mb-6" style={{ color: '#888' }}>
@@ -83,10 +79,8 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Quick Links */}
           <div>
             <h4 className="font-semibold mb-4 text-[15px]" style={{ color: '#fff' }}>Quick Links</h4>
-            {/* 2-column grid on mobile, single column on larger screens */}
             <ul className="grid grid-cols-2 sm:grid-cols-1 gap-y-2.5 gap-x-3">
               {quickLinks.map(({ href, label }) => (
                 <li key={href}>
@@ -103,10 +97,8 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Our Plants */}
           <div>
             <h4 className="font-semibold mb-4 text-[15px]" style={{ color: '#fff' }}>Our Plants</h4>
-            {/* 2-column grid on mobile, single column on larger screens */}
             <ul className="grid grid-cols-2 sm:grid-cols-1 gap-y-2.5 gap-x-3">
               {plants.map(({ href, label }) => (
                 <li key={href}>
@@ -123,7 +115,6 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Contact */}
           <div>
             <h4 className="font-semibold mb-4 text-[15px]" style={{ color: '#fff' }}>Contact Us</h4>
             <div className="space-y-4">
@@ -175,7 +166,6 @@ export function Footer() {
         </div>
       </div>
 
-      {/* Copyright */}
       <div className="py-4 text-center text-[13px]" style={{ color: '#555' }}>
         Copyright &copy; 2025{' '}
         <Link href="/" className="hover:underline" style={{ color: '#F47820' }}>FIPL</Link>.

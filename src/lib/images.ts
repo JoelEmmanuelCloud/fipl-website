@@ -1,13 +1,3 @@
-/**
- * Centralised image registry.
- *
- * All pages import from here. When real assets are ready, swap the
- * picsum URL for a local path (e.g. '/images/home/hero.jpg') or a
- * production CDN URL — no hunting through page files required.
- *
- * picsum.photos seeds are stable: the same seed always returns the
- * same photo, so the UI looks consistent across refreshes.
- */
 export const IMAGES = {
   home: {
     hero:          '/images/home/backgroundimage.png',

@@ -79,7 +79,6 @@ const accordionItems = [
 export default function RegisterPage() {
   return (
     <>
-      {/* HERO */}
       <section
         className="relative mt-[72px] min-h-[240px] md:min-h-[320px] lg:min-h-[380px] flex items-center bg-gray-800 bg-no-repeat bg-cover bg-center"
         style={{ backgroundImage: "url('https://picsum.photos/seed/fipl-r1/1920/1080')" }}
@@ -97,7 +96,6 @@ export default function RegisterPage() {
         </div>
       </section>
 
-      {/* VENDOR PROGRAMME */}
       <section className="py-20 bolt-watermark">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -131,7 +129,6 @@ export default function RegisterPage() {
         </div>
       </section>
 
-      {/* DUNS */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-3xl mx-auto px-6">
           <div className="text-center mb-10">
@@ -156,10 +153,8 @@ export default function RegisterPage() {
             </Link>
           </div>
 
-          {/* Accordion */}
           <Accordion items={accordionItems} />
 
-          {/* Final Notes */}
           <div className="mt-10 border-l-4 border-primary bg-primary/5 rounded-r-xl p-5">
             <h4 className="font-bold text-primary mb-2">Final Notes</h4>
             <p className="text-sm text-gray-600 mb-2">
@@ -179,7 +174,6 @@ export default function RegisterPage() {
             </ul>
           </div>
 
-          {/* Disclaimer */}
           <div className="mt-6 border border-gray-200 rounded-xl p-6">
             <h4 className="font-bold text-gray-800 mb-3">Disclaimer</h4>
             <p className="text-sm text-gray-400 leading-relaxed mb-2">
@@ -197,7 +191,6 @@ export default function RegisterPage() {
         </div>
       </section>
 
-      {/* CONTACT */}
       <section id="registration" className="py-20">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center max-w-xl mx-auto mb-12">

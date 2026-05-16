@@ -3,8 +3,6 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 
-const GLOBE_W = 1200
-const GLOBE_H = 600
 const LAT_Y = [100, 200, 300, 400, 500]
 const LON_X = Array.from({ length: 21 }, (_, i) => i * 60)
 
@@ -13,8 +11,8 @@ export function SplashScreen() {
   const [done, setDone] = useState(false)
 
   useEffect(() => {
-    const t1 = setTimeout(() => setLifting(true), 4300)
-    const t2 = setTimeout(() => setDone(true), 5200)
+    const t1 = setTimeout(() => setLifting(true), 4500)
+    const t2 = setTimeout(() => setDone(true), 5400)
     return () => { clearTimeout(t1); clearTimeout(t2) }
   }, [])
 
@@ -30,42 +28,32 @@ export function SplashScreen() {
     >
       <div className="splash-globe-wrap" aria-hidden="true">
         <div className="splash-globe">
-          <svg
-            width={GLOBE_W}
-            height={GLOBE_H}
-            className="splash-globe-svg"
-            aria-hidden="true"
-          >
+          <svg width="1200" height="600" className="splash-globe-svg" aria-hidden="true">
             {LAT_Y.map((y) => (
-              <line
-                key={`lat-${y}`}
-                x1="0" y1={y} x2={GLOBE_W} y2={y}
-                stroke="white" strokeWidth="0.5" opacity="0.5"
-              />
+              <line key={y} x1="0" y1={y} x2="1200" y2={y} stroke="white" strokeWidth="0.5" opacity="0.5" />
             ))}
             {LON_X.map((x) => (
-              <line
-                key={`lon-${x}`}
-                x1={x} y1="0" x2={x} y2={GLOBE_H}
-                stroke="white" strokeWidth="0.5" opacity="0.5"
-              />
+              <line key={x} x1={x} y1="0" x2={x} y2="600" stroke="white" strokeWidth="0.5" opacity="0.5" />
             ))}
           </svg>
         </div>
       </div>
 
       <div className="splash-stage">
-        <p className="splash-we-are">WE ARE</p>
 
+        {/* ── Cycling phase: small "WE ARE" label + three words ── */}
+        <p className="splash-we-are-small">WE ARE</p>
         <div className="splash-word-slot">
           <p className="splash-word splash-w1">RELIABLE.</p>
           <p className="splash-word splash-w2">SUSTAINABLE.</p>
           <p className="splash-word splash-w3">POWERFUL.</p>
         </div>
 
-        <div className="splash-brand">
-          <div className="splash-brand-bar" aria-hidden="true" />
-          <div className="splash-brand-logo">
+        {/* ── Finale: big "WE ARE" + logo ── */}
+        <div className="splash-finale">
+          <p className="splash-we-are-big">WE ARE</p>
+          <div className="splash-finale-bar" aria-hidden="true" />
+          <div className="splash-finale-logo">
             <Image
               src="/images/sustainability/logoimage.png"
               alt="First Independent Power Limited"
@@ -74,8 +62,9 @@ export function SplashScreen() {
               priority
             />
           </div>
-          <p className="splash-brand-name">First Independent Power Limited</p>
+          <p className="splash-finale-name">First Independent Power Limited</p>
         </div>
+
       </div>
 
       <div className="splash-bar-track" aria-hidden="true">

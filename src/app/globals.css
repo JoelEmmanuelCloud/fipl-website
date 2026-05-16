@@ -65,38 +65,38 @@
 
 /* ── Splash screen ──────────────────────────────── */
 
-/* Globe rotation — scrolls longitude lines left for a seamless loop */
 @keyframes globeRotate {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
 
-/* "WE ARE" fades in then fades out when logo arrives */
-@keyframes weAreLife {
-  0%   { opacity: 0; }
-  8%   { opacity: 1; }
-  82%  { opacity: 1; }
-  100% { opacity: 0; }
+/* Small "WE ARE" label: fades in, holds, fades out before finale */
+@keyframes weAreSmallLife {
+  0%    { opacity: 0; }
+  6%    { opacity: 1; }
+  80%   { opacity: 1; }
+  100%  { opacity: 0; }
 }
 
-/* Each cycling word: slides up in, holds, slides up out */
+/* Cycling words: slide up in, hold, slide up out */
 @keyframes wordCycle {
-  0%   { opacity: 0; transform: translateY(44px); }
-  14%  { opacity: 1; transform: translateY(0); }
+  0%   { opacity: 0; transform: translateY(48px); }
+  13%  { opacity: 1; transform: translateY(0); }
   72%  { opacity: 1; transform: translateY(0); }
-  100% { opacity: 0; transform: translateY(-32px); }
+  100% { opacity: 0; transform: translateY(-36px); }
 }
 
-/* Brand block (logo + name) rises in and stays */
-@keyframes brandReveal {
-  0%   { opacity: 0; transform: translateY(20px); }
-  100% { opacity: 1; transform: translateY(0); }
+/* Finale block rises into place */
+@keyframes finaleIn {
+  0%   { opacity: 0; transform: translate(-50%, calc(-50% + 24px)); }
+  100% { opacity: 1; transform: translate(-50%, -50%); }
 }
 
-/* Horizontal bar sweeps outward from center */
-@keyframes barExpand {
-  0%   { width: 0; opacity: 0; }
-  100% { width: 200px; opacity: 1; }
+/* Divider bar sweeps outward from center */
+@keyframes barSweep {
+  0%   { clip-path: inset(0 50% 0 50%); opacity: 0; }
+  20%  { opacity: 1; }
+  100% { clip-path: inset(0 0% 0 0%); opacity: 1; }
 }
 
 @keyframes splashProgress {
@@ -135,9 +135,9 @@
   opacity: 0.1;
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow:
-    inset 0 0 80px rgba(0, 0, 0, 0.9),
-    inset 40px 0 80px rgba(0, 0, 0, 0.5),
-    inset -40px 0 80px rgba(0, 0, 0, 0.5);
+    inset 0 0 100px rgba(0, 0, 0, 0.95),
+    inset 50px 0 80px rgba(0, 0, 0, 0.6),
+    inset -50px 0 80px rgba(0, 0, 0, 0.6);
 }
 
 .splash-globe-svg {
@@ -145,7 +145,7 @@
   animation: globeRotate 20s linear infinite;
 }
 
-/* ── Center stage ── */
+/* ── Stage ── */
 .splash-stage {
   position: relative;
   z-index: 1;
@@ -154,43 +154,43 @@
   align-items: center;
   text-align: center;
   padding: 0 24px;
+  /* tall enough to hold both cycling phase and finale without jumping */
+  min-height: clamp(180px, 30vw, 280px);
 }
 
-/* "WE ARE" label — stays while words cycle, then fades out */
-.splash-we-are {
+/* Small "WE ARE" label during cycling phase */
+.splash-we-are-small {
   font-family: var(--font-poppins), Poppins, sans-serif;
-  font-size: clamp(10px, 1.8vw, 13px);
-  font-weight: 600;
-  letter-spacing: 0.45em;
+  font-size: clamp(10px, 1.6vw, 12px);
+  font-weight: 700;
+  letter-spacing: 0.5em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.45);
-  margin: 0 0 10px;
-  /* visible for the full word-cycle period then fades: total 3.3s */
-  animation: weAreLife 3.4s ease 0.15s both;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 0 0 12px;
+  animation: weAreSmallLife 3.7s ease 0.1s both;
 }
 
-/* Slot that holds the cycling words (fixed height to prevent layout shift) */
+/* Fixed-height slot for cycling words */
 .splash-word-slot {
   position: relative;
-  height: clamp(60px, 12vw, 112px);
+  height: clamp(58px, 11.5vw, 108px);
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 0;
 }
 
-/* Every cycling word — absolutely stacked, each with its own delay */
+/* Cycling words — all absolutely stacked */
 .splash-word {
   position: absolute;
   font-family: var(--font-poppins), Poppins, sans-serif;
   font-weight: 800;
-  font-size: clamp(48px, 10.5vw, 104px);
+  font-size: clamp(46px, 10vw, 100px);
   letter-spacing: -0.025em;
   line-height: 1;
   margin: 0;
   white-space: nowrap;
-  animation: wordCycle 1.15s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: wordCycle 1.2s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .splash-w1 {
@@ -199,48 +199,70 @@
 }
 .splash-w2 {
   color: #F47820;
-  animation-delay: 1.35s;
-  text-shadow: 0 0 80px rgba(244, 120, 32, 0.35);
+  animation-delay: 1.4s;
+  text-shadow: 0 0 80px rgba(244, 120, 32, 0.4);
 }
 .splash-w3 {
   color: #ffffff;
-  animation-delay: 2.5s;
-  text-shadow: 0 0 80px rgba(224, 48, 39, 0.4), 0 0 160px rgba(224, 48, 39, 0.15);
+  animation-delay: 2.6s;
+  text-shadow: 0 0 80px rgba(224, 48, 39, 0.45), 0 0 160px rgba(224, 48, 39, 0.2);
 }
 
-/* Brand block (logo + name) — appears after all words have gone */
-.splash-brand {
+/* ── Finale block — absolutely overlays the stage, centered ── */
+.splash-finale {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /* initial transform set in keyframe; animation: finaleIn handles both */
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
-  animation: brandReveal 0.8s cubic-bezier(0.22, 1, 0.36, 1) 3.6s both;
-  margin-top: 36px;
+  gap: 0;
+  width: max-content;
+  animation: finaleIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) 3.7s both;
 }
 
-.splash-brand-bar {
+/* Big "WE ARE" — same scale as the cycling words, this is the payoff */
+.splash-we-are-big {
+  font-family: var(--font-poppins), Poppins, sans-serif;
+  font-weight: 800;
+  font-size: clamp(46px, 10vw, 100px);
+  letter-spacing: -0.025em;
+  line-height: 1;
+  color: #ffffff;
+  margin: 0 0 20px;
+  text-shadow: 0 0 100px rgba(255, 255, 255, 0.08);
+}
+
+/* Gradient divider line sweeps out from centre */
+.splash-finale-bar {
   height: 1px;
+  width: 100%;
   background: linear-gradient(
     90deg,
-    transparent,
-    rgba(224, 48, 39, 0.7) 25%,
-    rgba(244, 120, 32, 0.7) 75%,
-    transparent
+    transparent 0%,
+    rgba(224, 48, 39, 0.8) 25%,
+    rgba(244, 120, 32, 0.8) 75%,
+    transparent 100%
   );
-  animation: barExpand 0.55s ease 3.55s both;
+  margin-bottom: 20px;
+  animation: barSweep 0.6s ease 3.95s both;
 }
 
-.splash-brand-logo {
-  filter: drop-shadow(0 0 20px rgba(224, 48, 39, 0.18));
+/* Logo rises */
+.splash-finale-logo {
+  filter: drop-shadow(0 0 24px rgba(224, 48, 39, 0.2));
+  margin-bottom: 12px;
 }
 
-.splash-brand-name {
+/* Company name */
+.splash-finale-name {
   font-family: var(--font-poppins), Poppins, sans-serif;
-  font-size: clamp(8px, 1.2vw, 10px);
+  font-size: clamp(8px, 1.1vw, 10px);
   font-weight: 600;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.3);
   margin: 0;
 }
 
@@ -256,6 +278,6 @@
 .splash-bar-fill {
   height: 100%;
   background: linear-gradient(90deg, #E03027, #F47820);
-  animation: splashProgress 4.3s linear 0.1s both;
+  animation: splashProgress 4.5s linear 0.1s both;
   box-shadow: 0 0 18px rgba(244, 120, 32, 0.9), 0 0 36px rgba(224, 48, 39, 0.4);
 }

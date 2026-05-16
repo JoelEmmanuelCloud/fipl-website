@@ -90,7 +90,7 @@ export default function HomePage() {
           poster={IMAGES.home.hero}
           style={{ filter: 'brightness(0.78) contrast(1.08) saturate(0.75)' }}
         >
-          <source src="/videos/IMG_8924.MOV" type="video/mp4" />
+          <source src="/videos/hero.mp4" type="video/mp4" />
         </video>
 
         {/* Cinematic gradient — heavier top & bottom, open in the middle */}

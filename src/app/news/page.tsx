@@ -16,7 +16,7 @@ export default function NewsPage() {
         style={{ backgroundImage: `url('${IMAGES.news.hero}')` }}
       >
         <div className="absolute inset-0 bg-gradient-to-r from-black/65 to-black/30" />
-        <div className="relative z-10 max-w-7xl mx-auto px-6 py-14">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 pt-24 pb-14">
           <span className="inline-flex items-center gap-2 border border-white/30 bg-white/10 text-white text-sm px-4 py-1.5 rounded-full mb-5 backdrop-blur-sm">
             Media Centre ⚡
           </span>
@@ -50,7 +50,10 @@ export default function NewsPage() {
                     {article.title}
                   </h3>
                   <div className="flex items-center justify-between text-xs text-gray-400">
-                    <span>📅 {article.date}</span>
+                    <span className="flex items-center gap-1">
+                      <svg className="w-3 h-3 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                      {article.date}
+                    </span>
                     <Link
                       href={`/news/${article.slug}`}
                       className="font-semibold text-primary hover:gap-2 inline-flex items-center gap-1 transition-all"

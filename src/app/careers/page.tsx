@@ -29,7 +29,7 @@ export default function CareersPage() {
         style={{ backgroundImage: `url('${IMAGES.careers.hero}')` }}
       >
         <div className="absolute inset-0 bg-gradient-to-r from-black/65 to-black/30" />
-        <div className="relative z-10 max-w-[1280px] mx-auto px-6 py-16">
+        <div className="relative z-10 max-w-[1280px] mx-auto px-6 pt-24 pb-16">
           <span className="inline-flex items-center gap-2 border border-white/30 bg-white/10 text-white text-sm px-4 py-1.5 rounded-full mb-5 backdrop-blur-sm">
             Join Our Team ⚡
           </span>
@@ -118,9 +118,18 @@ export default function CareersPage() {
             {jobs.map((job, i) => (
               <div key={i} className="bg-white border border-gray-200 rounded-2xl p-6 hover:border-primary hover:shadow-md hover:-translate-y-1 transition-all">
                 <h3 className="font-bold text-gray-800 mb-2.5 text-sm md:text-base">{job.title}</h3>
-                <div className="text-xs text-gray-400 flex items-center gap-1.5 mb-1">📅 {job.date}</div>
-                <div className="text-xs text-gray-400 flex items-center gap-1.5 mb-1">📍 {job.location}</div>
-                <div className="text-xs text-gray-400 flex items-center gap-1.5">🏢 {job.type} · {job.dept}</div>
+                <div className="text-xs text-gray-400 flex items-center gap-1.5 mb-1">
+                  <svg className="w-3 h-3 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                  {job.date}
+                </div>
+                <div className="text-xs text-gray-400 flex items-center gap-1.5 mb-1">
+                  <svg className="w-3 h-3 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+                  {job.location}
+                </div>
+                <div className="text-xs text-gray-400 flex items-center gap-1.5">
+                  <svg className="w-3 h-3 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+                  {job.type} · {job.dept}
+                </div>
                 <Link href="#" className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary mt-4 hover:gap-3 transition-all">
                   Apply Now ↗
                 </Link>

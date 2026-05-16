@@ -38,7 +38,7 @@ export default function AboutPage() {
         style={{ backgroundImage: `url('${IMAGES.about.hero}')` }}
       >
         <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/30" />
-        <div className="relative z-10 max-w-[1280px] mx-auto px-6 py-14">
+        <div className="relative z-10 max-w-[1280px] mx-auto px-6 pt-24 pb-14">
           <span className="inline-flex items-center gap-2 border border-white/30 bg-white/10 text-white text-sm px-4 py-1.5 rounded-full mb-5 backdrop-blur-sm">
             About Us ⚡
           </span>

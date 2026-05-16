@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { articles, getArticleBySlug, getRecentArticles } from '@/lib/news'
+import { IMAGES } from '@/lib/images'
 
 interface Props {
   params: { slug: string }
@@ -29,8 +30,8 @@ export default function ArticlePage({ params }: Props) {
   return (
     <div>
       <section
-        className="relative min-h-[320px] flex items-end bg-gray-800 bg-no-repeat bg-cover bg-center pb-12"
-        style={{ backgroundImage: "url('https://picsum.photos/seed/fipl-n2/1920/700')" }}
+        className="relative min-h-[420px] flex items-end bg-gray-800 bg-no-repeat bg-cover bg-center pb-12"
+        style={{ backgroundImage: `url('${IMAGES.news.articleBg}')` }}
       >
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
         <div className="relative z-10 max-w-7xl mx-auto px-6">
@@ -41,7 +42,10 @@ export default function ArticlePage({ params }: Props) {
             {article.title}
           </h1>
           <div className="flex items-center gap-4 text-sm text-white/70 mt-4">
-            <span>📅 {article.date}</span>
+            <span className="flex items-center gap-1.5">
+              <svg className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+              {article.date}
+            </span>
             <span>·</span>
             <span>{article.readTime}</span>
           </div>

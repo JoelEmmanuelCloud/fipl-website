@@ -44,12 +44,17 @@ function drawRing(
   })
 }
 
-export function SplashGlobe() {
+interface Props {
+  onReady?: () => void
+}
+
+export function SplashGlobe({ onReady }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const rafRef = useRef<number>()
   const rot = useRef(20)
   const ringsRef = useRef<Ring[]>([])
   const nigeriaRef = useRef<Ring>(NIGERIA)
+  const readyCalled = useRef(false)
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -210,6 +215,12 @@ export function SplashGlobe() {
       ctx.strokeStyle = 'rgba(255,255,255,0.18)'
       ctx.lineWidth = 1.5
       ctx.stroke()
+
+      // Signal ready after first full frame — give globe 300ms of solo screen time
+      if (!readyCalled.current) {
+        readyCalled.current = true
+        setTimeout(() => onReady?.(), 300)
+      }
 
       rot.current = (rot.current + 0.1) % 360
       rafRef.current = requestAnimationFrame(frame)

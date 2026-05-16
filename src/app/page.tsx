@@ -90,11 +90,16 @@ export default function HomePage() {
               fontFamily: 'Arial',
               fontWeight: 700,
               fontSize: '38px',
-              lineHeight: '100%',
+              lineHeight: '1.2',
               letterSpacing: '0%',
             }}
           >
-            Committed to<br />Efficient Power Generation
+            <span className="hero-line-wrap">
+              <span className="hero-line hero-line-1">Committed to</span>
+            </span>
+            <span className="hero-line-wrap">
+              <span className="hero-line hero-line-2">Efficient Power Generation</span>
+            </span>
           </h1>
         </div>
       </section>

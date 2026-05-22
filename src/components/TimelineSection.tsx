@@ -204,7 +204,7 @@ export function TimelineSection() {
           </div>
         </Reveal>
 
-        <div className="hidden lg:block overflow-x-auto" style={{ height: Math.round(CH * SCALE) }}>
+        <div className="hidden lg:block overflow-hidden" style={{ height: Math.round(CH * SCALE) }}>
           <div style={{ transform: `scale(${SCALE})`, transformOrigin: 'top left', width: CW, height: CH }}>
             <SnakeTimeline />
           </div>

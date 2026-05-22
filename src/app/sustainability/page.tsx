@@ -248,7 +248,7 @@ export default function SustainabilityPage() {
               <img
                 src={IMAGES.sustainability.sdg}
                 alt="SDG Goals"
-                className="w-full h-[320px] md:h-[400px] object-cover"
+                className="w-full h-[320px] md:h-[400px] object-cover rounded-2xl"
               />
             </Reveal>
             <Reveal variant="right" delay={0.15}>
@@ -291,7 +291,7 @@ export default function SustainabilityPage() {
               <img
                 src={IMAGES.sustainability.community}
                 alt="Community empowerment"
-                className="w-full h-[420px] md:h-[540px] lg:h-[620px] object-cover"
+                className="w-full h-[420px] md:h-[540px] lg:h-[620px] object-cover rounded-2xl"
               />
             </Reveal>
             <Reveal variant="right" delay={0.1}>

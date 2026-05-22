@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import { Reveal } from '@/components/Reveal'
+import { Zap } from 'lucide-react'
 
 interface Testimonial {
   quote: string
@@ -9,13 +10,6 @@ interface Testimonial {
   role: string
 }
 
-function BoltIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M13 2L4.5 13.5H11L10 22L20.5 10H14L13 2Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
-    </svg>
-  )
-}
 
 export function TestimonialsBlock({ testimonials, heading = 'What Our Employees\nSay About Us.' }: { testimonials: Testimonial[]; heading?: string }) {
   const [current, setCurrent] = useState(0)
@@ -36,7 +30,7 @@ export function TestimonialsBlock({ testimonials, heading = 'What Our Employees\
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
           <Reveal variant="left">
             <div>
-              <span className="inline-flex items-center gap-1.5 text-sm text-[#DB1B0C] mb-4">Testimonials <BoltIcon /></span>
+              <span className="inline-flex items-center gap-1.5 text-sm text-[#DB1B0C] mb-4">Testimonials <Zap size={14} /></span>
               <h2 className="text-2xl md:text-3xl font-bold text-[#0E121D] mb-6">
                 {heading.split('\n').map((line, i, arr) => (
                   <span key={i}>{line}{i < arr.length - 1 && <br />}</span>

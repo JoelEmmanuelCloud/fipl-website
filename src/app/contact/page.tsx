@@ -3,16 +3,10 @@ import { ContactForm, SubscribeForm } from '@/components/ContactForms'
 import { ContactHero } from '@/components/PageHeroes'
 import { Reveal } from '@/components/Reveal'
 import { IMAGES } from '@/lib/images'
+import { Zap } from 'lucide-react'
 
 export const metadata: Metadata = { title: 'Contact Us' }
 
-function BoltIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M13 2L4.5 13.5H11L10 22L20.5 10H14L13 2Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
-    </svg>
-  )
-}
 
 const contactItems = [
   {
@@ -68,7 +62,7 @@ export default function ContactPage() {
             {/* Left: info */}
             <Reveal variant="left">
               <div>
-                <span className="inline-flex items-center gap-1.5 text-sm text-[#DB1B0C] mb-3">Contact Us <BoltIcon /></span>
+                <span className="inline-flex items-center gap-1.5 text-sm text-[#DB1B0C] mb-3">Contact Us <Zap size={14} /></span>
                 <h2 className="text-2xl md:text-3xl font-bold text-[#0E121D] mb-3">Get in Touch with Us</h2>
                 <p className="text-[#797979] leading-relaxed mb-8 text-base">
                   Our team is ready to provide answers, offer solutions, and start your journey toward success.
@@ -139,7 +133,7 @@ export default function ContactPage() {
                 />
               </div>
               <div className="relative z-10 lg:pl-[180px]">
-                <span className="inline-flex items-center gap-1.5 text-xs text-white/80 mb-3">Stay in Touch <BoltIcon /></span>
+                <span className="inline-flex items-center gap-1.5 text-xs text-white/80 mb-3">Stay in Touch <Zap size={14} /></span>
                 <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
                   Subscribe For All The Top News!
                 </h2>

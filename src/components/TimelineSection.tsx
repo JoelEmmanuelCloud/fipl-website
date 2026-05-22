@@ -2,14 +2,8 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { Reveal } from '@/components/Reveal'
+import { Zap } from 'lucide-react'
 
-function BoltIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M13 2L4.5 13.5H11L10 22L20.5 10H14L13 2Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
-    </svg>
-  )
-}
 
 const milestones = [
   { year: '1998', title: 'Company Founded', desc: "FIPL was established as part of the Sahara Group with a vision to transform Nigeria's power generation landscape." },
@@ -192,7 +186,7 @@ export function TimelineSection() {
         <Reveal variant="up">
           <div className="text-center max-w-2xl mx-auto mb-12 md:mb-16">
             <span className="inline-flex items-center gap-1.5 text-sm font-medium text-[#DB1B0C] mb-3">
-              Our Journey <BoltIcon />
+              Our Journey <Zap size={14} />
             </span>
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
               A Legacy of Power &amp; Progress

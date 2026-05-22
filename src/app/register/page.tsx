@@ -4,16 +4,10 @@ import { Accordion } from '@/components/Accordion'
 import { RegisterHero } from '@/components/PageHeroes'
 import { Reveal } from '@/components/Reveal'
 import { IMAGES } from '@/lib/images'
+import { Zap } from 'lucide-react'
 
 export const metadata: Metadata = { title: 'Register With Us – Vendor Programme' }
 
-function BoltIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M13 2L4.5 13.5H11L10 22L20.5 10H14L13 2Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
-    </svg>
-  )
-}
 
 const accordionItems = [
   {
@@ -100,7 +94,7 @@ export default function RegisterPage() {
             </Reveal>
             <Reveal variant="right" delay={0.15}>
               <div>
-                <span className="inline-flex items-center gap-1.5 text-sm text-[#DB1B0C] mb-3">Register With Us <BoltIcon /></span>
+                <span className="inline-flex items-center gap-1.5 text-sm text-[#DB1B0C] mb-3">Register With Us <Zap size={14} /></span>
                 <h2 className="text-2xl md:text-3xl font-bold text-[#0E121D] mb-5">Vendor Registration Program</h2>
                 <p className="text-[#797979] leading-relaxed mb-4 text-base">
                   In our bid to enhance our business relationship with our vendors and ensure that their operations are guided
@@ -130,7 +124,7 @@ export default function RegisterPage() {
         <div className="max-w-5xl mx-auto px-6">
           <Reveal variant="up">
             <div className="text-center mb-8">
-              <span className="inline-flex items-center gap-1.5 text-sm text-[#DB1B0C] mb-3">About DUNS Number <BoltIcon /></span>
+              <span className="inline-flex items-center gap-1.5 text-sm text-[#DB1B0C] mb-3">About DUNS Number <Zap size={14} /></span>
               <h2 className="text-2xl md:text-3xl font-bold text-[#0E121D]">What is a DUNS Number?</h2>
             </div>
           </Reveal>

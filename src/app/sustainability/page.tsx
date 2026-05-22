@@ -3,16 +3,10 @@ import Link from 'next/link'
 import { SustainabilityHero } from '@/components/PageHeroes'
 import { Reveal } from '@/components/Reveal'
 import { IMAGES } from '@/lib/images'
+import { Zap } from 'lucide-react'
 
 export const metadata: Metadata = { title: 'Sustainability & CSR' }
 
-function BoltIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M13 2L4.5 13.5H11L10 22L20.5 10H14L13 2Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
-    </svg>
-  )
-}
 
 function Check() {
   return (
@@ -68,7 +62,7 @@ export default function SustainabilityPage() {
         <div className="max-w-[1280px] mx-auto px-6">
           <Reveal variant="up">
             <div className="text-center max-w-2xl mx-auto mb-12">
-              <span className="inline-flex items-center gap-1.5 text-sm text-[#DB1B0C] mb-3">ESG Commitment <BoltIcon /></span>
+              <span className="inline-flex items-center gap-1.5 text-sm text-[#DB1B0C] mb-3">ESG Commitment <Zap size={14} /></span>
               <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0E121D] mb-4">
                 Environment, Social, and Governance (ESG)
               </h2>
@@ -253,7 +247,7 @@ export default function SustainabilityPage() {
             </Reveal>
             <Reveal variant="right" delay={0.15}>
               <div>
-                <span className="inline-flex items-center gap-1.5 text-sm text-[#DB1B0C] mb-3">Our SDG Goals <BoltIcon /></span>
+                <span className="inline-flex items-center gap-1.5 text-sm text-[#DB1B0C] mb-3">Our SDG Goals <Zap size={14} /></span>
                 <h2 className="text-2xl md:text-3xl font-bold text-[#0E121D] mb-4">Our Commitment to SDG Goals</h2>
                 <p className="text-[#797979] leading-relaxed mb-6 text-base">
                   We align our projects with the United Nations Sustainable Development Goals (SDGs), ensuring our impact
@@ -296,7 +290,7 @@ export default function SustainabilityPage() {
             </Reveal>
             <Reveal variant="right" delay={0.1}>
               <div>
-                <span className="inline-flex items-center gap-1.5 text-sm text-[#DB1B0C] mb-3">Our Initiatives <BoltIcon /></span>
+                <span className="inline-flex items-center gap-1.5 text-sm text-[#DB1B0C] mb-3">Our Initiatives <Zap size={14} /></span>
                 <h2 className="text-2xl md:text-3xl font-bold text-[#0E121D] mb-4">
                   Empowering Communities,<br />Building Futures
                 </h2>

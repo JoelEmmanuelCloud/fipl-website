@@ -5,16 +5,10 @@ import { NewsTabs } from '@/components/NewsTabs'
 import { NewsHero } from '@/components/PageHeroes'
 import { Reveal } from '@/components/Reveal'
 import { IMAGES } from '@/lib/images'
+import { Zap } from 'lucide-react'
 
 export const metadata: Metadata = { title: 'News & Media' }
 
-function BoltIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M13 2L4.5 13.5H11L10 22L20.5 10H14L13 2Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
-    </svg>
-  )
-}
 
 const insights = articles.slice(0, 3)
 const insightImages = [IMAGES.news.insight1, IMAGES.news.insight2, IMAGES.news.insight3]
@@ -34,7 +28,7 @@ export default function NewsPage() {
           <Reveal variant="up">
             <div className="text-center max-w-xl mx-auto mb-10">
               <span className="inline-flex items-center gap-1.5 text-sm text-[#DB1B0C] mb-3">
-                News &amp; Blog <BoltIcon />
+                News &amp; Blog <Zap size={14} />
               </span>
               <h2 className="text-2xl md:text-3xl font-bold text-[#0E121D]">
                 Insights, Updates &amp; Industry News

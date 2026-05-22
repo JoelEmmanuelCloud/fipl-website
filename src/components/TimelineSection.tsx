@@ -12,160 +12,174 @@ function BoltIcon() {
 }
 
 const milestones = [
-  {
-    year: '1998',
-    title: 'Company Founded',
-    desc: "FIPL was established as part of the Sahara Group with a vision to transform Nigeria's power generation landscape.",
-  },
-  {
-    year: '2001',
-    title: 'Omoku Power Plant',
-    desc: 'Received our first major award, marking a reputation for excellence in tailored business solutions.',
-  },
-  {
-    year: '2005',
-    title: 'Afam Power Plant',
-    desc: 'Successfully integrated the Afam Power Station, significantly increasing our generation capacity.',
-  },
-  {
-    year: '2010',
-    title: 'Trans Amadi Expansion',
-    desc: 'Developed the Trans-Amadi Gas Turbine Power Plant, strengthening our presence in Rivers State.',
-  },
-  {
-    year: '2015',
-    title: 'Eleme Integration',
-    desc: 'Added the Eleme Gas Turbine Power Plant to our portfolio, enhancing regional power supply.',
-  },
-  {
-    year: '2020',
-    title: 'Sustainability Initiatives',
-    desc: 'Launched comprehensive environmental and sustainability programs across all facilities.',
-  },
-  {
-    year: '2024',
-    title: 'Digital Transformation',
-    desc: 'Launched comprehensive digital transformation initiatives across all FIPL facilities.',
-  },
+  { year: '1998', title: 'Company Founded', desc: "FIPL was established as part of the Sahara Group with a vision to transform Nigeria's power generation landscape." },
+  { year: '2001', title: 'Omoku Power Plant', desc: 'Commissioned the Omoku Power Plant with 150MW installed capacity, delivering reliable power to Rivers State.' },
+  { year: '2005', title: 'Afam Power Plant', desc: 'Successfully integrated the Afam Power Station, significantly increasing our generation capacity to 180MW.' },
+  { year: '2010', title: 'Trans Amadi Expansion', desc: 'Developed the Trans-Amadi Gas Turbine Power Plant, strengthening our presence in Rivers State.' },
+  { year: '2015', title: 'Eleme Integration', desc: 'Added the Eleme Gas Turbine Power Plant to our portfolio, enhancing regional power supply.' },
+  { year: '2020', title: 'Sustainability Initiatives', desc: 'Launched comprehensive environmental and sustainability programs across all four facilities.' },
+  { year: '2024', title: 'Digital Transformation', desc: 'Advancing digital systems and smart grid integration across all power generation facilities.' },
 ]
 
-const LINE_TRANSITION = 'transform 1.8s cubic-bezier(0.22, 1, 0.36, 1)'
+const CW = 1280
+const CH = 1000
+const CARD_W = 220
 
-function TimelineLine({ mobile = false }: { mobile?: boolean }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const [drawn, setDrawn] = useState(false)
+const SNAKE = `M 170 320 C 170 230 360 210 540 210 L 860 210 C 1060 210 1120 280 1120 450 C 1120 620 1000 640 840 640 L 380 640 C 190 640 160 690 160 840 C 160 960 280 980 420 980 L 1000 980`
+
+const LAYOUT = [
+  { i: 0, nx: 170,  ny: 320,  cx: 10,   cy: 340,  large: true,  sx2: -1,   sy2: -1   },
+  { i: 1, nx: 460,  ny: 210,  cx: 350,  cy: 10,   large: false, sx2: 460,  sy2: 195  },
+  { i: 2, nx: 800,  ny: 210,  cx: 690,  cy: 10,   large: false, sx2: 800,  sy2: 195  },
+  { i: 3, nx: 1120, ny: 450,  cx: 870,  cy: 340,  large: false, sx2: 1090, sy2: 450  },
+  { i: 4, nx: 840,  ny: 640,  cx: 730,  cy: 660,  large: false, sx2: 840,  sy2: 660  },
+  { i: 5, nx: 400,  ny: 640,  cx: 290,  cy: 660,  large: false, sx2: 400,  sy2: 660  },
+  { i: 6, nx: 720,  ny: 980,  cx: 600,  cy: 760,  large: false, sx2: 720,  sy2: 945  },
+]
+
+function SnakeTimeline() {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const pathRef = useRef<SVGPathElement>(null)
+  const pathLenRef = useRef(3400)
+  const [offset, setOffset] = useState(3400)
+  const [progress, setProgress] = useState(0)
+  const animated = useRef(false)
 
   useEffect(() => {
-    const el = ref.current
+    if (pathRef.current) {
+      const len = pathRef.current.getTotalLength()
+      pathLenRef.current = len
+      setOffset(len)
+    }
+  }, [])
+
+  useEffect(() => {
+    const el = containerRef.current
     if (!el) return
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setDrawn(true)
-          obs.disconnect()
+    const obs = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting && !animated.current) {
+        animated.current = true
+        const len = pathLenRef.current
+        const start = performance.now()
+        const dur = 2800
+        const tick = (now: number) => {
+          const t = Math.min((now - start) / dur, 1)
+          const eased = 1 - Math.pow(1 - t, 2)
+          const p = eased
+          setOffset(len * (1 - p))
+          setProgress(p)
+          if (t < 1) requestAnimationFrame(tick)
         }
-      },
-      { threshold: 0.05 }
-    )
+        requestAnimationFrame(tick)
+      }
+    }, { threshold: 0.08 })
     obs.observe(el)
     return () => obs.disconnect()
   }, [])
 
-  const inner = (
-    <div
-      ref={ref}
-      className="w-full h-full"
-      style={{
-        background: 'linear-gradient(to bottom, #F47820, #DB1B0C)',
-        transformOrigin: 'top center',
-        transform: drawn ? 'scaleY(1)' : 'scaleY(0)',
-        transition: LINE_TRANSITION,
-      }}
-    />
-  )
-
-  if (mobile) {
-    return (
-      <div className="absolute left-[19px] top-0 bottom-0 w-0.5 overflow-hidden">
-        {inner}
-      </div>
-    )
-  }
-
   return (
-    <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-[3px] overflow-hidden">
-      {inner}
-    </div>
-  )
-}
+    <div ref={containerRef} className="relative" style={{ width: CW, height: CH }}>
+      <svg
+        width={CW}
+        height={CH}
+        viewBox={`0 0 ${CW} ${CH}`}
+        fill="none"
+        className="absolute inset-0"
+      >
+        <defs>
+          <linearGradient id="snakeGrad" x1="0" y1="0" x2={CW} y2={CH} gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stopColor="#D97300" />
+            <stop offset="100%" stopColor="#DB1B0C" />
+          </linearGradient>
+        </defs>
 
-function MilestoneCard({ item }: { item: typeof milestones[0] }) {
-  const cardRef = useRef<HTMLDivElement>(null)
-  const [displayYear, setDisplayYear] = useState(item.year)
-  const hasAnimated = useRef(false)
+        <path
+          ref={pathRef}
+          d={SNAKE}
+          stroke="url(#snakeGrad)"
+          strokeWidth="14"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeDasharray={pathLenRef.current}
+          strokeDashoffset={offset}
+        />
 
-  useEffect(() => {
-    const el = cardRef.current
-    if (!el) return
+        {LAYOUT.map((n) =>
+          n.sx2 >= 0 ? (
+            <line
+              key={`stem-${n.i}`}
+              x1={n.nx} y1={n.ny}
+              x2={n.sx2} y2={n.sy2}
+              stroke="#DB1B0C"
+              strokeWidth="1.5"
+              strokeDasharray="5 4"
+              opacity={progress > (n.i + 0.6) / 7 ? 1 : 0}
+              style={{ transition: 'opacity 0.35s ease' }}
+            />
+          ) : null
+        )}
 
-    const target = parseInt(item.year, 10)
-    const startValue = target - 28
+        <circle
+          cx={170} cy={320} r={36}
+          fill="white"
+          stroke="url(#snakeGrad)"
+          strokeWidth="8"
+          opacity={progress > 0.06 ? 1 : 0}
+          style={{ transition: 'opacity 0.4s ease' }}
+        />
+        <circle
+          cx={170} cy={320} r={12}
+          fill="#DB1B0C"
+          opacity={progress > 0.06 ? 1 : 0}
+          style={{ transition: 'opacity 0.4s ease' }}
+        />
 
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !hasAnimated.current) {
-          hasAnimated.current = true
-          const duration = 700
-          const startTime = performance.now()
+        {LAYOUT.slice(1).map((n) => {
+          const show = progress > (n.i + 0.4) / 7
+          return (
+            <g key={`node-${n.i}`} opacity={show ? 1 : 0} style={{ transition: 'opacity 0.35s ease' }}>
+              <circle cx={n.nx} cy={n.ny} r={18} fill="white" stroke="#DB1B0C" strokeWidth="3.5" />
+              <circle cx={n.nx} cy={n.ny} r={7} fill="#DB1B0C" />
+            </g>
+          )
+        })}
+      </svg>
 
-          const tick = (now: number) => {
-            const progress = Math.min((now - startTime) / duration, 1)
-            const eased = 1 - Math.pow(1 - progress, 3)
-            setDisplayYear(String(Math.round(startValue + (target - startValue) * eased)))
-            if (progress < 1) {
-              requestAnimationFrame(tick)
-            } else {
-              setDisplayYear(item.year)
-            }
-          }
-
-          requestAnimationFrame(tick)
-          obs.disconnect()
-        }
-      },
-      { threshold: 0.5 }
-    )
-    obs.observe(el)
-    return () => obs.disconnect()
-  }, [item.year])
-
-  return (
-    <div
-      ref={cardRef}
-      style={{ border: '1.6px solid #DB1B0C', overflow: 'hidden', fontFamily: 'Arial, sans-serif' }}
-      className="transition-shadow duration-300 hover:shadow-lg"
-    >
-      <div style={{ background: 'white', padding: '14px 20px 12px' }}>
-        <span style={{
-          color: '#DB1B0C',
-          fontSize: 26,
-          fontWeight: 700,
-          letterSpacing: '-0.5px',
-          fontVariantNumeric: 'tabular-nums',
-          display: 'inline-block',
-          minWidth: '4ch',
-        }}>
-          {displayYear}
-        </span>
-      </div>
-      <div style={{ background: '#DB1B0C', padding: '16px 20px 20px', textAlign: 'center' }}>
-        <div style={{ color: 'white', fontSize: 15, fontWeight: 700, marginBottom: 8, lineHeight: 1.3 }}>
-          {item.title}
-        </div>
-        <div style={{ color: 'rgba(255,255,255,0.88)', fontSize: 12.5, lineHeight: 1.6 }}>
-          {item.desc}
-        </div>
-      </div>
+      {LAYOUT.map((n) => {
+        const m = milestones[n.i]
+        const show = progress > (n.i + 0.5) / 7
+        return (
+          <div
+            key={m.year}
+            className="absolute"
+            style={{
+              left: n.cx,
+              top: n.cy,
+              width: CARD_W,
+              border: '1.6px solid #DB1B0C',
+              overflow: 'hidden',
+              opacity: show ? 1 : 0,
+              transform: `translateY(${show ? 0 : 10}px)`,
+              transition: 'opacity 0.5s ease, transform 0.5s ease',
+              fontFamily: 'Arial, sans-serif',
+            }}
+          >
+            <div style={{ background: 'white', padding: '12px 16px 10px' }}>
+              <span style={{ color: '#DB1B0C', fontSize: 20, fontWeight: 700, display: 'block' }}>
+                {m.year}
+              </span>
+            </div>
+            <div style={{ background: '#DB1B0C', padding: '12px 16px 16px', textAlign: 'center' }}>
+              <div style={{ color: 'white', fontWeight: 700, fontSize: 14, marginBottom: 8, lineHeight: 1.35 }}>
+                {m.title}
+              </div>
+              <div style={{ color: 'rgba(255,255,255,0.88)', fontSize: 11.5, lineHeight: 1.6 }}>
+                {m.desc}
+              </div>
+            </div>
+          </div>
+        )
+      })}
     </div>
   )
 }
@@ -189,47 +203,34 @@ export function TimelineSection() {
           </div>
         </Reveal>
 
-        <div className="relative hidden md:block">
-          <TimelineLine />
-          {milestones.map((item, i) => {
-            const isLeft = i % 2 === 0
-            return (
-              <Reveal key={item.year} variant={isLeft ? 'left' : 'right'} delay={i * 0.08}>
-                <div className="grid grid-cols-[1fr_48px_1fr] items-center py-5">
-                  <div className="pr-10">
-                    {isLeft && <MilestoneCard item={item} />}
-                  </div>
-                  <div className="flex items-center justify-center">
-                    <div
-                      className="relative z-10 w-5 h-5 rounded-full bg-white flex items-center justify-center"
-                      style={{ border: '2.5px solid #DB1B0C' }}
-                    >
-                      <div className="w-2 h-2 rounded-full bg-[#DB1B0C]" />
-                    </div>
-                  </div>
-                  <div className="pl-10">
-                    {!isLeft && <MilestoneCard item={item} />}
-                  </div>
-                </div>
-              </Reveal>
-            )
-          })}
+        <div className="hidden lg:block overflow-x-auto">
+          <SnakeTimeline />
         </div>
 
-        <div className="relative md:hidden">
-          <TimelineLine mobile />
-          <div className="space-y-6">
-            {milestones.map((item, i) => (
-              <Reveal key={item.year} variant="right" delay={i * 0.06}>
-                <div className="flex gap-5 items-start">
+        <div className="lg:hidden relative">
+          <div
+            className="absolute left-4 top-0 bottom-0 w-0.5"
+            style={{ background: 'linear-gradient(to bottom, #D97300, #DB1B0C)' }}
+          />
+          <div className="space-y-6 pl-14">
+            {milestones.map((m, i) => (
+              <Reveal key={m.year} variant="right" delay={i * 0.06}>
+                <div
+                  className="relative"
+                  style={{ border: '1.6px solid #DB1B0C', overflow: 'hidden', fontFamily: 'Arial, sans-serif' }}
+                >
                   <div
-                    className="shrink-0 relative z-10 w-10 h-10 rounded-full bg-white flex items-center justify-center mt-2"
-                    style={{ border: '2.5px solid #DB1B0C' }}
+                    className="absolute -left-10 top-4 w-5 h-5 rounded-full bg-white flex items-center justify-center z-10"
+                    style={{ border: '3px solid #DB1B0C' }}
                   >
-                    <div className="w-3 h-3 rounded-full bg-[#DB1B0C]" />
+                    <div className="w-2 h-2 rounded-full bg-[#DB1B0C]" />
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <MilestoneCard item={item} />
+                  <div style={{ background: 'white', padding: '12px 16px 10px' }}>
+                    <span style={{ color: '#DB1B0C', fontSize: 18, fontWeight: 700 }}>{m.year}</span>
+                  </div>
+                  <div style={{ background: '#DB1B0C', padding: '12px 16px 16px' }}>
+                    <div style={{ color: 'white', fontWeight: 700, fontSize: 14, marginBottom: 6 }}>{m.title}</div>
+                    <div style={{ color: 'rgba(255,255,255,0.88)', fontSize: 12, lineHeight: 1.6 }}>{m.desc}</div>
                   </div>
                 </div>
               </Reveal>

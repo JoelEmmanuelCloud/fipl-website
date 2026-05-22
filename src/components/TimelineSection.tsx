@@ -1,42 +1,99 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, ReactNode } from 'react'
+import { Power, Factory, TowerControl, Cpu, Leaf, Flame, GaugeCircle, Zap } from 'lucide-react'
 import { Reveal } from '@/components/Reveal'
-import { Zap } from 'lucide-react'
 
+type Direction = 'top' | 'bottom' | 'left' | 'top-left'
 
-const milestones = [
-  { year: '1998', title: 'Company Founded', desc: "FIPL was established as part of the Sahara Group with a vision to transform Nigeria's power generation landscape." },
-  { year: '2001', title: 'Omoku Power Plant', desc: 'Commissioned the Omoku Power Plant with 150MW installed capacity, delivering reliable power to Rivers State.' },
-  { year: '2005', title: 'Afam Power Plant', desc: 'Successfully integrated the Afam Power Station, significantly increasing our generation capacity to 180MW.' },
-  { year: '2010', title: 'Trans Amadi Expansion', desc: 'Developed the Trans-Amadi Gas Turbine Power Plant, strengthening our presence in Rivers State.' },
-  { year: '2015', title: 'Eleme Integration', desc: 'Added the Eleme Gas Turbine Power Plant to our portfolio, enhancing regional power supply.' },
-  { year: '2020', title: 'Sustainability Initiatives', desc: 'Launched comprehensive environmental and sustainability programs across all four facilities.' },
-  { year: '2024', title: 'Digital Transformation', desc: 'Advancing digital systems and smart grid integration across all power generation facilities.' },
+interface Milestone {
+  year: string
+  title: string
+  desc: string
+  cardLeft: string
+  cardTop: string
+  dotLeft: string
+  dotTop: string
+  direction: Direction
+  icon: ReactNode
+}
+
+const milestones: Milestone[] = [
+  {
+    year: '1998',
+    title: 'Company Founded',
+    desc: "FIPL was established as part of the Sahara Group with a vision to transform Nigeria's power generation landscape.",
+    cardLeft: '6%', cardTop: '73%',
+    dotLeft: '4.5%', dotTop: '56%',
+    direction: 'left',
+    icon: <Power className="w-8 h-8 text-[#DB1B0C]" strokeWidth={2.5} />,
+  },
+  {
+    year: '2001',
+    title: 'Omoku Power Plant',
+    desc: 'Commissioned the Omoku Power Plant with 150MW installed capacity, delivering reliable power to Rivers State.',
+    cardLeft: '36%', cardTop: '63%',
+    dotLeft: '33%', dotTop: '50%',
+    direction: 'bottom',
+    icon: <Factory className="w-8 h-8 text-[#DB1B0C]" strokeWidth={2.5} />,
+  },
+  {
+    year: '2005',
+    title: 'Afam Power Plant',
+    desc: 'Successfully integrated the Afam Power Station, significantly increasing our generation capacity to 180MW.',
+    cardLeft: '20%', cardTop: '4%',
+    dotLeft: '52%', dotTop: '18%',
+    direction: 'top-left',
+    icon: <TowerControl className="w-8 h-8 text-[#DB1B0C]" strokeWidth={2.5} />,
+  },
+  {
+    year: '2010',
+    title: 'Trans Amadi Expansion',
+    desc: 'Developed the Trans-Amadi Gas Turbine Power Plant, strengthening our presence in Rivers State.',
+    cardLeft: '66%', cardTop: '4%',
+    dotLeft: '66%', dotTop: '18%',
+    direction: 'top',
+    icon: <GaugeCircle className="w-8 h-8 text-[#DB1B0C]" strokeWidth={2.5} />,
+  },
+  {
+    year: '2015',
+    title: 'Eleme Integration',
+    desc: 'Added the Eleme Gas Turbine Power Plant to our portfolio, enhancing regional power supply.',
+    cardLeft: '56%', cardTop: '74%',
+    dotLeft: '74%', dotTop: '63%',
+    direction: 'left',
+    icon: <Flame className="w-8 h-8 text-[#DB1B0C]" strokeWidth={2.5} />,
+  },
+  {
+    year: '2020',
+    title: 'Sustainability Initiatives',
+    desc: 'Launched comprehensive environmental and sustainability programs across all four facilities.',
+    cardLeft: '85%', cardTop: '68%',
+    dotLeft: '86%', dotTop: '49%',
+    direction: 'bottom',
+    icon: <Cpu className="w-8 h-8 text-[#DB1B0C]" strokeWidth={2.5} />,
+  },
+  {
+    year: '2024',
+    title: 'Digital Transformation',
+    desc: 'Advancing digital systems and smart grid integration across all power generation facilities.',
+    cardLeft: '83%', cardTop: '10%',
+    dotLeft: '93%', dotTop: '45%',
+    direction: 'top',
+    icon: <Leaf className="w-8 h-8 text-[#DB1B0C]" strokeWidth={2.5} />,
+  },
 ]
 
-const CW = 1280
-const CH = 1000
-const CARD_W = 220
+const CH = 900
 const SCALE = 0.72
 
-const SNAKE = `M 170 320 C 170 230 360 210 540 210 L 860 210 C 1060 210 1120 280 1120 450 C 1120 620 1000 640 840 640 L 380 640 C 190 640 160 690 160 840 C 160 960 280 980 420 980 L 1000 980`
+const SVG_PATH = `M120 120 L120 620 Q120 700 200 700 L260 700 Q330 700 330 620 L330 500 Q330 420 410 420 L520 420 Q600 420 600 330 L600 210 Q600 140 670 140 L860 140 Q940 140 940 220 L940 510 Q940 610 1040 610 L1120 610 Q1200 610 1200 530 L1200 310 Q1200 220 1280 220 L1310 220`
 
-const LAYOUT = [
-  { i: 0, nx: 170,  ny: 320,  cx: 10,   cy: 340,  large: true,  sx2: -1,   sy2: -1   },
-  { i: 1, nx: 460,  ny: 210,  cx: 350,  cy: 10,   large: false, sx2: 460,  sy2: 195  },
-  { i: 2, nx: 800,  ny: 210,  cx: 690,  cy: 10,   large: false, sx2: 800,  sy2: 195  },
-  { i: 3, nx: 1120, ny: 450,  cx: 870,  cy: 340,  large: false, sx2: 1090, sy2: 450  },
-  { i: 4, nx: 840,  ny: 640,  cx: 730,  cy: 660,  large: false, sx2: 840,  sy2: 660  },
-  { i: 5, nx: 400,  ny: 640,  cx: 290,  cy: 660,  large: false, sx2: 400,  sy2: 660  },
-  { i: 6, nx: 720,  ny: 980,  cx: 600,  cy: 760,  large: false, sx2: 720,  sy2: 945  },
-]
-
-function SnakeTimeline() {
+function ZigZagTimeline() {
   const containerRef = useRef<HTMLDivElement>(null)
   const pathRef = useRef<SVGPathElement>(null)
-  const pathLenRef = useRef(3400)
-  const [offset, setOffset] = useState(3400)
+  const pathLenRef = useRef(3000)
+  const [offset, setOffset] = useState(3000)
   const [progress, setProgress] = useState(0)
   const animated = useRef(false)
 
@@ -60,9 +117,8 @@ function SnakeTimeline() {
         const tick = (now: number) => {
           const t = Math.min((now - start) / dur, 1)
           const eased = 1 - Math.pow(1 - t, 2)
-          const p = eased
-          setOffset(len * (1 - p))
-          setProgress(p)
+          setOffset(len * (1 - eased))
+          setProgress(eased)
           if (t < 1) requestAnimationFrame(tick)
         }
         requestAnimationFrame(tick)
@@ -73,105 +129,127 @@ function SnakeTimeline() {
   }, [])
 
   return (
-    <div ref={containerRef} className="relative" style={{ width: CW, height: CH }}>
+    <div ref={containerRef} className="relative w-full overflow-hidden" style={{ height: CH }}>
+      <div className="absolute left-8 top-0 h-full w-24 bg-orange-100/40 skew-x-[-12deg] pointer-events-none" />
+
       <svg
-        width={CW}
-        height={CH}
-        viewBox={`0 0 ${CW} ${CH}`}
+        viewBox="0 0 1400 900"
+        className="absolute inset-0 w-full h-full"
+        preserveAspectRatio="none"
         fill="none"
-        className="absolute inset-0"
       >
         <defs>
-          <linearGradient id="snakeGrad" x1="0" y1="0" x2={CW} y2={CH} gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stopColor="#D97300" />
-            <stop offset="100%" stopColor="#DB1B0C" />
+          <linearGradient id="zigGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#DB1B0C" />
+            <stop offset="100%" stopColor="#D97300" />
           </linearGradient>
         </defs>
-
         <path
           ref={pathRef}
-          d={SNAKE}
-          stroke="url(#snakeGrad)"
-          strokeWidth="14"
+          d={SVG_PATH}
+          stroke="url(#zigGrad)"
+          strokeWidth="18"
           strokeLinecap="round"
-          strokeLinejoin="round"
           strokeDasharray={pathLenRef.current}
           strokeDashoffset={offset}
         />
-
-        {LAYOUT.map((n) =>
-          n.sx2 >= 0 ? (
-            <line
-              key={`stem-${n.i}`}
-              x1={n.nx} y1={n.ny}
-              x2={n.sx2} y2={n.sy2}
-              stroke="#DB1B0C"
-              strokeWidth="1.5"
-              strokeDasharray="5 4"
-              opacity={progress > (n.i + 0.6) / 7 ? 1 : 0}
-              style={{ transition: 'opacity 0.35s ease' }}
-            />
-          ) : null
-        )}
-
-        <circle
-          cx={170} cy={320} r={36}
-          fill="white"
-          stroke="url(#snakeGrad)"
-          strokeWidth="8"
-          opacity={progress > 0.06 ? 1 : 0}
-          style={{ transition: 'opacity 0.4s ease' }}
-        />
-        <circle
-          cx={170} cy={320} r={12}
-          fill="#DB1B0C"
-          opacity={progress > 0.06 ? 1 : 0}
-          style={{ transition: 'opacity 0.4s ease' }}
-        />
-
-        {LAYOUT.slice(1).map((n) => {
-          const show = progress > (n.i + 0.4) / 7
-          return (
-            <g key={`node-${n.i}`} opacity={show ? 1 : 0} style={{ transition: 'opacity 0.35s ease' }}>
-              <circle cx={n.nx} cy={n.ny} r={18} fill="white" stroke="#DB1B0C" strokeWidth="3.5" />
-              <circle cx={n.nx} cy={n.ny} r={7} fill="#DB1B0C" />
-            </g>
-          )
-        })}
       </svg>
 
-      {LAYOUT.map((n) => {
-        const m = milestones[n.i]
-        const show = progress > (n.i + 0.5) / 7
+      <div
+        className="absolute z-20 flex items-center justify-center rounded-full bg-white shadow-lg"
+        style={{
+          left: 70, top: 70, width: 96, height: 96,
+          border: '6px solid #D97300',
+          opacity: progress > 0.02 ? 1 : 0,
+          transition: 'opacity 0.4s ease',
+        }}
+      >
+        <span style={{ color: '#D97300', fontWeight: 900, fontSize: 26, fontStyle: 'italic', fontFamily: 'Arial, sans-serif' }}>FIPL</span>
+      </div>
+
+      <div
+        className="absolute z-20 flex items-center justify-center rounded-full bg-white shadow-lg"
+        style={{
+          left: 75, top: 300, width: 80, height: 80,
+          border: '6px solid #D97300',
+          opacity: progress > 0.06 ? 1 : 0,
+          transition: 'opacity 0.4s ease',
+        }}
+      >
+        <div style={{ width: 32, height: 32, borderRadius: '50%', border: '5px solid #DB1B0C', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div style={{ position: 'absolute', width: 4, height: 16, background: '#DB1B0C', top: -10, borderRadius: 2 }} />
+        </div>
+      </div>
+
+      {milestones.map((m, idx) => {
+        const nodeShow = progress > (idx + 1.2) / 8
         return (
           <div
-            key={m.year}
-            className="absolute"
+            key={`node-${m.year}`}
+            className="absolute z-30 flex items-center justify-center rounded-full bg-white shadow-lg"
             style={{
-              left: n.cx,
-              top: n.cy,
-              width: CARD_W,
-              border: '1.6px solid #DB1B0C',
-              overflow: 'hidden',
-              opacity: show ? 1 : 0,
-              transform: `translateY(${show ? 0 : 10}px)`,
-              transition: 'opacity 0.5s ease, transform 0.5s ease',
-              fontFamily: 'Arial, sans-serif',
+              left: m.dotLeft, top: m.dotTop,
+              width: 80, height: 80,
+              border: '6px solid #D97300',
+              opacity: nodeShow ? 1 : 0,
+              transition: 'opacity 0.35s ease',
             }}
           >
-            <div style={{ background: 'white', padding: '12px 16px 10px' }}>
-              <span style={{ color: '#DB1B0C', fontSize: 20, fontWeight: 700, display: 'block' }}>
-                {m.year}
-              </span>
-            </div>
-            <div style={{ background: '#DB1B0C', padding: '12px 16px 16px', textAlign: 'center' }}>
-              <div style={{ color: 'white', fontWeight: 700, fontSize: 14, marginBottom: 8, lineHeight: 1.35 }}>
-                {m.title}
+            {m.icon}
+          </div>
+        )
+      })}
+
+      {milestones.map((m, idx) => {
+        const cardShow = progress > (idx + 0.8) / 8
+        return (
+          <div
+            key={`card-${m.year}`}
+            className="absolute z-20"
+            style={{
+              left: m.cardLeft, top: m.cardTop,
+              opacity: cardShow ? 1 : 0,
+              transform: `translateY(${cardShow ? 0 : 10}px)`,
+              transition: 'opacity 0.5s ease, transform 0.5s ease',
+            }}
+          >
+            <div
+              className="w-[250px] overflow-hidden shadow-xl"
+              style={{ border: '1.5px solid #DB1B0C', fontFamily: 'Arial, sans-serif' }}
+            >
+              <div style={{ background: 'white', padding: '10px 16px 8px' }}>
+                <span style={{ color: '#DB1B0C', fontSize: 22, fontWeight: 700 }}>{m.year}</span>
               </div>
-              <div style={{ color: 'rgba(255,255,255,0.88)', fontSize: 11.5, lineHeight: 1.6 }}>
-                {m.desc}
+              <div style={{ background: '#DB1B0C', padding: '14px 16px 18px' }}>
+                <div style={{ color: 'white', fontWeight: 700, fontSize: 16, marginBottom: 8, lineHeight: 1.3 }}>{m.title}</div>
+                <div style={{ color: 'rgba(255,255,255,0.88)', fontSize: 12, lineHeight: 1.7 }}>{m.desc}</div>
               </div>
             </div>
+
+            {m.direction === 'bottom' && (
+              <>
+                <div className="absolute left-1/2 -translate-x-1/2 top-[-120px] h-[120px] w-[2px] bg-[#DB1B0C]" />
+                <div className="absolute left-1/2 -translate-x-1/2 top-[-126px] w-3 h-3 rounded-full bg-[#DB1B0C]" />
+              </>
+            )}
+            {m.direction === 'top' && (
+              <>
+                <div className="absolute left-1/2 -translate-x-1/2 bottom-[-120px] h-[120px] w-[2px] bg-[#DB1B0C]" />
+                <div className="absolute left-1/2 -translate-x-1/2 bottom-[-126px] w-3 h-3 rounded-full bg-[#DB1B0C]" />
+              </>
+            )}
+            {m.direction === 'left' && (
+              <>
+                <div className="absolute right-[-95px] top-1/2 -translate-y-1/2 w-[95px] h-[2px] bg-[#DB1B0C]" />
+                <div className="absolute right-[-107px] top-[calc(50%-6px)] w-3 h-3 rounded-full bg-[#DB1B0C]" />
+              </>
+            )}
+            {m.direction === 'top-left' && (
+              <>
+                <div className="absolute right-[-140px] top-1/2 -translate-y-1/2 w-[140px] h-[2px] bg-[#DB1B0C]" />
+                <div className="absolute right-[-152px] top-[calc(50%-6px)] w-3 h-3 rounded-full bg-[#DB1B0C]" />
+              </>
+            )}
           </div>
         )
       })}
@@ -199,8 +277,8 @@ export function TimelineSection() {
         </Reveal>
 
         <div className="hidden lg:block overflow-hidden" style={{ height: Math.round(CH * SCALE) }}>
-          <div style={{ transform: `scale(${SCALE})`, transformOrigin: 'top left', width: CW, height: CH }}>
-            <SnakeTimeline />
+          <div style={{ transform: `scale(${SCALE})`, transformOrigin: 'top left', width: '100%', height: CH }}>
+            <ZigZagTimeline />
           </div>
         </div>
 

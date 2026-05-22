@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect, useRef, useState } from 'react'
 import { Reveal } from '@/components/Reveal'
 
 function BoltIcon() {
@@ -48,22 +49,116 @@ const milestones = [
   },
 ]
 
+const LINE_TRANSITION = 'transform 1.8s cubic-bezier(0.22, 1, 0.36, 1)'
+
+function TimelineLine({ mobile = false }: { mobile?: boolean }) {
+  const ref = useRef<HTMLDivElement>(null)
+  const [drawn, setDrawn] = useState(false)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setDrawn(true)
+          obs.disconnect()
+        }
+      },
+      { threshold: 0.05 }
+    )
+    obs.observe(el)
+    return () => obs.disconnect()
+  }, [])
+
+  const inner = (
+    <div
+      ref={ref}
+      className="w-full h-full"
+      style={{
+        background: 'linear-gradient(to bottom, #F47820, #DB1B0C)',
+        transformOrigin: 'top center',
+        transform: drawn ? 'scaleY(1)' : 'scaleY(0)',
+        transition: LINE_TRANSITION,
+      }}
+    />
+  )
+
+  if (mobile) {
+    return (
+      <div className="absolute left-[19px] top-0 bottom-0 w-0.5 overflow-hidden">
+        {inner}
+      </div>
+    )
+  }
+
+  return (
+    <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-[3px] overflow-hidden">
+      {inner}
+    </div>
+  )
+}
+
 function MilestoneCard({ item }: { item: typeof milestones[0] }) {
+  const cardRef = useRef<HTMLDivElement>(null)
+  const [displayYear, setDisplayYear] = useState(item.year)
+  const hasAnimated = useRef(false)
+
+  useEffect(() => {
+    const el = cardRef.current
+    if (!el) return
+
+    const target = parseInt(item.year, 10)
+    const startValue = target - 28
+
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasAnimated.current) {
+          hasAnimated.current = true
+          const duration = 700
+          const startTime = performance.now()
+
+          const tick = (now: number) => {
+            const progress = Math.min((now - startTime) / duration, 1)
+            const eased = 1 - Math.pow(1 - progress, 3)
+            setDisplayYear(String(Math.round(startValue + (target - startValue) * eased)))
+            if (progress < 1) {
+              requestAnimationFrame(tick)
+            } else {
+              setDisplayYear(item.year)
+            }
+          }
+
+          requestAnimationFrame(tick)
+          obs.disconnect()
+        }
+      },
+      { threshold: 0.5 }
+    )
+    obs.observe(el)
+    return () => obs.disconnect()
+  }, [item.year])
+
   return (
     <div
+      ref={cardRef}
       style={{ border: '1.6px solid #DB1B0C', overflow: 'hidden', fontFamily: 'Arial, sans-serif' }}
       className="transition-shadow duration-300 hover:shadow-lg"
     >
       <div style={{ background: 'white', padding: '14px 20px 12px' }}>
-        <span style={{ color: '#DB1B0C', fontSize: 26, fontWeight: 700, letterSpacing: '-0.5px' }}>
-          {item.year}
+        <span style={{
+          color: '#DB1B0C',
+          fontSize: 26,
+          fontWeight: 700,
+          letterSpacing: '-0.5px',
+          fontVariantNumeric: 'tabular-nums',
+          display: 'inline-block',
+          minWidth: '4ch',
+        }}>
+          {displayYear}
         </span>
       </div>
-      <div style={{
-        background: '#DB1B0C',
-        padding: '16px 20px 20px',
-        textAlign: 'center',
-      }}>
+      <div style={{ background: '#DB1B0C', padding: '16px 20px 20px', textAlign: 'center' }}>
         <div style={{ color: 'white', fontSize: 15, fontWeight: 700, marginBottom: 8, lineHeight: 1.3 }}>
           {item.title}
         </div>
@@ -95,10 +190,7 @@ export function TimelineSection() {
         </Reveal>
 
         <div className="relative hidden md:block">
-          <div
-            className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-[3px]"
-            style={{ background: 'linear-gradient(to bottom, #F47820, #DB1B0C)' }}
-          />
+          <TimelineLine />
           {milestones.map((item, i) => {
             const isLeft = i % 2 === 0
             return (
@@ -125,10 +217,7 @@ export function TimelineSection() {
         </div>
 
         <div className="relative md:hidden">
-          <div
-            className="absolute left-[19px] top-0 bottom-0 w-0.5"
-            style={{ background: 'linear-gradient(to bottom, #F47820, #DB1B0C)' }}
-          />
+          <TimelineLine mobile />
           <div className="space-y-6">
             {milestones.map((item, i) => (
               <Reveal key={item.year} variant="right" delay={i * 0.06}>

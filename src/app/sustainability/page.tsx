@@ -138,14 +138,14 @@ export default function SustainabilityPage() {
                   className="absolute inset-0 bg-cover bg-center"
                   style={{
                     backgroundImage: `url('${IMAGES.sustainability.nature}')`,
-                    clipPath: 'polygon(0 0, 90% 0, 78% 50%, 0 50%)',
+                    clipPath: 'polygon(10% 0, 100% 0, 100% 50%, 22% 50%)',
                   }}
                 />
                 <div
                   className="absolute inset-0 bg-cover bg-center"
                   style={{
                     backgroundImage: `url('${IMAGES.sustainability.nature}')`,
-                    clipPath: 'polygon(0 50%, 89% 50%, 78% 100%, 0 100%)',
+                    clipPath: 'polygon(11% 50%, 100% 50%, 100% 100%, 22% 100%)',
                   }}
                 />
               </div>
@@ -215,14 +215,14 @@ export default function SustainabilityPage() {
                   className="absolute inset-0 bg-cover bg-center"
                   style={{
                     backgroundImage: `url('${IMAGES.sustainability.governance}')`,
-                    clipPath: 'polygon(0 0, 90% 0, 78% 50%, 0 50%)',
+                    clipPath: 'polygon(10% 0, 100% 0, 100% 50%, 22% 50%)',
                   }}
                 />
                 <div
                   className="absolute inset-0 bg-cover bg-center"
                   style={{
                     backgroundImage: `url('${IMAGES.sustainability.governance}')`,
-                    clipPath: 'polygon(0 50%, 89% 50%, 78% 100%, 0 100%)',
+                    clipPath: 'polygon(11% 50%, 100% 50%, 100% 100%, 22% 100%)',
                   }}
                 />
               </div>

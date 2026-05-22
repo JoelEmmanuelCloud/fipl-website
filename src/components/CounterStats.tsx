@@ -37,12 +37,12 @@ function Counter({ stat }: { stat: Stat }) {
   }, [stat.value])
 
   return (
-    <div ref={ref} className="flex-1 text-center py-6 flex flex-col items-center justify-center">
+    <div ref={ref} className="flex-1 text-center py-6 px-6 flex flex-col items-center justify-center">
       <div className="mb-3 flex items-center justify-center" style={{ width: 40, height: 40 }}>{stat.icon}</div>
       <div className="text-4xl font-extrabold text-white leading-none mb-2">
         {stat.display ?? `${count}${stat.suffix ?? ''}`}
       </div>
-      <div className="text-base text-white/80 leading-relaxed">{stat.label}</div>
+      <div className="text-base text-white/80 leading-relaxed max-w-[160px]">{stat.label}</div>
     </div>
   )
 }

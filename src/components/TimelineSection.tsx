@@ -24,6 +24,7 @@ const milestones = [
 const CW = 1280
 const CH = 1000
 const CARD_W = 220
+const SCALE = 0.72
 
 const SNAKE = `M 170 320 C 170 230 360 210 540 210 L 860 210 C 1060 210 1120 280 1120 450 C 1120 620 1000 640 840 640 L 380 640 C 190 640 160 690 160 840 C 160 960 280 980 420 980 L 1000 980`
 
@@ -203,8 +204,10 @@ export function TimelineSection() {
           </div>
         </Reveal>
 
-        <div className="hidden lg:block overflow-x-auto">
-          <SnakeTimeline />
+        <div className="hidden lg:block overflow-x-auto" style={{ height: Math.round(CH * SCALE) }}>
+          <div style={{ transform: `scale(${SCALE})`, transformOrigin: 'top left', width: CW, height: CH }}>
+            <SnakeTimeline />
+          </div>
         </div>
 
         <div className="lg:hidden relative">

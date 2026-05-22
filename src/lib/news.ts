@@ -8,7 +8,7 @@ export interface NewsArticle {
   dateISO: string
   category: 'Operations' | 'Community' | 'Corporate' | 'Partnerships' | 'Updates'
   readTime: string
-  imagePlaceholder: string
+  image: string
 }
 
 export const articles: NewsArticle[] = [
@@ -28,7 +28,7 @@ export const articles: NewsArticle[] = [
     dateISO: '2024-01-12',
     category: 'Operations',
     readTime: '5 min read',
-    imagePlaceholder: 'Aerial photo of FIPL power plant',
+    image: '/images/news/article1.png',
   },
   {
     id: '2',
@@ -45,7 +45,7 @@ export const articles: NewsArticle[] = [
     dateISO: '2024-01-02',
     category: 'Updates',
     readTime: '3 min read',
-    imagePlaceholder: 'FIPL eligible customers form',
+    image: '/images/news/article2.png',
   },
   {
     id: '3',
@@ -62,7 +62,7 @@ export const articles: NewsArticle[] = [
     dateISO: '2023-12-15',
     category: 'Corporate',
     readTime: '2 min read',
-    imagePlaceholder: 'Vendor registration announcement',
+    image: '/images/news/article3.png',
   },
   {
     id: '4',
@@ -79,7 +79,7 @@ export const articles: NewsArticle[] = [
     dateISO: '2023-11-30',
     category: 'Partnerships',
     readTime: '4 min read',
-    imagePlaceholder: 'FIPL and GE partnership signing',
+    image: '/images/news/article1.png',
   },
   {
     id: '5',
@@ -95,7 +95,7 @@ export const articles: NewsArticle[] = [
     dateISO: '2023-10-10',
     category: 'Community',
     readTime: '4 min read',
-    imagePlaceholder: 'Community development programme',
+    image: '/images/news/article2.png',
   },
   {
     id: '6',
@@ -111,7 +111,7 @@ export const articles: NewsArticle[] = [
     dateISO: '2024-01-08',
     category: 'Operations',
     readTime: '3 min read',
-    imagePlaceholder: 'FIPL HSE safety milestone',
+    image: '/images/news/article3.png',
   },
 ]
 

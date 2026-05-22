@@ -122,7 +122,7 @@ export default function PowerPlantsPage() {
                 id={plant.id}
                 className={`scroll-mt-20 flex flex-col ${plant.imageLeft ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-0 bg-white shadow-sm border border-gray-100 fipl-card-hover`}
               >
-                <div className="lg:w-[420px] shrink-0 overflow-hidden relative h-[240px] md:h-[280px] lg:h-full">
+                <div className="lg:w-[420px] shrink-0 overflow-hidden relative h-[240px] md:h-[280px] lg:self-stretch">
                   <div
                     className="absolute inset-0 bg-cover bg-center"
                     style={{

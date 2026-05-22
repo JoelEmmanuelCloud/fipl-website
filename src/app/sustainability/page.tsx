@@ -132,13 +132,23 @@ export default function SustainabilityPage() {
                 </ul>
               </div>
             </Reveal>
-            <Reveal variant="clip" delay={0.15} duration={0.9}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={IMAGES.sustainability.nature}
-                alt="Sustainability"
-                className="w-full h-[320px] md:h-[400px] object-cover"
-              />
+            <Reveal variant="fade" delay={0.15} duration={0.9}>
+              <div className="relative h-[320px] md:h-[400px] w-full">
+                <div
+                  className="absolute inset-0 bg-cover bg-center"
+                  style={{
+                    backgroundImage: `url('${IMAGES.sustainability.nature}')`,
+                    clipPath: 'polygon(0 0, 90% 0, 78% 50%, 0 50%)',
+                  }}
+                />
+                <div
+                  className="absolute inset-0 bg-cover bg-center"
+                  style={{
+                    backgroundImage: `url('${IMAGES.sustainability.nature}')`,
+                    clipPath: 'polygon(0 50%, 89% 50%, 78% 100%, 0 100%)',
+                  }}
+                />
+              </div>
             </Reveal>
           </div>
         </div>
@@ -148,13 +158,23 @@ export default function SustainabilityPage() {
       <section className="py-12 md:py-16 lg:py-20">
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-            <Reveal variant="clip" duration={0.9}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={IMAGES.sustainability.workplace}
-                alt="Health and Safety"
-                className="w-full h-[320px] md:h-[400px] object-cover"
-              />
+            <Reveal variant="fade" duration={0.9}>
+              <div className="relative h-[320px] md:h-[400px] w-full">
+                <div
+                  className="absolute inset-0 bg-cover bg-center"
+                  style={{
+                    backgroundImage: `url('${IMAGES.sustainability.workplace}')`,
+                    clipPath: 'polygon(0 0, 90% 0, 78% 50%, 0 50%)',
+                  }}
+                />
+                <div
+                  className="absolute inset-0 bg-cover bg-center"
+                  style={{
+                    backgroundImage: `url('${IMAGES.sustainability.workplace}')`,
+                    clipPath: 'polygon(0 50%, 89% 50%, 78% 100%, 0 100%)',
+                  }}
+                />
+              </div>
             </Reveal>
             <Reveal variant="right" delay={0.15}>
               <div>
@@ -189,13 +209,23 @@ export default function SustainabilityPage() {
                 </p>
               </div>
             </Reveal>
-            <Reveal variant="clip" delay={0.15} duration={0.9}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={IMAGES.sustainability.governance}
-                alt="Corporate Governance"
-                className="w-full h-[320px] md:h-[400px] object-cover"
-              />
+            <Reveal variant="fade" delay={0.15} duration={0.9}>
+              <div className="relative h-[320px] md:h-[400px] w-full">
+                <div
+                  className="absolute inset-0 bg-cover bg-center"
+                  style={{
+                    backgroundImage: `url('${IMAGES.sustainability.governance}')`,
+                    clipPath: 'polygon(0 0, 90% 0, 78% 50%, 0 50%)',
+                  }}
+                />
+                <div
+                  className="absolute inset-0 bg-cover bg-center"
+                  style={{
+                    backgroundImage: `url('${IMAGES.sustainability.governance}')`,
+                    clipPath: 'polygon(0 50%, 89% 50%, 78% 100%, 0 100%)',
+                  }}
+                />
+              </div>
             </Reveal>
           </div>
         </div>

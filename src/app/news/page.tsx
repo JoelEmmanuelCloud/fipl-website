@@ -21,7 +21,7 @@ const insightImages = [IMAGES.news.insight1, IMAGES.news.insight2, IMAGES.news.i
 
 export default function NewsPage() {
   return (
-    <>
+    <div className="page-bolt-bg">
       {/* ── Hero ──────────────────────────────────────────────────── */}
       <NewsHero />
 
@@ -81,6 +81,6 @@ export default function NewsPage() {
           </div>
         </div>
       </section>
-    </>
+    </div>
   )
 }

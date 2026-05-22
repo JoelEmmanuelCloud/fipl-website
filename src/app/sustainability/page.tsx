@@ -59,7 +59,7 @@ const esgCards = [
 
 export default function SustainabilityPage() {
   return (
-    <>
+    <div className="page-bolt-bg">
       {/* ── Hero ──────────────────────────────────────────────────── */}
       <SustainabilityHero />
 
@@ -331,6 +331,6 @@ export default function SustainabilityPage() {
           </div>
         </div>
       </section>
-    </>
+    </div>
   )
 }

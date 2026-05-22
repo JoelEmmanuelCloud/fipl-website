@@ -56,7 +56,7 @@ const contactItems = [
 
 export default function ContactPage() {
   return (
-    <>
+    <div className="page-bolt-bg">
       {/* ── Hero ──────────────────────────────────────────────────── */}
       <ContactHero />
 
@@ -154,6 +154,6 @@ export default function ContactPage() {
           </Reveal>
         </div>
       </section>
-    </>
+    </div>
   )
 }

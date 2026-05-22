@@ -24,7 +24,7 @@ export function SplashScreen() {
       setDone(true)
       markSplashDone()
       window.dispatchEvent(new CustomEvent(SPLASH_EVENT))
-    }, 3750)
+    }, 3550)
     return () => { clearTimeout(t1); clearTimeout(t2) }
   }, [textReady])
 
@@ -35,7 +35,7 @@ export function SplashScreen() {
       className="splash-root"
       style={{
         transform: lifting ? 'translateY(-100%)' : 'translateY(0)',
-        transition: lifting ? 'transform 0.5s cubic-bezier(0.76, 0, 0.24, 1)' : 'none',
+        transition: lifting ? 'transform 0.3s cubic-bezier(0.76, 0, 0.24, 1)' : 'none',
       }}
     >
       <div className="splash-globe-wrap" aria-hidden="true">

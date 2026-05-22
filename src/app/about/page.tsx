@@ -190,8 +190,12 @@ export default function AboutPage() {
 
       {/* ── 4. Core Values ──────────────────────────────────────── */}
       <section
-        className="py-14 md:py-20 lg:py-24 relative overflow-hidden"
-        style={{ background: 'linear-gradient(269deg, #D97300 1%, #DB1B0C 100%)' }}
+        className="pb-14 md:pb-20 lg:pb-24 relative overflow-hidden"
+        style={{
+          background: 'linear-gradient(269deg, #D97300 1%, #DB1B0C 100%)',
+          clipPath: 'polygon(0 70px, 54% 0, 50% 90px, 100% 25px, 100% 100%, 0 100%)',
+          paddingTop: 'calc(90px + 3.5rem)',
+        }}
       >
         <div
           className="absolute inset-0 opacity-[0.04] pointer-events-none"

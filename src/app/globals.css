@@ -4,7 +4,7 @@
 
 @layer base {
   html { scroll-behavior: smooth; }
-  body { font-family: var(--font-poppins), Poppins, sans-serif; }
+  body { font-family: Arial, sans-serif; }
 }
 
 /* ── Custom gradient utilities ───────────────────── */
@@ -475,7 +475,7 @@
 
 /* Small "WE ARE" label during cycling phase */
 .splash-we-are-small {
-  font-family: var(--font-poppins), Poppins, sans-serif;
+  font-family: Arial, sans-serif;
   font-size: clamp(10px, 1.6vw, 12px);
   font-weight: 700;
   letter-spacing: 0.5em;
@@ -499,7 +499,7 @@
 /* Cycling words — all absolutely stacked */
 .splash-word {
   position: absolute;
-  font-family: var(--font-poppins), Poppins, sans-serif;
+  font-family: Arial, sans-serif;
   font-weight: 800;
   font-size: clamp(36px, 10vw, 100px);
   letter-spacing: -0.025em;
@@ -539,7 +539,7 @@
 
 /* Big "WE ARE" — same scale as the cycling words, this is the payoff */
 .splash-we-are-big {
-  font-family: var(--font-poppins), Poppins, sans-serif;
+  font-family: Arial, sans-serif;
   font-weight: 800;
   font-size: clamp(46px, 10vw, 100px);
   letter-spacing: -0.025em;
@@ -572,7 +572,7 @@
 
 /* Company name */
 .splash-finale-name {
-  font-family: var(--font-poppins), Poppins, sans-serif;
+  font-family: Arial, sans-serif;
   font-size: clamp(8px, 1.1vw, 10px);
   font-weight: 600;
   letter-spacing: 0.3em;

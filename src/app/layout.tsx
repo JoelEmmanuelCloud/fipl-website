@@ -1,25 +1,9 @@
 import type { Metadata } from 'next'
-import { Poppins, Barlow_Condensed } from 'next/font/google'
 import './globals.css'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { BackToTop } from '@/components/BackToTop'
 import { SplashScreen } from '@/components/SplashScreen'
-
-const poppins = Poppins({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700', '800'],
-  variable: '--font-poppins',
-  display: 'swap',
-})
-
-const barlowCondensed = Barlow_Condensed({
-  subsets: ['latin'],
-  weight: ['900'],
-  style: ['italic'],
-  variable: '--font-barlow',
-  display: 'swap',
-})
 
 export const metadata: Metadata = {
   title: {
@@ -37,7 +21,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${poppins.variable} ${barlowCondensed.variable}`}>
+    <html lang="en">
       <body className="antialiased text-gray-800 bg-white overflow-x-hidden">
         <SplashScreen />
         <Header />

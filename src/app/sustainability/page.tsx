@@ -79,17 +79,25 @@ export default function SustainabilityPage() {
               </p>
             </div>
           </Reveal>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 md:gap-12">
+          <div className="flex flex-col sm:flex-row items-stretch">
             {esgCards.map((card, i) => (
-              <Reveal key={card.title} variant="scale" delay={i * 0.15}>
-                <div className="text-center flex flex-col items-center gap-4 fipl-card-hover p-6">
-                  <div style={{ animation: `floatOrb ${3 + i * 0.5}s ease-in-out ${i * 0.4}s infinite` }}>
-                    {card.icon}
+              <div key={card.title} className="flex flex-1 items-stretch">
+                <Reveal variant="scale" delay={i * 0.15} className="flex-1">
+                  <div className="text-center flex flex-col items-center gap-4 fipl-card-hover p-6">
+                    <div style={{ animation: `floatOrb ${3 + i * 0.5}s ease-in-out ${i * 0.4}s infinite` }}>
+                      {card.icon}
+                    </div>
+                    <h3 className="text-xl font-bold text-[#0E121D]">{card.title}</h3>
+                    <p className="text-[#797979] text-base leading-relaxed">{card.desc}</p>
                   </div>
-                  <h3 className="text-xl font-bold text-[#0E121D]">{card.title}</h3>
-                  <p className="text-[#797979] text-base leading-relaxed">{card.desc}</p>
-                </div>
-              </Reveal>
+                </Reveal>
+                {i < esgCards.length - 1 && (
+                  <div
+                    className="hidden sm:block w-px self-stretch flex-shrink-0"
+                    style={{ background: 'linear-gradient(to bottom, transparent 5%, rgba(0,0,0,0.12) 50%, transparent 95%)' }}
+                  />
+                )}
+              </div>
             ))}
           </div>
         </div>

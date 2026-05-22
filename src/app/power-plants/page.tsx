@@ -122,12 +122,20 @@ export default function PowerPlantsPage() {
                 id={plant.id}
                 className={`scroll-mt-20 flex flex-col ${plant.imageLeft ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-0 bg-white shadow-sm border border-gray-100 fipl-card-hover`}
               >
-                <div className="lg:w-[420px] shrink-0 overflow-hidden">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={plant.image}
-                    alt={plant.name}
-                    className="w-full h-[240px] md:h-[280px] lg:h-full object-cover transition-transform duration-700 hover:scale-105"
+                <div className="lg:w-[420px] shrink-0 overflow-hidden relative h-[240px] md:h-[280px] lg:h-full">
+                  <div
+                    className="absolute inset-0 bg-cover bg-center"
+                    style={{
+                      backgroundImage: `url('${plant.image}')`,
+                      clipPath: 'polygon(0 0, 90% 0, 78% 50%, 0 50%)',
+                    }}
+                  />
+                  <div
+                    className="absolute inset-0 bg-cover bg-center"
+                    style={{
+                      backgroundImage: `url('${plant.image}')`,
+                      clipPath: 'polygon(0 50%, 89% 50%, 78% 100%, 0 100%)',
+                    }}
                   />
                 </div>
                 <div className="flex-1 p-7 md:p-8 lg:p-10 flex flex-col justify-center">

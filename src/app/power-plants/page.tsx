@@ -78,7 +78,7 @@ const steps = [
 
 export default function PowerPlantsPage() {
   return (
-    <>
+    <div className="page-bolt-bg">
       {/* ── Hero ──────────────────────────────────────────────────── */}
       <PowerPlantsHero />
 
@@ -157,10 +157,10 @@ export default function PowerPlantsPage() {
       </section>
 
       {/* ── How We Power Nigeria ─────────────────────────────────── */}
-      <section id="how-we-work" className="py-12 md:py-16 lg:py-20 bg-[#f8f8f8]">
+      <section id="how-we-work" className="py-12 md:py-16 lg:py-20 bg-white">
         <div className="max-w-[1280px] mx-auto px-6">
           <Reveal variant="up">
-            <div className="text-center max-w-2xl mx-auto mb-12">
+            <div className="text-center max-w-2xl mx-auto mb-16">
               <span className="inline-flex items-center gap-1.5 text-sm text-[#DB1B0C] mb-3">Our Work Process <BoltIcon /></span>
               <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0E121D] mb-4">How We Power Nigeria</h2>
               <p className="text-[#797979] leading-relaxed text-base">
@@ -169,28 +169,58 @@ export default function PowerPlantsPage() {
             </div>
           </Reveal>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {steps.map((step, i) => (
-              <Reveal key={step.num} variant="scale" delay={i * 0.1}>
-                <div className="relative fipl-card-hover">
-                  <div className="relative h-[200px] overflow-hidden mb-0">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={step.image} alt={step.title} className="w-full h-full object-cover transition-transform duration-700 hover:scale-110" />
-                    <div className="absolute inset-0 bg-black/40" />
-                    <div className="absolute bottom-3 left-3">
-                      <span className="text-4xl font-extrabold text-white/30">{step.num}</span>
-                    </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[21px] items-end">
+            {steps.map((step, i) => {
+              const isTop = i % 2 === 0
+              return (
+                <Reveal key={step.num} variant="up" delay={i * 0.1}>
+                  <div className="relative flex flex-col">
+                    {isTop ? (
+                      <>
+                        <div className="relative overflow-hidden h-[260px] rounded-tl-[200px] rounded-tr-[200px]">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img src={step.image} alt={step.title} className="w-full h-full object-cover" />
+                        </div>
+                        <div className="relative flex justify-center">
+                          <div
+                            className="absolute -top-[38px] w-[76px] h-[76px] bg-[#D97300] rounded-full flex items-center justify-center z-10"
+                            style={{ border: '10px solid white' }}
+                          >
+                            <span className="text-white font-bold text-xl leading-none">{step.num}</span>
+                          </div>
+                        </div>
+                        <div className="pt-14 text-center px-2">
+                          <h4 className="font-bold text-[#0E121D] text-xl mb-3">{step.title}</h4>
+                          <p className="text-[#797979] leading-relaxed text-base">{step.desc}</p>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="text-center px-2 pb-14">
+                          <h4 className="font-bold text-[#0E121D] text-xl mb-3">{step.title}</h4>
+                          <p className="text-[#797979] leading-relaxed text-base">{step.desc}</p>
+                        </div>
+                        <div className="relative flex justify-center">
+                          <div
+                            className="absolute -top-[38px] w-[76px] h-[76px] bg-[#D97300] rounded-full flex items-center justify-center z-10"
+                            style={{ border: '10px solid white' }}
+                          >
+                            <span className="text-white font-bold text-xl leading-none">{step.num}</span>
+                          </div>
+                        </div>
+                        <div className="relative overflow-hidden h-[260px] rounded-bl-[200px] rounded-br-[200px]">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img src={step.image} alt={step.title} className="w-full h-full object-cover" />
+                        </div>
+                      </>
+                    )}
                   </div>
-                  <div className="bg-white p-5 border border-gray-100 shadow-sm">
-                    <h4 className="font-bold text-[#0E121D] mb-2 text-sm md:text-base">{step.title}</h4>
-                    <p className="text-sm text-[#797979] leading-relaxed">{step.desc}</p>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
+                </Reveal>
+              )
+            })}
           </div>
         </div>
       </section>
-    </>
+    </div>
   )
 }

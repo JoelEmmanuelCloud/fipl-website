@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Carousel } from '@/components/Carousel'
+import { TestimonialsBlock } from '@/components/TestimonialsBlock'
 import { AnimatedNumber } from '@/components/AnimatedNumber'
 import { TimelineSection } from '@/components/TimelineSection'
 import { AboutHero } from '@/components/PageHeroes'
@@ -105,7 +105,7 @@ function BoltIcon({ className }: { className?: string }) {
 
 export default function AboutPage() {
   return (
-    <>
+    <div className="page-bolt-bg">
       {/* ── 1. Hero ─────────────────────────────────────────────── */}
       <AboutHero />
 
@@ -289,23 +289,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── 6. Testimonials ─────────────────────────────────────── */}
-      <section className="py-12 md:py-16 lg:py-20 bg-[#f8f8f8]">
-        <div className="max-w-[1280px] mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
-            <Reveal variant="left">
-              <div>
-                <span className="inline-flex items-center gap-2 text-sm text-[#DB1B0C] mb-4">Testimonials <BoltIcon /></span>
-                <h2 className="text-3xl md:text-4xl font-bold text-[#0E121D] leading-tight">
-                  What Our Stakeholders<br />Say About Us.
-                </h2>
-              </div>
-            </Reveal>
-            <Reveal variant="right" delay={0.1}>
-              <Carousel testimonials={testimonials} />
-            </Reveal>
-          </div>
-        </div>
-      </section>
-    </>
+      <TestimonialsBlock testimonials={testimonials} heading={"What Our Stakeholders\nSay About Us."} />
+    </div>
   )
 }

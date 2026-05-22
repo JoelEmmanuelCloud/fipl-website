@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { Carousel } from '@/components/Carousel'
 import { CareersHero } from '@/components/PageHeroes'
 import { Reveal } from '@/components/Reveal'
 import { IMAGES } from '@/lib/images'
@@ -32,11 +31,6 @@ const jobs = [
   { title: 'Creative Product Developer', date: 'May 9, 2023', dept: 'Creative' },
 ]
 
-const testimonials = [
-  { quote: 'Working at FIPL has given me the chance to grow professionally while contributing to something that truly matters — energy for all.', name: 'Sarah L.', role: 'Lahore, Pakistan' },
-  { quote: 'The culture here is second to none. FIPL genuinely invests in its people and creates real opportunities for career growth across all departments.', name: 'James T.', role: 'CEO of Red Button' },
-  { quote: 'I joined FIPL as a graduate engineer and have grown into a senior operations role. The mentorship and training have been truly exceptional.', name: 'Emeka N.', role: 'Senior Operations Engineer' },
-]
 
 const evpCards = [
   {
@@ -73,7 +67,7 @@ const evpCards = [
 
 export default function CareersPage() {
   return (
-    <>
+    <div className="page-bolt-bg">
       {/* ── Hero ──────────────────────────────────────────────────── */}
       <CareersHero />
 
@@ -81,14 +75,13 @@ export default function CareersPage() {
       <section className="py-12 md:py-16 lg:py-20">
         <div className="max-w-[1280px] mx-auto px-6">
           <Reveal variant="up">
-            <div className="text-center max-w-2xl mx-auto mb-12">
-              <span className="inline-flex items-center gap-1.5 text-sm text-[#DB1B0C] mb-3">Employee Value Proposition <BoltIcon /></span>
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0E121D] mb-4">Why Join FIPL</h2>
-              <p className="text-[#797979] leading-relaxed text-base">
-                First Independent Power Limited is passionate about supporting employees&apos; aspirations by providing limitless
-                opportunities, a growth enabling and collaborative work environment. Our human capital strategies are centred
-                around staff engagement, motivation, productivity and job satisfaction. At FIPL, our EVP tagline is Growth-Opportunity.
-                Culture. Collaboration.
+            <div className="text-center mb-12">
+              <div className="max-w-2xl mx-auto mb-4">
+                <span className="inline-flex items-center gap-1.5 text-sm text-[#DB1B0C] mb-3">Employee Value Proposition <BoltIcon /></span>
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0E121D]">Why Join FIPL</h2>
+              </div>
+              <p className="text-[#797979] leading-relaxed text-base max-w-5xl mx-auto">
+                First Independent Power Limited is passionate about supporting employees&apos; aspirations by providing limitless opportunities, a growth enabling and collaborative work environment. Our human capital strategies are centred around staff engagement, motivation, productivity and job satisfaction. At FIPL, our EVP tagline is Growth-Opportunity. Culture. Collaboration.
               </p>
             </div>
           </Reveal>
@@ -194,8 +187,9 @@ export default function CareersPage() {
           </div>
 
           <Reveal variant="scale" delay={0.1}>
+            <div className="flex justify-center">
             <div
-              className="rounded-none p-10 md:p-14 text-center relative overflow-hidden"
+              className="rounded-3xl p-10 md:p-14 text-center relative overflow-hidden w-full max-w-3xl"
               style={{ background: 'linear-gradient(269deg, #D97300 1%, #DB1B0C 100%)' }}
             >
               <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">Don&apos;t See Your Role?</h3>
@@ -210,28 +204,12 @@ export default function CareersPage() {
                 Join Our Talent Pool ↗
               </Link>
             </div>
+            </div>
           </Reveal>
         </div>
       </section>
 
-      {/* ── Employee Testimonials ─────────────────────────────────── */}
-      <section className="py-12 md:py-16 lg:py-20 bg-[#f8f8f8]">
-        <div className="max-w-[1280px] mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
-            <Reveal variant="left">
-              <div>
-                <span className="inline-flex items-center gap-1.5 text-sm text-[#DB1B0C] mb-4">Testimonials <BoltIcon /></span>
-                <h2 className="text-2xl md:text-3xl font-bold text-[#0E121D]">
-                  What Our Employees<br />Say About Us.
-                </h2>
-              </div>
-            </Reveal>
-            <Reveal variant="right" delay={0.1}>
-              <Carousel testimonials={testimonials} />
-            </Reveal>
-          </div>
-        </div>
-      </section>
-    </>
+
+    </div>
   )
 }

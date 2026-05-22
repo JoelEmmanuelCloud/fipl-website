@@ -42,7 +42,7 @@ function Counter({ stat }: { stat: Stat }) {
       <div className="text-4xl font-extrabold text-white leading-none mb-2">
         {stat.display ?? `${count}${stat.suffix ?? ''}`}
       </div>
-      <div className="text-sm text-white/80">{stat.label}</div>
+      <div className="text-base text-white/80 leading-relaxed">{stat.label}</div>
     </div>
   )
 }
@@ -56,9 +56,9 @@ export function CounterStats({ stats }: { stats: Stat[] }) {
             <div
               className="hidden md:block absolute left-0 top-1/2 -translate-y-1/2"
               style={{
-                width: '2px',
-                height: '70%',
-                background: 'linear-gradient(to bottom, transparent, rgba(255,255,255,0.85), transparent)',
+                width: '1px',
+                height: '80%',
+                background: 'linear-gradient(to bottom, transparent 5%, rgba(255,255,255,0.99) 50%, transparent 95%)',
               }}
             />
           )}

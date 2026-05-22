@@ -134,6 +134,236 @@
   box-shadow: 0 0 12px rgba(244,120,32,0.7), 0 0 28px rgba(224,48,39,0.35);
 }
 
+/* ══════════════════════════════════════════════════
+   CINEMATIC ANIMATION SYSTEM
+   ══════════════════════════════════════════════════ */
+
+/* ── Cinematic hero letterbox ────────────────────── */
+@keyframes cineBarTop {
+  0%   { transform: translateY(0);     opacity: 1; }
+  100% { transform: translateY(-105%); opacity: 1; }
+}
+@keyframes cineBarBottom {
+  0%   { transform: translateY(0);    opacity: 1; }
+  100% { transform: translateY(105%); opacity: 1; }
+}
+@keyframes cineKBOnce {
+  0%   { transform: scale(1)    translate(0,     0);    }
+  100% { transform: scale(1.07) translate(-0.5%, 0.3%); }
+}
+@keyframes cineContentIn {
+  0%   { opacity: 0; transform: translateY(22px); filter: blur(4px); }
+  100% { opacity: 1; transform: translateY(0);    filter: blur(0); }
+}
+@keyframes energyFlare {
+  0%   { transform: translate(0,  0)     scale(1);    opacity: 0.8; }
+  60%  { opacity: 0.5; }
+  100% { transform: translate(0, -120px) scale(0.3);  opacity: 0; }
+}
+
+.cinema-bar-top {
+  animation: cineBarTop 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.25s both;
+}
+.cinema-bar-bottom {
+  animation: cineBarBottom 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.25s both;
+}
+.cinema-kb-once {
+  animation: cineKBOnce 9s ease-out 0.3s both;
+}
+.cinema-content-in {
+  animation: cineContentIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.75s both;
+}
+
+/* ── Scroll reveal animations ────────────────────── */
+@keyframes revealUp {
+  from { opacity: 0; transform: translateY(52px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes revealDown {
+  from { opacity: 0; transform: translateY(-36px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes revealLeft {
+  from { opacity: 0; transform: translateX(-72px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes revealRight {
+  from { opacity: 0; transform: translateX(72px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes revealScale {
+  from { opacity: 0; transform: scale(0.86); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes revealFade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes revealClip {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0% 0 0); }
+}
+@keyframes revealUnblur {
+  from { opacity: 0; filter: blur(8px); transform: scale(1.03); }
+  to   { opacity: 1; filter: blur(0);   transform: scale(1); }
+}
+
+/* ── Ambient glow pulse ──────────────────────────── */
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 0  rgba(219,27,12,0); }
+  50%       { box-shadow: 0 0 32px rgba(219,27,12,0.25); }
+}
+@keyframes glowPulseOrange {
+  0%, 100% { box-shadow: 0 0 0  rgba(217,115,0,0); }
+  50%       { box-shadow: 0 0 40px rgba(217,115,0,0.30); }
+}
+
+/* ── Timeline path drawing ───────────────────────── */
+@keyframes pathDraw {
+  from { stroke-dashoffset: var(--path-len, 3000); }
+  to   { stroke-dashoffset: 0; }
+}
+.timeline-path-draw {
+  stroke-dasharray: var(--path-len, 3000);
+  stroke-dashoffset: var(--path-len, 3000);
+  animation: pathDraw 2.4s cubic-bezier(0.4, 0, 0.2, 1) 0.2s forwards;
+}
+
+/* ── Button shimmer ──────────────────────────────── */
+.btn-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.btn-shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(255,255,255,0.22) 50%,
+    transparent 70%
+  );
+  transform: translateX(-120%);
+  transition: none;
+}
+.btn-shimmer:hover::after {
+  animation: shimmerScan 0.55s ease forwards;
+}
+@keyframes shimmerScan {
+  from { transform: translateX(-120%); }
+  to   { transform: translateX(120%); }
+}
+
+/* ── Card hover lift + glow ──────────────────────── */
+.fipl-card-hover {
+  transition: transform 0.32s cubic-bezier(0.22,1,0.36,1),
+              box-shadow 0.32s cubic-bezier(0.22,1,0.36,1);
+  will-change: transform;
+}
+.fipl-card-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 56px rgba(219,27,12,0.11),
+              0 6px 20px  rgba(0,0,0,0.06);
+}
+
+/* ── Section label underline draw ───────────────── */
+.label-underline {
+  position: relative;
+  display: inline-block;
+}
+.label-underline::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: -2px;
+  height: 1px; width: 100%;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s cubic-bezier(0.22,1,0.36,1);
+}
+.label-underline.in-view::after {
+  transform: scaleX(1);
+}
+
+/* ── Per-page hero accent elements ──────────────── */
+@keyframes heroBadgeIn {
+  from { opacity: 0; transform: translateY(-10px) scale(0.9); }
+  to   { opacity: 1; transform: translateY(0)      scale(1);   }
+}
+@keyframes heroDotPulse {
+  0%, 100% { opacity: 1; transform: scale(1);   }
+  50%       { opacity: 0.35; transform: scale(1.8); }
+}
+@keyframes heroRuleGrow {
+  from { transform: scaleX(0); opacity: 0; }
+  to   { transform: scaleX(1); opacity: 1; }
+}
+@keyframes heroStatIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid rgba(255,255,255,0.22);
+  color: rgba(255,255,255,0.9);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 100px;
+  backdrop-filter: blur(6px);
+  background: rgba(255,255,255,0.07);
+  margin-bottom: 18px;
+}
+.hero-badge-red {
+  background: rgba(219,27,12,0.16);
+  border-color: rgba(219,27,12,0.5);
+}
+.hero-badge-green {
+  background: rgba(34,197,94,0.11);
+  border-color: rgba(34,197,94,0.38);
+}
+.hero-badge-orange {
+  background: rgba(217,115,0,0.16);
+  border-color: rgba(217,115,0,0.5);
+}
+.hero-dot-pulse {
+  display: inline-block;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #22c55e;
+  animation: heroDotPulse 1.4s ease-in-out infinite;
+}
+.hero-eyebrow {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.58);
+  margin-bottom: 12px;
+}
+.hero-tagline {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: rgba(255,255,255,0.62);
+  letter-spacing: 0.02em;
+  line-height: 1.6;
+  margin-top: 14px;
+}
+
+/* ── Floating energy orbs (hero decoration) ──────── */
+@keyframes floatOrb {
+  0%   { transform: translateY(0)     scale(1);   opacity: 0.55; }
+  50%  { transform: translateY(-30px) scale(1.1); opacity: 0.8; }
+  100% { transform: translateY(0)     scale(1);   opacity: 0.55; }
+}
+
 /* ── Article prose ──────────────────────────────── */
 .prose p {
   color: #555;

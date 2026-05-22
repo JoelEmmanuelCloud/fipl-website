@@ -1,139 +1,180 @@
 import type { Metadata } from 'next'
-import { SectionImage } from '@/components/SectionImage'
+import Link from 'next/link'
+import { PowerPlantsHero } from '@/components/PageHeroes'
+import { Reveal } from '@/components/Reveal'
 import { IMAGES } from '@/lib/images'
 
 export const metadata: Metadata = { title: 'Power Plants & Operations' }
+
+function BoltIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M13 2L4.5 13.5H11L10 22L20.5 10H14L13 2Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
+    </svg>
+  )
+}
 
 const plants = [
   {
     id: 'omoku',
     name: 'Omoku Plant',
-    location: 'Omoku, Rivers State',
     image: IMAGES.plants.omoku,
-    desc: "The Omoku Power Plant was commissioned in December 2009 as one of Nigeria's critical gas turbine facilities. It operates as a medium-capacity generation plant with a total capacity of 150MW. It was recently decommissioned for upgrading through the Eligible Customer initiative.",
-    supplier: 'Nigeria Agip Oil Company (NAOC)',
+    desc: 'The Omoku Power Plant is located beside the NAOC Gas Processing Plant in Obrikiri. It was commissioned in December 2006 and has six units of 25MW GE Nuovo Pignone heavy-duty gas turbines, totaling 150MW installed capacity. The plant generates power and transmits it to the national grid via its on-site 132KV switching facility through the Rumuosi Transmission Substation.',
+    supplier: 'Nigerian Agip Oil Company (NAOC)',
+    imageLeft: true,
   },
   {
     id: 'trans-amadi',
     name: 'Trans Amadi Plant',
-    location: 'Trans-Amadi, Port Harcourt',
     image: IMAGES.plants.transAmadi,
-    desc: "Located in the heart of Port Harcourt's industrial district, the Trans-Amadi Power Plant serves the dense commercial and industrial zones of Rivers State capital. In 2012, the Plant was rated at a total capacity of 2 × 37.5MW with Frame 6B, Frame 5P and Frame 5 machines.",
-    supplier: 'Nigeria LNG (NLNG) and SPDC',
+    desc: 'The Trans-Amadi Power Plant is sited in a land area of about 4 Hectares. It has a total installed capacity of 136MW. The plant was commissioned in 2 phases. Phase I consists of 3 x 12MW solar mars gas turbines commissioned in October 2002, while Phase II consists of 4 x 25 MW Nuovo Pignone frame 5 gas turbines commissioned in May 2019. The Power plant has the following facilities: 4 x 25MW GE Nuovo Pignone gas turbines, 3 x 11 MW GE solar mars gas turbines, control buildings, 4 x 36MVA transformers (11KV/132KV), 3 X 73MVA (33KV/132KV) transformers and is supported by 2 black start generators for island mode startup.',
+    supplier: 'Heirs Energies Limited',
+    imageLeft: false,
   },
   {
     id: 'afam',
     name: 'Afam Plant',
-    location: 'Afam, Rivers State',
     image: IMAGES.plants.afam,
-    desc: "The Afam Power Plant is located in Rivers State in Nigeria. It was commissioned in December 2005 with an installed capacity of 13MW, later expanded to 220MW. FIPL's strategic oversight has driven targeted maintenance and optimisation programmes, gradually increasing Afam's available capacity.",
-    supplier: 'Nigeria Agip Trading (NABT) and Eleme Petrochemicals',
+    desc: 'The Afam Power Plant is in Oyigbo LGA of Rivers State. It was commissioned in December 2011 with an installed GE (formerly Alstom) GT13E2 gas turbine of 180MW capacity Installed Capacity and 160MW, exporting an average of 3500MWH per day into the national grid. Evacuation System: 33kV/132kV.',
+    supplier: 'Ohuru Trading Company and Accugas Eleme',
+    imageLeft: true,
   },
   {
     id: 'eleme',
     name: 'Eleme Plant',
-    location: 'Eleme, Rivers State',
     image: IMAGES.plants.eleme,
-    desc: "Eleme Power Station is currently a 75MW installed capacity plant, with an average capacity of 40MW, currently being expanded to increase overall output and efficiency. The plant provides 1 × 25MW Gas Turbine and 2 × 25MW Gas Turbines for a total installed capacity of 75MW.",
-    supplier: 'Eleme Trading Company (ETC)',
+    desc: 'Eleme Power Station has 25MW currently available at the 75MW installed capacity. Plans are in progress to recover an additional 50MW by 2026. Commissioned Dec. 2023 Evacuation System: 33kV to Bilateral Customers. The plant has a provision for future evacuation at 132kV to the Grid.',
+    supplier: 'Ohuru Trading Company',
+    imageLeft: false,
   },
 ]
 
 const steps = [
-  { icon: '⚙', color: 'bg-primary/10 text-primary', title: 'Engineering & Design',          desc: 'Our engineering teams design and optimise every plant to maximise efficiency, safety, and long-term performance while minimising environmental impact.' },
-  { icon: '📊', color: 'bg-accent/10 text-accent',   title: 'Operation & Sustainability',     desc: 'Operational teams maintain peak performance through continuous monitoring, preventive maintenance, and rigorous HSE compliance frameworks.' },
-  { icon: '📋', color: 'bg-primary/10 text-primary', title: 'Project Planning & Feasibility', desc: 'Feasibility studies and detailed planning allow us to make evidence-based decisions, ensuring each investment delivers measurable results.' },
-  { icon: '🔧', color: 'bg-accent/10 text-accent',   title: 'Execution & Commissioning',      desc: 'Stringent testing and commissioning protocols guarantee that every system meets international standards before going live.' },
+  {
+    num: '01',
+    title: 'Project Planning & Feasibility',
+    desc: 'We begin with in-depth research, feasibility studies, and stakeholder consultations to ensure every project is technically sound and commercially viable.',
+    image: IMAGES.plants.step1,
+  },
+  {
+    num: '02',
+    title: 'Engineering & Design',
+    desc: 'Our team develops innovative and sustainable engineering solutions, leveraging global best practices while tailoring designs to local realities.',
+    image: IMAGES.plants.step2,
+  },
+  {
+    num: '03',
+    title: 'Execution & Commissioning',
+    desc: 'From procurement to construction and testing, we deliver projects with strict adherence to safety, timelines, and quality standards.',
+    image: IMAGES.plants.step3,
+  },
+  {
+    num: '04',
+    title: 'Operation & Sustainability',
+    desc: 'Once commissioned, we ensure smooth operations, continuous optimization, and sustainable practices to maximize efficiency and community impact.',
+    image: IMAGES.plants.step4,
+  },
 ]
 
 export default function PowerPlantsPage() {
   return (
     <>
-      <section
-        className="relative min-h-[260px] md:min-h-[380px] lg:min-h-[460px] flex items-center bg-gray-800 bg-no-repeat bg-cover bg-center"
-        style={{ backgroundImage: `url('${IMAGES.plants.hero}')` }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-r from-black/65 to-black/30" />
-        <div className="relative z-10 max-w-[1280px] mx-auto px-6 pt-24 pb-14">
-          <span className="inline-flex items-center gap-2 border border-white/30 bg-white/10 text-white text-sm px-4 py-1.5 rounded-full mb-5 backdrop-blur-sm">
-            Operations ⚡
-          </span>
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">Our Energy Hubs</h1>
-          <p className="text-white/80 max-w-lg leading-relaxed mb-8 text-sm md:text-base">
-            Four strategically located power plants delivering reliable electricity across Rivers State —
-            the backbone of Nigeria&apos;s industrial power supply.
-          </p>
-          <div className="flex gap-6 md:gap-12 flex-wrap">
-            {[['541MW', 'Combined Capacity'], ['4', 'Power Plants'], ['0%', 'Lost Time Injury Rate']].map(([val, lbl]) => (
-              <div key={lbl}>
-                <div className="text-2xl md:text-3xl font-extrabold text-white">{val}</div>
-                <div className="text-xs md:text-sm text-white/70">{lbl}</div>
-              </div>
-            ))}
+      {/* ── Hero ──────────────────────────────────────────────────── */}
+      <PowerPlantsHero />
+
+      {/* ── Our Power Plants intro ────────────────────────────────── */}
+      <section className="py-12 md:py-16">
+        <div className="max-w-[1280px] mx-auto px-6">
+          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+            <Reveal variant="left" className="max-w-2xl">
+              <span className="inline-flex items-center gap-1.5 text-sm text-[#DB1B0C] mb-3">Our Plants <BoltIcon /></span>
+              <h2 className="text-2xl md:text-3xl font-bold text-[#0E121D] mb-4">Our Power Plants</h2>
+              <p className="text-[#797979] leading-relaxed text-base">
+                First Independent Power Limited is a company in the business of power generation in Nigeria
+                located in Rivers State. We own and operate 4 gas turbine power plants within Rivers State located
+                in Trans-Amadi Port-Harcourt, Afam, Omoku and Eleme. FIPL currently has a combined installed
+                capacity of 541MW.
+              </p>
+            </Reveal>
+            <Reveal variant="fade" delay={0.2} className="shrink-0">
+              <Link
+                href="#omoku"
+                className="btn-shimmer inline-flex items-center gap-2 bg-[#DB1B0C] text-white font-semibold px-6 py-3 rounded-md hover:bg-[#b81508] transition-colors text-sm whitespace-nowrap"
+              >
+                Explore All Plants ↗
+              </Link>
+            </Reveal>
           </div>
         </div>
       </section>
 
-      <section className="py-12 md:py-16 bg-gray-50">
-        <div className="max-w-3xl mx-auto px-6 text-center">
-          <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-primary mb-3">Our Portfolio ⚡</span>
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4">Our Power Plants</h2>
-          <p className="text-gray-600 leading-relaxed text-sm md:text-base">
-            FIPL operates a portfolio of four cutting-edge gas turbine power plants, all situated in Rivers
-            State, Nigeria. Together these facilities represent the operational core of FIPL&apos;s mission to
-            provide reliable, efficient, and sustainable power generation.
-          </p>
-        </div>
-      </section>
-
-      <section className="py-8 md:py-12">
-        <div className="max-w-[1280px] mx-auto px-6">
+      {/* ── Plant Cards ───────────────────────────────────────────── */}
+      <section className="pb-12 md:pb-16">
+        <div className="max-w-[1280px] mx-auto px-6 space-y-8">
           {plants.map((plant, i) => (
-            <div
+            <Reveal
               key={plant.id}
-              id={plant.id}
-              className={`grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center mb-16 md:mb-20 last:mb-0 ${
-                i % 2 !== 0 ? 'lg:grid-flow-dense' : ''
-              }`}
+              variant={plant.imageLeft ? 'left' : 'right'}
+              delay={0}
+              duration={0.8}
             >
-              <SectionImage
-                src={plant.image}
-                alt={`${plant.name}`}
-                className={`h-[240px] md:h-[300px] lg:h-[320px] w-full rounded-2xl ${i % 2 !== 0 ? 'lg:col-start-2' : ''}`}
-              />
-              <div className={i % 2 !== 0 ? 'lg:col-start-1 lg:row-start-1' : ''}>
-                <span className="inline-block bg-primary/10 text-primary text-xs font-bold px-3 py-1 rounded-full mb-3">
-                  {plant.location}
-                </span>
-                <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-800 mb-4">{plant.name}</h2>
-                <p className="text-gray-600 leading-relaxed mb-4 text-sm md:text-base">{plant.desc}</p>
-                <p className="text-sm text-gray-400">
-                  <strong className="text-gray-600">Primary Gas Supplier:</strong> {plant.supplier}
-                </p>
+              <div
+                id={plant.id}
+                className={`flex flex-col ${plant.imageLeft ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-0 bg-white shadow-sm border border-gray-100 fipl-card-hover`}
+              >
+                <div className="lg:w-[420px] shrink-0 overflow-hidden">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={plant.image}
+                    alt={plant.name}
+                    className="w-full h-[240px] md:h-[280px] lg:h-full object-cover transition-transform duration-700 hover:scale-105"
+                  />
+                </div>
+                <div className="flex-1 p-7 md:p-8 lg:p-10 flex flex-col justify-center">
+                  <h3 className="text-xl md:text-2xl font-bold text-[#D97300] mb-4">{plant.name}</h3>
+                  <p className="text-[#797979] leading-relaxed text-sm md:text-base mb-4">{plant.desc}</p>
+                  <p className="text-sm text-[#797979]">
+                    <span className="font-semibold text-[#0E121D]">Primary Gas Supplier:</span>{' '}
+                    {plant.supplier}
+                  </p>
+                </div>
               </div>
-            </div>
+            </Reveal>
           ))}
         </div>
       </section>
 
-      <section id="how-we-work" className="py-12 md:py-16 lg:py-20 bg-gray-50">
+      {/* ── How We Power Nigeria ─────────────────────────────────── */}
+      <section id="how-we-work" className="py-12 md:py-16 lg:py-20 bg-[#f8f8f8]">
         <div className="max-w-[1280px] mx-auto px-6">
-          <div className="text-center max-w-2xl mx-auto mb-12 md:mb-14">
-            <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-primary mb-3">Our Work Process ⚡</span>
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800 mb-4">How We Power Nigeria</h2>
-            <p className="text-gray-600 leading-relaxed text-sm md:text-base">Our approach ensures every project is executed with precision, safety, and sustainability at the core.</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-9">
-            {steps.map(({ icon, color, title, desc }) => (
-              <div key={title} className="flex gap-4 md:gap-5">
-                <div className={`w-11 h-11 md:w-12 md:h-12 rounded-xl flex items-center justify-center text-xl shrink-0 ${color}`}>
-                  {icon}
+          <Reveal variant="up">
+            <div className="text-center max-w-2xl mx-auto mb-12">
+              <span className="inline-flex items-center gap-1.5 text-sm text-[#DB1B0C] mb-3">Our Work Process <BoltIcon /></span>
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0E121D] mb-4">How We Power Nigeria</h2>
+              <p className="text-[#797979] leading-relaxed text-base">
+                Our approach ensures every project is executed with precision, safety, and sustainability at the core.
+              </p>
+            </div>
+          </Reveal>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {steps.map((step, i) => (
+              <Reveal key={step.num} variant="scale" delay={i * 0.1}>
+                <div className="relative fipl-card-hover">
+                  <div className="relative h-[200px] overflow-hidden mb-0">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={step.image} alt={step.title} className="w-full h-full object-cover transition-transform duration-700 hover:scale-110" />
+                    <div className="absolute inset-0 bg-black/40" />
+                    <div className="absolute bottom-3 left-3">
+                      <span className="text-4xl font-extrabold text-white/30">{step.num}</span>
+                    </div>
+                  </div>
+                  <div className="bg-white p-5 border border-gray-100 shadow-sm">
+                    <h4 className="font-bold text-[#0E121D] mb-2 text-sm md:text-base">{step.title}</h4>
+                    <p className="text-sm text-[#797979] leading-relaxed">{step.desc}</p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-bold text-gray-800 mb-1.5 text-sm md:text-base">{title}</h4>
-                  <p className="text-sm text-gray-600 leading-relaxed">{desc}</p>
-                </div>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>

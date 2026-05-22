@@ -50,12 +50,12 @@ export function NewsTabs({ articles }: { articles: NewsArticle[] }) {
           <>
             <div className="flex flex-wrap items-center gap-3 mb-7">
               <select
-                className="border border-gray-200 rounded-md px-4 py-2 text-sm bg-white focus:outline-none focus:border-primary"
+                className="border border-gray-200 px-4 py-2 text-sm bg-white focus:outline-none focus:border-[#DB1B0C]"
                 value={filter}
                 onChange={(e) => { setFilter(e.target.value); setPage(1) }}
               >
                 {CATEGORIES.map((c) => (
-                  <option key={c}>{c}</option>
+                  <option key={c}>{c === 'All' ? `Sort By: Date (Newest)` : c}</option>
                 ))}
               </select>
               <div className="relative flex-1 min-w-[200px]">
@@ -64,47 +64,45 @@ export function NewsTabs({ articles }: { articles: NewsArticle[] }) {
                 </svg>
                 <input
                   type="search"
-                  placeholder="Search articles…"
+                  placeholder="Search News..."
                   value={query}
                   onChange={(e) => { setQuery(e.target.value); setPage(1) }}
-                  className="w-full border border-gray-200 rounded-md pl-9 pr-4 py-2 text-sm bg-white focus:outline-none focus:border-primary"
+                  className="w-full border border-gray-200 pl-9 pr-4 py-2 text-sm bg-white focus:outline-none focus:border-[#DB1B0C]"
                 />
               </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-10">
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-10">
               <div>
-                {paged.map((article, i) => (
+                {paged.map((article) => (
                   <article
                     key={article.id}
-                    className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow mb-6"
+                    className="bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow mb-6"
                   >
-                    <div className={`bg-gray-200 flex items-center justify-center text-gray-400 text-sm ${i === 0 ? 'h-44 sm:h-52 md:h-64' : 'h-36 sm:h-40 md:h-48'}`}>
-                      [ {article.imagePlaceholder} ]
+                    {/* Image with date badge */}
+                    <div className="relative h-48 sm:h-56 md:h-64 bg-gray-200 overflow-hidden">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={article.image} alt={article.title} className="w-full h-full object-cover" />
+                      <div className="absolute bottom-0 left-0 bg-[#DB1B0C] text-white text-xs font-bold px-3 py-2 leading-tight">
+                        <div className="text-lg font-extrabold leading-none">{new Date(article.dateISO).getDate()}</div>
+                        <div className="text-[10px] uppercase tracking-wide">{new Date(article.dateISO).toLocaleString('en-US', { month: 'short', year: 'numeric' })}</div>
+                      </div>
                     </div>
-                    <div className="p-7">
-                      <div className="text-[11px] font-bold text-primary uppercase tracking-wider mb-2">
+                    <div className="p-6 md:p-7">
+                      <div className="text-[11px] font-bold text-[#DB1B0C] uppercase tracking-wider mb-2">
                         {article.category}
                       </div>
-                      <div className="flex items-center gap-3 text-xs text-gray-400 mb-3">
-                        <span className="flex items-center gap-1">
-                          <svg className="w-3 h-3 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-                          {article.date}
-                        </span>
-                        <span>·</span>
-                        <span>{article.readTime}</span>
-                      </div>
-                      <h2 className="text-lg font-bold text-gray-800 mb-3 leading-snug">
-                        <Link href={`/news/${article.slug}`} className="hover:text-primary transition-colors">
+                      <h2 className="text-lg font-bold text-[#0E121D] mb-3 leading-snug">
+                        <Link href={`/news/${article.slug}`} className="hover:text-[#DB1B0C] transition-colors">
                           {article.title}
                         </Link>
                       </h2>
-                      <p className="text-sm text-gray-600 mb-4 leading-relaxed">{article.excerpt}</p>
+                      <p className="text-sm text-[#797979] mb-4 leading-relaxed">{article.excerpt}</p>
                       <Link
                         href={`/news/${article.slug}`}
-                        className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:gap-3 transition-all"
+                        className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#DB1B0C] hover:gap-3 transition-all"
                       >
-                        Read More ↗
+                        Reading More ↗
                       </Link>
                     </div>
                   </article>
@@ -143,7 +141,8 @@ export function NewsTabs({ articles }: { articles: NewsArticle[] }) {
                 </div>
                 {recent.map((a) => (
                   <div key={a.id} className="flex gap-3 py-3 border-b border-gray-100">
-                    <div className="w-16 h-16 shrink-0 bg-gray-200 rounded-lg" />
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={a.image} alt={a.title} className="w-16 h-16 shrink-0 rounded-lg object-cover" />
                     <div>
                       <div className="text-[11px] text-gray-400 mb-1">{a.date}</div>
                       <Link

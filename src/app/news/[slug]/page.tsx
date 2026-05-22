@@ -31,7 +31,7 @@ export default function ArticlePage({ params }: Props) {
     <div>
       <section
         className="relative min-h-[420px] flex items-end bg-gray-800 bg-no-repeat bg-cover bg-center pb-12"
-        style={{ backgroundImage: `url('${IMAGES.news.articleBg}')` }}
+        style={{ backgroundImage: `url('${article.image}')` }}
       >
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
         <div className="relative z-10 max-w-7xl mx-auto px-6">
@@ -60,9 +60,12 @@ export default function ArticlePage({ params }: Props) {
                 ← Back to News
               </Link>
 
-              <div className="h-[320px] bg-gray-200 rounded-2xl flex items-center justify-center text-gray-400 text-sm mb-10">
-                [ {article.imagePlaceholder} ]
-              </div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={article.image}
+                alt={article.title}
+                className="w-full h-[320px] object-cover rounded-2xl mb-10"
+              />
 
               <div
                 className="prose prose-gray max-w-none prose-a:text-primary"
@@ -76,7 +79,8 @@ export default function ArticlePage({ params }: Props) {
               </div>
               {recent.map((a) => (
                 <div key={a.id} className="flex gap-3 py-3 border-b border-gray-100">
-                  <div className="w-16 h-14 shrink-0 bg-gray-200 rounded-lg" />
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={a.image} alt={a.title} className="w-16 h-14 shrink-0 rounded-lg object-cover" />
                   <div>
                     <div className="text-[11px] text-gray-400 mb-1">{a.date}</div>
                     <Link

@@ -82,7 +82,7 @@ const accordionItems = [
 
 export default function RegisterPage() {
   return (
-    <>
+    <div className="page-bolt-bg">
       {/* ── Hero ──────────────────────────────────────────────────── */}
       <RegisterHero />
 
@@ -127,7 +127,7 @@ export default function RegisterPage() {
 
       {/* ── DUNS Number ───────────────────────────────────────────── */}
       <section className="py-12 md:py-16 bg-[#f8f8f8]">
-        <div className="max-w-3xl mx-auto px-6">
+        <div className="max-w-5xl mx-auto px-6">
           <Reveal variant="up">
             <div className="text-center mb-8">
               <span className="inline-flex items-center gap-1.5 text-sm text-[#DB1B0C] mb-3">About DUNS Number <BoltIcon /></span>
@@ -194,50 +194,52 @@ export default function RegisterPage() {
       {/* ── Contact section ───────────────────────────────────────── */}
       <section id="registration" className="py-14 md:py-20">
         <div className="max-w-[1280px] mx-auto px-6">
-          <Reveal variant="up">
-            <h2 className="text-2xl md:text-3xl font-bold text-[#0E121D] mb-8">Contact Us</h2>
-          </Reveal>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
-            {[
-              {
-                icon: <svg className="w-4 h-4 text-[#DB1B0C]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>,
-                title: 'First Independent Power  Company Limited',
-                content: <a href="mailto:vendorsupport@fipl-ng.com" className="text-sm text-[#797979] hover:text-[#DB1B0C]">vendorsupport@fipl-ng.com</a>,
-              },
-              {
-                icon: <svg className="w-4 h-4 text-[#DB1B0C]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.69 12a19.79 19.79 0 01-3.07-8.67A2 2 0 013.6 1.18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.91 8.77a16 16 0 006 6l.86-.86a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7a2 2 0 011.72 2.03z"/></svg>,
-                title: 'DUN & Bradsheet',
-                content: (<><p className="text-sm text-[#797979]">Adelola ADEYINKA: +23401-2803777</p><p className="text-sm text-[#797979]">Akinuke Williams: 07043387900</p></>),
-              },
-            ].map(({ icon, title, content }, i) => (
-              <Reveal key={title} variant="up" delay={i * 0.1}>
-                <div className="border border-gray-200 p-6 fipl-card-hover h-full">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-9 h-9 bg-[#DB1B0C]/10 rounded flex items-center justify-center shrink-0">{icon}</div>
-                    <h3 className="font-bold text-[#0E121D] text-sm">{title}</h3>
+          <div className="max-w-2xl mx-auto">
+            <Reveal variant="up">
+              <h2 className="text-2xl md:text-3xl font-bold text-[#0E121D] mb-8">Contact Us</h2>
+            </Reveal>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
+              {[
+                {
+                  icon: <svg className="w-4 h-4 text-[#DB1B0C]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>,
+                  title: 'First Independent Power  Company Limited',
+                  content: <a href="mailto:vendorsupport@fipl-ng.com" className="text-sm text-[#797979] hover:text-[#DB1B0C]">vendorsupport@fipl-ng.com</a>,
+                },
+                {
+                  icon: <svg className="w-4 h-4 text-[#DB1B0C]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.69 12a19.79 19.79 0 01-3.07-8.67A2 2 0 013.6 1.18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.91 8.77a16 16 0 006 6l.86-.86a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7a2 2 0 011.72 2.03z"/></svg>,
+                  title: 'DUN & Bradsheet',
+                  content: (<><p className="text-sm text-[#797979]">Adelola ADEYINKA: +23401-2803777</p><p className="text-sm text-[#797979]">Akinuke Williams: 07043387900</p></>),
+                },
+              ].map(({ icon, title, content }, i) => (
+                <Reveal key={title} variant="up" delay={i * 0.1}>
+                  <div className="border border-gray-200 p-6 fipl-card-hover h-full">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-9 h-9 bg-[#DB1B0C]/10 rounded flex items-center justify-center shrink-0">{icon}</div>
+                      <h3 className="font-bold text-[#0E121D] text-sm">{title}</h3>
+                    </div>
+                    {content}
                   </div>
-                  {content}
-                </div>
-              </Reveal>
-            ))}
-          </div>
-
-          <Reveal variant="scale" delay={0.15}>
-            <div
-              className="rounded-none p-10 md:p-12 text-center relative overflow-hidden"
-              style={{ background: 'linear-gradient(269deg, #D97300 1%, #DB1B0C 100%)' }}
-            >
-              <Link
-                href="mailto:vendorsupport@fipl-ng.com"
-                className="btn-shimmer inline-flex items-center gap-2 bg-white text-[#DB1B0C] font-bold px-8 py-3.5 rounded-md hover:bg-gray-100 transition-colors mb-3"
-              >
-                Click to Register with Us ↗
-              </Link>
-              <p className="text-white/80 text-sm">Signed: Management</p>
+                </Reveal>
+              ))}
             </div>
-          </Reveal>
+
+            <Reveal variant="scale" delay={0.15}>
+              <div
+                className="rounded-2xl p-8 md:p-10 text-center relative overflow-hidden"
+                style={{ background: 'linear-gradient(269deg, #D97300 1%, #DB1B0C 100%)' }}
+              >
+                <Link
+                  href="mailto:vendorsupport@fipl-ng.com"
+                  className="btn-shimmer inline-flex items-center gap-2 bg-white text-[#DB1B0C] font-bold px-8 py-3.5 rounded-md hover:bg-gray-100 transition-colors mb-3"
+                >
+                  Click to Register with Us ↗
+                </Link>
+                <p className="text-white/80 text-sm">Signed: Management</p>
+              </div>
+            </Reveal>
+          </div>
         </div>
       </section>
-    </>
+    </div>
   )
 }

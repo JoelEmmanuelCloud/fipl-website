@@ -49,20 +49,16 @@ function Counter({ stat }: { stat: Stat }) {
 
 export function CounterStats({ stats }: { stats: Stat[] }) {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-0">
+    <div className="grid grid-cols-2 gap-0 md:flex md:flex-row md:items-stretch">
       {stats.map((s, i) => (
-        <div key={s.label} className="relative">
-          {i > 0 && (
+        <div key={s.label} className="flex flex-1 items-stretch">
+          <Counter stat={s} />
+          {i < stats.length - 1 && (
             <div
-              className="hidden md:block absolute left-0 top-1/2 -translate-y-1/2"
-              style={{
-                width: '1px',
-                height: '80%',
-                background: 'linear-gradient(to bottom, transparent 5%, rgba(255,255,255,0.99) 50%, transparent 95%)',
-              }}
+              className="hidden md:block w-px self-stretch flex-shrink-0"
+              style={{ background: 'linear-gradient(to bottom, transparent 5%, rgba(255,255,255,0.99) 50%, transparent 95%)' }}
             />
           )}
-          <Counter stat={s} />
         </div>
       ))}
     </div>

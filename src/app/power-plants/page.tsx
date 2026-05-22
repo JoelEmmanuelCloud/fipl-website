@@ -127,14 +127,18 @@ export default function PowerPlantsPage() {
                     className="absolute inset-0 bg-cover bg-center"
                     style={{
                       backgroundImage: `url('${plant.image}')`,
-                      clipPath: 'polygon(0 0, 90% 0, 78% 50%, 0 50%)',
+                      clipPath: plant.imageLeft
+                        ? 'polygon(0 0, 90% 0, 78% 50%, 0 50%)'
+                        : 'polygon(10% 0, 100% 0, 100% 50%, 22% 50%)',
                     }}
                   />
                   <div
                     className="absolute inset-0 bg-cover bg-center"
                     style={{
                       backgroundImage: `url('${plant.image}')`,
-                      clipPath: 'polygon(0 50%, 89% 50%, 78% 100%, 0 100%)',
+                      clipPath: plant.imageLeft
+                        ? 'polygon(0 50%, 89% 50%, 78% 100%, 0 100%)'
+                        : 'polygon(11% 50%, 100% 50%, 100% 100%, 22% 100%)',
                     }}
                   />
                 </div>

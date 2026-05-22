@@ -1,3 +1,6 @@
+'use client'
+
+import { useEffect, useRef, useState } from 'react'
 import { Reveal } from '@/components/Reveal'
 
 function BoltIcon() {
@@ -46,6 +49,144 @@ const milestones = [
   },
 ]
 
+const SVG_W = 1400
+const SVG_H = 930
+const NODE_R = 22
+const CARD_W = 224
+const CARD_H = 200
+const CARD_TOP_H = 48
+const ROW1_Y = 290
+const ROW2_Y = 670
+const PATH_D = 'M 80,290 L 900,290 C 1100,290 1100,670 900,670 L 280,670'
+
+const nodeData = [
+  { x: 240, y: ROW1_Y, row: 1 },
+  { x: 460, y: ROW1_Y, row: 1 },
+  { x: 680, y: ROW1_Y, row: 1 },
+  { x: 900, y: ROW1_Y, row: 1 },
+  { x: 900, y: ROW2_Y, row: 2 },
+  { x: 660, y: ROW2_Y, row: 2 },
+  { x: 420, y: ROW2_Y, row: 2 },
+]
+
+function SnakeTimeline() {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [scale, setScale] = useState(1)
+
+  useEffect(() => {
+    function measure() {
+      if (containerRef.current) {
+        setScale(containerRef.current.offsetWidth / SVG_W)
+      }
+    }
+    measure()
+    window.addEventListener('resize', measure)
+    return () => window.removeEventListener('resize', measure)
+  }, [])
+
+  return (
+    <div ref={containerRef} style={{ width: '100%', overflow: 'hidden', height: SVG_H * scale }}>
+      <div style={{ width: SVG_W, height: SVG_H, transformOrigin: 'top left', transform: `scale(${scale})` }}>
+        <svg width={SVG_W} height={SVG_H} style={{ display: 'block' }}>
+          <defs>
+            <linearGradient id="snakePathGrad" gradientUnits="userSpaceOnUse" x1="80" y1="0" x2="1100" y2="0">
+              <stop offset="0%" stopColor="#F47820" />
+              <stop offset="100%" stopColor="#DB1B0C" />
+            </linearGradient>
+            <linearGradient id="fiplCircleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#F47820" />
+              <stop offset="100%" stopColor="#D97300" />
+            </linearGradient>
+          </defs>
+
+          <path
+            d={PATH_D}
+            fill="none"
+            stroke="url(#snakePathGrad)"
+            strokeWidth="18"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+
+          <circle cx={80} cy={ROW1_Y} r={52} fill="url(#fiplCircleGrad)" />
+          <text
+            x={80}
+            y={ROW1_Y}
+            textAnchor="middle"
+            dominantBaseline="middle"
+            fill="white"
+            fontFamily="Arial, sans-serif"
+            fontWeight="800"
+            fontSize={15}
+            letterSpacing={2}
+          >
+            FIPL
+          </text>
+
+          {milestones.map((m, i) => {
+            const { x, y, row } = nodeData[i]
+            const cardX = x - CARD_W / 2
+            const cardY = row === 1 ? y - NODE_R - 28 - CARD_H : y + NODE_R + 28
+            const connY1 = row === 1 ? cardY + CARD_H : y + NODE_R
+            const connY2 = row === 1 ? y - NODE_R : cardY
+
+            return (
+              <g key={m.year}>
+                <line
+                  x1={x} y1={connY1}
+                  x2={x} y2={connY2}
+                  stroke="#DB1B0C"
+                  strokeWidth="1.5"
+                  strokeDasharray="5,4"
+                />
+                <foreignObject x={cardX} y={cardY} width={CARD_W} height={CARD_H}>
+                  <div style={{
+                    width: CARD_W,
+                    height: CARD_H,
+                    border: '1.6px solid #DB1B0C',
+                    overflow: 'hidden',
+                    fontFamily: 'Arial, sans-serif',
+                    boxSizing: 'border-box',
+                  }}>
+                    <div style={{
+                      height: CARD_TOP_H,
+                      background: 'white',
+                      display: 'flex',
+                      alignItems: 'center',
+                      paddingLeft: 14,
+                    }}>
+                      <span style={{ color: '#DB1B0C', fontSize: 19, fontWeight: 500 }}>{m.year}</span>
+                    </div>
+                    <div style={{
+                      height: CARD_H - CARD_TOP_H,
+                      background: '#DB1B0C',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      padding: '0 14px',
+                      textAlign: 'center',
+                    }}>
+                      <div style={{ color: 'white', fontSize: 14, fontWeight: 700, marginBottom: 6, lineHeight: 1.3 }}>
+                        {m.title}
+                      </div>
+                      <div style={{ color: 'rgba(255,255,255,0.88)', fontSize: 11, lineHeight: 1.5 }}>
+                        {m.desc}
+                      </div>
+                    </div>
+                  </div>
+                </foreignObject>
+                <circle cx={x} cy={y} r={NODE_R} fill="white" stroke="#DB1B0C" strokeWidth="3" />
+                <circle cx={x} cy={y} r={10} fill="#DB1B0C" />
+              </g>
+            )
+          })}
+        </svg>
+      </div>
+    </div>
+  )
+}
+
 function MilestoneCard({ item }: { item: typeof milestones[0] }) {
   return (
     <div className="border border-gray-200 p-5 bg-white hover:border-[#DB1B0C] hover:shadow-md transition-all">
@@ -75,32 +216,12 @@ export function TimelineSection() {
           </div>
         </Reveal>
 
-        <div className="relative hidden md:block">
-          <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-px bg-gradient-to-b from-[#D97300] to-[#DB1B0C]" />
-          {milestones.map((item, i) => {
-            const isLeft = i % 2 === 0
-            return (
-              <Reveal key={item.year} variant={isLeft ? 'left' : 'right'} delay={i * 0.08}>
-                <div className="grid grid-cols-[1fr_40px_1fr] items-center py-4">
-                  <div className="pr-8">
-                    {isLeft && <MilestoneCard item={item} />}
-                  </div>
-                  <div className="flex items-center justify-center">
-                    <div className="relative z-10 w-10 h-10 rounded-full bg-white border-2 border-[#DB1B0C] flex items-center justify-center">
-                      <div className="w-3 h-3 rounded-full bg-[#DB1B0C]" />
-                    </div>
-                  </div>
-                  <div className="pl-8">
-                    {!isLeft && <MilestoneCard item={item} />}
-                  </div>
-                </div>
-              </Reveal>
-            )
-          })}
+        <div className="hidden md:block">
+          <SnakeTimeline />
         </div>
 
         <div className="relative md:hidden">
-          <div className="absolute left-[19px] top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#D97300] to-[#DB1B0C]" />
+          <div className="absolute left-[19px] top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#F47820] to-[#DB1B0C]" />
           <div className="space-y-6">
             {milestones.map((item, i) => (
               <Reveal key={item.year} variant="right" delay={i * 0.06}>

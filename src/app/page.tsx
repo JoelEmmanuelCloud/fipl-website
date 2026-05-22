@@ -118,13 +118,17 @@ export default function HomePage() {
       </div>
 
       <section
-        className="pb-16 md:pb-20"
+        className="pb-16 md:pb-20 relative overflow-hidden"
         style={{
-          background: 'linear-gradient(270.14deg, #D97300 0.14%, #DB1B0C 98.03%)',
+          background: 'linear-gradient(269deg, #D97300 1%, #DB1B0C 100%)',
           clipPath: 'polygon(0 70px, 54% 0, 50% 90px, 100% 25px, 100% 100%, 0 100%)',
           paddingTop: 'calc(90px + 3.5rem)',
         }}
       >
+        <div
+          className="absolute inset-0 opacity-[0.04] pointer-events-none"
+          style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0z' fill='none'/%3E%3Cpath d='M0 0h1v40H0zM39 0h1v40h-1zM0 0v1h40V0zM0 39v1h40v-1z' fill='%23fff'/%3E%3C/svg%3E")` }}
+        />
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="mb-10 md:mb-14 text-center">
             <p className="mb-2" style={{ fontFamily: 'Arial, sans-serif', fontWeight: 400, fontStyle: 'normal', fontSize: '16px', lineHeight: '24px', letterSpacing: '0%', textAlign: 'center', verticalAlign: 'middle', color: 'rgba(255,255,255,0.9)' }}>

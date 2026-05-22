@@ -14,7 +14,7 @@ const config: Config = {
         fipl:     { dark: '#13132B' },
       },
       fontFamily: {
-        sans: ['var(--font-poppins)', 'Poppins', 'sans-serif'],
+        sans: ['Arial', 'sans-serif'],
       },
       backgroundImage: {
         'gradient-fipl': 'linear-gradient(135deg, #E03027 0%, #F47820 100%)',

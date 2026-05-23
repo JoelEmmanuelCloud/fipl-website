@@ -34,11 +34,11 @@ const milestones: Milestone[] = [
     dotLeft: 76,    dotTop: 516,
     connector: {
       lines: [
-        { left: 50,  top: -60,  width: 2,   height: 60  },
-        { left: 50,  top: -61,  width: 60,  height: 2   },
-        { left: 109, top: -176, width: 2,   height: 116 },
+        { left: 50,  top: -200, width: 2,   height: 200 },
+        { left: 50,  top: -200, width: 60,  height: 2   },
+        { left: 109, top: -385, width: 2,   height: 185 },
       ],
-      dot: { left: 103, top: -182 },
+      dot: { left: 104, top: -391 },
     },
     icon: <Power className="w-11 h-11 text-[#DB1B0C]" strokeWidth={2.4} />,
   },

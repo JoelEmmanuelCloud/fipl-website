@@ -283,6 +283,35 @@ function ZigZagTimeline() {
             {m.connector.lines.map((seg, i) => (
               <div key={i} className="absolute bg-[#DB1B0C]" style={seg} />
             ))}
+
+            {m.connector.lines.slice(0, -1).map((seg, i) => {
+              const next = m.connector.lines[i + 1]
+              const sc = [
+                { x: seg.left,             y: seg.top              },
+                { x: seg.left + seg.width, y: seg.top              },
+                { x: seg.left,             y: seg.top + seg.height },
+                { x: seg.left + seg.width, y: seg.top + seg.height },
+              ]
+              const nc = [
+                { x: next.left,              y: next.top               },
+                { x: next.left + next.width, y: next.top               },
+                { x: next.left,              y: next.top + next.height  },
+                { x: next.left + next.width, y: next.top + next.height  },
+              ]
+              let jx = sc[0].x, jy = sc[0].y, best = Infinity
+              for (const a of sc) for (const b of nc) {
+                const d = Math.abs(a.x - b.x) + Math.abs(a.y - b.y)
+                if (d < best) { best = d; jx = (a.x + b.x) / 2; jy = (a.y + b.y) / 2 }
+              }
+              return (
+                <div
+                  key={`j${i}`}
+                  className="absolute rounded-full bg-[#DB1B0C]"
+                  style={{ width: 10, height: 10, left: jx - 5, top: jy - 5, border: '2px solid white' }}
+                />
+              )
+            })}
+
             <div
               className="absolute bg-[#DB1B0C] rounded-full"
               style={{ width: 12, height: 12, ...m.connector.dot }}

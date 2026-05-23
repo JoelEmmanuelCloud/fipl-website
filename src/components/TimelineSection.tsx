@@ -307,7 +307,7 @@ function ZigZagTimeline() {
                 <div
                   key={`j${i}`}
                   className="absolute rounded-full bg-[#DB1B0C]"
-                  style={{ width: 10, height: 10, left: jx - 5, top: jy - 5, border: '2px solid white' }}
+                  style={{ width: 14, height: 14, left: jx - 7, top: jy - 7, border: '2px solid white' }}
                 />
               )
             })}

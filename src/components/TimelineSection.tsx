@@ -131,7 +131,6 @@ function ZigZagTimeline() {
 
   return (
     <div ref={containerRef} className="relative overflow-hidden" style={{ width: CANVAS_W, height: CANVAS_H }}>
-      <div className="absolute left-[20px] top-[-100px] w-[110px] h-[1300px] bg-[#ead8cb] rotate-[10deg] opacity-70 pointer-events-none" />
 
       <svg
         viewBox={`0 0 ${CANVAS_W} ${CANVAS_H}`}
@@ -284,7 +283,7 @@ export function TimelineSection() {
   }, [])
 
   return (
-    <section className="py-12 md:py-16 lg:py-20 bg-[#efefef]">
+    <section className="py-12 md:py-16 lg:py-20 bg-white">
       <div className="max-w-[1280px] mx-auto px-6">
         <Reveal variant="up">
           <div className="text-center max-w-2xl mx-auto mb-12 md:mb-16">

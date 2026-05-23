@@ -23,6 +23,7 @@ interface Milestone {
   dotTop: number
   connector: ConnectorSpec
   icon: ReactNode
+  hideNode?: boolean
 }
 
 const milestones: Milestone[] = [
@@ -32,6 +33,7 @@ const milestones: Milestone[] = [
     desc: "FIPL was established as part of the Sahara Group with a vision to transform Nigeria's power generation landscape.",
     cardLeft: 10,   cardTop: 780,
     dotLeft: 76,    dotTop: 516,
+    hideNode: true,
     connector: {
       lines: [
         { left: 50,  top: -200, width: 2,   height: 200 },
@@ -236,6 +238,7 @@ function ZigZagTimeline() {
       </div>
 
       {milestones.map((m, idx) => {
+        if (m.hideNode) return null
         const nodeShow = progress > (idx + 1.2) / 8
         return (
           <div

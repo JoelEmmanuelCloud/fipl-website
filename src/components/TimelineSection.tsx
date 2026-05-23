@@ -86,11 +86,11 @@ const milestones: Milestone[] = [
     year: '2020',
     title: 'Sustainability Initiatives',
     desc: 'Launched comprehensive environmental and sustainability programs across all four facilities.',
-    cardLeft: 1280, cardTop: 450,
+    cardLeft: 1280, cardTop: 440,
     dotLeft: 1156,  dotTop: 396,
     connector: {
-      line: { left: -36, top: -10,  width: 36, height: 2   },
-      dot:  { left: -42, top: -16 },
+      line: { left: -36, top: 0,    width: 36, height: 2   },
+      dot:  { left: -42, top: -6  },
     },
     icon: <Cpu className="w-10 h-10 text-[#DB1B0C]" strokeWidth={2.4} />,
   },
@@ -101,7 +101,7 @@ const milestones: Milestone[] = [
     cardLeft: 1280, cardTop: 220,
     dotLeft: 1346,  dotTop: 476,
     connector: {
-      line: { left: 109, top: 200,  width: 2,  height: 56  },
+      line: { left: 109, top: 190,  width: 2,  height: 66  },
       dot:  { left: 103, top: 250 },
     },
     icon: <Leaf className="w-10 h-10 text-[#DB1B0C]" strokeWidth={2.4} />,

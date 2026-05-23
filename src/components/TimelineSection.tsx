@@ -4,9 +4,13 @@ import { useEffect, useRef, useState, ReactNode } from 'react'
 import { Power, Factory, TowerControl, Cpu, Leaf, Flame, GaugeCircle, Zap } from 'lucide-react'
 import { Reveal } from '@/components/Reveal'
 
+interface Seg {
+  left: number; top: number; width: number; height: number
+}
+
 interface ConnectorSpec {
-  line: { left: number; top: number; width: number; height: number }
-  dot:  { left: number; top: number }
+  lines: Seg[]
+  dot:   { left: number; top: number }
 }
 
 interface Milestone {
@@ -29,8 +33,12 @@ const milestones: Milestone[] = [
     cardLeft: 10,   cardTop: 780,
     dotLeft: 76,    dotTop: 516,
     connector: {
-      line: { left: 109, top: -176, width: 2,  height: 176 },
-      dot:  { left: 103, top: -182 },
+      lines: [
+        { left: 50,  top: -60,  width: 2,   height: 60  },
+        { left: 50,  top: -61,  width: 60,  height: 2   },
+        { left: 109, top: -176, width: 2,   height: 116 },
+      ],
+      dot: { left: 103, top: -182 },
     },
     icon: <Power className="w-11 h-11 text-[#DB1B0C]" strokeWidth={2.4} />,
   },
@@ -41,8 +49,12 @@ const milestones: Milestone[] = [
     cardLeft: 400,  cardTop: 780,
     dotLeft: 386,   dotTop: 426,
     connector: {
-      line: { left: 29,  top: -266, width: 2,  height: 266 },
-      dot:  { left: 23,  top: -272 },
+      lines: [
+        { left: 79,  top: -140, width: 2,   height: 140 },
+        { left: 29,  top: -141, width: 51,  height: 2   },
+        { left: 29,  top: -266, width: 2,   height: 126 },
+      ],
+      dot: { left: 24, top: -272 },
     },
     icon: <Factory className="w-10 h-10 text-[#DB1B0C]" strokeWidth={2.4} />,
   },
@@ -53,8 +65,12 @@ const milestones: Milestone[] = [
     cardLeft: 290,  cardTop: 10,
     dotLeft: 656,   dotTop: 116,
     connector: {
-      line: { left: 290, top: 149,  width: 76, height: 2   },
-      dot:  { left: 360, top: 143 },
+      lines: [
+        { left: 290, top: 89,  width: 40,  height: 2  },
+        { left: 329, top: 89,  width: 2,   height: 61 },
+        { left: 329, top: 149, width: 37,  height: 2  },
+      ],
+      dot: { left: 360, top: 144 },
     },
     icon: <TowerControl className="w-10 h-10 text-[#DB1B0C]" strokeWidth={2.4} />,
   },
@@ -65,8 +81,12 @@ const milestones: Milestone[] = [
     cardLeft: 1000, cardTop: 10,
     dotLeft: 856,   dotTop: 116,
     connector: {
-      line: { left: -56, top: 149,  width: 56, height: 2   },
-      dot:  { left: -62, top: 143 },
+      lines: [
+        { left: -120, top: 89,  width: 120, height: 2  },
+        { left: -121, top: 89,  width: 2,   height: 61 },
+        { left: -121, top: 149, width: 65,  height: 2  },
+      ],
+      dot: { left: -62, top: 144 },
     },
     icon: <GaugeCircle className="w-10 h-10 text-[#DB1B0C]" strokeWidth={2.4} />,
   },
@@ -77,8 +97,12 @@ const milestones: Milestone[] = [
     cardLeft: 560,  cardTop: 550,
     dotLeft: 1046,  dotTop: 606,
     connector: {
-      line: { left: 290, top: 99,   width: 196, height: 2  },
-      dot:  { left: 480, top: 93  },
+      lines: [
+        { left: 290, top: 49,  width: 140, height: 2  },
+        { left: 429, top: 49,  width: 2,   height: 51 },
+        { left: 429, top: 99,  width: 57,  height: 2  },
+      ],
+      dot: { left: 480, top: 94 },
     },
     icon: <Flame className="w-10 h-10 text-[#DB1B0C]" strokeWidth={2.4} />,
   },
@@ -89,8 +113,12 @@ const milestones: Milestone[] = [
     cardLeft: 640,  cardTop: 280,
     dotLeft: 1156,  dotTop: 396,
     connector: {
-      line: { left: 290, top: 159,  width: 226, height: 2  },
-      dot:  { left: 510, top: 153 },
+      lines: [
+        { left: 290, top: 69,  width: 130, height: 2  },
+        { left: 419, top: 69,  width: 2,   height: 91 },
+        { left: 419, top: 159, width: 97,  height: 2  },
+      ],
+      dot: { left: 510, top: 154 },
     },
     icon: <Cpu className="w-10 h-10 text-[#DB1B0C]" strokeWidth={2.4} />,
   },
@@ -101,8 +129,12 @@ const milestones: Milestone[] = [
     cardLeft: 1310, cardTop: 10,
     dotLeft: 1346,  dotTop: 476,
     connector: {
-      line: { left: 79,  top: 194,  width: 2,  height: 272 },
-      dot:  { left: 73,  top: 460 },
+      lines: [
+        { left: 119, top: 194, width: 2,   height: 176 },
+        { left: 79,  top: 370, width: 41,  height: 2   },
+        { left: 79,  top: 370, width: 2,   height: 96  },
+      ],
+      dot: { left: 74, top: 460 },
     },
     icon: <Leaf className="w-10 h-10 text-[#DB1B0C]" strokeWidth={2.4} />,
   },
@@ -248,10 +280,9 @@ function ZigZagTimeline() {
               </div>
             </div>
 
-            <div
-              className="absolute bg-[#DB1B0C]"
-              style={m.connector.line}
-            />
+            {m.connector.lines.map((seg, i) => (
+              <div key={i} className="absolute bg-[#DB1B0C]" style={seg} />
+            ))}
             <div
               className="absolute bg-[#DB1B0C] rounded-full"
               style={{ width: 12, height: 12, ...m.connector.dot }}

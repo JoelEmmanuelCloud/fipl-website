@@ -4,16 +4,16 @@ import { useEffect, useRef, useState, ReactNode } from 'react'
 import { Power, Factory, TowerControl, Cpu, Leaf, Flame, GaugeCircle, Zap } from 'lucide-react'
 import { Reveal } from '@/components/Reveal'
 
-type Direction = 'top' | 'bottom' | 'left' | 'right'
+type Direction = 'top' | 'bottom' | 'left' | 'left-bottom' | 'top-left'
 
 interface Milestone {
   year: string
   title: string
   desc: string
-  cardLeft: string
-  cardTop: string
-  dotLeft: string
-  dotTop: string
+  cardLeft: number
+  cardTop: number
+  dotLeft: number
+  dotTop: number
   direction: Direction
   icon: ReactNode
 }
@@ -23,71 +23,71 @@ const milestones: Milestone[] = [
     year: '1998',
     title: 'Company Founded',
     desc: "FIPL was established as part of the Sahara Group with a vision to transform Nigeria's power generation landscape.",
-    cardLeft: '6%', cardTop: '72%',
-    dotLeft: '7%', dotTop: '50%',
-    direction: 'top',
-    icon: <Power className="w-8 h-8 text-[#DB1B0C]" strokeWidth={2.4} />,
+    cardLeft: 90, cardTop: 710,
+    dotLeft: 40, dotTop: 470,
+    direction: 'left-bottom',
+    icon: <Power className="w-11 h-11 text-[#DB1B0C]" strokeWidth={2.4} />,
   },
   {
     year: '2001',
     title: 'Omoku Power Plant',
-    desc: 'Commissioned the Omoku Power Plant with 150MW installed capacity, delivering reliable power to Rivers State.',
-    cardLeft: '35%', cardTop: '63%',
-    dotLeft: '30%', dotTop: '50%',
-    direction: 'top',
-    icon: <Factory className="w-8 h-8 text-[#DB1B0C]" strokeWidth={2.4} />,
+    desc: 'Received our first major award, marking a reputation for excellence in tailored business solutions.',
+    cardLeft: 520, cardTop: 610,
+    dotLeft: 420, dotTop: 500,
+    direction: 'bottom',
+    icon: <Factory className="w-10 h-10 text-[#DB1B0C]" strokeWidth={2.4} />,
   },
   {
     year: '2005',
     title: 'Afam Power Plant',
-    desc: 'Successfully integrated the Afam Power Station, significantly increasing our generation capacity to 180MW.',
-    cardLeft: '18%', cardTop: '3%',
-    dotLeft: '48%', dotTop: '17%',
-    direction: 'bottom',
-    icon: <TowerControl className="w-8 h-8 text-[#DB1B0C]" strokeWidth={2.4} />,
+    desc: 'Successfully integrated the Afam Power Station, significantly increasing our generation capacity.',
+    cardLeft: 250, cardTop: 40,
+    dotLeft: 660, dotTop: 170,
+    direction: 'top-left',
+    icon: <TowerControl className="w-10 h-10 text-[#DB1B0C]" strokeWidth={2.4} />,
   },
   {
     year: '2010',
     title: 'Trans Amadi Expansion',
     desc: 'Developed the Trans-Amadi Gas Turbine Power Plant, strengthening our presence in Rivers State.',
-    cardLeft: '64%', cardTop: '3%',
-    dotLeft: '64%', dotTop: '17%',
-    direction: 'bottom',
-    icon: <GaugeCircle className="w-8 h-8 text-[#DB1B0C]" strokeWidth={2.4} />,
+    cardLeft: 1030, cardTop: 40,
+    dotLeft: 940, dotTop: 170,
+    direction: 'top',
+    icon: <GaugeCircle className="w-10 h-10 text-[#DB1B0C]" strokeWidth={2.4} />,
   },
   {
     year: '2015',
     title: 'Eleme Integration',
     desc: 'Added the Eleme Gas Turbine Power Plant to our portfolio, enhancing regional power supply.',
-    cardLeft: '55%', cardTop: '73%',
-    dotLeft: '72%', dotTop: '63%',
+    cardLeft: 770, cardTop: 720,
+    dotLeft: 1010, dotTop: 620,
     direction: 'left',
-    icon: <Flame className="w-8 h-8 text-[#DB1B0C]" strokeWidth={2.4} />,
+    icon: <Flame className="w-10 h-10 text-[#DB1B0C]" strokeWidth={2.4} />,
   },
   {
     year: '2020',
     title: 'Sustainability Initiatives',
     desc: 'Launched comprehensive environmental and sustainability programs across all four facilities.',
-    cardLeft: '83%', cardTop: '68%',
-    dotLeft: '84%', dotTop: '47%',
-    direction: 'top',
-    icon: <Cpu className="w-8 h-8 text-[#DB1B0C]" strokeWidth={2.4} />,
+    cardLeft: 1280, cardTop: 650,
+    dotLeft: 1160, dotTop: 470,
+    direction: 'bottom',
+    icon: <Cpu className="w-10 h-10 text-[#DB1B0C]" strokeWidth={2.4} />,
   },
   {
     year: '2024',
     title: 'Digital Transformation',
     desc: 'Advancing digital systems and smart grid integration across all power generation facilities.',
-    cardLeft: '88%', cardTop: '13%',
-    dotLeft: '95%', dotTop: '47%',
-    direction: 'bottom',
-    icon: <Leaf className="w-8 h-8 text-[#DB1B0C]" strokeWidth={2.4} />,
+    cardLeft: 1280, cardTop: 120,
+    dotLeft: 1380, dotTop: 470,
+    direction: 'top',
+    icon: <Leaf className="w-10 h-10 text-[#DB1B0C]" strokeWidth={2.4} />,
   },
 ]
 
-const CH = 950
+const CH = 980
 const SCALE = 0.72
 
-const SVG_PATH = `M 120 130 L 120 640 Q 120 730 210 730 L 270 730 Q 340 730 340 640 L 340 530 Q 340 450 430 450 L 520 450 Q 620 450 620 330 L 620 220 Q 620 140 700 140 L 900 140 Q 980 140 980 220 L 980 560 Q 980 640 1060 640 L 1130 640 Q 1220 640 1220 560 L 1220 340 Q 1220 250 1310 250 L 1400 250`
+const SVG_PATH = `M 120 140 L 120 650 Q 120 730 200 730 L 260 730 Q 340 730 340 640 L 340 560 Q 340 470 430 470 L 520 470 Q 610 470 610 350 L 610 250 Q 610 160 700 160 L 900 160 Q 980 160 980 240 L 980 580 Q 980 650 1060 650 L 1120 650 Q 1200 650 1200 570 L 1200 320 Q 1200 250 1260 250 Q 1320 250 1320 320 L 1320 450 Q 1320 520 1390 520 L 1450 520`
 
 function ZigZagTimeline() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -129,11 +129,11 @@ function ZigZagTimeline() {
   }, [])
 
   return (
-    <div ref={containerRef} className="relative w-full overflow-hidden" style={{ height: CH }}>
-      <div className="absolute left-[40px] top-[-80px] w-[120px] h-[1200px] bg-orange-100/70 rotate-[10deg] pointer-events-none" />
+    <div ref={containerRef} className="relative w-full overflow-hidden rounded-[28px] bg-[#efefef]" style={{ height: CH }}>
+      <div className="absolute left-[20px] top-[-100px] w-[110px] h-[1300px] bg-[#ead8cb] rotate-[10deg] opacity-70 pointer-events-none" />
 
       <svg
-        viewBox="0 0 1600 950"
+        viewBox="0 0 1600 980"
         className="absolute inset-0 w-full h-full"
         preserveAspectRatio="none"
         fill="none"
@@ -148,7 +148,7 @@ function ZigZagTimeline() {
           ref={pathRef}
           d={SVG_PATH}
           stroke="url(#zigGrad)"
-          strokeWidth="20"
+          strokeWidth="22"
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeDasharray={pathLenRef.current}
@@ -159,25 +159,25 @@ function ZigZagTimeline() {
       <div
         className="absolute z-20 flex items-center justify-center rounded-full bg-white shadow-xl"
         style={{
-          left: 60, top: 70, width: 110, height: 110,
+          left: 55, top: 70, width: 120, height: 120,
           border: '7px solid #D97300',
           opacity: progress > 0.02 ? 1 : 0,
           transition: 'opacity 0.4s ease',
         }}
       >
-        <span style={{ color: '#D97300', fontWeight: 900, fontSize: 28, fontStyle: 'italic', fontFamily: 'Arial, sans-serif' }}>FIPL</span>
+        <span style={{ color: '#D97300', fontWeight: 900, fontSize: 30, fontStyle: 'italic', fontFamily: 'Arial, sans-serif' }}>FIPL</span>
       </div>
 
       <div
         className="absolute z-20 flex items-center justify-center rounded-full bg-white shadow-xl"
         style={{
-          left: 62, top: 290, width: 86, height: 86,
+          left: 55, top: 310, width: 90, height: 90,
           border: '7px solid #D97300',
           opacity: progress > 0.06 ? 1 : 0,
           transition: 'opacity 0.4s ease',
         }}
       >
-        <Power className="w-10 h-10 text-[#DB1B0C]" strokeWidth={2.5} />
+        <Power className="w-11 h-11 text-[#DB1B0C]" strokeWidth={2.6} />
       </div>
 
       {milestones.map((m, idx) => {
@@ -188,7 +188,7 @@ function ZigZagTimeline() {
             className="absolute z-30 flex items-center justify-center rounded-full bg-white shadow-xl"
             style={{
               left: m.dotLeft, top: m.dotTop,
-              width: 86, height: 86,
+              width: 88, height: 88,
               border: '7px solid #D97300',
               opacity: nodeShow ? 1 : 0,
               transition: 'opacity 0.35s ease',
@@ -213,40 +213,47 @@ function ZigZagTimeline() {
             }}
           >
             <div
-              className="w-[280px] rounded-lg overflow-hidden shadow-2xl"
+              className="w-[290px] rounded-lg overflow-hidden shadow-2xl"
               style={{ border: '1px solid #DB1B0C', fontFamily: 'Arial, sans-serif' }}
             >
               <div style={{ background: 'white', padding: '14px 20px' }}>
                 <span style={{ color: '#DB1B0C', fontSize: 22, fontWeight: 600 }}>{m.year}</span>
               </div>
               <div style={{ background: 'linear-gradient(135deg, #DB1B0C 0%, #c41508 100%)', padding: '20px' }}>
-                <div style={{ color: 'white', fontWeight: 700, fontSize: 20, marginBottom: 16, lineHeight: 1.3 }}>{m.title}</div>
+                <div style={{ color: 'white', fontWeight: 700, fontSize: 21, marginBottom: 16, lineHeight: 1.3 }}>{m.title}</div>
                 <div style={{ color: 'rgba(255,240,238,0.95)', fontSize: 14, lineHeight: 1.75 }}>{m.desc}</div>
               </div>
             </div>
 
             {m.direction === 'top' && (
               <>
-                <div className="absolute left-1/2 -translate-x-1/2 top-[-135px] h-[135px] w-[2px] bg-[#DB1B0C]" />
-                <div className="absolute left-1/2 -translate-x-1/2 top-[-140px] w-3 h-3 rounded-full bg-[#DB1B0C]" />
+                <div className="absolute left-1/2 -translate-x-1/2 bottom-[-150px] h-[150px] w-[2px] bg-[#DB1B0C]" />
+                <div className="absolute left-1/2 -translate-x-1/2 bottom-[-155px] w-3 h-3 rounded-full bg-[#DB1B0C]" />
               </>
             )}
             {m.direction === 'bottom' && (
               <>
-                <div className="absolute left-1/2 -translate-x-1/2 bottom-[-135px] h-[135px] w-[2px] bg-[#DB1B0C]" />
-                <div className="absolute left-1/2 -translate-x-1/2 bottom-[-140px] w-3 h-3 rounded-full bg-[#DB1B0C]" />
+                <div className="absolute left-1/2 -translate-x-1/2 top-[-150px] h-[150px] w-[2px] bg-[#DB1B0C]" />
+                <div className="absolute left-1/2 -translate-x-1/2 top-[-155px] w-3 h-3 rounded-full bg-[#DB1B0C]" />
               </>
             )}
             {m.direction === 'left' && (
               <>
-                <div className="absolute right-[-120px] top-1/2 -translate-y-1/2 w-[120px] h-[2px] bg-[#DB1B0C]" />
-                <div className="absolute right-[-126px] top-[calc(50%-6px)] w-3 h-3 rounded-full bg-[#DB1B0C]" />
+                <div className="absolute right-[-130px] top-1/2 -translate-y-1/2 w-[130px] h-[2px] bg-[#DB1B0C]" />
+                <div className="absolute right-[-136px] top-[calc(50%-5px)] w-3 h-3 rounded-full bg-[#DB1B0C]" />
               </>
             )}
-            {m.direction === 'right' && (
+            {m.direction === 'left-bottom' && (
               <>
-                <div className="absolute left-[-120px] top-1/2 -translate-y-1/2 w-[120px] h-[2px] bg-[#DB1B0C]" />
-                <div className="absolute left-[-126px] top-[calc(50%-6px)] w-3 h-3 rounded-full bg-[#DB1B0C]" />
+                <div className="absolute left-[-80px] top-1/2 w-[80px] h-[2px] bg-[#DB1B0C]" />
+                <div className="absolute left-[-82px] top-1/2 w-[2px] h-[170px] bg-[#DB1B0C]" />
+                <div className="absolute left-[-88px] bottom-[-6px] w-3 h-3 rounded-full bg-[#DB1B0C]" />
+              </>
+            )}
+            {m.direction === 'top-left' && (
+              <>
+                <div className="absolute right-[-180px] top-1/2 -translate-y-1/2 w-[180px] h-[2px] bg-[#DB1B0C]" />
+                <div className="absolute right-[-186px] top-[calc(50%-5px)] w-3 h-3 rounded-full bg-[#DB1B0C]" />
               </>
             )}
           </div>

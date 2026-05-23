@@ -86,6 +86,7 @@ const milestones: Milestone[] = [
 
 const CANVAS_W = 1600
 const CANVAS_H = 980
+const SIZE_FACTOR = 0.75
 
 const SVG_PATH = `M 120 140 L 120 650 Q 120 730 200 730 L 260 730 Q 340 730 340 640 L 340 560 Q 340 470 430 470 L 520 470 Q 610 470 610 350 L 610 250 Q 610 160 700 160 L 900 160 Q 980 160 980 240 L 980 580 Q 980 650 1060 650 L 1120 650 Q 1200 650 1200 570 L 1200 320 Q 1200 250 1260 250 Q 1320 250 1320 320 L 1320 450 Q 1320 520 1390 520 L 1450 520`
 
@@ -270,7 +271,7 @@ export function TimelineSection() {
   useEffect(() => {
     const update = () => {
       if (outerRef.current) {
-        setScale(outerRef.current.clientWidth / CANVAS_W)
+        setScale((outerRef.current.clientWidth / CANVAS_W) * SIZE_FACTOR)
       }
     }
     update()
@@ -299,10 +300,10 @@ export function TimelineSection() {
 
       <div
         ref={outerRef}
-        className="hidden lg:block w-full overflow-hidden"
+        className="hidden lg:block w-full overflow-hidden flex justify-center"
         style={{ height: Math.round(CANVAS_H * scale) }}
       >
-        <div style={{ transform: `scale(${scale})`, transformOrigin: 'top left', width: CANVAS_W, height: CANVAS_H }}>
+        <div style={{ transform: `scale(${scale})`, transformOrigin: 'top center', width: CANVAS_W, height: CANVAS_H, flexShrink: 0 }}>
           <ZigZagTimeline />
         </div>
       </div>

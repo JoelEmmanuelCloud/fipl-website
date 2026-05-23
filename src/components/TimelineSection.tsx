@@ -283,8 +283,13 @@ export function TimelineSection() {
   }, [])
 
   return (
-    <section className="py-12 md:py-16 lg:py-20 bg-white">
-      <div className="max-w-[1280px] mx-auto px-6">
+    <section className="relative overflow-hidden py-12 md:py-16 lg:py-20 bg-white">
+      <div className="absolute left-[-40px] top-1/2 -translate-y-1/2 w-[500px] h-[700px] pointer-events-none z-0">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 320" className="w-full h-full">
+          <path d="M130 10 L50 160 H110 L30 310 L190 140 H120 Z" fill="#F47820" opacity="0.055" />
+        </svg>
+      </div>
+      <div className="relative z-10 max-w-[1280px] mx-auto px-6">
         <Reveal variant="up">
           <div className="text-center max-w-2xl mx-auto mb-12 md:mb-16">
             <span className="inline-flex items-center gap-1.5 text-sm font-medium text-[#DB1B0C] mb-3">
@@ -303,7 +308,7 @@ export function TimelineSection() {
 
       <div
         ref={outerRef}
-        className="hidden lg:block w-full overflow-hidden"
+        className="relative z-10 hidden lg:block w-full overflow-hidden"
         style={{ height: Math.round(CANVAS_H * scale) }}
       >
         <div style={{ transform: `scale(${scale})`, transformOrigin: 'top left', marginLeft: offsetLeft, width: CANVAS_W, height: CANVAS_H }}>
@@ -311,7 +316,7 @@ export function TimelineSection() {
         </div>
       </div>
 
-      <div className="lg:hidden max-w-[1280px] mx-auto px-6 relative">
+      <div className="relative z-10 lg:hidden max-w-[1280px] mx-auto px-6">
         <div
           className="absolute left-10 top-0 bottom-0 w-0.5"
           style={{ background: 'linear-gradient(to bottom, #D97300, #DB1B0C)' }}

@@ -4,7 +4,10 @@ import { useEffect, useRef, useState, ReactNode } from 'react'
 import { Power, Factory, TowerControl, Cpu, Leaf, Flame, GaugeCircle, Zap } from 'lucide-react'
 import { Reveal } from '@/components/Reveal'
 
-type Direction = 'top' | 'bottom' | 'left' | 'left-bottom' | 'top-left'
+interface ConnectorSpec {
+  line: { left: number; top: number; width: number; height: number }
+  dot:  { left: number; top: number }
+}
 
 interface Milestone {
   year: string
@@ -14,7 +17,7 @@ interface Milestone {
   cardTop: number
   dotLeft: number
   dotTop: number
-  direction: Direction
+  connector: ConnectorSpec
   icon: ReactNode
 }
 
@@ -23,63 +26,84 @@ const milestones: Milestone[] = [
     year: '1998',
     title: 'Company Founded',
     desc: "FIPL was established as part of the Sahara Group with a vision to transform Nigeria's power generation landscape.",
-    cardLeft: 90,  cardTop: 710,
-    dotLeft: 76,   dotTop: 516,
-    direction: 'left-bottom',
+    cardLeft: 10,   cardTop: 650,
+    dotLeft: 76,    dotTop: 516,
+    connector: {
+      line: { left: 109, top: -46,  width: 2,  height: 46  },
+      dot:  { left: 103, top: -52 },
+    },
     icon: <Power className="w-11 h-11 text-[#DB1B0C]" strokeWidth={2.4} />,
   },
   {
     year: '2001',
     title: 'Omoku Power Plant',
-    desc: 'Received our first major award, marking a reputation for excellence in tailored business solutions.',
-    cardLeft: 390,  cardTop: 590,
+    desc: 'Commissioned the Omoku Power Plant with 150MW installed capacity, delivering reliable power to Rivers State.',
+    cardLeft: 350,  cardTop: 660,
     dotLeft: 386,   dotTop: 426,
-    direction: 'bottom',
+    connector: {
+      line: { left: 79,  top: -146, width: 2,  height: 146 },
+      dot:  { left: 73,  top: -152 },
+    },
     icon: <Factory className="w-10 h-10 text-[#DB1B0C]" strokeWidth={2.4} />,
   },
   {
     year: '2005',
     title: 'Afam Power Plant',
-    desc: 'Successfully integrated the Afam Power Station, significantly increasing our generation capacity.',
-    cardLeft: 250,  cardTop: 40,
+    desc: 'Successfully integrated the Afam Power Station, significantly increasing our generation capacity to 180MW.',
+    cardLeft: 290,  cardTop: 10,
     dotLeft: 656,   dotTop: 116,
-    direction: 'top-left',
+    connector: {
+      line: { left: 290, top: 149,  width: 76, height: 2   },
+      dot:  { left: 360, top: 143 },
+    },
     icon: <TowerControl className="w-10 h-10 text-[#DB1B0C]" strokeWidth={2.4} />,
   },
   {
     year: '2010',
     title: 'Trans Amadi Expansion',
     desc: 'Developed the Trans-Amadi Gas Turbine Power Plant, strengthening our presence in Rivers State.',
-    cardLeft: 920,  cardTop: 40,
+    cardLeft: 1000, cardTop: 10,
     dotLeft: 856,   dotTop: 116,
-    direction: 'top',
+    connector: {
+      line: { left: -56, top: 149,  width: 56, height: 2   },
+      dot:  { left: -62, top: 143 },
+    },
     icon: <GaugeCircle className="w-10 h-10 text-[#DB1B0C]" strokeWidth={2.4} />,
   },
   {
     year: '2015',
     title: 'Eleme Integration',
     desc: 'Added the Eleme Gas Turbine Power Plant to our portfolio, enhancing regional power supply.',
-    cardLeft: 770,  cardTop: 720,
+    cardLeft: 680,  cardTop: 550,
     dotLeft: 1046,  dotTop: 606,
-    direction: 'left',
+    connector: {
+      line: { left: 290, top: 99,   width: 76, height: 2   },
+      dot:  { left: 360, top: 93  },
+    },
     icon: <Flame className="w-10 h-10 text-[#DB1B0C]" strokeWidth={2.4} />,
   },
   {
     year: '2020',
     title: 'Sustainability Initiatives',
     desc: 'Launched comprehensive environmental and sustainability programs across all four facilities.',
-    cardLeft: 1280, cardTop: 600,
+    cardLeft: 1280, cardTop: 450,
     dotLeft: 1156,  dotTop: 396,
-    direction: 'bottom',
+    connector: {
+      line: { left: -36, top: -10,  width: 36, height: 2   },
+      dot:  { left: -42, top: -16 },
+    },
     icon: <Cpu className="w-10 h-10 text-[#DB1B0C]" strokeWidth={2.4} />,
   },
   {
     year: '2024',
     title: 'Digital Transformation',
     desc: 'Advancing digital systems and smart grid integration across all power generation facilities.',
-    cardLeft: 1280, cardTop: 120,
-    dotLeft: 1346, dotTop: 476,
-    direction: 'top',
+    cardLeft: 1280, cardTop: 220,
+    dotLeft: 1346,  dotTop: 476,
+    connector: {
+      line: { left: 109, top: 200,  width: 2,  height: 56  },
+      dot:  { left: 103, top: 250 },
+    },
     icon: <Leaf className="w-10 h-10 text-[#DB1B0C]" strokeWidth={2.4} />,
   },
 ]
@@ -131,7 +155,6 @@ function ZigZagTimeline() {
 
   return (
     <div ref={containerRef} className="relative overflow-hidden" style={{ width: CANVAS_W, height: CANVAS_H }}>
-
       <svg
         viewBox={`0 0 ${CANVAS_W} ${CANVAS_H}`}
         className="absolute inset-0 w-full h-full"
@@ -220,42 +243,19 @@ function ZigZagTimeline() {
                 <span style={{ color: '#DB1B0C', fontSize: 22, fontWeight: 600 }}>{m.year}</span>
               </div>
               <div style={{ background: 'linear-gradient(135deg, #DB1B0C 0%, #c41508 100%)', padding: '20px' }}>
-                <div style={{ color: 'white', fontWeight: 700, fontSize: 21, marginBottom: 16, lineHeight: 1.3 }}>{m.title}</div>
-                <div style={{ color: 'rgba(255,240,238,0.95)', fontSize: 14, lineHeight: 1.75 }}>{m.desc}</div>
+                <div style={{ color: 'white', fontWeight: 700, fontSize: 18, marginBottom: 10, lineHeight: 1.3 }}>{m.title}</div>
+                <div style={{ color: 'rgba(255,240,238,0.95)', fontSize: 13, lineHeight: 1.7 }}>{m.desc}</div>
               </div>
             </div>
 
-            {m.direction === 'top' && (
-              <>
-                <div className="absolute left-1/2 -translate-x-1/2 bottom-[-150px] h-[150px] w-[2px] bg-[#DB1B0C]" />
-                <div className="absolute left-1/2 -translate-x-1/2 bottom-[-155px] w-3 h-3 rounded-full bg-[#DB1B0C]" />
-              </>
-            )}
-            {m.direction === 'bottom' && (
-              <>
-                <div className="absolute left-1/2 -translate-x-1/2 top-[-150px] h-[150px] w-[2px] bg-[#DB1B0C]" />
-                <div className="absolute left-1/2 -translate-x-1/2 top-[-155px] w-3 h-3 rounded-full bg-[#DB1B0C]" />
-              </>
-            )}
-            {m.direction === 'left' && (
-              <>
-                <div className="absolute right-[-130px] top-1/2 -translate-y-1/2 w-[130px] h-[2px] bg-[#DB1B0C]" />
-                <div className="absolute right-[-136px] top-[calc(50%-5px)] w-3 h-3 rounded-full bg-[#DB1B0C]" />
-              </>
-            )}
-            {m.direction === 'left-bottom' && (
-              <>
-                <div className="absolute left-[-80px] top-1/2 w-[80px] h-[2px] bg-[#DB1B0C]" />
-                <div className="absolute left-[-82px] top-1/2 w-[2px] h-[170px] bg-[#DB1B0C]" />
-                <div className="absolute left-[-88px] bottom-[-6px] w-3 h-3 rounded-full bg-[#DB1B0C]" />
-              </>
-            )}
-            {m.direction === 'top-left' && (
-              <>
-                <div className="absolute right-[-180px] top-1/2 -translate-y-1/2 w-[180px] h-[2px] bg-[#DB1B0C]" />
-                <div className="absolute right-[-186px] top-[calc(50%-5px)] w-3 h-3 rounded-full bg-[#DB1B0C]" />
-              </>
-            )}
+            <div
+              className="absolute bg-[#DB1B0C]"
+              style={m.connector.line}
+            />
+            <div
+              className="absolute bg-[#DB1B0C] rounded-full"
+              style={{ width: 12, height: 12, ...m.connector.dot }}
+            />
           </div>
         )
       })}
@@ -289,6 +289,7 @@ export function TimelineSection() {
           <path d="M130 10 L50 160 H110 L30 310 L190 140 H120 Z" fill="#F47820" opacity="0.055" />
         </svg>
       </div>
+
       <div className="relative z-10 max-w-[1280px] mx-auto px-6">
         <Reveal variant="up">
           <div className="text-center max-w-2xl mx-auto mb-12 md:mb-16">

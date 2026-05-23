@@ -84,8 +84,8 @@ const milestones: Milestone[] = [
   },
 ]
 
-const CH = 980
-const SCALE = 0.72
+const CANVAS_W = 1600
+const CANVAS_H = 980
 
 const SVG_PATH = `M 120 140 L 120 650 Q 120 730 200 730 L 260 730 Q 340 730 340 640 L 340 560 Q 340 470 430 470 L 520 470 Q 610 470 610 350 L 610 250 Q 610 160 700 160 L 900 160 Q 980 160 980 240 L 980 580 Q 980 650 1060 650 L 1120 650 Q 1200 650 1200 570 L 1200 320 Q 1200 250 1260 250 Q 1320 250 1320 320 L 1320 450 Q 1320 520 1390 520 L 1450 520`
 
@@ -129,11 +129,11 @@ function ZigZagTimeline() {
   }, [])
 
   return (
-    <div ref={containerRef} className="relative w-full overflow-hidden rounded-[28px] bg-[#efefef]" style={{ height: CH }}>
+    <div ref={containerRef} className="relative overflow-hidden" style={{ width: CANVAS_W, height: CANVAS_H }}>
       <div className="absolute left-[20px] top-[-100px] w-[110px] h-[1300px] bg-[#ead8cb] rotate-[10deg] opacity-70 pointer-events-none" />
 
       <svg
-        viewBox="0 0 1600 980"
+        viewBox={`0 0 ${CANVAS_W} ${CANVAS_H}`}
         className="absolute inset-0 w-full h-full"
         preserveAspectRatio="none"
         fill="none"
@@ -264,8 +264,22 @@ function ZigZagTimeline() {
 }
 
 export function TimelineSection() {
+  const outerRef = useRef<HTMLDivElement>(null)
+  const [scale, setScale] = useState(1)
+
+  useEffect(() => {
+    const update = () => {
+      if (outerRef.current) {
+        setScale(outerRef.current.clientWidth / CANVAS_W)
+      }
+    }
+    update()
+    window.addEventListener('resize', update)
+    return () => window.removeEventListener('resize', update)
+  }, [])
+
   return (
-    <section className="py-12 md:py-16 lg:py-20 bg-white">
+    <section className="py-12 md:py-16 lg:py-20 bg-[#efefef]">
       <div className="max-w-[1280px] mx-auto px-6">
         <Reveal variant="up">
           <div className="text-center max-w-2xl mx-auto mb-12 md:mb-16">
@@ -281,42 +295,46 @@ export function TimelineSection() {
             </p>
           </div>
         </Reveal>
+      </div>
 
-        <div className="hidden lg:block overflow-hidden" style={{ height: Math.round(CH * SCALE) }}>
-          <div style={{ transform: `scale(${SCALE})`, transformOrigin: 'top left', width: '100%', height: CH }}>
-            <ZigZagTimeline />
-          </div>
+      <div
+        ref={outerRef}
+        className="hidden lg:block w-full overflow-hidden"
+        style={{ height: Math.round(CANVAS_H * scale) }}
+      >
+        <div style={{ transform: `scale(${scale})`, transformOrigin: 'top left', width: CANVAS_W, height: CANVAS_H }}>
+          <ZigZagTimeline />
         </div>
+      </div>
 
-        <div className="lg:hidden relative">
-          <div
-            className="absolute left-4 top-0 bottom-0 w-0.5"
-            style={{ background: 'linear-gradient(to bottom, #D97300, #DB1B0C)' }}
-          />
-          <div className="space-y-6 pl-14">
-            {milestones.map((m, i) => (
-              <Reveal key={m.year} variant="right" delay={i * 0.06}>
+      <div className="lg:hidden max-w-[1280px] mx-auto px-6 relative">
+        <div
+          className="absolute left-10 top-0 bottom-0 w-0.5"
+          style={{ background: 'linear-gradient(to bottom, #D97300, #DB1B0C)' }}
+        />
+        <div className="space-y-6 pl-14">
+          {milestones.map((m, i) => (
+            <Reveal key={m.year} variant="right" delay={i * 0.06}>
+              <div
+                className="relative"
+                style={{ border: '1.6px solid #DB1B0C', overflow: 'hidden', fontFamily: 'Arial, sans-serif' }}
+              >
                 <div
-                  className="relative"
-                  style={{ border: '1.6px solid #DB1B0C', overflow: 'hidden', fontFamily: 'Arial, sans-serif' }}
+                  className="absolute -left-10 top-4 w-5 h-5 rounded-full bg-white flex items-center justify-center z-10"
+                  style={{ border: '3px solid #DB1B0C' }}
                 >
-                  <div
-                    className="absolute -left-10 top-4 w-5 h-5 rounded-full bg-white flex items-center justify-center z-10"
-                    style={{ border: '3px solid #DB1B0C' }}
-                  >
-                    <div className="w-2 h-2 rounded-full bg-[#DB1B0C]" />
-                  </div>
-                  <div style={{ background: 'white', padding: '12px 16px 10px' }}>
-                    <span style={{ color: '#DB1B0C', fontSize: 18, fontWeight: 700 }}>{m.year}</span>
-                  </div>
-                  <div style={{ background: '#DB1B0C', padding: '12px 16px 16px' }}>
-                    <div style={{ color: 'white', fontWeight: 700, fontSize: 14, marginBottom: 6 }}>{m.title}</div>
-                    <div style={{ color: 'rgba(255,255,255,0.88)', fontSize: 12, lineHeight: 1.6 }}>{m.desc}</div>
-                  </div>
+                  <div className="w-2 h-2 rounded-full bg-[#DB1B0C]" />
                 </div>
-              </Reveal>
-            ))}
-          </div>
+                <div style={{ background: 'white', padding: '12px 16px 10px' }}>
+                  <span style={{ color: '#DB1B0C', fontSize: 18, fontWeight: 700 }}>{m.year}</span>
+                </div>
+                <div style={{ background: '#DB1B0C', padding: '12px 16px 16px' }}>
+                  <div style={{ color: 'white', fontWeight: 700, fontSize: 14, marginBottom: 6 }}>{m.title}</div>
+                  <div style={{ color: 'rgba(255,255,255,0.88)', fontSize: 12, lineHeight: 1.6 }}>{m.desc}</div>
+                </div>
+              </div>
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>

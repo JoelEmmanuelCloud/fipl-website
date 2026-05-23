@@ -266,12 +266,16 @@ function ZigZagTimeline() {
 
 export function TimelineSection() {
   const outerRef = useRef<HTMLDivElement>(null)
-  const [scale, setScale] = useState(1)
+  const [scale, setScale] = useState(SIZE_FACTOR)
+  const [offsetLeft, setOffsetLeft] = useState(0)
 
   useEffect(() => {
     const update = () => {
       if (outerRef.current) {
-        setScale((outerRef.current.clientWidth / CANVAS_W) * SIZE_FACTOR)
+        const w = outerRef.current.clientWidth
+        const s = (w / CANVAS_W) * SIZE_FACTOR
+        setScale(s)
+        setOffsetLeft(Math.round((w - CANVAS_W * s) / 2))
       }
     }
     update()
@@ -300,10 +304,10 @@ export function TimelineSection() {
 
       <div
         ref={outerRef}
-        className="hidden lg:block w-full overflow-hidden flex justify-center"
+        className="hidden lg:block w-full overflow-hidden"
         style={{ height: Math.round(CANVAS_H * scale) }}
       >
-        <div style={{ transform: `scale(${scale})`, transformOrigin: 'top center', width: CANVAS_W, height: CANVAS_H, flexShrink: 0 }}>
+        <div style={{ transform: `scale(${scale})`, transformOrigin: 'top left', marginLeft: offsetLeft, width: CANVAS_W, height: CANVAS_H }}>
           <ZigZagTimeline />
         </div>
       </div>

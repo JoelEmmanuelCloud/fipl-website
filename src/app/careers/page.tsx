@@ -182,7 +182,7 @@ export default function CareersPage() {
           <Reveal variant="scale" delay={0.1}>
             <div className="flex justify-center">
             <div
-              className="rounded-3xl p-10 md:p-14 text-center relative overflow-hidden w-full max-w-3xl"
+              className="rounded-3xl p-6 sm:p-8 md:p-14 text-center relative overflow-hidden w-full max-w-3xl"
               style={{ background: 'linear-gradient(269deg, #D97300 1%, #DB1B0C 100%)' }}
             >
               <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">Don&apos;t See Your Role?</h3>

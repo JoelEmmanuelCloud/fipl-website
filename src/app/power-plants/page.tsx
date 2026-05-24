@@ -162,7 +162,7 @@ export default function PowerPlantsPage() {
             </div>
           </Reveal>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[21px] items-end">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[21px] items-end">
             {steps.map((step, i) => {
               const isTop = i % 2 === 0
               return (

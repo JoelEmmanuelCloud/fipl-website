@@ -284,7 +284,7 @@ export default function SustainabilityPage() {
               <img
                 src={IMAGES.sustainability.community}
                 alt="Community empowerment"
-                className="w-full h-[420px] md:h-[540px] lg:h-[620px] object-cover rounded-2xl"
+                className="w-full h-[280px] sm:h-[360px] md:h-[480px] lg:h-[600px] object-cover rounded-2xl"
               />
             </Reveal>
             <Reveal variant="right" delay={0.1}>

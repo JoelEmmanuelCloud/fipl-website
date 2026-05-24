@@ -137,13 +137,13 @@ export default function AboutPage() {
             <Reveal variant="right" delay={0.15}>
               <div className="flex flex-row lg:flex-col gap-8 lg:gap-14 lg:pt-20 lg:pl-10 lg:border-l lg:border-[#e4e4e4] shrink-0">
                 <div>
-                  <div className="flex items-end gap-0.5 text-[56px] font-extrabold leading-none text-[#D97300]">
+                  <div className="flex items-end gap-0.5 text-[38px] sm:text-[48px] lg:text-[56px] font-extrabold leading-none text-[#D97300]">
                     <AnimatedNumber value={541} /><span>+</span>
                   </div>
                   <p className="text-sm text-[#24283E] mt-4">MW Installed Capacity</p>
                 </div>
                 <div>
-                  <div className="flex items-end gap-0.5 text-[56px] font-extrabold leading-none text-[#D97300]">
+                  <div className="flex items-end gap-0.5 text-[38px] sm:text-[48px] lg:text-[56px] font-extrabold leading-none text-[#D97300]">
                     <AnimatedNumber value={10} /><span>+</span>
                   </div>
                   <p className="text-sm text-[#24283E] mt-4">Years Experiences</p>

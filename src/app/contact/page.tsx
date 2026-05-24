@@ -120,7 +120,7 @@ export default function ContactPage() {
         <div className="max-w-[1280px] mx-auto px-6">
           <Reveal variant="scale">
             <div
-              className="relative overflow-hidden grid grid-cols-1 md:grid-cols-2 gap-10 items-center p-10 md:p-14"
+              className="relative overflow-hidden grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 items-center p-6 sm:p-8 md:p-14"
               style={{ background: 'linear-gradient(269deg, #D97300 1%, #DB1B0C 100%)' }}
             >
               <div className="absolute left-0 bottom-0 h-full w-[200px] hidden lg:block pointer-events-none">

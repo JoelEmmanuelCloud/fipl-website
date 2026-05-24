@@ -1,10 +1,15 @@
 import type { Metadata } from 'next'
+import dynamic from 'next/dynamic'
 import './globals.css'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { BackToTop } from '@/components/BackToTop'
-import { SplashScreen } from '@/components/SplashScreen'
 import { ChatWidget } from '@/components/ChatWidget'
+
+const SplashScreen = dynamic(
+  () => import('@/components/SplashScreen').then(m => ({ default: m.SplashScreen })),
+  { ssr: false }
+)
 
 export const metadata: Metadata = {
   title: {

@@ -12,9 +12,15 @@ export function ContactForm() {
         setTimeout(() => setDone(false), 3000)
       }}
     >
-      <div className="mb-4">
-        <label className="block text-xs font-semibold text-gray-700 mb-1.5" htmlFor="name">Your Name</label>
-        <input id="name" type="text" placeholder="John Doe" required className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10" />
+      <div className="grid grid-cols-2 gap-3 mb-4">
+        <div>
+          <label className="block text-xs font-semibold text-gray-700 mb-1.5" htmlFor="first-name">First Name</label>
+          <input id="first-name" type="text" placeholder="John" required className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10" />
+        </div>
+        <div>
+          <label className="block text-xs font-semibold text-gray-700 mb-1.5" htmlFor="last-name">Last Name</label>
+          <input id="last-name" type="text" placeholder="Doe" required className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10" />
+        </div>
       </div>
       <div className="mb-4">
         <label className="block text-xs font-semibold text-gray-700 mb-1.5" htmlFor="email">Your Email</label>

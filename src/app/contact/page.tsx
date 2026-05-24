@@ -3,7 +3,6 @@ import { ContactForm, SubscribeForm } from '@/components/ContactForms'
 import { ContactHero } from '@/components/PageHeroes'
 import { Reveal } from '@/components/Reveal'
 import { IMAGES } from '@/lib/images'
-import { Zap } from 'lucide-react'
 
 export const metadata: Metadata = { title: 'Contact Us' }
 
@@ -62,7 +61,7 @@ export default function ContactPage() {
             {/* Left: info */}
             <Reveal variant="left">
               <div>
-                <span className="inline-flex items-center gap-1.5 text-sm text-[#DB1B0C] mb-3">Contact Us <Zap size={14} /></span>
+                <span className="inline-flex items-center gap-1.5 text-sm text-[#DB1B0C] mb-3">Contact Us <svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 0.5L1 7.5h5L4.5 12.5l7.5-8h-5z" /></svg></span>
                 <h2 className="text-2xl md:text-3xl font-bold text-[#0E121D] mb-3">Get in Touch with Us</h2>
                 <p className="text-[#797979] leading-relaxed mb-8 text-base">
                   Our team is ready to provide answers, offer solutions, and start your journey toward success.
@@ -72,7 +71,7 @@ export default function ContactPage() {
                   {contactItems.map(({ icon, label, value, href }, i) => (
                     <Reveal key={label} variant="up" delay={i * 0.1}>
                       <div className="flex items-start gap-3">
-                        <div className="w-9 h-9 shrink-0 bg-[#DB1B0C]/10 rounded flex items-center justify-center mt-0.5">
+                        <div className="w-9 h-9 shrink-0 bg-[#DB1B0C]/10 rounded-xl flex items-center justify-center mt-0.5">
                           {icon}
                         </div>
                         <div>
@@ -133,7 +132,7 @@ export default function ContactPage() {
                 />
               </div>
               <div className="relative z-10 lg:pl-[180px]">
-                <span className="inline-flex items-center gap-1.5 text-xs text-white/80 mb-3">Stay in Touch <Zap size={14} /></span>
+                <span className="inline-flex items-center gap-1.5 text-xs text-white/80 mb-3">Stay in Touch <svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 0.5L1 7.5h5L4.5 12.5l7.5-8h-5z" /></svg></span>
                 <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
                   Subscribe For All The Top News!
                 </h2>

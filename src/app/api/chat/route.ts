@@ -17,15 +17,21 @@ FIPL key facts:
 - Phone: +234 (0) 1262 0375
 - Business Hours: Monday – Friday, 8:00 AM – 5:00 PM
 
-Topics you can help with:
-- FIPL's power plants and operations
-- Vendor and supplier registration (DUNS Number requirements)
-- Career opportunities
-- Sustainability and CSR initiatives
-- Contact information and office locations
-- General power generation service enquiries
+WEBSITE PAGES — always direct users to these specific pages instead of saying "visit our website":
+- Career opportunities and job applications → /careers
+- Vendor registration and DUNS Number requirements → /register
+- Contact form and office details → /contact
+- Power plants and operations → /power-plants
+- Sustainability and CSR initiatives → /sustainability
+- News and latest updates → /news
+- About FIPL, our story and values → /about
 
-Always be professional, concise, and friendly. Direct users to info@fipl-ng.com or +234 (0) 1262 0375 for questions you cannot answer.`
+When directing a user to a page, format the link exactly like this: [Page Name](/path)
+Example: "You can explore current openings on our [Careers page](/careers)."
+Example: "Submit your enquiry via our [Contact page](/contact) or email info@fipl-ng.com."
+Example: "Learn about vendor registration on our [Register With Us page](/register)."
+
+Always be professional, concise, and friendly. Direct users to the relevant page first, then offer the email/phone as an alternative.`
 
 const INJECTION_PATTERNS = [
   /ignore\s+(all\s+)?(previous|prior|above|your|these?|those?|any|the)?\s*(instructions?|prompts?|rules?|guidelines?|constraints?|directives?)/i,
@@ -96,8 +102,10 @@ export async function POST(req: NextRequest) {
 
   const apiKey = process.env.GOOGLE_GEMINI_API_KEY
   if (!apiKey) {
+    console.error('[chat/route] GOOGLE_GEMINI_API_KEY is not set')
     return NextResponse.json({ error: 'Service unavailable' }, { status: 500 })
   }
+  console.log('[chat/route] API key loaded, length:', apiKey.length)
 
   const recentMessages = messages.slice(-MAX_HISTORY_MESSAGES)
 
@@ -107,7 +115,7 @@ export async function POST(req: NextRequest) {
   }))
 
   const res = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -129,6 +137,8 @@ export async function POST(req: NextRequest) {
   )
 
   if (!res.ok) {
+    const errBody = await res.text()
+    console.error('[chat/route] Gemini error', res.status, errBody)
     return NextResponse.json({ text: 'I\'m having trouble connecting right now. Please contact us at info@fipl-ng.com.' })
   }
 

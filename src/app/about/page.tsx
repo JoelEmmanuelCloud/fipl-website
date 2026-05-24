@@ -5,7 +5,6 @@ import { TimelineSection } from '@/components/TimelineSection'
 import { AboutHero } from '@/components/PageHeroes'
 import { Reveal } from '@/components/Reveal'
 import { IMAGES } from '@/lib/images'
-import { Zap } from 'lucide-react'
 
 export const metadata: Metadata = { title: 'About Us' }
 
@@ -114,7 +113,7 @@ export default function AboutPage() {
             <Reveal variant="left">
               <div>
                 <span className="inline-flex items-center gap-1.5 text-sm font-normal text-[#DB1B0C] mb-3">
-                  We are FIPL <Zap size={14} />
+                  We are FIPL <svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 0.5L1 7.5h5L4.5 12.5l7.5-8h-5z" /></svg>
                 </span>
                 <h2 className="text-3xl md:text-4xl font-bold text-[#0E121D] mb-6">
                   Our Purpose, Our Promise
@@ -198,7 +197,7 @@ export default function AboutPage() {
         <div className="relative z-10 max-w-[1280px] mx-auto px-6">
           <Reveal variant="up">
             <div className="flex flex-col items-center text-center mb-12">
-              <span className="inline-flex items-center gap-2 text-sm text-white mb-3">Our Values <Zap size={14} /></span>
+              <span className="inline-flex items-center gap-2 text-sm text-white mb-3">Our Values <svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 0.5L1 7.5h5L4.5 12.5l7.5-8h-5z" /></svg></span>
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Our Core Values</h2>
               <p className="text-white/80 text-base leading-relaxed max-w-[685px]">
                 We are driven by a deep commitment to integrity, ensuring transparency and accountability in all our operations.
@@ -255,7 +254,7 @@ export default function AboutPage() {
         <div className="max-w-[1280px] mx-auto px-6">
           <Reveal variant="up">
             <div className="flex flex-col items-center text-center mb-10">
-              <span className="inline-flex items-center gap-2 text-sm text-[#DB1B0C] mb-3">More <Zap size={14} /></span>
+              <span className="inline-flex items-center gap-2 text-sm text-[#DB1B0C] mb-3">More <svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 0.5L1 7.5h5L4.5 12.5l7.5-8h-5z" /></svg></span>
               <h2 className="text-3xl md:text-4xl font-bold text-black mb-3">Meet The CEO</h2>
               <p className="text-[#797979] text-base">A video address from our Chief Executive Officer</p>
             </div>

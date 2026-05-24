@@ -3,7 +3,6 @@ import Link from 'next/link'
 import { CareersHero } from '@/components/PageHeroes'
 import { Reveal } from '@/components/Reveal'
 import { IMAGES } from '@/lib/images'
-import { Zap } from 'lucide-react'
 
 export const metadata: Metadata = { title: 'Careers' }
 
@@ -71,7 +70,7 @@ export default function CareersPage() {
           <Reveal variant="up">
             <div className="text-center mb-12">
               <div className="max-w-2xl mx-auto mb-4">
-                <span className="inline-flex items-center gap-1.5 text-sm text-[#DB1B0C] mb-3">Employee Value Proposition <Zap size={14} /></span>
+                <span className="inline-flex items-center gap-1.5 text-sm text-[#DB1B0C] mb-3">Employee Value Proposition <svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 0.5L1 7.5h5L4.5 12.5l7.5-8h-5z" /></svg></span>
                 <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0E121D]">Why Join FIPL</h2>
               </div>
               <p className="text-[#797979] leading-relaxed text-base max-w-5xl mx-auto">
@@ -109,7 +108,7 @@ export default function CareersPage() {
             </Reveal>
             <Reveal variant="right" delay={0.15}>
               <div>
-                <span className="inline-flex items-center gap-1.5 text-sm text-[#DB1B0C] mb-3">We are FIPL <Zap size={14} /></span>
+                <span className="inline-flex items-center gap-1.5 text-sm text-[#DB1B0C] mb-3">We are FIPL <svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 0.5L1 7.5h5L4.5 12.5l7.5-8h-5z" /></svg></span>
                 <h2 className="text-2xl md:text-3xl font-bold text-[#0E121D] mb-4">What Drives Us</h2>
                 <p className="text-[#797979] leading-relaxed mb-6 text-base">
                   Our work is guided by values that define who we are and how we operate — ensuring that every watt of energy
@@ -144,7 +143,7 @@ export default function CareersPage() {
         <div className="max-w-[1280px] mx-auto px-6">
           <Reveal variant="up">
             <div className="text-center max-w-2xl mx-auto mb-12">
-              <span className="inline-flex items-center gap-1.5 text-sm text-[#DB1B0C] mb-3">Join our Talent Pool <Zap size={14} /></span>
+              <span className="inline-flex items-center gap-1.5 text-sm text-[#DB1B0C] mb-3">Join our Talent Pool <svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 0.5L1 7.5h5L4.5 12.5l7.5-8h-5z" /></svg></span>
               <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0E121D] mb-4">We are committed to lasting impact</h2>
               <p className="text-[#797979] leading-relaxed text-base">
                 Explore roles across engineering, plant operations, administration, and management.

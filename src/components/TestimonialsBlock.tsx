@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import { Reveal } from '@/components/Reveal'
-import { Zap } from 'lucide-react'
 
 interface Testimonial {
   quote: string
@@ -30,7 +29,7 @@ export function TestimonialsBlock({ testimonials, heading = 'What Our Employees\
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
           <Reveal variant="left">
             <div>
-              <span className="inline-flex items-center gap-1.5 text-sm text-[#DB1B0C] mb-4">Testimonials <Zap size={14} /></span>
+              <span className="inline-flex items-center gap-1.5 text-sm text-[#DB1B0C] mb-4">Testimonials <svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 0.5L1 7.5h5L4.5 12.5l7.5-8h-5z" /></svg></span>
               <h2 className="text-2xl md:text-3xl font-bold text-[#0E121D] mb-6">
                 {heading.split('\n').map((line, i, arr) => (
                   <span key={i}>{line}{i < arr.length - 1 && <br />}</span>

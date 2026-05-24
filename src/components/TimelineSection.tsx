@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, ReactNode } from 'react'
 import Image from 'next/image'
-import { Power, Factory, TowerControl, Cpu, Leaf, Flame, GaugeCircle, Zap } from 'lucide-react'
+import { Power, Factory, TowerControl, Cpu, Leaf, Flame, GaugeCircle } from 'lucide-react'
 import { Reveal } from '@/components/Reveal'
 
 interface Seg {
@@ -446,7 +446,10 @@ export function TimelineSection() {
         <Reveal variant="up">
           <div className="text-center max-w-2xl mx-auto mb-12 md:mb-16">
             <span className="inline-flex items-center gap-1.5 text-sm font-medium text-[#DB1B0C] mb-3">
-              Our Journey <Zap size={14} />
+              Our Journey{' '}
+              <svg width="13" height="13" viewBox="0 0 13 13" fill="#DB1B0C" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7.5 0.5L1 7.5h5L4.5 12.5l7.5-8h-5z" />
+              </svg>
             </span>
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
               A Legacy of Power &amp; Progress

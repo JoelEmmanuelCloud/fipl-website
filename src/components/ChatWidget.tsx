@@ -35,12 +35,18 @@ function renderBotText(text: string) {
   return <>{nodes}</>
 }
 
+const INITIAL_MESSAGE = "Hi! I'm FIPL's virtual assistant. How can I help you today?"
+
 export function ChatWidget() {
   const [open, setOpen] = useState(false)
   const [minimized, setMinimized] = useState(false)
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'model', text: "Hi! I'm FIPL's virtual assistant. How can I help you today?", time: now() },
+    { role: 'model', text: INITIAL_MESSAGE, time: '' },
   ])
+
+  useEffect(() => {
+    setMessages([{ role: 'model', text: INITIAL_MESSAGE, time: now() }])
+  }, [])
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
   const bottomRef = useRef<HTMLDivElement>(null)

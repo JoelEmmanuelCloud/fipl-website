@@ -177,7 +177,7 @@ export function Header() {
         aria-label="Navigation menu"
       >
         <button
-          className="self-start text-white text-[32px] leading-none p-1 mb-8"
+          className="self-end text-white text-[32px] leading-none p-1 mb-8"
           aria-label="Close menu"
           onClick={() => setMenuOpen(false)}
         >

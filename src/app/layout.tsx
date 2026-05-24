@@ -4,6 +4,7 @@ import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { BackToTop } from '@/components/BackToTop'
 import { SplashScreen } from '@/components/SplashScreen'
+import { ChatWidget } from '@/components/ChatWidget'
 
 export const metadata: Metadata = {
   title: {
@@ -28,15 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main>{children}</main>
         <Footer />
         <BackToTop />
-        <a
-          href="/contact"
-          aria-label="Chat with us"
-          className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-accent hover:bg-primary transition-colors shadow-lg flex items-center justify-center z-40"
-        >
-          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-          </svg>
-        </a>
+        <ChatWidget />
       </body>
     </html>
   )

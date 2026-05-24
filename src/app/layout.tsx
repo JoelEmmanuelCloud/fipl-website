@@ -31,7 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="antialiased text-gray-800 bg-white overflow-x-hidden">
         <SplashScreen />
         <Header />
-        <main className="pt-[72px] lg:pt-0">{children}</main>
+        <main>{children}</main>
         <Footer />
         <BackToTop />
         <ChatWidget />

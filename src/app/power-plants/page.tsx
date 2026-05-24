@@ -3,7 +3,6 @@ import Link from 'next/link'
 import { PowerPlantsHero } from '@/components/PageHeroes'
 import { Reveal } from '@/components/Reveal'
 import { IMAGES } from '@/lib/images'
-import { Zap } from 'lucide-react'
 
 export const metadata: Metadata = { title: 'Power Plants & Operations' }
 
@@ -81,7 +80,7 @@ export default function PowerPlantsPage() {
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
             <Reveal variant="left" className="max-w-2xl">
-              <span className="inline-flex items-center gap-1.5 text-sm text-[#DB1B0C] mb-3">Our Plants <Zap size={14} /></span>
+              <span className="inline-flex items-center gap-1.5 text-sm text-[#DB1B0C] mb-3">Our Plants <svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 0.5L1 7.5h5L4.5 12.5l7.5-8h-5z" /></svg></span>
               <h2 className="text-2xl md:text-3xl font-bold text-[#0E121D] mb-4">Our Power Plants</h2>
               <p className="text-[#797979] leading-relaxed text-base">
                 First Independent Power Limited is a company in the business of power generation in Nigeria
@@ -155,7 +154,7 @@ export default function PowerPlantsPage() {
         <div className="max-w-[1280px] mx-auto px-6">
           <Reveal variant="up">
             <div className="text-center max-w-2xl mx-auto mb-16">
-              <span className="inline-flex items-center gap-1.5 text-sm text-[#DB1B0C] mb-3">Our Work Process <Zap size={14} /></span>
+              <span className="inline-flex items-center gap-1.5 text-sm text-[#DB1B0C] mb-3">Our Work Process <svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 0.5L1 7.5h5L4.5 12.5l7.5-8h-5z" /></svg></span>
               <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0E121D] mb-4">How We Power Nigeria</h2>
               <p className="text-[#797979] leading-relaxed text-base">
                 Our approach ensures every project is executed with precision, safety, and sustainability at the core.

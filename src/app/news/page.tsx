@@ -5,7 +5,6 @@ import { NewsTabs } from '@/components/NewsTabs'
 import { NewsHero } from '@/components/PageHeroes'
 import { Reveal } from '@/components/Reveal'
 import { IMAGES } from '@/lib/images'
-import { Zap } from 'lucide-react'
 
 export const metadata: Metadata = { title: 'News & Media' }
 
@@ -28,7 +27,7 @@ export default function NewsPage() {
           <Reveal variant="up">
             <div className="text-center max-w-xl mx-auto mb-10">
               <span className="inline-flex items-center gap-1.5 text-sm text-[#DB1B0C] mb-3">
-                News &amp; Blog <Zap size={14} />
+                News &amp; Blog <svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 0.5L1 7.5h5L4.5 12.5l7.5-8h-5z" /></svg>
               </span>
               <h2 className="text-2xl md:text-3xl font-bold text-[#0E121D]">
                 Insights, Updates &amp; Industry News

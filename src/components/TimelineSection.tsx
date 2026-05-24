@@ -1,7 +1,8 @@
 'use client'
 
 import { useEffect, useRef, useState, ReactNode } from 'react'
-import { Power, Factory, TowerControl, Cpu, Leaf, Flame, GaugeCircle, Zap } from 'lucide-react'
+import Image from 'next/image'
+import { Power, Factory, TowerControl, Cpu, Leaf, Flame, GaugeCircle } from 'lucide-react'
 import { Reveal } from '@/components/Reveal'
 
 interface Seg {
@@ -9,8 +10,9 @@ interface Seg {
 }
 
 interface ConnectorSpec {
-  lines: Seg[]
-  dot:   { left: number; top: number }
+  lines:   Seg[]
+  dot:     { left: number; top: number }
+  hideDot?: boolean
 }
 
 interface Milestone {
@@ -31,16 +33,17 @@ const milestones: Milestone[] = [
     year: '1998',
     title: 'Company Founded',
     desc: "FIPL was established as part of the Sahara Group with a vision to transform Nigeria's power generation landscape.",
-    cardLeft: 10,   cardTop: 780,
+    cardLeft: 75,   cardTop: 760,
     dotLeft: 76,    dotTop: 516,
     hideNode: true,
     connector: {
       lines: [
-        { left: 50,  top: -200, width: 2,   height: 200 },
-        { left: 50,  top: -200, width: 60,  height: 2   },
-        { left: 109, top: -385, width: 2,   height: 185 },
+        { left: -56, top: -411, width: 56,  height: 2   },
+        { left: -56, top: -410, width: 2,   height: 504 },
+        { left: -56, top: 94,   width: 57,  height: 2   },
       ],
-      dot: { left: 104, top: -391 },
+      dot:     { left: -6, top: -416 },
+      hideDot: true,
     },
     icon: <Power className="w-11 h-11 text-[#DB1B0C]" strokeWidth={2.4} />,
   },
@@ -48,15 +51,15 @@ const milestones: Milestone[] = [
     year: '2001',
     title: 'Omoku Power Plant',
     desc: 'Commissioned the Omoku Power Plant with 150MW installed capacity, delivering reliable power to Rivers State.',
-    cardLeft: 400,  cardTop: 780,
+    cardLeft: 400,  cardTop: 760,
     dotLeft: 386,   dotTop: 426,
     connector: {
       lines: [
-        { left: 79,  top: -140, width: 2,   height: 140 },
-        { left: 29,  top: -141, width: 51,  height: 2   },
-        { left: 29,  top: -266, width: 2,   height: 126 },
+        { left: 144, top: -135, width: 2,   height: 135 },
+        { left: 29,  top: -136, width: 116, height: 2   },
+        { left: 29,  top: -291, width: 2,   height: 156 },
       ],
-      dot: { left: 24, top: -272 },
+      dot: { left: 24, top: -296 },
     },
     icon: <Factory className="w-10 h-10 text-[#DB1B0C]" strokeWidth={2.4} />,
   },
@@ -68,11 +71,11 @@ const milestones: Milestone[] = [
     dotLeft: 656,   dotTop: 116,
     connector: {
       lines: [
-        { left: 290, top: 89,  width: 40,  height: 2  },
-        { left: 329, top: 89,  width: 2,   height: 61 },
-        { left: 329, top: 149, width: 37,  height: 2  },
+        { left: 290, top: 69, width: 121, height: 2  },
+        { left: 409, top: 70, width: 2,   height: 36 },
       ],
-      dot: { left: 360, top: 144 },
+      dot:     { left: 404, top: 100 },
+      hideDot: true,
     },
     icon: <TowerControl className="w-10 h-10 text-[#DB1B0C]" strokeWidth={2.4} />,
   },
@@ -84,11 +87,11 @@ const milestones: Milestone[] = [
     dotLeft: 856,   dotTop: 116,
     connector: {
       lines: [
-        { left: -120, top: 89,  width: 120, height: 2  },
-        { left: -121, top: 89,  width: 2,   height: 61 },
-        { left: -121, top: 149, width: 65,  height: 2  },
+        { left: -101, top: 69, width: 101, height: 2  },
+        { left: -101, top: 70, width: 2,   height: 36 },
       ],
-      dot: { left: -62, top: 144 },
+      dot:     { left: -106, top: 100 },
+      hideDot: true,
     },
     icon: <GaugeCircle className="w-10 h-10 text-[#DB1B0C]" strokeWidth={2.4} />,
   },
@@ -96,15 +99,16 @@ const milestones: Milestone[] = [
     year: '2015',
     title: 'Eleme Integration',
     desc: 'Added the Eleme Gas Turbine Power Plant to our portfolio, enhancing regional power supply.',
-    cardLeft: 560,  cardTop: 550,
+    cardLeft: 630,  cardTop: 430,
     dotLeft: 1046,  dotTop: 606,
     connector: {
       lines: [
-        { left: 290, top: 49,  width: 140, height: 2  },
-        { left: 429, top: 49,  width: 2,   height: 51 },
-        { left: 429, top: 99,  width: 57,  height: 2  },
+        { left: 460, top: 264, width:   2, height:  30 },
+        { left: 145, top: 294, width: 315, height:   2 },
+        { left: 145, top: 202, width:   2, height:  92 },
       ],
-      dot: { left: 480, top: 94 },
+      dot: { left: 454, top: 258 },
+      hideDot: true,
     },
     icon: <Flame className="w-10 h-10 text-[#DB1B0C]" strokeWidth={2.4} />,
   },
@@ -112,15 +116,15 @@ const milestones: Milestone[] = [
     year: '2020',
     title: 'Sustainability Initiatives',
     desc: 'Launched comprehensive environmental and sustainability programs across all four facilities.',
-    cardLeft: 640,  cardTop: 280,
+    cardLeft: 1139, cardTop: 760,
     dotLeft: 1156,  dotTop: 396,
     connector: {
       lines: [
-        { left: 290, top: 69,  width: 130, height: 2  },
-        { left: 419, top: 69,  width: 2,   height: 91 },
-        { left: 419, top: 159, width: 97,  height: 2  },
+        { left: 105, top: -320, width: 40, height: 2  },
+        { left: 145, top: -320, width: 2,  height: 320 },
       ],
-      dot: { left: 510, top: 154 },
+      dot: { left: 100, top: -326 },
+      hideDot: true,
     },
     icon: <Cpu className="w-10 h-10 text-[#DB1B0C]" strokeWidth={2.4} />,
   },
@@ -128,23 +132,31 @@ const milestones: Milestone[] = [
     year: '2024',
     title: 'Digital Transformation',
     desc: 'Advancing digital systems and smart grid integration across all power generation facilities.',
-    cardLeft: 1310, cardTop: 10,
+    cardLeft: 1430, cardTop: 150,
     dotLeft: 1346,  dotTop: 476,
     connector: {
       lines: [
-        { left: 119, top: 194, width: 2,   height: 176 },
-        { left: 79,  top: 370, width: 41,  height: 2   },
-        { left: 79,  top: 370, width: 2,   height: 96  },
+        { left: -40, top: 94, width:  40, height:   2 },
+        { left: -40, top: 94, width:   2, height: 232 },
       ],
-      dot: { left: 74, top: 460 },
+      dot: { left: -45, top: 320 },
+      hideDot: true,
     },
     icon: <Leaf className="w-10 h-10 text-[#DB1B0C]" strokeWidth={2.4} />,
   },
 ]
 
-const CANVAS_W = 1600
-const CANVAS_H = 980
+const CANVAS_W = 1760
+const CANVAS_H = 1000
 const SIZE_FACTOR = 0.75
+
+function snakeColor(canvasX: number): string {
+  const t = Math.min(1, Math.max(0, canvasX / CANVAS_W))
+  const r = Math.round(219 - 2 * t)
+  const g = Math.round(27 + 88 * t)
+  const b = Math.round(12 - 12 * t)
+  return `rgb(${r},${g},${b})`
+}
 
 const SVG_PATH = `M 120 140 L 120 650 Q 120 730 200 730 L 260 730 Q 340 730 340 640 L 340 560 Q 340 470 430 470 L 520 470 Q 610 470 610 350 L 610 250 Q 610 160 700 160 L 900 160 Q 980 160 980 240 L 980 580 Q 980 650 1060 650 L 1120 650 Q 1200 650 1200 570 L 1200 320 Q 1200 250 1260 250 Q 1320 250 1320 320 L 1320 450 Q 1320 520 1390 520 L 1450 520`
 
@@ -154,7 +166,10 @@ function ZigZagTimeline() {
   const pathLenRef = useRef(3000)
   const [offset, setOffset] = useState(3000)
   const [progress, setProgress] = useState(0)
+  const [pulsePos, setPulsePos] = useState<{ x: number; y: number } | null>(null)
+  const [hoveredYear, setHoveredYear] = useState<string | null>(null)
   const animated = useRef(false)
+  const pulseRafRef = useRef<number | null>(null)
 
   useEffect(() => {
     if (pathRef.current) {
@@ -178,13 +193,35 @@ function ZigZagTimeline() {
           const eased = 1 - Math.pow(1 - t, 2)
           setOffset(len * (1 - eased))
           setProgress(eased)
-          if (t < 1) requestAnimationFrame(tick)
+          if (pathRef.current) {
+            const pt = pathRef.current.getPointAtLength(len * eased)
+            setPulsePos({ x: pt.x, y: pt.y })
+          }
+          if (t < 1) {
+            requestAnimationFrame(tick)
+          } else {
+            const loopStart = performance.now()
+            const loopDur = 3800
+            const loop = (n: number) => {
+              const lt = ((n - loopStart) % loopDur) / loopDur
+              if (pathRef.current) {
+                const pt = pathRef.current.getPointAtLength(len * lt)
+                setPulsePos({ x: pt.x, y: pt.y })
+              }
+              pulseRafRef.current = requestAnimationFrame(loop)
+            }
+            pulseRafRef.current = requestAnimationFrame(loop)
+          }
         }
         requestAnimationFrame(tick)
       }
     }, { threshold: 0.08 })
     obs.observe(el)
     return () => obs.disconnect()
+  }, [])
+
+  useEffect(() => {
+    return () => { if (pulseRafRef.current) cancelAnimationFrame(pulseRafRef.current) }
   }, [])
 
   return (
@@ -200,6 +237,16 @@ function ZigZagTimeline() {
             <stop offset="0%" stopColor="#DB1B0C" />
             <stop offset="100%" stopColor="#D97300" />
           </linearGradient>
+          <filter id="pulseOuter" x="-300%" y="-300%" width="700%" height="700%">
+            <feGaussianBlur stdDeviation="16" />
+          </filter>
+          <filter id="pulseGlow" x="-200%" y="-200%" width="500%" height="500%">
+            <feGaussianBlur stdDeviation="7" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
         </defs>
         <path
           ref={pathRef}
@@ -211,30 +258,43 @@ function ZigZagTimeline() {
           strokeDasharray={pathLenRef.current}
           strokeDashoffset={offset}
         />
+        {pulsePos && (
+          <>
+            <circle cx={pulsePos.x} cy={pulsePos.y} r={26} fill="white" opacity={0.22} filter="url(#pulseOuter)" />
+            <circle cx={pulsePos.x} cy={pulsePos.y} r={12} fill="#FFD580" opacity={0.9} filter="url(#pulseGlow)" />
+            <circle cx={pulsePos.x} cy={pulsePos.y} r={5} fill="white" opacity={1} />
+          </>
+        )}
       </svg>
 
       <div
-        className="absolute z-20 flex items-center justify-center rounded-full bg-white shadow-xl"
+        className="absolute z-20 rounded-full"
         style={{
-          left: 55, top: 70, width: 120, height: 120,
-          border: '7px solid #D97300',
+          left: 38, top: 53, width: 154, height: 154,
+          background: `linear-gradient(to right, ${snakeColor(115)} 35%, #D97300 65%)`,
+          padding: 7,
           opacity: progress > 0.02 ? 1 : 0,
           transition: 'opacity 0.4s ease',
         }}
       >
-        <span style={{ color: '#D97300', fontWeight: 900, fontSize: 30, fontStyle: 'italic', fontFamily: 'Arial, sans-serif' }}>FIPL</span>
+        <div className="w-full h-full rounded-full bg-white flex items-center justify-center">
+          <Image src="/images/sustainability/logoimage.png" alt="FIPL" width={115} height={53} style={{ objectFit: 'contain' }} />
+        </div>
       </div>
 
       <div
-        className="absolute z-20 flex items-center justify-center rounded-full bg-white shadow-xl"
+        className="absolute z-20 rounded-full"
         style={{
           left: 75, top: 305, width: 90, height: 90,
-          border: '7px solid #D97300',
+          background: `linear-gradient(to right, ${snakeColor(120)} 35%, #D97300 65%)`,
+          padding: 7,
           opacity: progress > 0.06 ? 1 : 0,
           transition: 'opacity 0.4s ease',
         }}
       >
-        <Power className="w-11 h-11 text-[#DB1B0C]" strokeWidth={2.6} />
+        <div className="w-full h-full rounded-full bg-white flex items-center justify-center">
+          <Power className="w-11 h-11 text-[#DB1B0C]" strokeWidth={2.6} />
+        </div>
       </div>
 
       {milestones.map((m, idx) => {
@@ -243,16 +303,19 @@ function ZigZagTimeline() {
         return (
           <div
             key={`node-${m.year}`}
-            className="absolute z-30 flex items-center justify-center rounded-full bg-white shadow-xl"
+            className="absolute z-30 rounded-full"
             style={{
               left: m.dotLeft, top: m.dotTop,
               width: 88, height: 88,
-              border: '7px solid #D97300',
+              background: `linear-gradient(to right, ${snakeColor(m.dotLeft + 44)} 35%, #D97300 65%)`,
+              padding: 7,
               opacity: nodeShow ? 1 : 0,
               transition: 'opacity 0.35s ease',
             }}
           >
-            {m.icon}
+            <div className="w-full h-full rounded-full bg-white flex items-center justify-center">
+              {m.icon}
+            </div>
           </div>
         )
       })}
@@ -261,28 +324,10 @@ function ZigZagTimeline() {
         const cardShow = progress > (idx + 0.8) / 8
         return (
           <div
-            key={`card-${m.year}`}
+            key={`conn-${m.year}`}
             className="absolute z-20"
-            style={{
-              left: m.cardLeft, top: m.cardTop,
-              opacity: cardShow ? 1 : 0,
-              transform: `translateY(${cardShow ? 0 : 10}px)`,
-              transition: 'opacity 0.5s ease, transform 0.5s ease',
-            }}
+            style={{ left: m.cardLeft, top: m.cardTop, opacity: cardShow ? 1 : 0, transition: 'opacity 0.5s ease' }}
           >
-            <div
-              className="w-[290px] rounded-lg overflow-hidden shadow-2xl"
-              style={{ border: '1px solid #DB1B0C', fontFamily: 'Arial, sans-serif' }}
-            >
-              <div style={{ background: 'white', padding: '14px 20px' }}>
-                <span style={{ color: '#DB1B0C', fontSize: 22, fontWeight: 600 }}>{m.year}</span>
-              </div>
-              <div style={{ background: 'linear-gradient(135deg, #DB1B0C 0%, #c41508 100%)', padding: '20px' }}>
-                <div style={{ color: 'white', fontWeight: 700, fontSize: 18, marginBottom: 10, lineHeight: 1.3 }}>{m.title}</div>
-                <div style={{ color: 'rgba(255,240,238,0.95)', fontSize: 13, lineHeight: 1.7 }}>{m.desc}</div>
-              </div>
-            </div>
-
             {m.connector.lines.map((seg, i) => (
               <div key={i} className="absolute bg-[#DB1B0C]" style={seg} />
             ))}
@@ -315,10 +360,54 @@ function ZigZagTimeline() {
               )
             })}
 
+            {!m.connector.hideDot && (
+              <div
+                className="absolute bg-[#DB1B0C] rounded-full"
+                style={{ width: 12, height: 12, ...m.connector.dot }}
+              />
+            )}
+          </div>
+        )
+      })}
+
+      {milestones.map((m, idx) => {
+        const cardShow = progress > (idx + 0.8) / 8
+        return (
+          <div
+            key={`card-${m.year}`}
+            className="absolute"
+            style={{
+              left: m.cardLeft, top: m.cardTop,
+              opacity: cardShow ? 1 : 0,
+              transform: `translateY(${cardShow ? 0 : 10}px) scale(${hoveredYear === m.year ? 1.05 : 1})`,
+              transition: 'opacity 0.5s ease, transform 0.4s ease',
+              zIndex: hoveredYear === m.year ? 40 : 20,
+              transformOrigin: 'top center',
+            }}
+            onMouseEnter={() => setHoveredYear(m.year)}
+            onMouseLeave={() => setHoveredYear(null)}
+          >
             <div
-              className="absolute bg-[#DB1B0C] rounded-full"
-              style={{ width: 12, height: 12, ...m.connector.dot }}
-            />
+              className="w-[290px] rounded-lg overflow-hidden"
+              style={{ border: '1px solid #DB1B0C', fontFamily: 'Arial, sans-serif' }}
+            >
+              <div style={{ background: 'white', padding: '14px 20px' }}>
+                <span style={{ color: '#DB1B0C', fontSize: 22, fontWeight: 600 }}>{m.year}</span>
+              </div>
+              <div style={{
+                background: 'linear-gradient(135deg, #DB1B0C 0%, #c41508 100%)',
+                padding: hoveredYear === m.year ? '24px 20px' : '20px',
+                transition: 'padding 0.4s ease',
+              }}>
+                <div style={{ color: 'white', fontWeight: 700, fontSize: 18, marginBottom: 10, lineHeight: 1.3 }}>{m.title}</div>
+                <div style={{
+                  color: 'white',
+                  fontSize: 13,
+                  lineHeight: hoveredYear === m.year ? 2.0 : 1.7,
+                  transition: 'line-height 0.4s ease',
+                }}>{m.desc}</div>
+              </div>
+            </div>
           </div>
         )
       })}
@@ -357,7 +446,10 @@ export function TimelineSection() {
         <Reveal variant="up">
           <div className="text-center max-w-2xl mx-auto mb-12 md:mb-16">
             <span className="inline-flex items-center gap-1.5 text-sm font-medium text-[#DB1B0C] mb-3">
-              Our Journey <Zap size={14} />
+              Our Journey{' '}
+              <svg width="13" height="13" viewBox="0 0 13 13" fill="#DB1B0C" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7.5 0.5L1 7.5h5L4.5 12.5l7.5-8h-5z" />
+              </svg>
             </span>
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
               A Legacy of Power &amp; Progress

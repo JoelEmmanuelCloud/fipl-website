@@ -26,7 +26,7 @@ export function WhoWeAreSection() {
   }, [])
 
   return (
-    <section className="bg-white pt-4 pb-16 md:pb-24 bolt-watermark overflow-hidden">
+    <section className="bg-[var(--fipl-bg)] pt-4 pb-16 md:pb-24 bolt-watermark overflow-hidden">
       <div className="max-w-[1280px] mx-auto px-6">
         <div ref={ref} className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           <div
@@ -68,7 +68,7 @@ export function WhoWeAreSection() {
             <p className="text-[10px] font-bold uppercase tracking-widest text-primary mb-2">
               Who We Are ⚡
             </p>
-            <h2 className="text-[18px] md:text-[20px] lg:text-[22px] font-bold text-gray-900 leading-snug mb-3">
+            <h2 className="text-[18px] md:text-[20px] lg:text-[22px] font-bold text-[var(--fipl-heading)] leading-snug mb-3">
               A Trusted Energy Partner
               <br />
               Shaping Nigeria&apos;s Future.
@@ -83,7 +83,7 @@ export function WhoWeAreSection() {
                 lineHeight: '22px',
                 letterSpacing: '0%',
                 verticalAlign: 'middle',
-                color: '#6b7280',
+                color: 'var(--fipl-body)',
               }}
             >
               First Independent Power Limited (FIPL) is a leader in responsible and sustainable
@@ -97,7 +97,7 @@ export function WhoWeAreSection() {
                 fontWeight: 400,
                 fontSize: '14px',
                 lineHeight: '22px',
-                color: '#6b7280',
+                color: 'var(--fipl-body)',
                 marginBottom: '8px',
               }}
             >
@@ -131,7 +131,7 @@ export function WhoWeAreSection() {
                       />
                     </svg>
                   </span>
-                  <span className="text-[12px] text-gray-700 font-bold">{plant}</span>
+                  <span className="text-[12px] text-[var(--fipl-heading)] font-bold">{plant}</span>
                 </div>
               ))}
             </div>

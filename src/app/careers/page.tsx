@@ -108,11 +108,11 @@ export default function CareersPage() {
                     <path d="M7.5 0.5L1 7.5h5L4.5 12.5l7.5-8h-5z" />
                   </svg>
                 </span>
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0E121D]">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[var(--fipl-heading)]">
                   Why Join FIPL
                 </h2>
               </div>
-              <p className="text-[#797979] leading-relaxed text-base max-w-5xl mx-auto">
+              <p className="text-[var(--fipl-body)] leading-relaxed text-base max-w-5xl mx-auto">
                 First Independent Power Limited is passionate about supporting employees&apos;
                 aspirations by providing limitless opportunities, a growth enabling and
                 collaborative work environment. Our human capital strategies are centred around
@@ -124,7 +124,7 @@ export default function CareersPage() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {evpCards.map((card, i) => (
               <Reveal key={card.title} variant="scale" delay={i * 0.12}>
-                <div className="bg-[#f3f5f5] flex flex-col items-center gap-4 p-7 text-center fipl-card-hover h-full">
+                <div className="bg-[var(--fipl-card)] flex flex-col items-center gap-4 p-7 text-center fipl-card-hover h-full">
                   <div
                     style={{
                       animation: `floatOrb ${3 + i * 0.5}s ease-in-out ${i * 0.3}s infinite`,
@@ -132,8 +132,8 @@ export default function CareersPage() {
                   >
                     {card.icon}
                   </div>
-                  <h3 className="text-lg font-bold text-[#0E121D]">{card.title}</h3>
-                  <p className="text-sm text-[#797979] leading-relaxed">{card.desc}</p>
+                  <h3 className="text-lg font-bold text-[var(--fipl-heading)]">{card.title}</h3>
+                  <p className="text-sm text-[var(--fipl-body)] leading-relaxed">{card.desc}</p>
                 </div>
               </Reveal>
             ))}
@@ -141,7 +141,7 @@ export default function CareersPage() {
         </div>
       </section>
 
-      <section className="py-12 md:py-16 lg:py-20 bg-[#f8f8f8]">
+      <section className="py-12 md:py-16 lg:py-20 bg-[var(--fipl-surface)]">
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <Reveal variant="clip" duration={0.9}>
@@ -163,10 +163,10 @@ export default function CareersPage() {
                     <path d="M7.5 0.5L1 7.5h5L4.5 12.5l7.5-8h-5z" />
                   </svg>
                 </span>
-                <h2 className="text-2xl md:text-3xl font-bold text-[#0E121D] mb-4">
+                <h2 className="text-2xl md:text-3xl font-bold text-[var(--fipl-heading)] mb-4">
                   What Drives Us
                 </h2>
-                <p className="text-[#797979] leading-relaxed mb-6 text-base">
+                <p className="text-[var(--fipl-body)] leading-relaxed mb-6 text-base">
                   Our work is guided by values that define who we are and how we operate — ensuring
                   that every watt of energy we generate comes from a place of excellence and
                   responsibility.
@@ -185,8 +185,8 @@ export default function CareersPage() {
                       <div className="flex items-start gap-3">
                         <Check />
                         <div>
-                          <span className="font-semibold text-[#0E121D] text-sm">{title}</span>
-                          <p className="text-sm text-[#797979] mt-0.5">{desc}</p>
+                          <span className="font-semibold text-[var(--fipl-heading)] text-sm">{title}</span>
+                          <p className="text-sm text-[var(--fipl-body)] mt-0.5">{desc}</p>
                         </div>
                       </div>
                     </Reveal>
@@ -214,10 +214,10 @@ export default function CareersPage() {
                   <path d="M7.5 0.5L1 7.5h5L4.5 12.5l7.5-8h-5z" />
                 </svg>
               </span>
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0E121D] mb-4">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[var(--fipl-heading)] mb-4">
                 We are committed to lasting impact
               </h2>
-              <p className="text-[#797979] leading-relaxed text-base">
+              <p className="text-[var(--fipl-body)] leading-relaxed text-base">
                 Explore roles across engineering, plant operations, administration, and management.
               </p>
             </div>
@@ -226,7 +226,7 @@ export default function CareersPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
             {jobs.map((job, i) => (
               <Reveal key={i} variant="up" delay={i * 0.07}>
-                <div className="bg-white border border-gray-200 p-6 hover:border-[#DB1B0C] hover:shadow-md transition-all fipl-card-hover h-full">
+                <div className="bg-[var(--fipl-bg)] border border-[var(--fipl-border)] p-6 hover:border-[#DB1B0C] hover:shadow-md transition-all fipl-card-hover h-full">
                   <div className="flex items-center gap-3 mb-4">
                     <div className="w-10 h-10 rounded-full bg-[#DB1B0C]/10 flex items-center justify-center shrink-0">
                       <svg
@@ -242,9 +242,9 @@ export default function CareersPage() {
                         <path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" />
                       </svg>
                     </div>
-                    <h3 className="font-bold text-[#0E121D] text-sm">{job.title}</h3>
+                    <h3 className="font-bold text-[var(--fipl-heading)] text-sm">{job.title}</h3>
                   </div>
-                  <div className="flex items-center gap-2 text-xs text-[#797979] mb-1">
+                  <div className="flex items-center gap-2 text-xs text-[var(--fipl-body)] mb-1">
                     <svg
                       className="w-3.5 h-3.5 shrink-0"
                       viewBox="0 0 24 24"

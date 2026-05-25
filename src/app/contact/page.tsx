@@ -105,10 +105,10 @@ export default function ContactPage() {
                     <path d="M7.5 0.5L1 7.5h5L4.5 12.5l7.5-8h-5z" />
                   </svg>
                 </span>
-                <h2 className="text-2xl md:text-3xl font-bold text-[#0E121D] mb-3">
+                <h2 className="text-2xl md:text-3xl font-bold text-[var(--fipl-heading)] mb-3">
                   Get in Touch with Us
                 </h2>
-                <p className="text-[#797979] leading-relaxed mb-8 text-base">
+                <p className="text-[var(--fipl-body)] leading-relaxed mb-8 text-base">
                   Our team is ready to provide answers, offer solutions, and start your journey
                   toward success.
                 </p>
@@ -121,7 +121,7 @@ export default function ContactPage() {
                           {icon}
                         </div>
                         <div>
-                          <div className="font-semibold text-[#0E121D] text-sm mb-0.5">{label}</div>
+                          <div className="font-semibold text-[var(--fipl-heading)] text-sm mb-0.5">{label}</div>
                           {href ? (
                             <a
                               href={href}
@@ -130,7 +130,7 @@ export default function ContactPage() {
                               {value}
                             </a>
                           ) : (
-                            <div className="text-sm text-[#797979] whitespace-pre-line">
+                            <div className="text-sm text-[var(--fipl-body)] whitespace-pre-line">
                               {value}
                             </div>
                           )}

@@ -320,7 +320,7 @@ function ZigZagTimeline() {
           transition: 'opacity 0.4s ease',
         }}
       >
-        <div className="w-full h-full rounded-full bg-white flex items-center justify-center">
+        <div className="w-full h-full rounded-full bg-[var(--fipl-bg)] flex items-center justify-center">
           <Image
             src="/images/sustainability/logoimage.png"
             alt="FIPL"
@@ -344,7 +344,7 @@ function ZigZagTimeline() {
           transition: 'opacity 0.4s ease',
         }}
       >
-        <div className="w-full h-full rounded-full bg-white flex items-center justify-center">
+        <div className="w-full h-full rounded-full bg-[var(--fipl-bg)] flex items-center justify-center">
           <Power className="w-11 h-11 text-[#DB1B0C]" strokeWidth={2.6} />
         </div>
       </div>
@@ -367,7 +367,7 @@ function ZigZagTimeline() {
               transition: 'opacity 0.35s ease',
             }}
           >
-            <div className="w-full h-full rounded-full bg-white flex items-center justify-center">
+            <div className="w-full h-full rounded-full bg-[var(--fipl-bg)] flex items-center justify-center">
               {m.icon}
             </div>
           </div>
@@ -464,7 +464,7 @@ function ZigZagTimeline() {
               className="w-[290px] rounded-lg overflow-hidden"
               style={{ border: '1px solid #DB1B0C', fontFamily: 'Arial, sans-serif' }}
             >
-              <div style={{ background: 'white', padding: '14px 20px' }}>
+              <div style={{ background: 'var(--fipl-bg)', padding: '14px 20px' }}>
                 <span style={{ color: '#DB1B0C', fontSize: 22, fontWeight: 600 }}>{m.year}</span>
               </div>
               <div
@@ -524,7 +524,7 @@ export function TimelineSection() {
   }, [])
 
   return (
-    <section className="relative overflow-hidden py-12 md:py-16 lg:py-20 bg-white">
+    <section className="relative overflow-hidden py-12 md:py-16 lg:py-20 bg-[var(--fipl-bg)]">
       <div className="absolute left-[-40px] top-1/2 -translate-y-1/2 w-[500px] h-[700px] pointer-events-none z-0">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 320" className="w-full h-full">
           <path d="M130 10 L50 160 H110 L30 310 L190 140 H120 Z" fill="#F47820" opacity="0.055" />
@@ -546,10 +546,10 @@ export function TimelineSection() {
                 <path d="M7.5 0.5L1 7.5h5L4.5 12.5l7.5-8h-5z" />
               </svg>
             </span>
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[var(--fipl-heading)] mb-4">
               A Legacy of Power &amp; Progress
             </h2>
-            <p className="text-gray-500 text-sm md:text-base leading-relaxed">
+            <p className="text-[var(--fipl-body)] text-sm md:text-base leading-relaxed">
               From our founding to today, FIPL has consistently evolved to meet Nigeria&apos;s
               growing energy needs while maintaining our commitment to excellence and innovation.
             </p>
@@ -592,12 +592,12 @@ export function TimelineSection() {
                 }}
               >
                 <div
-                  className="absolute -left-10 top-4 w-5 h-5 rounded-full bg-white flex items-center justify-center z-10"
+                  className="absolute -left-10 top-4 w-5 h-5 rounded-full bg-[var(--fipl-bg)] flex items-center justify-center z-10"
                   style={{ border: '3px solid #DB1B0C' }}
                 >
                   <div className="w-2 h-2 rounded-full bg-[#DB1B0C]" />
                 </div>
-                <div style={{ background: 'white', padding: '12px 16px 10px' }}>
+                <div style={{ background: 'var(--fipl-bg)', padding: '12px 16px 10px' }}>
                   <span style={{ color: '#DB1B0C', fontSize: 18, fontWeight: 700 }}>{m.year}</span>
                 </div>
                 <div style={{ background: '#DB1B0C', padding: '12px 16px 16px' }}>

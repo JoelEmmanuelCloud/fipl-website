@@ -5,6 +5,7 @@ import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { BackToTop } from '@/components/BackToTop'
 import { ChatWidget } from '@/components/ChatWidget'
+import { ThemeProvider } from '@/components/ThemeProvider'
 
 const SplashScreen = dynamic(
   () => import('@/components/SplashScreen').then((m) => ({ default: m.SplashScreen })),
@@ -27,14 +28,21 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className="antialiased text-gray-800 bg-white overflow-x-hidden">
-        <SplashScreen />
-        <Header />
-        <main>{children}</main>
-        <Footer />
-        <BackToTop />
-        <ChatWidget />
+    <html lang="en" suppressHydrationWarning>
+      <body className="antialiased overflow-x-hidden bg-[var(--fipl-bg)] text-[var(--fipl-heading)]">
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{var t=localStorage.getItem('fipl-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.classList.add('dark')}}catch(e){}`,
+          }}
+        />
+        <ThemeProvider>
+          <SplashScreen />
+          <Header />
+          <main>{children}</main>
+          <Footer />
+          <BackToTop />
+          <ChatWidget />
+        </ThemeProvider>
       </body>
     </html>
   )

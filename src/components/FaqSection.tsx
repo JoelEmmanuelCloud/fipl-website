@@ -30,7 +30,7 @@ export function FaqSection({ items }: { items: FaqItem[] }) {
       style={{ position: 'relative', overflow: 'hidden' }}
     >
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-12 lg:px-24">
-        <div className="bg-[#EFEFEF] rounded-2xl px-5 md:px-8 pt-10 md:pt-16 pb-8 md:pb-10">
+        <div className="bg-[var(--fipl-surface)] rounded-2xl px-5 md:px-8 pt-10 md:pt-16 pb-8 md:pb-10">
           <div
             ref={sectionRef}
             className="grid grid-cols-1 lg:grid-cols-[320px_480px] gap-8 lg:gap-10 items-start justify-center"
@@ -55,12 +55,12 @@ export function FaqSection({ items }: { items: FaqItem[] }) {
                   <path d="M13 2L4.5 13.5H11L10 22l9.5-11.5H13L14 2z" />
                 </svg>
               </p>
-              <h3 className="text-2xl md:text-3xl font-bold text-gray-800 leading-tight mb-3">
+              <h3 className="text-2xl md:text-3xl font-bold text-[var(--fipl-heading)] leading-tight mb-3">
                 Do You Have
                 <br />
                 Questions?
               </h3>
-              <p className="text-[13px] text-gray-500 leading-relaxed">
+              <p className="text-[13px] text-[var(--fipl-body)] leading-relaxed">
                 Have questions about who we are, what we do, or how we operate? Our Frequently Asked
                 Questions provide clear answers to help you better understand FIPL&apos;s services,
                 processes, and commitment to powering progress.

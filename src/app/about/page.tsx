@@ -128,15 +128,15 @@ export default function AboutPage() {
                     <path d="M7.5 0.5L1 7.5h5L4.5 12.5l7.5-8h-5z" />
                   </svg>
                 </span>
-                <h2 className="text-3xl md:text-4xl font-bold text-[#0E121D] mb-6">
+                <h2 className="text-3xl md:text-4xl font-bold text-[var(--fipl-heading)] mb-6">
                   Our Purpose, Our Promise
                 </h2>
-                <p className="text-[#797979] leading-[1.75] text-base mb-4">
+                <p className="text-[var(--fipl-body)] leading-[1.75] text-base mb-4">
                   First Independent Power Limited is a company in the business of power generation
                   in Nigeria located in Rivers State. We own and operate 4 gas turbine power plants
                   within Rivers State located in Trans-Amadi Port-Harcourt, Afam, Omoku and Eleme.
                 </p>
-                <p className="text-[#797979] leading-[1.75] text-base">
+                <p className="text-[var(--fipl-body)] leading-[1.75] text-base">
                   FIPL currently has a combined installed capacity of 541MW. FIPL has a vision of
                   being the largest and most stable power generation company in the South-South
                   region of the country while contributing significantly the power grid of Nigeria
@@ -149,20 +149,20 @@ export default function AboutPage() {
             </Reveal>
 
             <Reveal variant="right" delay={0.15}>
-              <div className="flex flex-row lg:flex-col gap-8 lg:gap-14 lg:pt-20 lg:pl-10 lg:border-l lg:border-[#e4e4e4] shrink-0">
+              <div className="flex flex-row lg:flex-col gap-8 lg:gap-14 lg:pt-20 lg:pl-10 lg:border-l lg:border-[var(--fipl-border)] shrink-0">
                 <div>
                   <div className="flex items-end gap-0.5 text-[38px] sm:text-[48px] lg:text-[56px] font-extrabold leading-none text-[#D97300]">
                     <AnimatedNumber value={541} />
                     <span>+</span>
                   </div>
-                  <p className="text-sm text-[#24283E] mt-4">MW Installed Capacity</p>
+                  <p className="text-sm text-[var(--fipl-secondary)] mt-4">MW Installed Capacity</p>
                 </div>
                 <div>
                   <div className="flex items-end gap-0.5 text-[38px] sm:text-[48px] lg:text-[56px] font-extrabold leading-none text-[#D97300]">
                     <AnimatedNumber value={10} />
                     <span>+</span>
                   </div>
-                  <p className="text-sm text-[#24283E] mt-4">Years Experiences</p>
+                  <p className="text-sm text-[var(--fipl-secondary)] mt-4">Years Experiences</p>
                 </div>
               </div>
             </Reveal>
@@ -210,10 +210,10 @@ export default function AboutPage() {
               },
             ].map((card, i) => (
               <Reveal key={card.title} variant="scale" delay={i * 0.15}>
-                <div className="bg-[#f3f5f5] flex flex-col items-center gap-3 px-10 py-6 text-center h-full fipl-card-hover">
+                <div className="bg-[var(--fipl-card)] flex flex-col items-center gap-3 px-10 py-6 text-center h-full fipl-card-hover">
                   {card.icon}
-                  <h3 className="text-xl font-bold text-black">{card.title}</h3>
-                  <p className="text-[#797979] text-sm leading-relaxed">{card.body}</p>
+                  <h3 className="text-xl font-bold text-[var(--fipl-heading)]">{card.title}</h3>
+                  <p className="text-[var(--fipl-body)] text-sm leading-relaxed">{card.body}</p>
                 </div>
               </Reveal>
             ))}
@@ -340,8 +340,8 @@ export default function AboutPage() {
                   <path d="M7.5 0.5L1 7.5h5L4.5 12.5l7.5-8h-5z" />
                 </svg>
               </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-black mb-3">Meet The CEO</h2>
-              <p className="text-[#797979] text-base">
+              <h2 className="text-3xl md:text-4xl font-bold text-[var(--fipl-heading)] mb-3">Meet The CEO</h2>
+              <p className="text-[var(--fipl-body)] text-base">
                 A video address from our Chief Executive Officer
               </p>
             </div>

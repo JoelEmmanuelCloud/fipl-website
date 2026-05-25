@@ -100,10 +100,10 @@ export default function SustainabilityPage() {
                   <path d="M7.5 0.5L1 7.5h5L4.5 12.5l7.5-8h-5z" />
                 </svg>
               </span>
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0E121D] mb-4">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[var(--fipl-heading)] mb-4">
                 Environment, Social, and Governance (ESG)
               </h2>
-              <p className="text-[#797979] leading-relaxed text-base">
+              <p className="text-[var(--fipl-body)] leading-relaxed text-base">
                 Our ESG framework reflects our promise to operate responsibly and transparently. We
                 are committed to minimising environmental impact, upholding ethical standards in
                 governance, and creating social impact that empowers people and communities.
@@ -122,8 +122,8 @@ export default function SustainabilityPage() {
                     >
                       {card.icon}
                     </div>
-                    <h3 className="text-xl font-bold text-[#0E121D]">{card.title}</h3>
-                    <p className="text-[#797979] text-base leading-relaxed">{card.desc}</p>
+                    <h3 className="text-xl font-bold text-[var(--fipl-heading)]">{card.title}</h3>
+                    <p className="text-[var(--fipl-body)] text-base leading-relaxed">{card.desc}</p>
                   </div>
                 </Reveal>
                 {i < esgCards.length - 1 && (
@@ -141,7 +141,7 @@ export default function SustainabilityPage() {
         </div>
       </section>
 
-      <section className="py-12 md:py-16 lg:py-20 bg-[#f8f8f8]">
+      <section className="py-12 md:py-16 lg:py-20 bg-[var(--fipl-surface)]">
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <Reveal variant="left">
@@ -149,7 +149,7 @@ export default function SustainabilityPage() {
                 <h2 className="text-2xl md:text-3xl font-bold text-[#D97300] mb-4">
                   Sustainability
                 </h2>
-                <p className="text-[#797979] mb-4 text-base leading-relaxed">
+                <p className="text-[var(--fipl-body)] mb-4 text-base leading-relaxed">
                   Our operations &amp; maintenance philosophy and strategy has evolved and is
                   aligned with:
                 </p>
@@ -160,12 +160,12 @@ export default function SustainabilityPage() {
                     'Explore hardware upgrade options, combine-cycle integration',
                     'Maintained Ethical Practices that has fostered shared growth for us and our stakeholders',
                   ].map((item) => (
-                    <li key={item} className="flex items-start gap-2.5 text-sm text-[#797979]">
+                    <li key={item} className="flex items-start gap-2.5 text-sm text-[var(--fipl-body)]">
                       <span className="text-[#DB1B0C] font-bold shrink-0 mt-0.5">→</span> {item}
                     </li>
                   ))}
                 </ul>
-                <p className="text-[#797979] mb-3 text-base">
+                <p className="text-[var(--fipl-body)] mb-3 text-base">
                   We have built strong relationships with host communities in areas of our operation
                   by:
                 </p>
@@ -174,7 +174,7 @@ export default function SustainabilityPage() {
                     'Executing community development and high impact projects ranging from skills acquisitions, scholarship programs etc.',
                     'Local human capital integration in projects, participation in special programs e.g STEM',
                   ].map((item) => (
-                    <li key={item} className="flex items-start gap-2.5 text-sm text-[#797979]">
+                    <li key={item} className="flex items-start gap-2.5 text-sm text-[var(--fipl-body)]">
                       <span className="text-[#DB1B0C] font-bold shrink-0 mt-0.5">→</span> {item}
                     </li>
                   ))}
@@ -229,7 +229,7 @@ export default function SustainabilityPage() {
                 <h2 className="text-2xl md:text-3xl font-bold text-[#D97300] mb-4">
                   Health &amp; Safety First
                 </h2>
-                <p className="text-[#797979] leading-relaxed mb-6 text-base">
+                <p className="text-[var(--fipl-body)] leading-relaxed mb-6 text-base">
                   FIPL is committed to maintaining the highest Environment, Health, Safety, Security
                   &amp; Quality (EHSSQ) standards across all entries and partners. We focus on
                   Injury prevention and the protection of all employees and sub-contractors from
@@ -244,7 +244,7 @@ export default function SustainabilityPage() {
         </div>
       </section>
 
-      <section className="py-12 md:py-16 lg:py-20 bg-[#f8f8f8]">
+      <section className="py-12 md:py-16 lg:py-20 bg-[var(--fipl-surface)]">
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <Reveal variant="left" delay={0.1}>
@@ -252,7 +252,7 @@ export default function SustainabilityPage() {
                 <h2 className="text-2xl md:text-3xl font-bold text-[#D97300] mb-4">
                   Corporate Governance
                 </h2>
-                <p className="text-[#797979] leading-relaxed mb-4 text-base">
+                <p className="text-[var(--fipl-body)] leading-relaxed mb-4 text-base">
                   FIPL operates under a set of corporate governance and business principles in order
                   to deliver sustaining and sustainable performance over the long term. This we can
                   only achieve when everyone conforms to a set of high standards and binding values.
@@ -313,10 +313,10 @@ export default function SustainabilityPage() {
                     <path d="M7.5 0.5L1 7.5h5L4.5 12.5l7.5-8h-5z" />
                   </svg>
                 </span>
-                <h2 className="text-2xl md:text-3xl font-bold text-[#0E121D] mb-4">
+                <h2 className="text-2xl md:text-3xl font-bold text-[var(--fipl-heading)] mb-4">
                   Our Commitment to SDG Goals
                 </h2>
-                <p className="text-[#797979] leading-relaxed mb-6 text-base">
+                <p className="text-[var(--fipl-body)] leading-relaxed mb-6 text-base">
                   We align our projects with the United Nations Sustainable Development Goals
                   (SDGs), ensuring our impact contributes to building a better future for all.
                 </p>
@@ -339,8 +339,8 @@ export default function SustainabilityPage() {
                       <div className="flex items-start gap-3">
                         <Check />
                         <div>
-                          <h4 className="font-semibold text-[#0E121D] text-sm mb-1">{title}</h4>
-                          <p className="text-sm text-[#797979] leading-relaxed">{desc}</p>
+                          <h4 className="font-semibold text-[var(--fipl-heading)] text-sm mb-1">{title}</h4>
+                          <p className="text-sm text-[var(--fipl-body)] leading-relaxed">{desc}</p>
                         </div>
                       </div>
                     </Reveal>
@@ -352,7 +352,7 @@ export default function SustainabilityPage() {
         </div>
       </section>
 
-      <section className="py-12 md:py-16 lg:py-20 bg-[#f8f8f8]">
+      <section className="py-12 md:py-16 lg:py-20 bg-[var(--fipl-surface)]">
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
             <Reveal variant="clip" duration={0.9}>
@@ -379,12 +379,12 @@ export default function SustainabilityPage() {
                     <path d="M7.5 0.5L1 7.5h5L4.5 12.5l7.5-8h-5z" />
                   </svg>
                 </span>
-                <h2 className="text-2xl md:text-3xl font-bold text-[#0E121D] mb-4">
+                <h2 className="text-2xl md:text-3xl font-bold text-[var(--fipl-heading)] mb-4">
                   Empowering Communities,
                   <br />
                   Building Futures
                 </h2>
-                <p className="text-[#797979] leading-relaxed mb-6 text-base">
+                <p className="text-[var(--fipl-body)] leading-relaxed mb-6 text-base">
                   We partner with our host communities to drive development initiatives in health,
                   education, empowerment, and infrastructure.
                 </p>
@@ -410,8 +410,8 @@ export default function SustainabilityPage() {
                     <div key={title} className="flex items-start gap-3">
                       <Check />
                       <div>
-                        <h4 className="font-semibold text-[#0E121D] text-sm mb-1">{title}</h4>
-                        <p className="text-sm text-[#797979] leading-relaxed">{desc}</p>
+                        <h4 className="font-semibold text-[var(--fipl-heading)] text-sm mb-1">{title}</h4>
+                        <p className="text-sm text-[var(--fipl-body)] leading-relaxed">{desc}</p>
                       </div>
                     </div>
                   ))}

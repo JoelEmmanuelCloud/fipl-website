@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { Logo } from '@/components/Logo'
+import { ThemeToggle } from '@/components/ThemeToggle'
 
 type Child = { href: string; label: string }
 type NavItem =
@@ -20,9 +21,14 @@ const NAV: NavItem[] = [
   },
   { label: 'Power Plants', href: '/power-plants' },
   { label: 'News & Media', href: '/news' },
-  { label: 'Careers', href: '/careers' },
+  {
+    label: 'Work With Us',
+    children: [
+      { href: '/careers', label: 'Careers' },
+      { href: '/register', label: 'Register With Us' },
+    ],
+  },
   { label: 'Contact', href: '/contact' },
-  { label: 'Register With Us', href: '/register' },
 ]
 
 const LINK_FONT: React.CSSProperties = {
@@ -82,7 +88,7 @@ export function Header() {
           : 'text-primary border-[#F47820]'
         : transparent
           ? 'text-white/85 hover:text-[#F47820] border-transparent'
-          : 'text-gray-700 hover:text-[#F47820] border-transparent'
+          : 'text-gray-700 dark:text-gray-200 hover:text-[#F47820] border-transparent'
     }`
 
   return (
@@ -90,7 +96,7 @@ export function Header() {
       <header
         className="fixed top-0 left-0 right-0 z-50"
         style={{
-          backgroundColor: transparent ? 'transparent' : '#ffffff',
+          backgroundColor: transparent ? 'transparent' : 'var(--fipl-nav-bg)',
           boxShadow: transparent ? 'none' : '0 4px 6px -1px rgb(0 0 0 / 0.08)',
           transition: 'background-color 0.3s ease, box-shadow 0.3s ease',
         }}
@@ -119,7 +125,7 @@ export function Header() {
                                translate-y-2 group-hover:translate-y-0
                                transition-all duration-200 ease-out"
                   >
-                    <div className="bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden py-1">
+                    <div className="bg-white dark:bg-[#1E293B] rounded-xl shadow-xl border border-gray-100 dark:border-[#334155] overflow-hidden py-1">
                       {item.children.map((child) => (
                         <Link
                           key={child.href}
@@ -127,7 +133,7 @@ export function Header() {
                           className={`block px-5 py-3 text-[13.5px] transition-colors ${
                             pathname === child.href
                               ? 'text-primary font-semibold bg-primary/5'
-                              : 'text-gray-700 hover:text-primary hover:bg-gray-50'
+                              : 'text-gray-700 dark:text-gray-200 hover:text-primary hover:bg-gray-50 dark:hover:bg-white/5'
                           }`}
                         >
                           {child.label}
@@ -147,23 +153,27 @@ export function Header() {
                 </Link>
               ),
             )}
+            <ThemeToggle className="ml-2" />
           </nav>
 
-          <button
-            className="lg:hidden ml-auto p-3 flex flex-col gap-[5px] shrink-0 min-w-[44px] min-h-[44px] items-center justify-center"
-            aria-label="Open navigation menu"
-            aria-expanded={menuOpen}
-            onClick={() => setMenuOpen(true)}
-          >
-            {[0, 1, 2].map((i) => (
-              <span
-                key={i}
-                className={`block w-[22px] h-[2px] rounded transition-colors ${
-                  transparent ? 'bg-white' : 'bg-gray-700'
-                }`}
-              />
-            ))}
-          </button>
+          <div className="lg:hidden ml-auto flex items-center gap-1">
+            <ThemeToggle />
+            <button
+              className="p-3 flex flex-col gap-[5px] shrink-0 min-w-[44px] min-h-[44px] items-center justify-center"
+              aria-label="Open navigation menu"
+              aria-expanded={menuOpen}
+              onClick={() => setMenuOpen(true)}
+            >
+              {[0, 1, 2].map((i) => (
+                <span
+                  key={i}
+                  className={`block w-[22px] h-[2px] rounded transition-colors ${
+                    transparent ? 'bg-white' : 'bg-gray-700 dark:bg-gray-200'
+                  }`}
+                />
+              ))}
+            </button>
+          </div>
         </div>
       </header>
 

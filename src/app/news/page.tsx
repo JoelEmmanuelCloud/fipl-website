@@ -18,7 +18,7 @@ export default function NewsPage() {
 
       <NewsTabs articles={articles} />
 
-      <section className="py-12 md:py-16 lg:py-20 bg-[#f8f8f8]">
+      <section className="py-12 md:py-16 lg:py-20 bg-[var(--fipl-surface)]">
         <div className="max-w-[1280px] mx-auto px-6">
           <Reveal variant="up">
             <div className="text-center max-w-xl mx-auto mb-10">
@@ -34,7 +34,7 @@ export default function NewsPage() {
                   <path d="M7.5 0.5L1 7.5h5L4.5 12.5l7.5-8h-5z" />
                 </svg>
               </span>
-              <h2 className="text-2xl md:text-3xl font-bold text-[#0E121D]">
+              <h2 className="text-2xl md:text-3xl font-bold text-[var(--fipl-heading)]">
                 Insights, Updates &amp; Industry News
               </h2>
             </div>
@@ -42,7 +42,7 @@ export default function NewsPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {insights.map((article, i) => (
               <Reveal key={article.id} variant="scale" delay={i * 0.12}>
-                <div className="bg-white overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-1 transition-all fipl-card-hover">
+                <div className="bg-[var(--fipl-bg)] overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-1 transition-all fipl-card-hover">
                   <div className="relative h-44 bg-gray-200 overflow-hidden">
                     <div
                       className="w-full h-full bg-cover bg-center transition-transform duration-700 hover:scale-105"
@@ -57,10 +57,10 @@ export default function NewsPage() {
                     <div className="text-[11px] font-bold text-[#DB1B0C] uppercase tracking-wider mb-2">
                       {article.category}
                     </div>
-                    <h3 className="font-bold text-[#0E121D] text-[15px] leading-snug mb-3">
+                    <h3 className="font-bold text-[var(--fipl-heading)] text-[15px] leading-snug mb-3">
                       {article.title}
                     </h3>
-                    <div className="flex items-center justify-between text-xs text-[#797979]">
+                    <div className="flex items-center justify-between text-xs text-[var(--fipl-body)]">
                       <span className="flex items-center gap-1">
                         <svg
                           className="w-3 h-3 shrink-0"

@@ -160,7 +160,7 @@ export default function HomePage() {
                 backgroundImage: `url('${IMAGES.home.workerLeft}')`,
               }}
             />
-            <div className="shrink-0 bg-white rounded-2xl shadow-xl flex flex-col items-center justify-center text-center px-6 py-5 w-[280px] sm:w-[308px] h-[240px] sm:h-[257px]">
+            <div className="shrink-0 bg-[var(--fipl-bg)] rounded-2xl shadow-xl flex flex-col items-center justify-center text-center px-6 py-5 w-[280px] sm:w-[308px] h-[240px] sm:h-[257px]">
               <Image
                 src="/images/home/hero-icon.png"
                 alt=""
@@ -168,12 +168,12 @@ export default function HomePage() {
                 height={36}
                 className="shrink-0 mb-2.5"
               />
-              <h2 className="text-sm font-bold text-gray-800 leading-snug mb-1.5">
+              <h2 className="text-sm font-bold text-[var(--fipl-heading)] leading-snug mb-1.5">
                 Our Power Plants,
                 <br />
                 Our Impact
               </h2>
-              <p className="text-[11px] text-gray-500 leading-relaxed max-w-[240px]">
+              <p className="text-[11px] text-[var(--fipl-body)] leading-relaxed max-w-[240px]">
                 FIPL operates four world-class thermal power plants – Omoku, Afam, Trans-Amadi, and
                 Eleme – generating electricity that supports Nigeria&apos;s industrial and economic
                 growth.
@@ -250,7 +250,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <div className="bg-white h-4 md:h-6" />
+      <div className="bg-[var(--fipl-bg)] h-4 md:h-6" />
       <section
         className="relative py-20 md:py-28 bg-cover bg-center"
         style={{ backgroundImage: `url('${IMAGES.home.community}')` }}
@@ -315,7 +315,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-16 md:py-24 bg-white bolt-watermark">
+      <section className="py-16 md:py-24 bg-[var(--fipl-bg)] bolt-watermark">
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <div className="relative h-[300px] md:h-[420px] lg:h-[500px] w-full">
@@ -348,15 +348,15 @@ export default function HomePage() {
                   <path d="M13 2L4.5 13.5H11L10 22l9.5-11.5H13L14 2z" />
                 </svg>
               </p>
-              <h2 className="text-2xl md:text-3xl lg:text-[36px] font-bold text-gray-800 leading-snug mb-4">
+              <h2 className="text-2xl md:text-3xl lg:text-[36px] font-bold text-[var(--fipl-heading)] leading-snug mb-4">
                 Build Your Future With Us
               </h2>
-              <p className="text-gray-500 text-[14px] leading-relaxed mb-6">
+              <p className="text-[var(--fipl-body)] text-[14px] leading-relaxed mb-6">
                 Join a team powering progress and driving innovation in Nigeria&apos;s energy
                 sector. At FIPL, we are committed to building sustainable solutions and empowering
                 the next generation of leaders in oil and gas and power.
               </p>
-              <p className="font-semibold text-gray-800 text-[15px] mb-4">Why Work With Us?</p>
+              <p className="font-semibold text-[var(--fipl-heading)] text-[15px] mb-4">Why Work With Us?</p>
               <ul className="space-y-4 mb-8">
                 {[
                   'Be part of impactful projects that keep the lights on across communities',
@@ -368,7 +368,7 @@ export default function HomePage() {
                     <span className="w-5 h-5 rounded-full bg-primary/10 text-primary text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">
                       ✓
                     </span>
-                    <span className="text-[13px] text-gray-600 leading-relaxed">{item}</span>
+                    <span className="text-[13px] text-[var(--fipl-body)] leading-relaxed">{item}</span>
                   </li>
                 ))}
               </ul>

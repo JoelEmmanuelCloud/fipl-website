@@ -37,9 +37,9 @@ export function NewsTabs({ articles }: { articles: NewsArticle[] }) {
     .slice(0, 7)
 
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-16 bg-[var(--fipl-surface)]">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="flex gap-1 border-b-2 border-gray-200 mb-8">
+        <div className="flex gap-1 border-b-2 border-[var(--fipl-border)] mb-8">
           {(['press', 'media'] as const).map((tab) => (
             <button
               key={tab}
@@ -50,7 +50,7 @@ export function NewsTabs({ articles }: { articles: NewsArticle[] }) {
               className={`px-5 py-2.5 text-sm font-medium -mb-0.5 border-b-2 transition-colors ${
                 mainTab === tab
                   ? 'text-primary border-primary font-semibold'
-                  : 'text-gray-500 border-transparent hover:text-gray-700'
+                  : 'text-[var(--fipl-body)] border-transparent hover:text-[var(--fipl-heading)]'
               }`}
             >
               {tab === 'press' ? '📰 Press Releases' : '📷 Media Kits'}
@@ -62,7 +62,7 @@ export function NewsTabs({ articles }: { articles: NewsArticle[] }) {
           <>
             <div className="flex flex-wrap items-center gap-3 mb-7">
               <select
-                className="border border-gray-200 px-4 py-2 text-sm bg-white focus:outline-none focus:border-[#DB1B0C]"
+                className="border border-[var(--fipl-border)] px-4 py-2 text-sm bg-[var(--fipl-bg)] text-[var(--fipl-heading)] focus:outline-none focus:border-[#DB1B0C]"
                 value={filter}
                 onChange={(e) => {
                   setFilter(e.target.value)
@@ -75,7 +75,7 @@ export function NewsTabs({ articles }: { articles: NewsArticle[] }) {
               </select>
               <div className="relative flex-1 min-w-[200px]">
                 <svg
-                  className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none"
+                  className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--fipl-body)] w-4 h-4 pointer-events-none"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -94,7 +94,7 @@ export function NewsTabs({ articles }: { articles: NewsArticle[] }) {
                     setQuery(e.target.value)
                     setPage(1)
                   }}
-                  className="w-full border border-gray-200 pl-9 pr-4 py-2 text-sm bg-white focus:outline-none focus:border-[#DB1B0C]"
+                  className="w-full border border-[var(--fipl-border)] pl-9 pr-4 py-2 text-sm bg-[var(--fipl-bg)] text-[var(--fipl-heading)] placeholder:text-[var(--fipl-body)] focus:outline-none focus:border-[#DB1B0C]"
                 />
               </div>
             </div>
@@ -104,7 +104,7 @@ export function NewsTabs({ articles }: { articles: NewsArticle[] }) {
                 {paged.map((article) => (
                   <article
                     key={article.id}
-                    className="bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow mb-6"
+                    className="bg-[var(--fipl-bg)] overflow-hidden shadow-sm hover:shadow-md transition-shadow mb-6"
                   >
                     <div className="relative h-48 sm:h-56 md:h-64 bg-gray-200 overflow-hidden">
                       <Image
@@ -129,7 +129,7 @@ export function NewsTabs({ articles }: { articles: NewsArticle[] }) {
                       <div className="text-[11px] font-bold text-[#DB1B0C] uppercase tracking-wider mb-2">
                         {article.category}
                       </div>
-                      <h2 className="text-lg font-bold text-[#0E121D] mb-3 leading-snug">
+                      <h2 className="text-lg font-bold text-[var(--fipl-heading)] mb-3 leading-snug">
                         <Link
                           href={`/news/${article.slug}`}
                           className="hover:text-[#DB1B0C] transition-colors"
@@ -137,7 +137,7 @@ export function NewsTabs({ articles }: { articles: NewsArticle[] }) {
                           {article.title}
                         </Link>
                       </h2>
-                      <p className="text-sm text-[#797979] mb-4 leading-relaxed">
+                      <p className="text-sm text-[var(--fipl-body)] mb-4 leading-relaxed">
                         {article.excerpt}
                       </p>
                       <Link
@@ -159,7 +159,7 @@ export function NewsTabs({ articles }: { articles: NewsArticle[] }) {
                         className={`w-9 h-9 rounded-md text-sm font-medium border transition-colors ${
                           p === page
                             ? 'bg-primary text-white border-primary'
-                            : 'bg-white text-gray-600 border-gray-200 hover:border-primary hover:text-primary'
+                            : 'bg-[var(--fipl-bg)] text-[var(--fipl-body)] border-[var(--fipl-border)] hover:border-primary hover:text-primary'
                         }`}
                       >
                         {p}
@@ -168,7 +168,7 @@ export function NewsTabs({ articles }: { articles: NewsArticle[] }) {
                     {page < totalPages && (
                       <button
                         onClick={() => setPage(page + 1)}
-                        className="w-9 h-9 rounded-md text-sm font-medium border bg-white text-gray-600 border-gray-200 hover:border-primary hover:text-primary transition-colors"
+                        className="w-9 h-9 rounded-md text-sm font-medium border bg-[var(--fipl-bg)] text-[var(--fipl-body)] border-[var(--fipl-border)] hover:border-primary hover:text-primary transition-colors"
                       >
                         ›
                       </button>
@@ -178,11 +178,11 @@ export function NewsTabs({ articles }: { articles: NewsArticle[] }) {
               </div>
 
               <aside className="hidden lg:block">
-                <div className="text-sm font-bold text-gray-800 mb-4 pb-3 border-b-2 border-primary">
+                <div className="text-sm font-bold text-[var(--fipl-heading)] mb-4 pb-3 border-b-2 border-primary">
                   Recent Posts
                 </div>
                 {recent.map((a) => (
-                  <div key={a.id} className="flex gap-3 py-3 border-b border-gray-100">
+                  <div key={a.id} className="flex gap-3 py-3 border-b border-[var(--fipl-border-subtle)]">
                     <Image
                       src={a.image}
                       alt={a.title}
@@ -191,10 +191,10 @@ export function NewsTabs({ articles }: { articles: NewsArticle[] }) {
                       className="shrink-0 rounded-lg object-cover"
                     />
                     <div>
-                      <div className="text-[11px] text-gray-400 mb-1">{a.date}</div>
+                      <div className="text-[11px] text-[var(--fipl-body)] mb-1">{a.date}</div>
                       <Link
                         href={`/news/${a.slug}`}
-                        className="text-[13px] font-semibold text-gray-800 leading-snug hover:text-primary transition-colors"
+                        className="text-[13px] font-semibold text-[var(--fipl-heading)] leading-snug hover:text-primary transition-colors"
                       >
                         {a.title}
                       </Link>
@@ -216,7 +216,7 @@ export function NewsTabs({ articles }: { articles: NewsArticle[] }) {
                   className={`px-5 py-2 rounded-full text-sm font-medium border transition-colors ${
                     mkTab === tab
                       ? 'bg-primary text-white border-primary'
-                      : 'bg-gray-50 text-gray-600 border-gray-200 hover:border-primary'
+                      : 'bg-[var(--fipl-surface)] text-[var(--fipl-body)] border-[var(--fipl-border)] hover:border-primary'
                   }`}
                 >
                   {tab}
@@ -227,7 +227,7 @@ export function NewsTabs({ articles }: { articles: NewsArticle[] }) {
               {Array.from({ length: 8 }).map((_, i) => (
                 <div
                   key={i}
-                  className="aspect-square bg-gray-200 rounded-xl overflow-hidden flex items-center justify-center text-gray-400 text-xs cursor-pointer hover:scale-[1.03] transition-transform"
+                  className="aspect-square bg-[var(--fipl-surface)] rounded-xl overflow-hidden flex items-center justify-center text-[var(--fipl-body)] text-xs cursor-pointer hover:scale-[1.03] transition-transform"
                 >
                   [ {mkTab} {i + 1} ]
                 </div>

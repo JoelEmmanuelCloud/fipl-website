@@ -115,7 +115,7 @@ export function ChatWidget() {
             className="flex items-center gap-3 px-4 py-3 shrink-0"
             style={{ background: 'linear-gradient(135deg, #DB1B0C 0%, #D97300 100%)' }}
           >
-            <div className="w-9 h-9 rounded-full bg-white flex items-center justify-center shrink-0 overflow-hidden">
+            <div className="w-9 h-9 rounded-full bg-[var(--fipl-bg)] flex items-center justify-center shrink-0 overflow-hidden">
               <Image
                 src="/images/sustainability/logoimage.png"
                 alt="FIPL"
@@ -173,25 +173,25 @@ export function ChatWidget() {
                     style={
                       m.role === 'user'
                         ? { background: '#DB1B0C', color: 'white', borderBottomRightRadius: 4 }
-                        : { background: '#f3f4f6', color: '#1f2937', borderBottomLeftRadius: 4 }
+                        : { background: 'var(--fipl-surface)', color: 'var(--fipl-heading)', borderBottomLeftRadius: 4 }
                     }
                   >
                     {m.role === 'model' ? renderBotText(m.text) : m.text}
                   </div>
-                  <span className="text-[10px] text-gray-400 mt-0.5 px-1">{m.time}</span>
+                  <span className="text-[10px] text-[var(--fipl-body)] mt-0.5 px-1">{m.time}</span>
                 </div>
               ))}
               {loading && (
                 <div className="flex justify-start">
                   <div
-                    className="bg-[#f3f4f6] px-4 py-2.5 rounded-2xl"
+                    className="bg-[var(--fipl-surface)] px-4 py-2.5 rounded-2xl"
                     style={{ borderBottomLeftRadius: 4 }}
                   >
                     <span className="flex gap-1 items-center h-4">
                       {[0, 1, 2].map((i) => (
                         <span
                           key={i}
-                          className="block w-1.5 h-1.5 rounded-full bg-gray-400"
+                          className="block w-1.5 h-1.5 rounded-full bg-[var(--fipl-body)]"
                           style={{ animation: `bounce 1.2s ease-in-out ${i * 0.2}s infinite` }}
                         />
                       ))}
@@ -204,7 +204,7 @@ export function ChatWidget() {
           )}
 
           {!minimized && messages.length === 1 && !loading && (
-            <div className="shrink-0 px-3 pb-2 pt-2 bg-white flex flex-wrap gap-1.5">
+            <div className="shrink-0 px-3 pb-2 pt-2 bg-[var(--fipl-bg)] flex flex-wrap gap-1.5">
               {[
                 'Where is your head office?',
                 'How do I apply for a job?',
@@ -215,7 +215,7 @@ export function ChatWidget() {
                   key={q}
                   onClick={() => sendText(q)}
                   className="text-xs px-3 py-1.5 rounded-full border transition-colors hover:bg-[#DB1B0C] hover:text-white hover:border-[#DB1B0C]"
-                  style={{ borderColor: '#DB1B0C', color: '#DB1B0C', background: 'white' }}
+                  style={{ borderColor: '#DB1B0C', color: '#DB1B0C', background: 'var(--fipl-bg)' }}
                 >
                   {q}
                 </button>
@@ -224,9 +224,9 @@ export function ChatWidget() {
           )}
 
           {!minimized && (
-            <div className="shrink-0 px-3 py-3 bg-white border-t border-gray-100 flex gap-2">
+            <div className="shrink-0 px-3 py-3 bg-[var(--fipl-bg)] border-t border-[var(--fipl-border)] flex gap-2">
               <input
-                className="flex-1 text-sm px-3 py-2 rounded-full border border-gray-200 outline-none focus:border-[#DB1B0C] transition-colors"
+                className="flex-1 text-sm px-3 py-2 rounded-full border border-[var(--fipl-border)] bg-[var(--fipl-bg)] text-[var(--fipl-heading)] placeholder:text-[var(--fipl-body)] outline-none focus:border-[#DB1B0C] transition-colors"
                 ref={inputRef}
                 placeholder="Type a message…"
                 value={input}

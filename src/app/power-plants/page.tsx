@@ -90,10 +90,10 @@ export default function PowerPlantsPage() {
                   <path d="M7.5 0.5L1 7.5h5L4.5 12.5l7.5-8h-5z" />
                 </svg>
               </span>
-              <h2 className="text-2xl md:text-3xl font-bold text-[#0E121D] mb-4">
+              <h2 className="text-2xl md:text-3xl font-bold text-[var(--fipl-heading)] mb-4">
                 Our Power Plants
               </h2>
-              <p className="text-[#797979] leading-relaxed text-base">
+              <p className="text-[var(--fipl-body)] leading-relaxed text-base">
                 First Independent Power Limited is a company in the business of power generation in
                 Nigeria located in Rivers State. We own and operate 4 gas turbine power plants
                 within Rivers State located in Trans-Amadi Port-Harcourt, Afam, Omoku and Eleme.
@@ -123,7 +123,7 @@ export default function PowerPlantsPage() {
             >
               <div
                 id={plant.id}
-                className={`scroll-mt-20 flex flex-col ${plant.imageLeft ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-0 bg-white shadow-sm border border-gray-100 fipl-card-hover`}
+                className={`scroll-mt-20 flex flex-col ${plant.imageLeft ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-0 bg-[var(--fipl-bg)] shadow-sm border border-[var(--fipl-border)] fipl-card-hover`}
               >
                 <div className="lg:w-[420px] shrink-0 overflow-hidden relative h-[240px] md:h-[280px] lg:self-stretch">
                   <div
@@ -149,11 +149,11 @@ export default function PowerPlantsPage() {
                   <h3 className="text-xl md:text-2xl font-bold text-[#D97300] mb-4">
                     {plant.name}
                   </h3>
-                  <p className="text-[#797979] leading-relaxed text-sm md:text-base mb-4">
+                  <p className="text-[var(--fipl-body)] leading-relaxed text-sm md:text-base mb-4">
                     {plant.desc}
                   </p>
-                  <p className="text-sm text-[#797979]">
-                    <span className="font-semibold text-[#0E121D]">Primary Gas Supplier:</span>{' '}
+                  <p className="text-sm text-[var(--fipl-body)]">
+                    <span className="font-semibold text-[var(--fipl-heading)]">Primary Gas Supplier:</span>{' '}
                     {plant.supplier}
                   </p>
                 </div>
@@ -163,7 +163,7 @@ export default function PowerPlantsPage() {
         </div>
       </section>
 
-      <section id="how-we-work" className="py-12 md:py-16 lg:py-20 bg-white">
+      <section id="how-we-work" className="py-12 md:py-16 lg:py-20 bg-[var(--fipl-bg)]">
         <div className="max-w-[1280px] mx-auto px-6">
           <Reveal variant="up">
             <div className="text-center max-w-2xl mx-auto mb-16">
@@ -179,59 +179,59 @@ export default function PowerPlantsPage() {
                   <path d="M7.5 0.5L1 7.5h5L4.5 12.5l7.5-8h-5z" />
                 </svg>
               </span>
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0E121D] mb-4">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[var(--fipl-heading)] mb-4">
                 How We Power Nigeria
               </h2>
-              <p className="text-[#797979] leading-relaxed text-base">
+              <p className="text-[var(--fipl-body)] leading-relaxed text-base">
                 Our approach ensures every project is executed with precision, safety, and
                 sustainability at the core.
               </p>
             </div>
           </Reveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[21px] items-end">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[21px] lg:items-end">
             {steps.map((step, i) => {
               const isTop = i % 2 === 0
               return (
                 <Reveal key={step.num} variant="up" delay={i * 0.1}>
-                  <div className="relative flex flex-col">
+                  <div className="flex flex-col">
                     {isTop ? (
                       <>
                         <div className="relative overflow-hidden h-[260px] rounded-tl-[200px] rounded-tr-[200px]">
                           <Image src={step.image} alt={step.title} fill className="object-cover" />
                         </div>
-                        <div className="relative flex justify-center">
+                        <div className="relative z-10 flex justify-center -mt-[38px]">
                           <div
-                            className="absolute -top-[38px] w-[76px] h-[76px] bg-[#D97300] rounded-full flex items-center justify-center z-10"
-                            style={{ border: '10px solid white' }}
+                            className="w-[76px] h-[76px] bg-[#D97300] rounded-full flex items-center justify-center shrink-0"
+                            style={{ border: '10px solid var(--fipl-bg)' }}
                           >
                             <span className="text-white font-bold text-xl leading-none">
                               {step.num}
                             </span>
                           </div>
                         </div>
-                        <div className="pt-14 text-center px-2">
-                          <h4 className="font-bold text-[#0E121D] text-xl mb-3">{step.title}</h4>
-                          <p className="text-[#797979] leading-relaxed text-base">{step.desc}</p>
+                        <div className="pt-5 text-center px-2">
+                          <h4 className="font-bold text-[var(--fipl-heading)] text-xl mb-3">{step.title}</h4>
+                          <p className="text-[var(--fipl-body)] leading-relaxed text-base">{step.desc}</p>
                         </div>
                       </>
                     ) : (
                       <>
-                        <div className="text-center px-2 pb-14">
-                          <h4 className="font-bold text-[#0E121D] text-xl mb-3">{step.title}</h4>
-                          <p className="text-[#797979] leading-relaxed text-base">{step.desc}</p>
+                        <div className="text-center px-2 pb-5">
+                          <h4 className="font-bold text-[var(--fipl-heading)] text-xl mb-3">{step.title}</h4>
+                          <p className="text-[var(--fipl-body)] leading-relaxed text-base">{step.desc}</p>
                         </div>
-                        <div className="relative flex justify-center">
+                        <div className="relative z-10 flex justify-center">
                           <div
-                            className="absolute -top-[38px] w-[76px] h-[76px] bg-[#D97300] rounded-full flex items-center justify-center z-10"
-                            style={{ border: '10px solid white' }}
+                            className="w-[76px] h-[76px] bg-[#D97300] rounded-full flex items-center justify-center shrink-0"
+                            style={{ border: '10px solid var(--fipl-bg)' }}
                           >
                             <span className="text-white font-bold text-xl leading-none">
                               {step.num}
                             </span>
                           </div>
                         </div>
-                        <div className="relative overflow-hidden h-[260px] rounded-bl-[200px] rounded-br-[200px]">
+                        <div className="relative overflow-hidden h-[260px] rounded-bl-[200px] rounded-br-[200px] -mt-[38px]">
                           <Image src={step.image} alt={step.title} fill className="object-cover" />
                         </div>
                       </>

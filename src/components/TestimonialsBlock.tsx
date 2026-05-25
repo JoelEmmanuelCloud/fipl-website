@@ -32,7 +32,7 @@ export function TestimonialsBlock({
   }, [current, goTo])
 
   return (
-    <section className="py-12 md:py-16 lg:py-20 bg-[#f8f8f8]">
+    <section className="py-12 md:py-16 lg:py-20 bg-[var(--fipl-surface)]">
       <div className="max-w-[1280px] mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
           <Reveal variant="left">
@@ -49,7 +49,7 @@ export function TestimonialsBlock({
                   <path d="M7.5 0.5L1 7.5h5L4.5 12.5l7.5-8h-5z" />
                 </svg>
               </span>
-              <h2 className="text-2xl md:text-3xl font-bold text-[#0E121D] mb-6">
+              <h2 className="text-2xl md:text-3xl font-bold text-[var(--fipl-heading)] mb-6">
                 {heading.split('\n').map((line, i, arr) => (
                   <span key={i}>
                     {line}
@@ -63,7 +63,7 @@ export function TestimonialsBlock({
                     key={i}
                     onClick={() => goTo(i)}
                     aria-label={`Go to testimonial ${i + 1}`}
-                    className={`w-4 h-4 rounded-full transition-colors ${i === current ? 'bg-[#DB1B0C]' : 'bg-gray-200'}`}
+                    className={`w-4 h-4 rounded-full transition-colors ${i === current ? 'bg-[#DB1B0C]' : 'bg-[var(--fipl-border)]'}`}
                   />
                 ))}
               </div>
@@ -72,25 +72,25 @@ export function TestimonialsBlock({
 
           <Reveal variant="right" delay={0.1}>
             <div>
-              <div className="bg-white rounded-2xl p-8 shadow-md relative overflow-hidden">
+              <div className="bg-[var(--fipl-bg)] rounded-2xl p-8 shadow-md relative overflow-hidden">
                 <span className="absolute top-4 left-6 text-[80px] text-[#DB1B0C]/10 font-serif leading-none select-none">
                   &ldquo;
                 </span>
-                <p className="text-[15px] text-gray-600 leading-relaxed italic mb-6">
+                <p className="text-[15px] text-[var(--fipl-body)] leading-relaxed italic mb-6">
                   &ldquo;{testimonials[current].quote}&rdquo;
                 </p>
                 <div>
-                  <div className="font-bold text-gray-800">{testimonials[current].name}</div>
-                  <div className="text-sm text-gray-400">{testimonials[current].role}</div>
+                  <div className="font-bold text-[var(--fipl-heading)]">{testimonials[current].name}</div>
+                  <div className="text-sm text-[var(--fipl-body)]">{testimonials[current].role}</div>
                 </div>
               </div>
 
               {total > 1 && (
-                <div className="bg-white rounded-2xl px-8 py-5 shadow-md mt-3 opacity-50">
-                  <div className="font-bold text-sm text-gray-700">
+                <div className="bg-[var(--fipl-bg)] rounded-2xl px-8 py-5 shadow-md mt-3 opacity-50">
+                  <div className="font-bold text-sm text-[var(--fipl-heading)]">
                     {testimonials[(current + 1) % total].name}
                   </div>
-                  <div className="text-xs text-gray-400">
+                  <div className="text-xs text-[var(--fipl-body)]">
                     {testimonials[(current + 1) % total].role}
                   </div>
                 </div>

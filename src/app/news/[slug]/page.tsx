@@ -85,17 +85,17 @@ export default function ArticlePage({ params }: Props) {
               </div>
 
               <div
-                className="prose prose-gray max-w-none prose-a:text-primary"
+                className="prose prose-gray dark:prose-invert max-w-none prose-a:text-primary"
                 dangerouslySetInnerHTML={{ __html: article.content }}
               />
             </article>
 
             <aside>
-              <div className="text-sm font-bold text-gray-800 mb-4 pb-3 border-b-2 border-primary">
+              <div className="text-sm font-bold text-[var(--fipl-heading)] mb-4 pb-3 border-b-2 border-primary">
                 Recent Posts
               </div>
               {recent.map((a) => (
-                <div key={a.id} className="flex gap-3 py-3 border-b border-gray-100">
+                <div key={a.id} className="flex gap-3 py-3 border-b border-[var(--fipl-border-subtle)]">
                   <Image
                     src={a.image}
                     alt={a.title}
@@ -104,10 +104,10 @@ export default function ArticlePage({ params }: Props) {
                     className="shrink-0 rounded-lg object-cover"
                   />
                   <div>
-                    <div className="text-[11px] text-gray-400 mb-1">{a.date}</div>
+                    <div className="text-[11px] text-[var(--fipl-body)] mb-1">{a.date}</div>
                     <Link
                       href={`/news/${a.slug}`}
-                      className="text-[13px] font-semibold text-gray-800 leading-snug hover:text-primary transition-colors"
+                      className="text-[13px] font-semibold text-[var(--fipl-heading)] leading-snug hover:text-primary transition-colors"
                     >
                       {a.title}
                     </Link>

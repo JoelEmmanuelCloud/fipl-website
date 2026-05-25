@@ -186,13 +186,16 @@ export function Header() {
         aria-modal="true"
         aria-label="Navigation menu"
       >
-        <button
-          className="self-end text-white text-[32px] leading-none p-1 mb-8"
-          aria-label="Close menu"
-          onClick={() => setMenuOpen(false)}
-        >
-          &times;
-        </button>
+        <div className="flex items-center justify-between mb-8">
+          <Logo invert />
+          <button
+            className="text-white text-[32px] leading-none p-1"
+            aria-label="Close menu"
+            onClick={() => setMenuOpen(false)}
+          >
+            &times;
+          </button>
+        </div>
 
         <nav className="flex-1">
           <ul className="flex flex-col gap-0.5">

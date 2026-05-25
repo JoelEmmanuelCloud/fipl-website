@@ -126,7 +126,7 @@ export function ChatWidget() {
             </button>
           </div>
 
-          {!minimized && <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3 bg-white">
+          {!minimized && <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3 chat-bolt-bg">
             {messages.map((m, i) => (
               <div key={i} className={`flex flex-col ${m.role === 'user' ? 'items-end' : 'items-start'}`}>
                 <div

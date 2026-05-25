@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Accordion } from '@/components/Accordion'
 import { RegisterHero } from '@/components/PageHeroes'
 import { Reveal } from '@/components/Reveal'
@@ -82,11 +83,9 @@ export default function RegisterPage() {
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <Reveal variant="clip" duration={0.9}>
-              <img
-                src={IMAGES.register.vendor}
-                alt="Vendor registration"
-                className="w-full h-[300px] md:h-[380px] object-cover"
-              />
+              <div className="relative w-full h-[300px] md:h-[380px]">
+                <Image src={IMAGES.register.vendor} alt="Vendor registration" fill className="object-cover" />
+              </div>
             </Reveal>
             <Reveal variant="right" delay={0.15}>
               <div>

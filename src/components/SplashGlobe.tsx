@@ -59,15 +59,12 @@ export function SplashGlobe({ onReady }: Props) {
     const cy = SIZE / 2
     const R = SIZE * 0.47
 
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
     const { feature } = require('topojson-client')
 
     try {
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
       const topo = require('world-atlas/land-110m.json')
       const geo = feature(topo, topo.objects.land)
       const collected: Ring[] = []
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const extractRings = (geom: any) => {
         if (geom.type === 'Polygon') {
           collected.push(geom.coordinates[0] as Ring)
@@ -76,7 +73,6 @@ export function SplashGlobe({ onReady }: Props) {
         }
       }
       if (geo.type === 'FeatureCollection') {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         geo.features.forEach((f: any) => extractRings(f.geometry))
       } else if (geo.type === 'Feature') {
         extractRings(geo.geometry)
@@ -87,16 +83,12 @@ export function SplashGlobe({ onReady }: Props) {
     } catch { }
 
     try {
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
       const countriesTopo = require('world-atlas/countries-110m.json')
       const countriesGeo = feature(countriesTopo, countriesTopo.objects.countries)
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const nigeria = (countriesGeo as any).features?.find(
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (f: any) => String(f.id) === '566',
       )
       if (nigeria) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const geom = nigeria.geometry as any
         if (geom.type === 'Polygon') {
           nigeriaRings.current = [geom.coordinates[0] as Ring]

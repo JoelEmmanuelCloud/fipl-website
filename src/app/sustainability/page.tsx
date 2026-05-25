@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Image from 'next/image'
 import { SustainabilityHero } from '@/components/PageHeroes'
 import { Reveal } from '@/components/Reveal'
 import { IMAGES } from '@/lib/images'
@@ -231,11 +232,9 @@ export default function SustainabilityPage() {
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <Reveal variant="clip" duration={0.9}>
-              <img
-                src={IMAGES.sustainability.sdg}
-                alt="SDG Goals"
-                className="w-full h-[320px] md:h-[400px] object-cover rounded-2xl"
-              />
+              <div className="relative w-full h-[320px] md:h-[400px]">
+                <Image src={IMAGES.sustainability.sdg} alt="SDG Goals" fill className="object-cover rounded-2xl" />
+              </div>
             </Reveal>
             <Reveal variant="right" delay={0.15}>
               <div>
@@ -272,11 +271,9 @@ export default function SustainabilityPage() {
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
             <Reveal variant="clip" duration={0.9}>
-              <img
-                src={IMAGES.sustainability.community}
-                alt="Community empowerment"
-                className="w-full h-[280px] sm:h-[360px] md:h-[480px] lg:h-[600px] object-cover rounded-2xl"
-              />
+              <div className="relative w-full h-[280px] sm:h-[360px] md:h-[480px] lg:h-[600px]">
+                <Image src={IMAGES.sustainability.community} alt="Community empowerment" fill className="object-cover rounded-2xl" />
+              </div>
             </Reveal>
             <Reveal variant="right" delay={0.1}>
               <div>

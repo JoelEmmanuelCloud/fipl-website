@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import { TestimonialsBlock } from '@/components/TestimonialsBlock'
 import { AnimatedNumber } from '@/components/AnimatedNumber'
 import { TimelineSection } from '@/components/TimelineSection'
@@ -256,7 +257,7 @@ export default function AboutPage() {
 
           <Reveal variant="scale" delay={0.1}>
             <div className="relative rounded-2xl overflow-hidden w-full h-[280px] sm:h-[400px] md:h-[520px] lg:h-[600px]">
-              <img src={IMAGES.about.ceo} alt="FIPL CEO" className="absolute inset-0 w-full h-full object-cover" />
+              <Image src={IMAGES.about.ceo} alt="FIPL CEO" fill className="object-cover" />
               <div className="absolute inset-0 bg-black/40" />
               <div className="absolute inset-0 flex items-center justify-center">
                 <button

@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useRef, useEffect } from 'react'
+import Image from 'next/image'
 
 interface Message {
   role: 'user' | 'model'
@@ -103,7 +104,7 @@ export function ChatWidget() {
             style={{ background: 'linear-gradient(135deg, #DB1B0C 0%, #D97300 100%)' }}
           >
             <div className="w-9 h-9 rounded-full bg-white flex items-center justify-center shrink-0 overflow-hidden">
-              <img src="/images/sustainability/logoimage.png" alt="FIPL" style={{ width: 28, height: 28, objectFit: 'contain' }} />
+              <Image src="/images/sustainability/logoimage.png" alt="FIPL" width={28} height={28} className="object-contain" />
             </div>
             <div className="flex-1 min-w-0">
               <div className="text-white font-bold text-sm leading-tight">FIPL Assistant</div>

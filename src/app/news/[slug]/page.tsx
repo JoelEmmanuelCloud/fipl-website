@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { articles, getArticleBySlug, getRecentArticles } from '@/lib/news'
 import { IMAGES } from '@/lib/images'
@@ -60,11 +61,9 @@ export default function ArticlePage({ params }: Props) {
                 ← Back to News
               </Link>
 
-              <img
-                src={article.image}
-                alt={article.title}
-                className="w-full h-[320px] object-cover rounded-2xl mb-10"
-              />
+              <div className="relative w-full h-[320px] mb-10">
+                <Image src={article.image} alt={article.title} fill className="object-cover rounded-2xl" />
+              </div>
 
               <div
                 className="prose prose-gray max-w-none prose-a:text-primary"
@@ -78,7 +77,7 @@ export default function ArticlePage({ params }: Props) {
               </div>
               {recent.map((a) => (
                 <div key={a.id} className="flex gap-3 py-3 border-b border-gray-100">
-                  <img src={a.image} alt={a.title} className="w-16 h-14 shrink-0 rounded-lg object-cover" />
+                  <Image src={a.image} alt={a.title} width={64} height={56} className="shrink-0 rounded-lg object-cover" />
                   <div>
                     <div className="text-[11px] text-gray-400 mb-1">{a.date}</div>
                     <Link

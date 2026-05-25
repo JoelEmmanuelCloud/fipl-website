@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import { ContactForm, SubscribeForm } from '@/components/ContactForms'
 import { ContactHero } from '@/components/PageHeroes'
 import { Reveal } from '@/components/Reveal'
@@ -118,11 +119,7 @@ export default function ContactPage() {
               style={{ background: 'linear-gradient(269deg, #D97300 1%, #DB1B0C 100%)' }}
             >
               <div className="absolute left-0 bottom-0 h-full w-[200px] hidden lg:block pointer-events-none">
-                <img
-                  src={IMAGES.contact.hero}
-                  alt=""
-                  className="h-full w-full object-cover object-top opacity-30"
-                />
+                <Image src={IMAGES.contact.hero} alt="" fill className="object-cover object-top opacity-30" />
               </div>
               <div className="relative z-10 lg:pl-[180px]">
                 <span className="inline-flex items-center gap-1.5 text-xs text-white/80 mb-3">Stay in Touch <svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 0.5L1 7.5h5L4.5 12.5l7.5-8h-5z" /></svg></span>

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Image from 'next/image'
 import { PowerPlantsHero } from '@/components/PageHeroes'
 import { Reveal } from '@/components/Reveal'
 import { IMAGES } from '@/lib/images'
@@ -167,7 +168,7 @@ export default function PowerPlantsPage() {
                     {isTop ? (
                       <>
                         <div className="relative overflow-hidden h-[260px] rounded-tl-[200px] rounded-tr-[200px]">
-                          <img src={step.image} alt={step.title} className="w-full h-full object-cover" />
+                          <Image src={step.image} alt={step.title} fill className="object-cover" />
                         </div>
                         <div className="relative flex justify-center">
                           <div
@@ -197,7 +198,7 @@ export default function PowerPlantsPage() {
                           </div>
                         </div>
                         <div className="relative overflow-hidden h-[260px] rounded-bl-[200px] rounded-br-[200px]">
-                          <img src={step.image} alt={step.title} className="w-full h-full object-cover" />
+                          <Image src={step.image} alt={step.title} fill className="object-cover" />
                         </div>
                       </>
                     )}

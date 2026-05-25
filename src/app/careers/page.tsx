@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Image from 'next/image'
 import { CareersHero } from '@/components/PageHeroes'
 import { Reveal } from '@/components/Reveal'
 import { IMAGES } from '@/lib/images'
@@ -96,11 +97,9 @@ export default function CareersPage() {
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <Reveal variant="clip" duration={0.9}>
-              <img
-                src={IMAGES.careers.team}
-                alt="FIPL team"
-                className="w-full h-[320px] md:h-[400px] lg:h-[460px] object-cover"
-              />
+              <div className="relative w-full h-[320px] md:h-[400px] lg:h-[460px]">
+                <Image src={IMAGES.careers.team} alt="FIPL team" fill className="object-cover" />
+              </div>
             </Reveal>
             <Reveal variant="right" delay={0.15}>
               <div>

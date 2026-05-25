@@ -7,7 +7,6 @@
   body { font-family: Arial, sans-serif; }
 }
 
-/* ── Custom gradient utilities ───────────────────── */
 @layer utilities {
   .bg-gradient-fipl {
     background: linear-gradient(135deg, #E03027 0%, #F47820 100%);
@@ -18,7 +17,6 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
-  /* Lightning bolt watermark — decorative background element */
   .bolt-watermark {
     position: relative;
     overflow: hidden;
@@ -81,7 +79,6 @@
   }
 }
 
-/* ── Hero slideshow ─────────────────────────────── */
 @keyframes kenBurns {
   0%   { transform: scale(1)    translate(0,    0);    }
   50%  { transform: scale(1.07) translate(-1%,  0.5%); }
@@ -100,10 +97,6 @@
   animation: slideProgressLine 7s linear forwards;
 }
 
-/* ── Hero headline — cinematic word materialisation ── */
-
-/* Each word rises from below its clip boundary,
-   blur clears, and letter-spacing tightens to zero */
 @keyframes heroWordIn {
   0% {
     transform: translateY(115%);
@@ -123,7 +116,6 @@
   }
 }
 
-/* Scan line: sweeps right then fades out */
 @keyframes heroScanSweep {
   0%   { width: 0%;   opacity: 0; }
   8%   { opacity: 1; }
@@ -141,7 +133,6 @@
   padding-bottom: 5px;
 }
 
-/* Default: invisible, animation paused at the "from" frame */
 .hero-word {
   display: inline-block;
   animation: heroWordIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
@@ -149,12 +140,10 @@
   will-change: transform, filter;
 }
 
-/* Triggered by JS after splash completes */
 .hero-word-animate {
   animation-play-state: running;
 }
 
-/* Scan line — only mounted when ready, so animation starts from mount */
 .hero-scan-line {
   height: 2px;
   width: 0;
@@ -167,11 +156,6 @@
   box-shadow: 0 0 12px rgba(244,120,32,0.7), 0 0 28px rgba(224,48,39,0.35);
 }
 
-/* ══════════════════════════════════════════════════
-   CINEMATIC ANIMATION SYSTEM
-   ══════════════════════════════════════════════════ */
-
-/* ── Cinematic hero letterbox ────────────────────── */
 @keyframes cineBarTop {
   0%   { transform: translateY(0);     opacity: 1; }
   100% { transform: translateY(-105%); opacity: 1; }
@@ -207,7 +191,6 @@
   animation: cineContentIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.75s both;
 }
 
-/* ── Scroll reveal animations ────────────────────── */
 @keyframes revealUp {
   from { opacity: 0; transform: translateY(52px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -241,7 +224,6 @@
   to   { opacity: 1; filter: blur(0);   transform: scale(1); }
 }
 
-/* ── Ambient glow pulse ──────────────────────────── */
 @keyframes glowPulse {
   0%, 100% { box-shadow: 0 0 0  rgba(219,27,12,0); }
   50%       { box-shadow: 0 0 32px rgba(219,27,12,0.25); }
@@ -251,9 +233,6 @@
   50%       { box-shadow: 0 0 40px rgba(217,115,0,0.30); }
 }
 
-/* ── Timeline path drawing ───────────────────────── */
-
-/* ── Button shimmer ──────────────────────────────── */
 .btn-shimmer {
   position: relative;
   overflow: hidden;
@@ -279,7 +258,6 @@
   to   { transform: translateX(120%); }
 }
 
-/* ── Card hover lift + glow ──────────────────────── */
 .fipl-card-hover {
   transition: transform 0.32s cubic-bezier(0.22,1,0.36,1),
               box-shadow 0.32s cubic-bezier(0.22,1,0.36,1);
@@ -291,7 +269,6 @@
               0 6px 20px  rgba(0,0,0,0.06);
 }
 
-/* ── Section label underline draw ───────────────── */
 .label-underline {
   position: relative;
   display: inline-block;
@@ -310,7 +287,6 @@
   transform: scaleX(1);
 }
 
-/* ── Per-page hero accent elements ──────────────── */
 @keyframes heroBadgeIn {
   from { opacity: 0; transform: translateY(-10px) scale(0.9); }
   to   { opacity: 1; transform: translateY(0)      scale(1);   }
@@ -381,31 +357,23 @@
   margin-top: 14px;
 }
 
-/* ── Floating energy orbs (hero decoration) ──────── */
 @keyframes floatOrb {
   0%   { transform: translateY(0)     scale(1);   opacity: 0.55; }
   50%  { transform: translateY(-30px) scale(1.1); opacity: 0.8; }
   100% { transform: translateY(0)     scale(1);   opacity: 0.55; }
 }
 
-/* ── Article prose ──────────────────────────────── */
 .prose p {
   color: #555;
   line-height: 1.75;
   margin-bottom: 1rem;
 }
 
-/* ── Tailwind override helpers ───────────────────── */
-/* These repeat colours that Tailwind resolves via config,
-   but ensure inline-style-free elements inherit correctly. */
 .text-accent   { color: #F47820 !important; }
 .bg-accent     { background-color: #F47820 !important; }
 .text-primary  { color: #E03027 !important; }
 .bg-primary    { background-color: #E03027 !important; }
 
-/* ── Splash screen ──────────────────────────────── */
-
-/* Small "WE ARE" label: fades in, holds, fades out before finale */
 @keyframes weAreSmallLife {
   0%    { opacity: 0; }
   6%    { opacity: 1; }
@@ -413,7 +381,6 @@
   100%  { opacity: 0; }
 }
 
-/* Cycling words: slide up in, hold, slide up out */
 @keyframes wordCycle {
   0%   { opacity: 0; transform: translateY(48px); }
   13%  { opacity: 1; transform: translateY(0); }
@@ -421,13 +388,11 @@
   100% { opacity: 0; transform: translateY(-36px); }
 }
 
-/* Finale block rises into place */
 @keyframes finaleIn {
   0%   { opacity: 0; transform: translate(-50%, calc(-50% + 24px)); }
   100% { opacity: 1; transform: translate(-50%, -50%); }
 }
 
-/* Divider bar sweeps outward from center */
 @keyframes barSweep {
   0%   { clip-path: inset(0 50% 0 50%); opacity: 0; }
   20%  { opacity: 1; }
@@ -439,7 +404,6 @@
   100% { width: 100%; }
 }
 
-/* ── Root ── */
 .splash-root {
   position: fixed;
   inset: 0;
@@ -452,7 +416,6 @@
   overflow: hidden;
 }
 
-/* ── Globe ── */
 .splash-globe-wrap {
   position: absolute;
   inset: 0;
@@ -467,7 +430,6 @@
   border-radius: 50%;
 }
 
-/* ── Stage ── */
 .splash-stage {
   position: relative;
   z-index: 1;
@@ -476,11 +438,9 @@
   align-items: center;
   text-align: center;
   padding: 0 16px;
-  /* tall enough to hold both cycling phase and finale without jumping */
   min-height: clamp(160px, 35vw, 280px);
 }
 
-/* Small "WE ARE" label during cycling phase */
 .splash-we-are-small {
   font-family: Arial, sans-serif;
   font-size: clamp(10px, 1.6vw, 12px);
@@ -493,7 +453,6 @@
   animation: weAreSmallLife 2.3s ease 0.1s both;
 }
 
-/* Fixed-height slot for cycling words */
 .splash-word-slot {
   position: relative;
   height: clamp(58px, 11.5vw, 108px);
@@ -503,7 +462,6 @@
   justify-content: center;
 }
 
-/* Cycling words — all absolutely stacked */
 .splash-word {
   position: absolute;
   font-family: Arial, sans-serif;
@@ -531,7 +489,6 @@
   text-shadow: 0 0 80px rgba(224, 48, 39, 0.45), 0 0 160px rgba(224, 48, 39, 0.2);
 }
 
-/* ── Finale block — absolutely overlays the stage, centered ── */
 .splash-finale {
   position: absolute;
   top: 50%;
@@ -544,7 +501,6 @@
   animation: finaleIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) 2.5s both;
 }
 
-/* Big "WE ARE" — same scale as the cycling words, this is the payoff */
 .splash-we-are-big {
   font-family: Arial, sans-serif;
   font-weight: 800;
@@ -556,7 +512,6 @@
   text-shadow: 0 0 100px rgba(255, 255, 255, 0.08);
 }
 
-/* Gradient divider line sweeps out from centre */
 .splash-finale-bar {
   height: 1px;
   width: 100%;
@@ -571,13 +526,11 @@
   animation: barSweep 0.5s ease 2.65s both;
 }
 
-/* Logo rises */
 .splash-finale-logo {
   filter: drop-shadow(0 0 24px rgba(224, 48, 39, 0.2));
   margin-bottom: 12px;
 }
 
-/* Company name */
 .splash-finale-name {
   font-family: Arial, sans-serif;
   font-size: clamp(8px, 1.1vw, 10px);
@@ -588,7 +541,6 @@
   margin: 0;
 }
 
-/* ── Progress bar ── */
 .splash-bar-track {
   position: absolute;
   bottom: 0;

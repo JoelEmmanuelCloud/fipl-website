@@ -185,7 +185,9 @@ export default function CareersPage() {
                       <div className="flex items-start gap-3">
                         <Check />
                         <div>
-                          <span className="font-semibold text-[var(--fipl-heading)] text-sm">{title}</span>
+                          <span className="font-semibold text-[var(--fipl-heading)] text-sm">
+                            {title}
+                          </span>
                           <p className="text-sm text-[var(--fipl-body)] mt-0.5">{desc}</p>
                         </div>
                       </div>

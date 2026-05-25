@@ -182,7 +182,10 @@ export function NewsTabs({ articles }: { articles: NewsArticle[] }) {
                   Recent Posts
                 </div>
                 {recent.map((a) => (
-                  <div key={a.id} className="flex gap-3 py-3 border-b border-[var(--fipl-border-subtle)]">
+                  <div
+                    key={a.id}
+                    className="flex gap-3 py-3 border-b border-[var(--fipl-border-subtle)]"
+                  >
                     <Image
                       src={a.image}
                       alt={a.title}

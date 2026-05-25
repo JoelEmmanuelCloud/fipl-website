@@ -160,7 +160,10 @@ export default function SustainabilityPage() {
                     'Explore hardware upgrade options, combine-cycle integration',
                     'Maintained Ethical Practices that has fostered shared growth for us and our stakeholders',
                   ].map((item) => (
-                    <li key={item} className="flex items-start gap-2.5 text-sm text-[var(--fipl-body)]">
+                    <li
+                      key={item}
+                      className="flex items-start gap-2.5 text-sm text-[var(--fipl-body)]"
+                    >
                       <span className="text-[#DB1B0C] font-bold shrink-0 mt-0.5">→</span> {item}
                     </li>
                   ))}
@@ -174,7 +177,10 @@ export default function SustainabilityPage() {
                     'Executing community development and high impact projects ranging from skills acquisitions, scholarship programs etc.',
                     'Local human capital integration in projects, participation in special programs e.g STEM',
                   ].map((item) => (
-                    <li key={item} className="flex items-start gap-2.5 text-sm text-[var(--fipl-body)]">
+                    <li
+                      key={item}
+                      className="flex items-start gap-2.5 text-sm text-[var(--fipl-body)]"
+                    >
                       <span className="text-[#DB1B0C] font-bold shrink-0 mt-0.5">→</span> {item}
                     </li>
                   ))}
@@ -339,7 +345,9 @@ export default function SustainabilityPage() {
                       <div className="flex items-start gap-3">
                         <Check />
                         <div>
-                          <h4 className="font-semibold text-[var(--fipl-heading)] text-sm mb-1">{title}</h4>
+                          <h4 className="font-semibold text-[var(--fipl-heading)] text-sm mb-1">
+                            {title}
+                          </h4>
                           <p className="text-sm text-[var(--fipl-body)] leading-relaxed">{desc}</p>
                         </div>
                       </div>
@@ -410,7 +418,9 @@ export default function SustainabilityPage() {
                     <div key={title} className="flex items-start gap-3">
                       <Check />
                       <div>
-                        <h4 className="font-semibold text-[var(--fipl-heading)] text-sm mb-1">{title}</h4>
+                        <h4 className="font-semibold text-[var(--fipl-heading)] text-sm mb-1">
+                          {title}
+                        </h4>
                         <p className="text-sm text-[var(--fipl-body)] leading-relaxed">{desc}</p>
                       </div>
                     </div>

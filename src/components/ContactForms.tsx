@@ -14,7 +14,10 @@ export function ContactForm() {
     >
       <div className="grid grid-cols-2 gap-3 mb-4">
         <div>
-          <label className="block text-xs font-semibold text-[var(--fipl-heading)] mb-1.5" htmlFor="first-name">
+          <label
+            className="block text-xs font-semibold text-[var(--fipl-heading)] mb-1.5"
+            htmlFor="first-name"
+          >
             First Name
           </label>
           <input
@@ -26,7 +29,10 @@ export function ContactForm() {
           />
         </div>
         <div>
-          <label className="block text-xs font-semibold text-[var(--fipl-heading)] mb-1.5" htmlFor="last-name">
+          <label
+            className="block text-xs font-semibold text-[var(--fipl-heading)] mb-1.5"
+            htmlFor="last-name"
+          >
             Last Name
           </label>
           <input
@@ -39,7 +45,10 @@ export function ContactForm() {
         </div>
       </div>
       <div className="mb-4">
-        <label className="block text-xs font-semibold text-[var(--fipl-heading)] mb-1.5" htmlFor="email">
+        <label
+          className="block text-xs font-semibold text-[var(--fipl-heading)] mb-1.5"
+          htmlFor="email"
+        >
           Your Email
         </label>
         <input
@@ -51,7 +60,10 @@ export function ContactForm() {
         />
       </div>
       <div className="mb-4">
-        <label className="block text-xs font-semibold text-[var(--fipl-heading)] mb-1.5" htmlFor="subject">
+        <label
+          className="block text-xs font-semibold text-[var(--fipl-heading)] mb-1.5"
+          htmlFor="subject"
+        >
           Subject
         </label>
         <select
@@ -72,7 +84,10 @@ export function ContactForm() {
         </select>
       </div>
       <div className="mb-6">
-        <label className="block text-xs font-semibold text-[var(--fipl-heading)] mb-1.5" htmlFor="message">
+        <label
+          className="block text-xs font-semibold text-[var(--fipl-heading)] mb-1.5"
+          htmlFor="message"
+        >
           Your Message
         </label>
         <textarea

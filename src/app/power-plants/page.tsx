@@ -153,7 +153,9 @@ export default function PowerPlantsPage() {
                     {plant.desc}
                   </p>
                   <p className="text-sm text-[var(--fipl-body)]">
-                    <span className="font-semibold text-[var(--fipl-heading)]">Primary Gas Supplier:</span>{' '}
+                    <span className="font-semibold text-[var(--fipl-heading)]">
+                      Primary Gas Supplier:
+                    </span>{' '}
                     {plant.supplier}
                   </p>
                 </div>
@@ -211,15 +213,23 @@ export default function PowerPlantsPage() {
                           </div>
                         </div>
                         <div className="pt-5 text-center px-2">
-                          <h4 className="font-bold text-[var(--fipl-heading)] text-xl mb-3">{step.title}</h4>
-                          <p className="text-[var(--fipl-body)] leading-relaxed text-base">{step.desc}</p>
+                          <h4 className="font-bold text-[var(--fipl-heading)] text-xl mb-3">
+                            {step.title}
+                          </h4>
+                          <p className="text-[var(--fipl-body)] leading-relaxed text-base">
+                            {step.desc}
+                          </p>
                         </div>
                       </>
                     ) : (
                       <>
                         <div className="text-center px-2 pb-5">
-                          <h4 className="font-bold text-[var(--fipl-heading)] text-xl mb-3">{step.title}</h4>
-                          <p className="text-[var(--fipl-body)] leading-relaxed text-base">{step.desc}</p>
+                          <h4 className="font-bold text-[var(--fipl-heading)] text-xl mb-3">
+                            {step.title}
+                          </h4>
+                          <p className="text-[var(--fipl-body)] leading-relaxed text-base">
+                            {step.desc}
+                          </p>
                         </div>
                         <div className="relative z-10 flex justify-center">
                           <div

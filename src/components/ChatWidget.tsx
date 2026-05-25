@@ -173,7 +173,11 @@ export function ChatWidget() {
                     style={
                       m.role === 'user'
                         ? { background: '#DB1B0C', color: 'white', borderBottomRightRadius: 4 }
-                        : { background: 'var(--fipl-surface)', color: 'var(--fipl-heading)', borderBottomLeftRadius: 4 }
+                        : {
+                            background: 'var(--fipl-surface)',
+                            color: 'var(--fipl-heading)',
+                            borderBottomLeftRadius: 4,
+                          }
                     }
                   >
                     {m.role === 'model' ? renderBotText(m.text) : m.text}

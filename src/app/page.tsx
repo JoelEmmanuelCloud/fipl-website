@@ -356,7 +356,9 @@ export default function HomePage() {
                 sector. At FIPL, we are committed to building sustainable solutions and empowering
                 the next generation of leaders in oil and gas and power.
               </p>
-              <p className="font-semibold text-[var(--fipl-heading)] text-[15px] mb-4">Why Work With Us?</p>
+              <p className="font-semibold text-[var(--fipl-heading)] text-[15px] mb-4">
+                Why Work With Us?
+              </p>
               <ul className="space-y-4 mb-8">
                 {[
                   'Be part of impactful projects that keep the lights on across communities',
@@ -368,7 +370,9 @@ export default function HomePage() {
                     <span className="w-5 h-5 rounded-full bg-primary/10 text-primary text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">
                       ✓
                     </span>
-                    <span className="text-[13px] text-[var(--fipl-body)] leading-relaxed">{item}</span>
+                    <span className="text-[13px] text-[var(--fipl-body)] leading-relaxed">
+                      {item}
+                    </span>
                   </li>
                 ))}
               </ul>

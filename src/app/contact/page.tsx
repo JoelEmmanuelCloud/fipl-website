@@ -121,7 +121,9 @@ export default function ContactPage() {
                           {icon}
                         </div>
                         <div>
-                          <div className="font-semibold text-[var(--fipl-heading)] text-sm mb-0.5">{label}</div>
+                          <div className="font-semibold text-[var(--fipl-heading)] text-sm mb-0.5">
+                            {label}
+                          </div>
                           {href ? (
                             <a
                               href={href}

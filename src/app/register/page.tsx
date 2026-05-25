@@ -220,7 +220,9 @@ export default function RegisterPage() {
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="max-w-2xl mx-auto">
             <Reveal variant="up">
-              <h2 className="text-2xl md:text-3xl font-bold text-[var(--fipl-heading)] mb-8">Contact Us</h2>
+              <h2 className="text-2xl md:text-3xl font-bold text-[var(--fipl-heading)] mb-8">
+                Contact Us
+              </h2>
             </Reveal>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
               {[
@@ -266,8 +268,12 @@ export default function RegisterPage() {
                   title: 'DUN & Bradsheet',
                   content: (
                     <>
-                      <p className="text-sm text-[var(--fipl-body)]">Adelola ADEYINKA: +23401-2803777</p>
-                      <p className="text-sm text-[var(--fipl-body)]">Akinuke Williams: 07043387900</p>
+                      <p className="text-sm text-[var(--fipl-body)]">
+                        Adelola ADEYINKA: +23401-2803777
+                      </p>
+                      <p className="text-sm text-[var(--fipl-body)]">
+                        Akinuke Williams: 07043387900
+                      </p>
                     </>
                   ),
                 },

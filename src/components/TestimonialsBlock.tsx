@@ -80,8 +80,12 @@ export function TestimonialsBlock({
                   &ldquo;{testimonials[current].quote}&rdquo;
                 </p>
                 <div>
-                  <div className="font-bold text-[var(--fipl-heading)]">{testimonials[current].name}</div>
-                  <div className="text-sm text-[var(--fipl-body)]">{testimonials[current].role}</div>
+                  <div className="font-bold text-[var(--fipl-heading)]">
+                    {testimonials[current].name}
+                  </div>
+                  <div className="text-sm text-[var(--fipl-body)]">
+                    {testimonials[current].role}
+                  </div>
                 </div>
               </div>
 

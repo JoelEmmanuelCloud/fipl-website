@@ -340,7 +340,9 @@ export default function AboutPage() {
                   <path d="M7.5 0.5L1 7.5h5L4.5 12.5l7.5-8h-5z" />
                 </svg>
               </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-[var(--fipl-heading)] mb-3">Meet The CEO</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-[var(--fipl-heading)] mb-3">
+                Meet The CEO
+              </h2>
               <p className="text-[var(--fipl-body)] text-base">
                 A video address from our Chief Executive Officer
               </p>

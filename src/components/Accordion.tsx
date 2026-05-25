@@ -69,7 +69,9 @@ export function Accordion({ items, variant = 'default', defaultOpen = 0 }: Accor
           <div
             className={`overflow-hidden transition-all duration-300 ${open === i ? 'max-h-[600px]' : 'max-h-0'}`}
           >
-            <div className="px-5 pb-4 text-sm text-[var(--fipl-body)] leading-relaxed bg-[var(--fipl-bg)]">{item.answer}</div>
+            <div className="px-5 pb-4 text-sm text-[var(--fipl-body)] leading-relaxed bg-[var(--fipl-bg)]">
+              {item.answer}
+            </div>
           </div>
         </div>
       ))}

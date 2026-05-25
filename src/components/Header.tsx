@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { Logo } from '@/components/Logo'
 import { ThemeToggle } from '@/components/ThemeToggle'
+import { useTheme } from '@/components/ThemeProvider'
 
 type Child = { href: string; label: string }
 type NavItem =
@@ -75,6 +76,7 @@ export function Header() {
     }
   }, [menuOpen])
 
+  const { theme } = useTheme()
   const transparent = !scrolled
 
   const isItemActive = (item: NavItem) =>
@@ -157,7 +159,6 @@ export function Header() {
           </nav>
 
           <div className="lg:hidden ml-auto flex items-center gap-1">
-            <ThemeToggle />
             <button
               className="p-3 flex flex-col gap-[5px] shrink-0 min-w-[44px] min-h-[44px] items-center justify-center"
               aria-label="Open navigation menu"
@@ -253,6 +254,14 @@ export function Header() {
                 </li>
               ),
             )}
+            <li>
+              <div className="flex items-center justify-between px-5 py-[15px] border-t border-white/20 mt-2">
+                <span className="text-[16px] font-medium text-white/90">
+                  {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+                </span>
+                <ThemeToggle className="text-white hover:bg-white/10" />
+              </div>
+            </li>
           </ul>
         </nav>
       </div>

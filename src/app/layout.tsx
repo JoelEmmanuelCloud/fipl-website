@@ -7,8 +7,8 @@ import { BackToTop } from '@/components/BackToTop'
 import { ChatWidget } from '@/components/ChatWidget'
 
 const SplashScreen = dynamic(
-  () => import('@/components/SplashScreen').then(m => ({ default: m.SplashScreen })),
-  { ssr: false }
+  () => import('@/components/SplashScreen').then((m) => ({ default: m.SplashScreen })),
+  { ssr: false },
 )
 
 export const metadata: Metadata = {

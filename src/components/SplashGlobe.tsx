@@ -17,8 +17,10 @@ function project(lon: number, lat: number, rot: number, R: number) {
 function drawRing(
   ctx: CanvasRenderingContext2D,
   ring: Ring,
-  cx: number, cy: number,
-  rot: number, R: number,
+  cx: number,
+  cy: number,
+  rot: number,
+  R: number,
 ) {
   let first = true
   let wasVis = false
@@ -27,8 +29,10 @@ function drawRing(
     if (p) {
       const px = cx + p.x
       const py = cy + p.y
-      if (first || !wasVis) { ctx.moveTo(px, py); first = false }
-      else ctx.lineTo(px, py)
+      if (first || !wasVis) {
+        ctx.moveTo(px, py)
+        first = false
+      } else ctx.lineTo(px, py)
     }
     wasVis = !!p
   })
@@ -80,14 +84,12 @@ export function SplashGlobe({ onReady }: Props) {
         extractRings(geo)
       }
       ringsRef.current = collected
-    } catch { }
+    } catch {}
 
     try {
       const countriesTopo = require('world-atlas/countries-110m.json')
       const countriesGeo = feature(countriesTopo, countriesTopo.objects.countries)
-      const nigeria = (countriesGeo as any).features?.find(
-        (f: any) => String(f.id) === '566',
-      )
+      const nigeria = (countriesGeo as any).features?.find((f: any) => String(f.id) === '566')
       if (nigeria) {
         const geom = nigeria.geometry as any
         if (geom.type === 'Polygon') {
@@ -96,7 +98,7 @@ export function SplashGlobe({ onReady }: Props) {
           nigeriaRings.current = geom.coordinates.map((p: Ring[]) => p[0])
         }
       }
-    } catch { }
+    } catch {}
 
     function frame() {
       ctx.clearRect(0, 0, SIZE, SIZE)
@@ -122,10 +124,16 @@ export function SplashGlobe({ onReady }: Props) {
         let first = true
         for (let lo = -180; lo <= 180; lo += 2) {
           const lam = (lo - rot.current) * D
-          if (Math.cos(phi) * Math.cos(lam) <= 0) { first = true; continue }
+          if (Math.cos(phi) * Math.cos(lam) <= 0) {
+            first = true
+            continue
+          }
           const x = cx + R * Math.cos(phi) * Math.sin(lam)
           const y = cy - R * Math.sin(phi)
-          if (first) { ctx.moveTo(x, y); first = false } else ctx.lineTo(x, y)
+          if (first) {
+            ctx.moveTo(x, y)
+            first = false
+          } else ctx.lineTo(x, y)
         }
         ctx.stroke()
       }
@@ -136,23 +144,29 @@ export function SplashGlobe({ onReady }: Props) {
         for (let lat = -90; lat <= 90; lat += 2) {
           const phi = lat * D
           const lam = (lo - rot.current) * D
-          if (Math.cos(phi) * Math.cos(lam) <= 0) { first = true; continue }
+          if (Math.cos(phi) * Math.cos(lam) <= 0) {
+            first = true
+            continue
+          }
           const x = cx + R * Math.cos(phi) * Math.sin(lam)
           const y = cy - R * Math.sin(phi)
-          if (first) { ctx.moveTo(x, y); first = false } else ctx.lineTo(x, y)
+          if (first) {
+            ctx.moveTo(x, y)
+            first = false
+          } else ctx.lineTo(x, y)
         }
         ctx.stroke()
       }
 
       if (ringsRef.current.length > 0) {
         ctx.beginPath()
-        ringsRef.current.forEach(ring => drawRing(ctx, ring, cx, cy, rot.current, R))
+        ringsRef.current.forEach((ring) => drawRing(ctx, ring, cx, cy, rot.current, R))
         ctx.fillStyle = 'rgba(255,255,255,0.13)'
         ctx.fill()
 
         ctx.strokeStyle = 'rgba(255,255,255,0.55)'
         ctx.lineWidth = 0.7
-        ringsRef.current.forEach(ring => {
+        ringsRef.current.forEach((ring) => {
           ctx.beginPath()
           drawRing(ctx, ring, cx, cy, rot.current, R)
           ctx.stroke()
@@ -161,29 +175,33 @@ export function SplashGlobe({ onReady }: Props) {
 
       if (nigeriaRings.current.length > 0) {
         ctx.beginPath()
-        nigeriaRings.current.forEach(ring => drawRing(ctx, ring, cx, cy, rot.current, R))
+        nigeriaRings.current.forEach((ring) => drawRing(ctx, ring, cx, cy, rot.current, R))
         ctx.fillStyle = 'rgba(224,48,39,0.65)'
         ctx.fill()
 
         ctx.strokeStyle = 'rgba(244,120,32,1)'
         ctx.lineWidth = 1.5
         ctx.beginPath()
-        nigeriaRings.current.forEach(ring => drawRing(ctx, ring, cx, cy, rot.current, R))
+        nigeriaRings.current.forEach((ring) => drawRing(ctx, ring, cx, cy, rot.current, R))
         ctx.stroke()
       }
 
       const light = ctx.createRadialGradient(cx - R * 0.4, cy - R * 0.4, 0, cx, cy, R * 1.05)
-      light.addColorStop(0,   'rgba(200,210,255,0.06)')
+      light.addColorStop(0, 'rgba(200,210,255,0.06)')
       light.addColorStop(0.5, 'rgba(0,0,0,0)')
-      light.addColorStop(1,   'rgba(0,0,10,0.88)')
+      light.addColorStop(1, 'rgba(0,0,10,0.88)')
       ctx.fillStyle = light
       ctx.beginPath()
       ctx.arc(cx, cy, R, 0, Math.PI * 2)
       ctx.fill()
 
       const spec = ctx.createRadialGradient(
-        cx - R * 0.38, cy - R * 0.42, 0,
-        cx - R * 0.38, cy - R * 0.42, R * 0.28,
+        cx - R * 0.38,
+        cy - R * 0.42,
+        0,
+        cx - R * 0.38,
+        cy - R * 0.42,
+        R * 0.28,
       )
       spec.addColorStop(0, 'rgba(255,255,255,0.20)')
       spec.addColorStop(1, 'rgba(255,255,255,0)')
@@ -210,7 +228,9 @@ export function SplashGlobe({ onReady }: Props) {
     }
 
     frame()
-    return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current) }
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current)
+    }
   }, [onReady])
 
   return <canvas ref={canvasRef} className="splash-globe-canvas" aria-hidden="true" />

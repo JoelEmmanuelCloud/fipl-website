@@ -14,30 +14,74 @@ export function ContactForm() {
     >
       <div className="grid grid-cols-2 gap-3 mb-4">
         <div>
-          <label className="block text-xs font-semibold text-gray-700 mb-1.5" htmlFor="first-name">First Name</label>
-          <input id="first-name" type="text" placeholder="John" required className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10" />
+          <label className="block text-xs font-semibold text-gray-700 mb-1.5" htmlFor="first-name">
+            First Name
+          </label>
+          <input
+            id="first-name"
+            type="text"
+            placeholder="John"
+            required
+            className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10"
+          />
         </div>
         <div>
-          <label className="block text-xs font-semibold text-gray-700 mb-1.5" htmlFor="last-name">Last Name</label>
-          <input id="last-name" type="text" placeholder="Doe" required className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10" />
+          <label className="block text-xs font-semibold text-gray-700 mb-1.5" htmlFor="last-name">
+            Last Name
+          </label>
+          <input
+            id="last-name"
+            type="text"
+            placeholder="Doe"
+            required
+            className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10"
+          />
         </div>
       </div>
       <div className="mb-4">
-        <label className="block text-xs font-semibold text-gray-700 mb-1.5" htmlFor="email">Your Email</label>
-        <input id="email" type="email" placeholder="john@example.com" required className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10" />
+        <label className="block text-xs font-semibold text-gray-700 mb-1.5" htmlFor="email">
+          Your Email
+        </label>
+        <input
+          id="email"
+          type="email"
+          placeholder="john@example.com"
+          required
+          className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10"
+        />
       </div>
       <div className="mb-4">
-        <label className="block text-xs font-semibold text-gray-700 mb-1.5" htmlFor="subject">Subject</label>
-        <select id="subject" className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm bg-white focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10">
+        <label className="block text-xs font-semibold text-gray-700 mb-1.5" htmlFor="subject">
+          Subject
+        </label>
+        <select
+          id="subject"
+          className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm bg-white focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10"
+        >
           <option value="">Select a subject…</option>
-          {['General Enquiry','Vendor Registration','Careers','Eligible Customers','Media & Press','Partnership'].map((s) => (
+          {[
+            'General Enquiry',
+            'Vendor Registration',
+            'Careers',
+            'Eligible Customers',
+            'Media & Press',
+            'Partnership',
+          ].map((s) => (
             <option key={s}>{s}</option>
           ))}
         </select>
       </div>
       <div className="mb-6">
-        <label className="block text-xs font-semibold text-gray-700 mb-1.5" htmlFor="message">Your Message</label>
-        <textarea id="message" rows={5} placeholder="Write your message here…" required className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm resize-vertical focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10" />
+        <label className="block text-xs font-semibold text-gray-700 mb-1.5" htmlFor="message">
+          Your Message
+        </label>
+        <textarea
+          id="message"
+          rows={5}
+          placeholder="Write your message here…"
+          required
+          className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm resize-vertical focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10"
+        />
       </div>
       <button
         type="submit"

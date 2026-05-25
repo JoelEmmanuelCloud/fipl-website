@@ -5,7 +5,14 @@ import Image from 'next/image'
 import { useState } from 'react'
 import type { NewsArticle } from '@/lib/news'
 
-const CATEGORIES = ['All', 'Operations', 'Community', 'Corporate', 'Partnerships', 'Updates'] as const
+const CATEGORIES = [
+  'All',
+  'Operations',
+  'Community',
+  'Corporate',
+  'Partnerships',
+  'Updates',
+] as const
 const MK_TABS = ['Our Plants', 'People', 'Events', 'FIPL Foundation'] as const
 
 export function NewsTabs({ articles }: { articles: NewsArticle[] }) {
@@ -19,7 +26,8 @@ export function NewsTabs({ articles }: { articles: NewsArticle[] }) {
   const pressArticles = articles.filter((a) => {
     const matchesCategory = filter === 'All' || a.category === filter
     const q = query.trim().toLowerCase()
-    const matchesQuery = !q || a.title.toLowerCase().includes(q) || a.excerpt.toLowerCase().includes(q)
+    const matchesQuery =
+      !q || a.title.toLowerCase().includes(q) || a.excerpt.toLowerCase().includes(q)
     return matchesCategory && matchesQuery
   })
   const totalPages = Math.ceil(pressArticles.length / PER_PAGE)
@@ -35,7 +43,10 @@ export function NewsTabs({ articles }: { articles: NewsArticle[] }) {
           {(['press', 'media'] as const).map((tab) => (
             <button
               key={tab}
-              onClick={() => { setMainTab(tab); setPage(1) }}
+              onClick={() => {
+                setMainTab(tab)
+                setPage(1)
+              }}
               className={`px-5 py-2.5 text-sm font-medium -mb-0.5 border-b-2 transition-colors ${
                 mainTab === tab
                   ? 'text-primary border-primary font-semibold'
@@ -53,21 +64,36 @@ export function NewsTabs({ articles }: { articles: NewsArticle[] }) {
               <select
                 className="border border-gray-200 px-4 py-2 text-sm bg-white focus:outline-none focus:border-[#DB1B0C]"
                 value={filter}
-                onChange={(e) => { setFilter(e.target.value); setPage(1) }}
+                onChange={(e) => {
+                  setFilter(e.target.value)
+                  setPage(1)
+                }}
               >
                 {CATEGORIES.map((c) => (
                   <option key={c}>{c === 'All' ? `Sort By: Date (Newest)` : c}</option>
                 ))}
               </select>
               <div className="relative flex-1 min-w-[200px]">
-                <svg className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+                <svg
+                  className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <circle cx="11" cy="11" r="8" />
+                  <path d="m21 21-4.35-4.35" />
                 </svg>
                 <input
                   type="search"
                   placeholder="Search News..."
                   value={query}
-                  onChange={(e) => { setQuery(e.target.value); setPage(1) }}
+                  onChange={(e) => {
+                    setQuery(e.target.value)
+                    setPage(1)
+                  }}
                   className="w-full border border-gray-200 pl-9 pr-4 py-2 text-sm bg-white focus:outline-none focus:border-[#DB1B0C]"
                 />
               </div>
@@ -81,10 +107,22 @@ export function NewsTabs({ articles }: { articles: NewsArticle[] }) {
                     className="bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow mb-6"
                   >
                     <div className="relative h-48 sm:h-56 md:h-64 bg-gray-200 overflow-hidden">
-                      <Image src={article.image} alt={article.title} fill className="object-cover" />
+                      <Image
+                        src={article.image}
+                        alt={article.title}
+                        fill
+                        className="object-cover"
+                      />
                       <div className="absolute bottom-0 left-0 bg-[#DB1B0C] text-white text-xs font-bold px-3 py-2 leading-tight">
-                        <div className="text-lg font-extrabold leading-none">{new Date(article.dateISO).getDate()}</div>
-                        <div className="text-[10px] uppercase tracking-wide">{new Date(article.dateISO).toLocaleString('en-US', { month: 'short', year: 'numeric' })}</div>
+                        <div className="text-lg font-extrabold leading-none">
+                          {new Date(article.dateISO).getDate()}
+                        </div>
+                        <div className="text-[10px] uppercase tracking-wide">
+                          {new Date(article.dateISO).toLocaleString('en-US', {
+                            month: 'short',
+                            year: 'numeric',
+                          })}
+                        </div>
                       </div>
                     </div>
                     <div className="p-6 md:p-7">
@@ -92,11 +130,16 @@ export function NewsTabs({ articles }: { articles: NewsArticle[] }) {
                         {article.category}
                       </div>
                       <h2 className="text-lg font-bold text-[#0E121D] mb-3 leading-snug">
-                        <Link href={`/news/${article.slug}`} className="hover:text-[#DB1B0C] transition-colors">
+                        <Link
+                          href={`/news/${article.slug}`}
+                          className="hover:text-[#DB1B0C] transition-colors"
+                        >
                           {article.title}
                         </Link>
                       </h2>
-                      <p className="text-sm text-[#797979] mb-4 leading-relaxed">{article.excerpt}</p>
+                      <p className="text-sm text-[#797979] mb-4 leading-relaxed">
+                        {article.excerpt}
+                      </p>
                       <Link
                         href={`/news/${article.slug}`}
                         className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#DB1B0C] hover:gap-3 transition-all"
@@ -140,7 +183,13 @@ export function NewsTabs({ articles }: { articles: NewsArticle[] }) {
                 </div>
                 {recent.map((a) => (
                   <div key={a.id} className="flex gap-3 py-3 border-b border-gray-100">
-                    <Image src={a.image} alt={a.title} width={64} height={64} className="shrink-0 rounded-lg object-cover" />
+                    <Image
+                      src={a.image}
+                      alt={a.title}
+                      width={64}
+                      height={64}
+                      className="shrink-0 rounded-lg object-cover"
+                    />
                     <div>
                       <div className="text-[11px] text-gray-400 mb-1">{a.date}</div>
                       <Link

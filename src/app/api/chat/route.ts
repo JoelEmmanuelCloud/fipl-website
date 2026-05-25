@@ -55,21 +55,38 @@ const INJECTION_PATTERNS = [
 ]
 
 const PROFANITY = [
-  'fuck', 'shit', 'asshole', 'bitch', 'bastard', 'cunt', 'dick', 'cock',
-  'pussy', 'nigger', 'nigga', 'faggot', 'retard', 'whore', 'slut', 'piss',
-  'wanker', 'twat', 'bollocks', 'arse',
+  'fuck',
+  'shit',
+  'asshole',
+  'bitch',
+  'bastard',
+  'cunt',
+  'dick',
+  'cock',
+  'pussy',
+  'nigger',
+  'nigga',
+  'faggot',
+  'retard',
+  'whore',
+  'slut',
+  'piss',
+  'wanker',
+  'twat',
+  'bollocks',
+  'arse',
 ]
 
 const MAX_INPUT_LENGTH = 500
 const MAX_HISTORY_MESSAGES = 20
 
 function isInjectionAttempt(text: string): boolean {
-  return INJECTION_PATTERNS.some(p => p.test(text))
+  return INJECTION_PATTERNS.some((p) => p.test(text))
 }
 
 function containsProfanity(text: string): boolean {
   const lower = text.toLowerCase()
-  return PROFANITY.some(word => new RegExp(`\\b${word}\\b`, 'i').test(lower))
+  return PROFANITY.some((word) => new RegExp(`\\b${word}\\b`, 'i').test(lower))
 }
 
 interface Message {
@@ -89,15 +106,19 @@ export async function POST(req: NextRequest) {
   const userText: string = lastMessage?.text ?? ''
 
   if (userText.length > MAX_INPUT_LENGTH) {
-    return NextResponse.json({ text: 'Your message is too long. Please keep it under 500 characters.' })
+    return NextResponse.json({
+      text: 'Your message is too long. Please keep it under 500 characters.',
+    })
   }
 
   if (containsProfanity(userText)) {
-    return NextResponse.json({ text: 'Please keep the conversation respectful. I\'m here to help with FIPL-related enquiries.' })
+    return NextResponse.json({
+      text: "Please keep the conversation respectful. I'm here to help with FIPL-related enquiries.",
+    })
   }
 
   if (isInjectionAttempt(userText)) {
-    return NextResponse.json({ text: 'I\'m here to help with FIPL-related questions only.' })
+    return NextResponse.json({ text: "I'm here to help with FIPL-related questions only." })
   }
 
   const apiKey = process.env.GOOGLE_GEMINI_API_KEY
@@ -133,23 +154,28 @@ export async function POST(req: NextRequest) {
           { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_LOW_AND_ABOVE' },
         ],
       }),
-    }
+    },
   )
 
   if (!res.ok) {
     const errBody = await res.text()
     console.error('[chat/route] Gemini error', res.status, errBody)
-    return NextResponse.json({ text: 'I\'m having trouble connecting right now. Please contact us at info@fipl-ng.com.' })
+    return NextResponse.json({
+      text: "I'm having trouble connecting right now. Please contact us at info@fipl-ng.com.",
+    })
   }
 
   const data = await res.json()
 
   if (data.promptFeedback?.blockReason) {
-    return NextResponse.json({ text: 'I\'m unable to respond to that. Please ask an FIPL-related question.' })
+    return NextResponse.json({
+      text: "I'm unable to respond to that. Please ask an FIPL-related question.",
+    })
   }
 
-  const text = data.candidates?.[0]?.content?.parts?.[0]?.text
-    ?? 'I\'m unable to respond right now. Please contact us at info@fipl-ng.com.'
+  const text =
+    data.candidates?.[0]?.content?.parts?.[0]?.text ??
+    "I'm unable to respond right now. Please contact us at info@fipl-ng.com."
 
   return NextResponse.json({ text })
 }

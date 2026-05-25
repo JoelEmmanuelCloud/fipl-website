@@ -7,7 +7,6 @@ import { IMAGES } from '@/lib/images'
 
 export const metadata: Metadata = { title: 'Power Plants & Operations' }
 
-
 const plants = [
   {
     id: 'omoku',
@@ -79,13 +78,26 @@ export default function PowerPlantsPage() {
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
             <Reveal variant="left" className="max-w-2xl">
-              <span className="inline-flex items-center gap-1.5 text-sm text-[#DB1B0C] mb-3">Our Plants <svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 0.5L1 7.5h5L4.5 12.5l7.5-8h-5z" /></svg></span>
-              <h2 className="text-2xl md:text-3xl font-bold text-[#0E121D] mb-4">Our Power Plants</h2>
+              <span className="inline-flex items-center gap-1.5 text-sm text-[#DB1B0C] mb-3">
+                Our Plants{' '}
+                <svg
+                  width="13"
+                  height="13"
+                  viewBox="0 0 13 13"
+                  fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M7.5 0.5L1 7.5h5L4.5 12.5l7.5-8h-5z" />
+                </svg>
+              </span>
+              <h2 className="text-2xl md:text-3xl font-bold text-[#0E121D] mb-4">
+                Our Power Plants
+              </h2>
               <p className="text-[#797979] leading-relaxed text-base">
-                First Independent Power Limited is a company in the business of power generation in Nigeria
-                located in Rivers State. We own and operate 4 gas turbine power plants within Rivers State located
-                in Trans-Amadi Port-Harcourt, Afam, Omoku and Eleme. FIPL currently has a combined installed
-                capacity of 541MW.
+                First Independent Power Limited is a company in the business of power generation in
+                Nigeria located in Rivers State. We own and operate 4 gas turbine power plants
+                within Rivers State located in Trans-Amadi Port-Harcourt, Afam, Omoku and Eleme.
+                FIPL currently has a combined installed capacity of 541MW.
               </p>
             </Reveal>
             <Reveal variant="fade" delay={0.2} className="shrink-0">
@@ -134,8 +146,12 @@ export default function PowerPlantsPage() {
                   />
                 </div>
                 <div className="flex-1 p-7 md:p-8 lg:p-10 flex flex-col justify-center">
-                  <h3 className="text-xl md:text-2xl font-bold text-[#D97300] mb-4">{plant.name}</h3>
-                  <p className="text-[#797979] leading-relaxed text-sm md:text-base mb-4">{plant.desc}</p>
+                  <h3 className="text-xl md:text-2xl font-bold text-[#D97300] mb-4">
+                    {plant.name}
+                  </h3>
+                  <p className="text-[#797979] leading-relaxed text-sm md:text-base mb-4">
+                    {plant.desc}
+                  </p>
                   <p className="text-sm text-[#797979]">
                     <span className="font-semibold text-[#0E121D]">Primary Gas Supplier:</span>{' '}
                     {plant.supplier}
@@ -151,10 +167,24 @@ export default function PowerPlantsPage() {
         <div className="max-w-[1280px] mx-auto px-6">
           <Reveal variant="up">
             <div className="text-center max-w-2xl mx-auto mb-16">
-              <span className="inline-flex items-center gap-1.5 text-sm text-[#DB1B0C] mb-3">Our Work Process <svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 0.5L1 7.5h5L4.5 12.5l7.5-8h-5z" /></svg></span>
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0E121D] mb-4">How We Power Nigeria</h2>
+              <span className="inline-flex items-center gap-1.5 text-sm text-[#DB1B0C] mb-3">
+                Our Work Process{' '}
+                <svg
+                  width="13"
+                  height="13"
+                  viewBox="0 0 13 13"
+                  fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M7.5 0.5L1 7.5h5L4.5 12.5l7.5-8h-5z" />
+                </svg>
+              </span>
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0E121D] mb-4">
+                How We Power Nigeria
+              </h2>
               <p className="text-[#797979] leading-relaxed text-base">
-                Our approach ensures every project is executed with precision, safety, and sustainability at the core.
+                Our approach ensures every project is executed with precision, safety, and
+                sustainability at the core.
               </p>
             </div>
           </Reveal>
@@ -175,7 +205,9 @@ export default function PowerPlantsPage() {
                             className="absolute -top-[38px] w-[76px] h-[76px] bg-[#D97300] rounded-full flex items-center justify-center z-10"
                             style={{ border: '10px solid white' }}
                           >
-                            <span className="text-white font-bold text-xl leading-none">{step.num}</span>
+                            <span className="text-white font-bold text-xl leading-none">
+                              {step.num}
+                            </span>
                           </div>
                         </div>
                         <div className="pt-14 text-center px-2">
@@ -194,7 +226,9 @@ export default function PowerPlantsPage() {
                             className="absolute -top-[38px] w-[76px] h-[76px] bg-[#D97300] rounded-full flex items-center justify-center z-10"
                             style={{ border: '10px solid white' }}
                           >
-                            <span className="text-white font-bold text-xl leading-none">{step.num}</span>
+                            <span className="text-white font-bold text-xl leading-none">
+                              {step.num}
+                            </span>
                           </div>
                         </div>
                         <div className="relative overflow-hidden h-[260px] rounded-bl-[200px] rounded-br-[200px]">

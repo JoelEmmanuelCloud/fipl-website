@@ -36,14 +36,28 @@ const SLIDES: Slide[] = [
 ]
 
 const ChevronLeft = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
-    strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="w-5 h-5"
+  >
     <path d="M15 18l-6-6 6-6" />
   </svg>
 )
 const ChevronRight = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
-    strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="w-5 h-5"
+  >
     <path d="M9 18l6-6-6-6" />
   </svg>
 )
@@ -62,19 +76,26 @@ function SlideText({ slide }: { slide: Slide }) {
     <div>
       <h1
         className="text-white text-center"
-        style={{ fontFamily: 'Arial', fontWeight: 700, fontSize: 'clamp(28px, 5vw, 44px)', lineHeight: 1.25 }}
+        style={{
+          fontFamily: 'Arial',
+          fontWeight: 700,
+          fontSize: 'clamp(28px, 5vw, 44px)',
+          lineHeight: 1.25,
+        }}
       >
         <span style={{ display: 'block' }}>
           {slide.line1.map((w, i) => (
             <Fragment key={w + i}>
-              {word(w, i)}{i < slide.line1.length - 1 && ' '}
+              {word(w, i)}
+              {i < slide.line1.length - 1 && ' '}
             </Fragment>
           ))}
         </span>
         <span style={{ display: 'block' }}>
           {slide.line2.map((w, i) => (
             <Fragment key={w + i}>
-              {word(w, slide.line1.length + i)}{i < slide.line2.length - 1 && ' '}
+              {word(w, slide.line1.length + i)}
+              {i < slide.line2.length - 1 && ' '}
             </Fragment>
           ))}
         </span>
@@ -125,7 +146,6 @@ export function HeroSlideshow() {
 
   return (
     <div className="relative h-full w-full overflow-hidden">
-
       {SLIDES.map((slide, i) => (
         <div
           key={slide.src}
@@ -135,7 +155,10 @@ export function HeroSlideshow() {
           {slide.type === 'video' ? (
             <video
               className="absolute inset-0 w-full h-full object-cover"
-              autoPlay muted loop playsInline
+              autoPlay
+              muted
+              loop
+              playsInline
               poster={slide.poster}
               style={{ filter: 'brightness(0.78) contrast(1.08) saturate(0.75)' }}
             >
@@ -181,7 +204,6 @@ export function HeroSlideshow() {
       )}
 
       <div className="absolute bottom-4 left-0 right-0 z-[5] flex items-center justify-between px-6">
-
         <span
           className="text-white/70 tabular-nums select-none"
           style={{ fontFamily: 'Arial', fontSize: '12px', letterSpacing: '0.12em' }}
@@ -196,11 +218,12 @@ export function HeroSlideshow() {
               onClick={() => goTo(i)}
               aria-label={`Go to slide ${i + 1}`}
               className="relative h-[3px] rounded-full overflow-hidden transition-all duration-300"
-              style={{ width: i === current ? '52px' : '20px', background: 'rgba(255,255,255,0.25)' }}
+              style={{
+                width: i === current ? '52px' : '20px',
+                background: 'rgba(255,255,255,0.25)',
+              }}
             >
-              {i < current && (
-                <span className="absolute inset-0 bg-white" />
-              )}
+              {i < current && <span className="absolute inset-0 bg-white" />}
               {i === current && textReady && (
                 <span
                   key={progKey}
@@ -213,7 +236,6 @@ export function HeroSlideshow() {
 
         <span className="w-[40px]" />
       </div>
-
     </div>
   )
 }

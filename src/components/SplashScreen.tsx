@@ -22,7 +22,10 @@ export function SplashScreen() {
       markSplashDone()
       window.dispatchEvent(new CustomEvent(SPLASH_EVENT))
     }, 3550)
-    return () => { clearTimeout(t1); clearTimeout(t2) }
+    return () => {
+      clearTimeout(t1)
+      clearTimeout(t2)
+    }
   }, [textReady])
 
   if (done) return null
@@ -42,7 +45,6 @@ export function SplashScreen() {
       {textReady && (
         <>
           <div className="splash-stage">
-
             <p className="splash-we-are-small">WE ARE</p>
             <div className="splash-word-slot">
               <p className="splash-word splash-w1">RELIABLE.</p>
@@ -64,7 +66,6 @@ export function SplashScreen() {
               </div>
               <p className="splash-finale-name">First Independent Power Limited</p>
             </div>
-
           </div>
 
           <div className="splash-bar-track" aria-hidden="true">

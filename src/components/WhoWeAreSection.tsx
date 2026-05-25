@@ -13,8 +13,13 @@ export function WhoWeAreSection() {
     const el = ref.current
     if (!el) return
     const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect() } },
-      { threshold: 0.2 }
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true)
+          obs.disconnect()
+        }
+      },
+      { threshold: 0.2 },
     )
     obs.observe(el)
     return () => obs.disconnect()
@@ -64,7 +69,9 @@ export function WhoWeAreSection() {
               Who We Are ⚡
             </p>
             <h2 className="text-[18px] md:text-[20px] lg:text-[22px] font-bold text-gray-900 leading-snug mb-3">
-              A Trusted Energy Partner<br />Shaping Nigeria&apos;s Future.
+              A Trusted Energy Partner
+              <br />
+              Shaping Nigeria&apos;s Future.
             </h2>
             <p
               className="mb-3"
@@ -81,14 +88,26 @@ export function WhoWeAreSection() {
             >
               First Independent Power Limited (FIPL) is a leader in responsible and sustainable
               power generation in Nigeria. Strategically located in Rivers State, we operate four
-              cutting-edge gas turbine power plants in Trans-Amadi Port-Harcourt, Afam, Omoku,
-              and Eleme, with a combined capacity of 541MW.
+              cutting-edge gas turbine power plants in Trans-Amadi Port-Harcourt, Afam, Omoku, and
+              Eleme, with a combined capacity of 541MW.
             </p>
-            <p style={{ fontFamily: 'Arial, sans-serif', fontWeight: 400, fontSize: '14px', lineHeight: '22px', color: '#6b7280', marginBottom: '8px' }}>
+            <p
+              style={{
+                fontFamily: 'Arial, sans-serif',
+                fontWeight: 400,
+                fontSize: '14px',
+                lineHeight: '22px',
+                color: '#6b7280',
+                marginBottom: '8px',
+              }}
+            >
               FIPL operates four world-class thermal power plants Such as:
             </p>
-            <div className="grid grid-cols-2 gap-x-6 sm:gap-x-12 lg:gap-x-24 gap-y-1 mb-5" style={{ width: 'fit-content' }}>
-              {['Afam Plant', 'Omoku Plant', 'Trans-Amadi Plant', 'Eleme Plant'].map(plant => (
+            <div
+              className="grid grid-cols-2 gap-x-6 sm:gap-x-12 lg:gap-x-24 gap-y-1 mb-5"
+              style={{ width: 'fit-content' }}
+            >
+              {['Afam Plant', 'Omoku Plant', 'Trans-Amadi Plant', 'Eleme Plant'].map((plant) => (
                 <div key={plant} className="flex items-center gap-1.5">
                   <span
                     style={{
@@ -103,7 +122,13 @@ export function WhoWeAreSection() {
                     }}
                   >
                     <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                      <path d="M2 5L4 7L8 3" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      <path
+                        d="M2 5L4 7L8 3"
+                        stroke="white"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
                     </svg>
                   </span>
                   <span className="text-[12px] text-gray-700 font-bold">{plant}</span>
@@ -117,7 +142,6 @@ export function WhoWeAreSection() {
               Learn More About Us ↗
             </Link>
           </div>
-
         </div>
       </div>
     </section>

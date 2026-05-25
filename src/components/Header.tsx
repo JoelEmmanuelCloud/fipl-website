@@ -14,14 +14,14 @@ const NAV: NavItem[] = [
   {
     label: 'Company',
     children: [
-      { href: '/about',          label: 'About Us' },
+      { href: '/about', label: 'About Us' },
       { href: '/sustainability', label: 'Sustainability & CSR' },
     ],
   },
-  { label: 'Power Plants',  href: '/power-plants' },
-  { label: 'News & Media',  href: '/news' },
-  { label: 'Careers',       href: '/careers' },
-  { label: 'Contact',       href: '/contact' },
+  { label: 'Power Plants', href: '/power-plants' },
+  { label: 'News & Media', href: '/news' },
+  { label: 'Careers', href: '/careers' },
+  { label: 'Contact', href: '/contact' },
   { label: 'Register With Us', href: '/register' },
 ]
 
@@ -34,7 +34,13 @@ const LINK_FONT: React.CSSProperties = {
 
 const ChevronDown = ({ className }: { className?: string }) => (
   <svg className={className} viewBox="0 0 12 12" fill="none" aria-hidden="true">
-    <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    <path
+      d="M2 4l4 4 4-4"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </svg>
 )
 
@@ -51,19 +57,22 @@ export function Header() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  useEffect(() => { setMenuOpen(false); setMobileExpanded(null) }, [pathname])
+  useEffect(() => {
+    setMenuOpen(false)
+    setMobileExpanded(null)
+  }, [pathname])
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : ''
-    return () => { document.body.style.overflow = '' }
+    return () => {
+      document.body.style.overflow = ''
+    }
   }, [menuOpen])
 
   const transparent = !scrolled
 
   const isItemActive = (item: NavItem) =>
-    item.href
-      ? pathname === item.href
-      : (item.children?.some(c => pathname === c.href) ?? false)
+    item.href ? pathname === item.href : (item.children?.some((c) => pathname === c.href) ?? false)
 
   const topLinkCls = (active: boolean) =>
     `flex items-center gap-1 px-3 py-2 rounded transition-colors whitespace-nowrap border-b-2 ${
@@ -82,9 +91,7 @@ export function Header() {
         className="fixed top-0 left-0 right-0 z-50"
         style={{
           backgroundColor: transparent ? 'transparent' : '#ffffff',
-          boxShadow: transparent
-            ? 'none'
-            : '0 4px 6px -1px rgb(0 0 0 / 0.08)',
+          boxShadow: transparent ? 'none' : '0 4px 6px -1px rgb(0 0 0 / 0.08)',
           transition: 'background-color 0.3s ease, box-shadow 0.3s ease',
         }}
       >
@@ -92,7 +99,7 @@ export function Header() {
           <Logo className="shrink-0" />
 
           <nav className="hidden lg:flex ml-auto items-center gap-0.5">
-            {NAV.map(item => (
+            {NAV.map((item) =>
               item.children ? (
                 <div key={item.label} className="relative group">
                   <button
@@ -113,7 +120,7 @@ export function Header() {
                                transition-all duration-200 ease-out"
                   >
                     <div className="bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden py-1">
-                      {item.children.map(child => (
+                      {item.children.map((child) => (
                         <Link
                           key={child.href}
                           href={child.href}
@@ -138,8 +145,8 @@ export function Header() {
                 >
                   {item.label}
                 </Link>
-              )
-            ))}
+              ),
+            )}
           </nav>
 
           <button
@@ -148,7 +155,7 @@ export function Header() {
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen(true)}
           >
-            {[0, 1, 2].map(i => (
+            {[0, 1, 2].map((i) => (
               <span
                 key={i}
                 className={`block w-[22px] h-[2px] rounded transition-colors ${
@@ -179,7 +186,7 @@ export function Header() {
 
         <nav className="flex-1">
           <ul className="flex flex-col gap-0.5">
-            {NAV.map(item => (
+            {NAV.map((item) =>
               item.children ? (
                 <li key={item.label}>
                   <button
@@ -199,7 +206,7 @@ export function Header() {
 
                   {mobileExpanded === item.label && (
                     <ul className="ml-5 pl-4 border-l-2 border-white/30 flex flex-col gap-0.5 mb-1">
-                      {item.children.map(child => (
+                      {item.children.map((child) => (
                         <li key={child.href}>
                           <Link
                             href={child.href}
@@ -231,8 +238,8 @@ export function Header() {
                     {item.label}
                   </Link>
                 </li>
-              )
-            ))}
+              ),
+            )}
           </ul>
         </nav>
       </div>

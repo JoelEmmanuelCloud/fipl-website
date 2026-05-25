@@ -75,9 +75,7 @@ export function CinematicHero({
       <div className="absolute inset-0 z-[2]" style={{ background: overlay ?? DEFAULT_OVERLAY }} />
       <div className="absolute top-0 left-0 right-0 h-[6px] bg-black z-[3]" />
       <div className="absolute bottom-0 left-0 right-0 h-[6px] bg-black z-[3]" />
-      <div className={`relative z-[4] flex ${minHeight} ${alignClass}`}>
-        {renderContent(ready)}
-      </div>
+      <div className={`relative z-[4] flex ${minHeight} ${alignClass}`}>{renderContent(ready)}</div>
     </section>
   )
 }

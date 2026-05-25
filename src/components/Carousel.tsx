@@ -12,9 +12,12 @@ export function Carousel({ testimonials }: { testimonials: Testimonial[] }) {
   const [current, setCurrent] = useState(0)
   const total = testimonials.length
 
-  const goTo = useCallback((idx: number) => {
-    setCurrent(((idx % total) + total) % total)
-  }, [total])
+  const goTo = useCallback(
+    (idx: number) => {
+      setCurrent(((idx % total) + total) % total)
+    },
+    [total],
+  )
 
   useEffect(() => {
     const id = setInterval(() => goTo(current + 1), 5000)
@@ -38,7 +41,9 @@ export function Carousel({ testimonials }: { testimonials: Testimonial[] }) {
 
       {total > 1 && (
         <div className="bg-white rounded-2xl px-8 py-5 shadow-md mt-3 opacity-50">
-          <div className="font-bold text-sm text-gray-700">{testimonials[(current + 1) % total].name}</div>
+          <div className="font-bold text-sm text-gray-700">
+            {testimonials[(current + 1) % total].name}
+          </div>
           <div className="text-xs text-gray-400">{testimonials[(current + 1) % total].role}</div>
         </div>
       )}

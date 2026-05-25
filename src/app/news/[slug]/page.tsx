@@ -44,7 +44,18 @@ export default function ArticlePage({ params }: Props) {
           </h1>
           <div className="flex items-center gap-4 text-sm text-white/70 mt-4">
             <span className="flex items-center gap-1.5">
-              <svg className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+              <svg
+                className="w-3.5 h-3.5 shrink-0"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <rect x="3" y="4" width="18" height="18" rx="2" />
+                <path d="M16 2v4M8 2v4M3 10h18" />
+              </svg>
               {article.date}
             </span>
             <span>·</span>
@@ -57,12 +68,20 @@ export default function ArticlePage({ params }: Props) {
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-12">
             <article>
-              <Link href="/news" className="inline-flex items-center gap-2 text-sm text-primary font-semibold mb-8 hover:-translate-x-1 transition-transform">
+              <Link
+                href="/news"
+                className="inline-flex items-center gap-2 text-sm text-primary font-semibold mb-8 hover:-translate-x-1 transition-transform"
+              >
                 ← Back to News
               </Link>
 
               <div className="relative w-full h-[320px] mb-10">
-                <Image src={article.image} alt={article.title} fill className="object-cover rounded-2xl" />
+                <Image
+                  src={article.image}
+                  alt={article.title}
+                  fill
+                  className="object-cover rounded-2xl"
+                />
               </div>
 
               <div
@@ -77,7 +96,13 @@ export default function ArticlePage({ params }: Props) {
               </div>
               {recent.map((a) => (
                 <div key={a.id} className="flex gap-3 py-3 border-b border-gray-100">
-                  <Image src={a.image} alt={a.title} width={64} height={56} className="shrink-0 rounded-lg object-cover" />
+                  <Image
+                    src={a.image}
+                    alt={a.title}
+                    width={64}
+                    height={56}
+                    className="shrink-0 rounded-lg object-cover"
+                  />
                   <div>
                     <div className="text-[11px] text-gray-400 mb-1">{a.date}</div>
                     <Link

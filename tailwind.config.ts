@@ -9,9 +9,9 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary:  { DEFAULT: '#E03027', dark: '#C0231A' },
-        accent:   '#F47820',
-        fipl:     { dark: '#13132B' },
+        primary: { DEFAULT: '#E03027', dark: '#C0231A' },
+        accent: '#F47820',
+        fipl: { dark: '#13132B' },
       },
       fontFamily: {
         sans: ['Arial', 'sans-serif'],

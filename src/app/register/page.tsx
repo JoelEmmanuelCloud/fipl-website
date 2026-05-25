@@ -76,15 +76,12 @@ const accordionItems = [
 export default function RegisterPage() {
   return (
     <div className="page-bolt-bg">
-      {/* ── Hero ──────────────────────────────────────────────────── */}
       <RegisterHero />
 
-      {/* ── Vendor Registration Program ───────────────────────────── */}
       <section className="py-14 md:py-20">
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <Reveal variant="clip" duration={0.9}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={IMAGES.register.vendor}
                 alt="Vendor registration"
@@ -118,7 +115,6 @@ export default function RegisterPage() {
         </div>
       </section>
 
-      {/* ── DUNS Number ───────────────────────────────────────────── */}
       <section className="py-12 md:py-16 bg-[#f8f8f8]">
         <div className="max-w-5xl mx-auto px-6">
           <Reveal variant="up">
@@ -184,7 +180,6 @@ export default function RegisterPage() {
         </div>
       </section>
 
-      {/* ── Contact section ───────────────────────────────────────── */}
       <section id="registration" className="py-14 md:py-20">
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="max-w-2xl mx-auto">

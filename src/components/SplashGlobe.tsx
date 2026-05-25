@@ -62,7 +62,6 @@ export function SplashGlobe({ onReady }: Props) {
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     const { feature } = require('topojson-client')
 
-    // ── Land masses (land-110m) ──
     try {
       // eslint-disable-next-line @typescript-eslint/no-require-imports
       const topo = require('world-atlas/land-110m.json')
@@ -85,9 +84,8 @@ export function SplashGlobe({ onReady }: Props) {
         extractRings(geo)
       }
       ringsRef.current = collected
-    } catch { /* globe still shows grid */ }
+    } catch { }
 
-    // ── Nigeria exact boundary (countries-110m, ISO 3166-1 numeric = 566) ──
     try {
       // eslint-disable-next-line @typescript-eslint/no-require-imports
       const countriesTopo = require('world-atlas/countries-110m.json')
@@ -106,12 +104,11 @@ export function SplashGlobe({ onReady }: Props) {
           nigeriaRings.current = geom.coordinates.map((p: Ring[]) => p[0])
         }
       }
-    } catch { /* highlight skipped */ }
+    } catch { }
 
     function frame() {
       ctx.clearRect(0, 0, SIZE, SIZE)
 
-      // ── Sphere base ──
       const bg = ctx.createRadialGradient(cx - R * 0.18, cy - R * 0.18, R * 0.05, cx, cy, R)
       bg.addColorStop(0, '#111128')
       bg.addColorStop(1, '#040408')
@@ -125,7 +122,6 @@ export function SplashGlobe({ onReady }: Props) {
       ctx.arc(cx, cy, R, 0, Math.PI * 2)
       ctx.clip()
 
-      // ── Latitude grid ──
       ctx.strokeStyle = 'rgba(255,255,255,0.10)'
       ctx.lineWidth = 0.5
       for (let lat = -60; lat <= 60; lat += 30) {
@@ -142,7 +138,6 @@ export function SplashGlobe({ onReady }: Props) {
         ctx.stroke()
       }
 
-      // ── Longitude grid ──
       for (let lo = 0; lo < 360; lo += 30) {
         ctx.beginPath()
         let first = true
@@ -157,7 +152,6 @@ export function SplashGlobe({ onReady }: Props) {
         ctx.stroke()
       }
 
-      // ── Land masses ──
       if (ringsRef.current.length > 0) {
         ctx.beginPath()
         ringsRef.current.forEach(ring => drawRing(ctx, ring, cx, cy, rot.current, R))
@@ -173,7 +167,6 @@ export function SplashGlobe({ onReady }: Props) {
         })
       }
 
-      // ── Nigeria highlight (exact Natural Earth boundary) ──
       if (nigeriaRings.current.length > 0) {
         ctx.beginPath()
         nigeriaRings.current.forEach(ring => drawRing(ctx, ring, cx, cy, rot.current, R))
@@ -187,7 +180,6 @@ export function SplashGlobe({ onReady }: Props) {
         ctx.stroke()
       }
 
-      // ── 3D lighting ──
       const light = ctx.createRadialGradient(cx - R * 0.4, cy - R * 0.4, 0, cx, cy, R * 1.05)
       light.addColorStop(0,   'rgba(200,210,255,0.06)')
       light.addColorStop(0.5, 'rgba(0,0,0,0)')
@@ -197,7 +189,6 @@ export function SplashGlobe({ onReady }: Props) {
       ctx.arc(cx, cy, R, 0, Math.PI * 2)
       ctx.fill()
 
-      // ── Specular highlight ──
       const spec = ctx.createRadialGradient(
         cx - R * 0.38, cy - R * 0.42, 0,
         cx - R * 0.38, cy - R * 0.42, R * 0.28,
@@ -211,7 +202,6 @@ export function SplashGlobe({ onReady }: Props) {
 
       ctx.restore()
 
-      // ── Sphere rim ──
       ctx.beginPath()
       ctx.arc(cx, cy, R, 0, Math.PI * 2)
       ctx.strokeStyle = 'rgba(255,255,255,0.18)'

@@ -99,10 +99,8 @@ const values = [
 export default function AboutPage() {
   return (
     <div className="page-bolt-bg">
-      {/* ── 1. Hero ─────────────────────────────────────────────── */}
       <AboutHero />
 
-      {/* ── 2. Our Purpose, Our Promise ─────────────────────────── */}
       <section className="py-12 md:py-16 lg:py-20 overflow-hidden">
         <div className="pointer-events-none absolute left-0 top-0 w-[427px] h-[2278px] opacity-10 overflow-hidden -z-0 hidden xl:block">
           <div className="rotate-90 -translate-y-1/2 w-[2278px] h-[427px] bg-gradient-to-r from-[#D97300] to-[#DB1B0C]" />
@@ -152,7 +150,6 @@ export default function AboutPage() {
             </Reveal>
           </div>
 
-          {/* Vision / Mission cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-10">
             {[
               {
@@ -178,10 +175,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── 3. Journey / Timeline ────────────────────────────────── */}
       <TimelineSection />
 
-      {/* ── 4. Core Values ──────────────────────────────────────── */}
       <section
         className="pb-14 md:pb-20 lg:pb-24 relative overflow-hidden"
         style={{
@@ -249,7 +244,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── 5. Meet The CEO ─────────────────────────────────────── */}
       <section className="py-12 md:py-16 lg:py-20">
         <div className="max-w-[1280px] mx-auto px-6">
           <Reveal variant="up">
@@ -262,7 +256,6 @@ export default function AboutPage() {
 
           <Reveal variant="scale" delay={0.1}>
             <div className="relative rounded-2xl overflow-hidden w-full h-[280px] sm:h-[400px] md:h-[520px] lg:h-[600px]">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={IMAGES.about.ceo} alt="FIPL CEO" className="absolute inset-0 w-full h-full object-cover" />
               <div className="absolute inset-0 bg-black/40" />
               <div className="absolute inset-0 flex items-center justify-center">
@@ -281,7 +274,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── 6. Testimonials ─────────────────────────────────────── */}
       <TestimonialsBlock testimonials={testimonials} heading={"What Our Stakeholders\nSay About Us."} />
     </div>
   )

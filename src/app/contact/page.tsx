@@ -50,15 +50,12 @@ const contactItems = [
 export default function ContactPage() {
   return (
     <div className="page-bolt-bg">
-      {/* ── Hero ──────────────────────────────────────────────────── */}
       <ContactHero />
 
-      {/* ── Contact Form + Info ───────────────────────────────────── */}
       <section className="py-12 md:py-16 lg:py-20">
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
 
-            {/* Left: info */}
             <Reveal variant="left">
               <div>
                 <span className="inline-flex items-center gap-1.5 text-sm text-[#DB1B0C] mb-3">Contact Us <svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 0.5L1 7.5h5L4.5 12.5l7.5-8h-5z" /></svg></span>
@@ -89,7 +86,6 @@ export default function ContactPage() {
               </div>
             </Reveal>
 
-            {/* Right: form */}
             <Reveal variant="right" delay={0.15}>
               <ContactForm />
             </Reveal>
@@ -97,7 +93,6 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* ── Map ───────────────────────────────────────────────────── */}
       <section className="pb-0">
         <Reveal variant="fade" duration={1}>
           <div className="max-w-[1280px] mx-auto px-6">
@@ -115,7 +110,6 @@ export default function ContactPage() {
         </Reveal>
       </section>
 
-      {/* ── Newsletter ────────────────────────────────────────────── */}
       <section className="py-10 md:py-14">
         <div className="max-w-[1280px] mx-auto px-6">
           <Reveal variant="scale">
@@ -124,7 +118,6 @@ export default function ContactPage() {
               style={{ background: 'linear-gradient(269deg, #D97300 1%, #DB1B0C 100%)' }}
             >
               <div className="absolute left-0 bottom-0 h-full w-[200px] hidden lg:block pointer-events-none">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={IMAGES.contact.hero}
                   alt=""

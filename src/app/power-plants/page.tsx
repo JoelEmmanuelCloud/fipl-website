@@ -72,10 +72,8 @@ const steps = [
 export default function PowerPlantsPage() {
   return (
     <div className="page-bolt-bg">
-      {/* ── Hero ──────────────────────────────────────────────────── */}
       <PowerPlantsHero />
 
-      {/* ── Our Power Plants intro ────────────────────────────────── */}
       <section className="py-12 md:py-16">
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
@@ -101,7 +99,6 @@ export default function PowerPlantsPage() {
         </div>
       </section>
 
-      {/* ── Plant Cards ───────────────────────────────────────────── */}
       <section className="pb-12 md:pb-16">
         <div className="max-w-[1280px] mx-auto px-6 space-y-8">
           {plants.map((plant, i) => (
@@ -149,7 +146,6 @@ export default function PowerPlantsPage() {
         </div>
       </section>
 
-      {/* ── How We Power Nigeria ─────────────────────────────────── */}
       <section id="how-we-work" className="py-12 md:py-16 lg:py-20 bg-white">
         <div className="max-w-[1280px] mx-auto px-6">
           <Reveal variant="up">
@@ -171,7 +167,6 @@ export default function PowerPlantsPage() {
                     {isTop ? (
                       <>
                         <div className="relative overflow-hidden h-[260px] rounded-tl-[200px] rounded-tr-[200px]">
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img src={step.image} alt={step.title} className="w-full h-full object-cover" />
                         </div>
                         <div className="relative flex justify-center">
@@ -202,7 +197,6 @@ export default function PowerPlantsPage() {
                           </div>
                         </div>
                         <div className="relative overflow-hidden h-[260px] rounded-bl-[200px] rounded-br-[200px]">
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img src={step.image} alt={step.title} className="w-full h-full object-cover" />
                         </div>
                       </>

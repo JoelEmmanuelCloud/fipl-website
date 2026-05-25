@@ -41,7 +41,6 @@ export function HeroHeadline() {
           lineHeight: 1.25,
         }}
       >
-        {/* Line 1 — spaces live OUTSIDE the overflow:hidden wrapper */}
         <span style={{ display: 'block' }}>
           {LINE1.map((word, i) => (
             <Fragment key={word}>
@@ -51,7 +50,6 @@ export function HeroHeadline() {
           ))}
         </span>
 
-        {/* Line 2 */}
         <span style={{ display: 'block' }}>
           {LINE2.map((word, i) => (
             <Fragment key={word}>

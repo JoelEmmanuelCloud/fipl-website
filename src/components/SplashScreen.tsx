@@ -10,15 +10,12 @@ export function SplashScreen() {
   const [lifting, setLifting] = useState(false)
   const [done, setDone] = useState(false)
 
-  // Globe calls this after its first frame renders —
-  // text animations begin only then, curtain countdown starts here too.
   const handleGlobeReady = useCallback(() => {
     setTextReady(true)
   }, [])
 
   useEffect(() => {
     if (!textReady) return
-    // 4.5 s of text sequence, then lift
     const t1 = setTimeout(() => setLifting(true), 3200)
     const t2 = setTimeout(() => {
       setDone(true)

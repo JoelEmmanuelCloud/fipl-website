@@ -53,10 +53,8 @@ const esgCards = [
 export default function SustainabilityPage() {
   return (
     <div className="page-bolt-bg">
-      {/* ── Hero ──────────────────────────────────────────────────── */}
       <SustainabilityHero />
 
-      {/* ── ESG ───────────────────────────────────────────────────── */}
       <section className="py-12 md:py-16 lg:py-20">
         <div className="max-w-[1280px] mx-auto px-6">
           <Reveal variant="up">
@@ -96,7 +94,6 @@ export default function SustainabilityPage() {
         </div>
       </section>
 
-      {/* ── Sustainability ────────────────────────────────────────── */}
       <section className="py-12 md:py-16 lg:py-20 bg-[#f8f8f8]">
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
@@ -155,7 +152,6 @@ export default function SustainabilityPage() {
         </div>
       </section>
 
-      {/* ── Health & Safety ───────────────────────────────────────── */}
       <section className="py-12 md:py-16 lg:py-20">
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
@@ -193,7 +189,6 @@ export default function SustainabilityPage() {
         </div>
       </section>
 
-      {/* ── Corporate Governance ──────────────────────────────────── */}
       <section className="py-12 md:py-16 lg:py-20 bg-[#f8f8f8]">
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
@@ -232,12 +227,10 @@ export default function SustainabilityPage() {
         </div>
       </section>
 
-      {/* ── SDG Goals ─────────────────────────────────────────────── */}
       <section className="py-12 md:py-16 lg:py-20">
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <Reveal variant="clip" duration={0.9}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={IMAGES.sustainability.sdg}
                 alt="SDG Goals"
@@ -275,12 +268,10 @@ export default function SustainabilityPage() {
         </div>
       </section>
 
-      {/* ── Empowering Communities ────────────────────────────────── */}
       <section className="py-12 md:py-16 lg:py-20 bg-[#f8f8f8]">
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
             <Reveal variant="clip" duration={0.9}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={IMAGES.sustainability.community}
                 alt="Community empowerment"

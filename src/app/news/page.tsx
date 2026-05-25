@@ -15,13 +15,10 @@ const insightImages = [IMAGES.news.insight1, IMAGES.news.insight2, IMAGES.news.i
 export default function NewsPage() {
   return (
     <div className="page-bolt-bg">
-      {/* ── Hero ──────────────────────────────────────────────────── */}
       <NewsHero />
 
-      {/* ── Tabs + Articles ───────────────────────────────────────── */}
       <NewsTabs articles={articles} />
 
-      {/* ── Insights section ──────────────────────────────────────── */}
       <section className="py-12 md:py-16 lg:py-20 bg-[#f8f8f8]">
         <div className="max-w-[1280px] mx-auto px-6">
           <Reveal variant="up">

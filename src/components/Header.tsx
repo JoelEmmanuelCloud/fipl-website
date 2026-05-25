@@ -78,7 +78,6 @@ export function Header() {
 
   return (
     <>
-      {/* ── Desktop / tablet header ── */}
       <header
         className="fixed top-0 left-0 right-0 z-50"
         style={{
@@ -95,7 +94,6 @@ export function Header() {
           <nav className="hidden lg:flex ml-auto items-center gap-0.5">
             {NAV.map(item => (
               item.children ? (
-                /* ── Dropdown item ── */
                 <div key={item.label} className="relative group">
                   <button
                     className={topLinkCls(isItemActive(item))}
@@ -106,10 +104,8 @@ export function Header() {
                     <ChevronDown className="w-3 h-3 transition-transform duration-200 group-hover:rotate-180" />
                   </button>
 
-                  {/* Invisible bridge so mouse can travel from button to panel */}
                   <div className="absolute top-full left-0 w-full h-2" />
 
-                  {/* Dropdown panel */}
                   <div
                     className="absolute top-[calc(100%+8px)] left-0 min-w-[210px] opacity-0 invisible pointer-events-none
                                group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto
@@ -134,7 +130,6 @@ export function Header() {
                   </div>
                 </div>
               ) : (
-                /* ── Standalone link ── */
                 <Link
                   key={item.href}
                   href={item.href!}
@@ -147,7 +142,6 @@ export function Header() {
             ))}
           </nav>
 
-          {/* Burger */}
           <button
             className="lg:hidden ml-auto p-3 flex flex-col gap-[5px] shrink-0 min-w-[44px] min-h-[44px] items-center justify-center"
             aria-label="Open navigation menu"
@@ -166,7 +160,6 @@ export function Header() {
         </div>
       </header>
 
-      {/* ── Mobile full-screen overlay ── */}
       <div
         className={`lg:hidden fixed inset-0 z-[200] flex flex-col px-6 py-5 overflow-y-auto
                     transition-transform duration-[360ms] ease-[cubic-bezier(.4,0,.2,1)]
@@ -188,7 +181,6 @@ export function Header() {
           <ul className="flex flex-col gap-0.5">
             {NAV.map(item => (
               item.children ? (
-                /* ── Accordion item ── */
                 <li key={item.label}>
                   <button
                     className="w-full flex items-center justify-between px-5 py-[15px] text-[16px] font-medium text-white/90 rounded-xl hover:bg-white/10 transition-colors"
@@ -226,7 +218,6 @@ export function Header() {
                   )}
                 </li>
               ) : (
-                /* ── Standalone link ── */
                 <li key={item.href}>
                   <Link
                     href={item.href!}

@@ -79,9 +79,7 @@ export function NewsTabs({ articles }: { articles: NewsArticle[] }) {
                     key={article.id}
                     className="bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow mb-6"
                   >
-                    {/* Image with date badge */}
                     <div className="relative h-48 sm:h-56 md:h-64 bg-gray-200 overflow-hidden">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src={article.image} alt={article.title} className="w-full h-full object-cover" />
                       <div className="absolute bottom-0 left-0 bg-[#DB1B0C] text-white text-xs font-bold px-3 py-2 leading-tight">
                         <div className="text-lg font-extrabold leading-none">{new Date(article.dateISO).getDate()}</div>
@@ -141,7 +139,6 @@ export function NewsTabs({ articles }: { articles: NewsArticle[] }) {
                 </div>
                 {recent.map((a) => (
                   <div key={a.id} className="flex gap-3 py-3 border-b border-gray-100">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={a.image} alt={a.title} className="w-16 h-16 shrink-0 rounded-lg object-cover" />
                     <div>
                       <div className="text-[11px] text-gray-400 mb-1">{a.date}</div>

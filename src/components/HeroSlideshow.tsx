@@ -35,7 +35,6 @@ const SLIDES: Slide[] = [
   },
 ]
 
-// ── Chevron arrow SVG ──
 const ChevronLeft = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
     strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
@@ -49,7 +48,6 @@ const ChevronRight = () => (
   </svg>
 )
 
-// ── Text block — remounts each slide change so animation replays ──
 function SlideText({ slide }: { slide: Slide }) {
   const word = (text: string, idx: number) => (
     <span className="hero-word-wrap">
@@ -86,7 +84,6 @@ function SlideText({ slide }: { slide: Slide }) {
   )
 }
 
-// ── Main slideshow ──
 export function HeroSlideshow() {
   const [current, setCurrent] = useState(0)
   const [textReady, setTextReady] = useState(false)
@@ -129,7 +126,6 @@ export function HeroSlideshow() {
   return (
     <div className="relative h-full w-full overflow-hidden">
 
-      {/* ── Slides ── */}
       {SLIDES.map((slide, i) => (
         <div
           key={slide.src}
@@ -159,7 +155,6 @@ export function HeroSlideshow() {
         </div>
       ))}
 
-      {/* ── Cinematic overlay ── */}
       <div
         className="absolute inset-0 z-[2]"
         style={{
@@ -168,31 +163,25 @@ export function HeroSlideshow() {
         }}
       />
 
-      {/* ── Letterbox bars ── */}
       <div className="absolute top-0 left-0 right-0 h-[6px] bg-black z-[3]" />
       <div className="absolute bottom-0 left-0 right-0 h-[6px] bg-black z-[3]" />
 
-      {/* ── Prev arrow ── */}
       <button className={`${arrowCls} left-5`} onClick={prev} aria-label="Previous slide">
         <ChevronLeft />
       </button>
 
-      {/* ── Next arrow ── */}
       <button className={`${arrowCls} right-5`} onClick={next} aria-label="Next slide">
         <ChevronRight />
       </button>
 
-      {/* ── Text ── */}
       {textReady && (
         <div className="absolute inset-0 z-[5] flex items-end justify-center text-center px-4 pb-[180px] sm:pb-[220px] md:pb-[260px] lg:pb-[320px]">
           <SlideText key={textKey} slide={SLIDES[current]} />
         </div>
       )}
 
-      {/* ── Bottom controls ── */}
       <div className="absolute bottom-4 left-0 right-0 z-[5] flex items-center justify-between px-6">
 
-        {/* Slide counter */}
         <span
           className="text-white/70 tabular-nums select-none"
           style={{ fontFamily: 'Arial', fontSize: '12px', letterSpacing: '0.12em' }}
@@ -200,7 +189,6 @@ export function HeroSlideshow() {
           {String(current + 1).padStart(2, '0')} / {String(SLIDES.length).padStart(2, '0')}
         </span>
 
-        {/* Progress lines — one per slide */}
         <div className="flex items-center gap-2">
           {SLIDES.map((_, i) => (
             <button
@@ -210,11 +198,9 @@ export function HeroSlideshow() {
               className="relative h-[3px] rounded-full overflow-hidden transition-all duration-300"
               style={{ width: i === current ? '52px' : '20px', background: 'rgba(255,255,255,0.25)' }}
             >
-              {/* Completed slides — fully filled */}
               {i < current && (
                 <span className="absolute inset-0 bg-white" />
               )}
-              {/* Active slide — fills over DURATION */}
               {i === current && textReady && (
                 <span
                   key={progKey}
@@ -225,7 +211,6 @@ export function HeroSlideshow() {
           ))}
         </div>
 
-        {/* Right spacer (keeps counter/lines layout balanced) */}
         <span className="w-[40px]" />
       </div>
 

@@ -61,10 +61,8 @@ const evpCards = [
 export default function CareersPage() {
   return (
     <div className="page-bolt-bg">
-      {/* ── Hero ──────────────────────────────────────────────────── */}
       <CareersHero />
 
-      {/* ── Why Join FIPL ─────────────────────────────────────────── */}
       <section className="py-12 md:py-16 lg:py-20">
         <div className="max-w-[1280px] mx-auto px-6">
           <Reveal variant="up">
@@ -94,12 +92,10 @@ export default function CareersPage() {
         </div>
       </section>
 
-      {/* ── What Drives Us ────────────────────────────────────────── */}
       <section className="py-12 md:py-16 lg:py-20 bg-[#f8f8f8]">
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <Reveal variant="clip" duration={0.9}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={IMAGES.careers.team}
                 alt="FIPL team"
@@ -138,7 +134,6 @@ export default function CareersPage() {
         </div>
       </section>
 
-      {/* ── Job Listings ──────────────────────────────────────────── */}
       <section id="open-roles" className="py-12 md:py-16 lg:py-20">
         <div className="max-w-[1280px] mx-auto px-6">
           <Reveal variant="up">

@@ -1,22 +1,32 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { articles } from '@/lib/news'
+import { getAllArticles } from '@/lib/news'
 import { NewsTabs } from '@/components/NewsTabs'
 import { NewsHero } from '@/components/PageHeroes'
 import { Reveal } from '@/components/Reveal'
 import { IMAGES } from '@/lib/images'
+import { createServerClient } from '@/lib/supabase-server'
+import type { MediaKitRow } from '@/lib/database.types'
 
 export const metadata: Metadata = { title: 'News & Media' }
+export const revalidate = 300
 
-const insights = articles.slice(0, 3)
 const insightImages = [IMAGES.news.insight1, IMAGES.news.insight2, IMAGES.news.insight3]
 
-export default function NewsPage() {
+export default async function NewsPage() {
+  const [articles, mediaResult] = await Promise.all([
+    getAllArticles(),
+    createServerClient().from('media_kits').select('*').order('created_at', { ascending: false }),
+  ])
+
+  const mediaKits = (mediaResult.data ?? []) as MediaKitRow[]
+  const insights = articles.slice(0, 3)
+
   return (
     <div className="page-bolt-bg">
       <NewsHero />
 
-      <NewsTabs articles={articles} />
+      <NewsTabs articles={articles} mediaKits={mediaKits} />
 
       <section className="py-12 md:py-16 lg:py-20 bg-[var(--fipl-surface)]">
         <div className="max-w-[1280px] mx-auto px-6">

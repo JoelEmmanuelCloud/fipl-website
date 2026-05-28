@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useState } from 'react'
 import type { NewsArticle } from '@/lib/news'
+import type { MediaKitRow } from '@/lib/database.types'
 
 const CATEGORIES = [
   'All',
@@ -15,11 +16,16 @@ const CATEGORIES = [
 ] as const
 const MK_TABS = ['Our Plants', 'People', 'Events', 'FIPL Foundation'] as const
 
-export function NewsTabs({ articles }: { articles: NewsArticle[] }) {
+interface Props {
+  articles: NewsArticle[]
+  mediaKits: MediaKitRow[]
+}
+
+export function NewsTabs({ articles, mediaKits }: Props) {
   const [mainTab, setMainTab] = useState<'press' | 'media'>('press')
   const [filter, setFilter] = useState('All')
   const [query, setQuery] = useState('')
-  const [mkTab, setMkTab] = useState('Our Plants')
+  const [mkTab, setMkTab] = useState<string>(MK_TABS[0])
   const [page, setPage] = useState(1)
   const PER_PAGE = 3
 
@@ -35,6 +41,8 @@ export function NewsTabs({ articles }: { articles: NewsArticle[] }) {
   const recent = [...articles]
     .sort((a, b) => new Date(b.dateISO).getTime() - new Date(a.dateISO).getTime())
     .slice(0, 7)
+
+  const filteredMedia = mediaKits.filter((m) => m.category === mkTab)
 
   return (
     <section className="py-16 bg-[var(--fipl-surface)]">
@@ -101,54 +109,69 @@ export function NewsTabs({ articles }: { articles: NewsArticle[] }) {
 
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-10">
               <div>
-                {paged.map((article) => (
-                  <article
-                    key={article.id}
-                    className="bg-[var(--fipl-bg)] overflow-hidden shadow-sm hover:shadow-md transition-shadow mb-6"
-                  >
-                    <div className="relative h-48 sm:h-56 md:h-64 bg-gray-200 overflow-hidden">
-                      <Image
-                        src={article.image}
-                        alt={article.title}
-                        fill
-                        className="object-cover"
-                      />
-                      <div className="absolute bottom-0 left-0 bg-[#DB1B0C] text-white text-xs font-bold px-3 py-2 leading-tight">
-                        <div className="text-lg font-extrabold leading-none">
-                          {new Date(article.dateISO).getDate()}
-                        </div>
-                        <div className="text-[10px] uppercase tracking-wide">
-                          {new Date(article.dateISO).toLocaleString('en-US', {
-                            month: 'short',
-                            year: 'numeric',
-                          })}
-                        </div>
-                      </div>
-                    </div>
-                    <div className="p-6 md:p-7">
-                      <div className="text-[11px] font-bold text-[#DB1B0C] uppercase tracking-wider mb-2">
-                        {article.category}
-                      </div>
-                      <h2 className="text-lg font-bold text-[var(--fipl-heading)] mb-3 leading-snug">
-                        <Link
-                          href={`/news/${article.slug}`}
-                          className="hover:text-[#DB1B0C] transition-colors"
-                        >
-                          {article.title}
-                        </Link>
-                      </h2>
-                      <p className="text-sm text-[var(--fipl-body)] mb-4 leading-relaxed">
-                        {article.excerpt}
-                      </p>
-                      <Link
-                        href={`/news/${article.slug}`}
-                        className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#DB1B0C] hover:gap-3 transition-all"
+                {paged.length === 0 ? (
+                  <p className="text-[var(--fipl-body)] text-sm py-8">No articles match your search.</p>
+                ) : (
+                  paged.map((article) => {
+                    const isExternal = article.image.startsWith('http')
+                    return (
+                      <article
+                        key={article.id}
+                        className="bg-[var(--fipl-bg)] overflow-hidden shadow-sm hover:shadow-md transition-shadow mb-6"
                       >
-                        Reading More ↗
-                      </Link>
-                    </div>
-                  </article>
-                ))}
+                        <div className="relative h-48 sm:h-56 md:h-64 bg-gray-200 overflow-hidden">
+                          {isExternal ? (
+                            <img
+                              src={article.image}
+                              alt={article.title}
+                              className="w-full h-full object-cover"
+                            />
+                          ) : (
+                            <Image
+                              src={article.image}
+                              alt={article.title}
+                              fill
+                              className="object-cover"
+                            />
+                          )}
+                          <div className="absolute bottom-0 left-0 bg-[#DB1B0C] text-white text-xs font-bold px-3 py-2 leading-tight">
+                            <div className="text-lg font-extrabold leading-none">
+                              {new Date(article.dateISO).getDate()}
+                            </div>
+                            <div className="text-[10px] uppercase tracking-wide">
+                              {new Date(article.dateISO).toLocaleString('en-US', {
+                                month: 'short',
+                                year: 'numeric',
+                              })}
+                            </div>
+                          </div>
+                        </div>
+                        <div className="p-6 md:p-7">
+                          <div className="text-[11px] font-bold text-[#DB1B0C] uppercase tracking-wider mb-2">
+                            {article.category}
+                          </div>
+                          <h2 className="text-lg font-bold text-[var(--fipl-heading)] mb-3 leading-snug">
+                            <Link
+                              href={`/news/${article.slug}`}
+                              className="hover:text-[#DB1B0C] transition-colors"
+                            >
+                              {article.title}
+                            </Link>
+                          </h2>
+                          <p className="text-sm text-[var(--fipl-body)] mb-4 leading-relaxed">
+                            {article.excerpt}
+                          </p>
+                          <Link
+                            href={`/news/${article.slug}`}
+                            className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#DB1B0C] hover:gap-3 transition-all"
+                          >
+                            Reading More ↗
+                          </Link>
+                        </div>
+                      </article>
+                    )
+                  })
+                )}
 
                 {totalPages > 1 && (
                   <div className="flex gap-2 justify-center mt-6">
@@ -181,29 +204,40 @@ export function NewsTabs({ articles }: { articles: NewsArticle[] }) {
                 <div className="text-sm font-bold text-[var(--fipl-heading)] mb-4 pb-3 border-b-2 border-primary">
                   Recent Posts
                 </div>
-                {recent.map((a) => (
-                  <div
-                    key={a.id}
-                    className="flex gap-3 py-3 border-b border-[var(--fipl-border-subtle)]"
-                  >
-                    <Image
-                      src={a.image}
-                      alt={a.title}
-                      width={64}
-                      height={64}
-                      className="shrink-0 rounded-lg object-cover"
-                    />
-                    <div>
-                      <div className="text-[11px] text-[var(--fipl-body)] mb-1">{a.date}</div>
-                      <Link
-                        href={`/news/${a.slug}`}
-                        className="text-[13px] font-semibold text-[var(--fipl-heading)] leading-snug hover:text-primary transition-colors"
-                      >
-                        {a.title}
-                      </Link>
+                {recent.map((a) => {
+                  const isExternal = a.image.startsWith('http')
+                  return (
+                    <div
+                      key={a.id}
+                      className="flex gap-3 py-3 border-b border-[var(--fipl-border-subtle)]"
+                    >
+                      {isExternal ? (
+                        <img
+                          src={a.image}
+                          alt={a.title}
+                          className="shrink-0 rounded-lg object-cover w-16 h-16"
+                        />
+                      ) : (
+                        <Image
+                          src={a.image}
+                          alt={a.title}
+                          width={64}
+                          height={64}
+                          className="shrink-0 rounded-lg object-cover"
+                        />
+                      )}
+                      <div>
+                        <div className="text-[11px] text-[var(--fipl-body)] mb-1">{a.date}</div>
+                        <Link
+                          href={`/news/${a.slug}`}
+                          className="text-[13px] font-semibold text-[var(--fipl-heading)] leading-snug hover:text-primary transition-colors"
+                        >
+                          {a.title}
+                        </Link>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  )
+                })}
               </aside>
             </div>
           </>
@@ -226,16 +260,42 @@ export function NewsTabs({ articles }: { articles: NewsArticle[] }) {
                 </button>
               ))}
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-              {Array.from({ length: 8 }).map((_, i) => (
-                <div
-                  key={i}
-                  className="aspect-square bg-[var(--fipl-surface)] rounded-xl overflow-hidden flex items-center justify-center text-[var(--fipl-body)] text-xs cursor-pointer hover:scale-[1.03] transition-transform"
-                >
-                  [ {mkTab} {i + 1} ]
-                </div>
-              ))}
-            </div>
+            {filteredMedia.length === 0 ? (
+              <p className="text-[var(--fipl-body)] text-sm py-8 text-center">
+                No media available in this category yet.
+              </p>
+            ) : (
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                {filteredMedia.map((item) => {
+                  const isImage = item.file_url.match(/\.(jpg|jpeg|png|gif|webp)$/i)
+                  const preview = item.thumbnail_url || (isImage ? item.file_url : null)
+                  return (
+                    <a
+                      key={item.id}
+                      href={item.file_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="aspect-square bg-[var(--fipl-surface)] rounded-xl overflow-hidden flex flex-col items-center justify-center text-[var(--fipl-body)] text-xs cursor-pointer hover:scale-[1.03] transition-transform relative group"
+                    >
+                      {preview ? (
+                        <img
+                          src={preview}
+                          alt={item.title}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div className="text-4xl mb-2">📄</div>
+                      )}
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-end">
+                        <div className="w-full px-3 py-2 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                          <div className="text-white text-xs font-semibold truncate">{item.title}</div>
+                        </div>
+                      </div>
+                    </a>
+                  )
+                })}
+              </div>
+            )}
           </>
         )}
       </div>

@@ -2,31 +2,31 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
-import { articles, getArticleBySlug, getRecentArticles } from '@/lib/news'
-import { IMAGES } from '@/lib/images'
+import { getArticleBySlug, getRecentArticles } from '@/lib/news'
+
+export const revalidate = 300
 
 interface Props {
   params: { slug: string }
 }
 
-export async function generateStaticParams() {
-  return articles.map((a) => ({ slug: a.slug }))
-}
-
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const article = getArticleBySlug(params.slug)
+  const article = await getArticleBySlug(params.slug)
   if (!article) return {}
-  return {
-    title: article.title,
-    description: article.excerpt,
-  }
+  return { title: article.title, description: article.excerpt }
 }
 
-export default function ArticlePage({ params }: Props) {
-  const article = getArticleBySlug(params.slug)
+export default async function ArticlePage({ params }: Props) {
+  const [article, recent] = await Promise.all([
+    getArticleBySlug(params.slug),
+    getRecentArticles(6),
+  ])
+
   if (!article) notFound()
 
-  const recent = getRecentArticles(5).filter((a) => a.slug !== params.slug)
+  const sidebar = recent.filter((a) => a.slug !== params.slug).slice(0, 5)
+
+  const isExternalImage = article.image.startsWith('http')
 
   return (
     <div>
@@ -76,12 +76,20 @@ export default function ArticlePage({ params }: Props) {
               </Link>
 
               <div className="relative w-full h-[320px] mb-10">
-                <Image
-                  src={article.image}
-                  alt={article.title}
-                  fill
-                  className="object-cover rounded-2xl"
-                />
+                {isExternalImage ? (
+                  <img
+                    src={article.image}
+                    alt={article.title}
+                    className="w-full h-full object-cover rounded-2xl"
+                  />
+                ) : (
+                  <Image
+                    src={article.image}
+                    alt={article.title}
+                    fill
+                    className="object-cover rounded-2xl"
+                  />
+                )}
               </div>
 
               <div
@@ -94,18 +102,28 @@ export default function ArticlePage({ params }: Props) {
               <div className="text-sm font-bold text-[var(--fipl-heading)] mb-4 pb-3 border-b-2 border-primary">
                 Recent Posts
               </div>
-              {recent.map((a) => (
+              {sidebar.map((a) => (
                 <div
                   key={a.id}
                   className="flex gap-3 py-3 border-b border-[var(--fipl-border-subtle)]"
                 >
-                  <Image
-                    src={a.image}
-                    alt={a.title}
-                    width={64}
-                    height={56}
-                    className="shrink-0 rounded-lg object-cover"
-                  />
+                  {a.image.startsWith('http') ? (
+                    <img
+                      src={a.image}
+                      alt={a.title}
+                      width={64}
+                      height={56}
+                      className="shrink-0 rounded-lg object-cover w-16 h-14"
+                    />
+                  ) : (
+                    <Image
+                      src={a.image}
+                      alt={a.title}
+                      width={64}
+                      height={56}
+                      className="shrink-0 rounded-lg object-cover"
+                    />
+                  )}
                   <div>
                     <div className="text-[11px] text-[var(--fipl-body)] mb-1">{a.date}</div>
                     <Link

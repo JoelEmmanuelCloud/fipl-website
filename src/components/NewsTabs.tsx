@@ -61,7 +61,7 @@ export function NewsTabs({ articles, mediaKits }: Props) {
                   : 'text-[var(--fipl-body)] border-transparent hover:text-[var(--fipl-heading)]'
               }`}
             >
-              {tab === 'press' ? '📰 Press Releases' : '📷 Media Kits'}
+              {tab === 'press' ? 'Press Releases' : 'Media Kits'}
             </button>
           ))}
         </div>
@@ -284,7 +284,7 @@ export function NewsTabs({ articles, mediaKits }: Props) {
                           className="w-full h-full object-cover"
                         />
                       ) : (
-                        <div className="text-4xl mb-2">📄</div>
+                        <div className="text-4xl mb-2">PDF</div>
                       )}
                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-end">
                         <div className="w-full px-3 py-2 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">

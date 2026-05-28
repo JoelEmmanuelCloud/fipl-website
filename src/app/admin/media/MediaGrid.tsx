@@ -34,7 +34,7 @@ export default function MediaGrid({ items }: { items: MediaKitRow[] }) {
             ) : item.file_url.match(/\.(jpg|jpeg|png|gif|webp)$/i) ? (
               <img src={item.file_url} alt={item.title} className="w-full h-full object-cover" />
             ) : (
-              <div className="text-3xl">📄</div>
+              <div className="text-xs font-semibold text-gray-400 uppercase tracking-wide">PDF</div>
             )}
           </div>
           <div className="p-3">

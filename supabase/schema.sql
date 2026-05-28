@@ -60,10 +60,10 @@ alter table jobs enable row level security;
 create policy "Public read active jobs" on jobs for select using (is_active = true);
 
 alter table contact_submissions enable row level security;
+
 alter table newsletter_subscribers enable row level security;
 
--- Storage buckets (run in Supabase SQL editor or dashboard):
--- insert into storage.buckets (id, name, public) values ('news-images', 'news-images', true) on conflict do nothing;
--- insert into storage.buckets (id, name, public) values ('media-kit-assets', 'media-kit-assets', true) on conflict do nothing;
--- create policy "Public read news images" on storage.objects for select using (bucket_id = 'news-images');
--- create policy "Public read media assets" on storage.objects for select using (bucket_id = 'media-kit-assets');
+insert into storage.buckets (id, name, public) values ('news-images', 'news-images', true) on conflict do nothing;
+insert into storage.buckets (id, name, public) values ('media-kit-assets', 'media-kit-assets', true) on conflict do nothing;
+create policy "Public read news images" on storage.objects for select using (bucket_id = 'news-images');
+create policy "Public read media assets" on storage.objects for select using (bucket_id = 'media-kit-assets');

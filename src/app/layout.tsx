@@ -6,6 +6,8 @@ import { Footer } from '@/components/Footer'
 import { BackToTop } from '@/components/BackToTop'
 import { ChatWidget } from '@/components/ChatWidget'
 import { ThemeProvider } from '@/components/ThemeProvider'
+import AlertBanner from '@/components/AlertBanner'
+import { createServerClient } from '@/lib/supabase-server'
 
 const SplashScreen = dynamic(
   () => import('@/components/SplashScreen').then((m) => ({ default: m.SplashScreen })),
@@ -26,7 +28,16 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export const revalidate = 60
+
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const supabase = createServerClient()
+  const { data: alerts } = await supabase
+    .from('alerts')
+    .select('id, title, message, type')
+    .eq('is_active', true)
+    .order('created_at', { ascending: false })
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="antialiased overflow-x-hidden bg-[var(--fipl-bg)] text-[var(--fipl-heading)]">
@@ -37,6 +48,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
         <ThemeProvider>
           <SplashScreen />
+          <AlertBanner alerts={alerts ?? []} />
           <Header />
           <main>{children}</main>
           <Footer />

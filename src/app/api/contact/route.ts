@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createServerClient } from '@/lib/supabase-server'
+import { sendContactNotification } from '@/lib/email'
 
 export async function POST(req: NextRequest) {
   const body = await req.json()
@@ -21,6 +22,10 @@ export async function POST(req: NextRequest) {
   if (error) {
     return NextResponse.json({ error: 'Failed to submit' }, { status: 500 })
   }
+
+  sendContactNotification({ firstName, lastName, email, subject: subject || null, message }).catch(
+    () => {},
+  )
 
   return NextResponse.json({ ok: true })
 }

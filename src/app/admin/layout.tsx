@@ -17,6 +17,7 @@ import {
 } from 'lucide-react'
 import AdminNotificationBell from '@/components/AdminNotificationBell'
 import { ToastProvider } from '@/components/AdminToast'
+import { ThemeToggle } from '@/components/ThemeToggle'
 
 const NAV = [
   { href: '/admin', label: 'Dashboard', exact: true, icon: LayoutDashboard },
@@ -131,7 +132,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <span className="text-sm font-semibold text-gray-800 dark:text-white">
               {getPageTitle(pathname)}
             </span>
-            <AdminNotificationBell />
+            <div className="flex items-center gap-1">
+              <ThemeToggle className="text-gray-400 dark:text-gray-400" />
+              <AdminNotificationBell />
+            </div>
           </header>
 
           <main className="flex-1 overflow-auto">

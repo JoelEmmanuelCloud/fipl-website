@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, ReactNode } from 'react'
 import Image from 'next/image'
-import { Power, Factory, TowerControl, Cpu, Leaf, Flame, GaugeCircle } from 'lucide-react'
+import { Power, Factory, TowerControl, Cpu, Leaf, Flame, GaugeCircle, Hourglass } from 'lucide-react'
 import { Reveal } from '@/components/Reveal'
 
 interface Seg {
@@ -175,7 +175,7 @@ function snakeColor(canvasX: number): string {
   return `rgb(${r},${g},${b})`
 }
 
-const SVG_PATH = `M 120 140 L 120 650 Q 120 730 200 730 L 260 730 Q 340 730 340 640 L 340 560 Q 340 470 430 470 L 520 470 Q 610 470 610 350 L 610 250 Q 610 160 700 160 L 900 160 Q 980 160 980 240 L 980 580 Q 980 650 1060 650 L 1120 650 Q 1200 650 1200 570 L 1200 320 Q 1200 250 1260 250 Q 1320 250 1320 320 L 1320 450 Q 1320 520 1390 520 L 1450 520`
+const SVG_PATH = `M 120 140 L 120 650 Q 120 730 200 730 L 260 730 Q 340 730 340 640 L 340 560 Q 340 470 430 470 L 520 470 Q 610 470 610 350 L 610 250 Q 610 160 700 160 L 900 160 Q 980 160 980 240 L 980 580 Q 980 650 1060 650 L 1120 650 Q 1200 650 1200 570 L 1200 320 Q 1200 250 1260 250 Q 1320 250 1320 320 L 1320 450 Q 1320 520 1390 520 L 1700 520`
 
 function ZigZagTimeline() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -373,6 +373,73 @@ function ZigZagTimeline() {
           </div>
         )
       })}
+
+      {(() => {
+        const terminusShow = progress > 0.92
+        return (
+          <>
+            <div
+              className="absolute z-20 rounded-full pointer-events-none"
+              style={{
+                left: 1655,
+                top: 475,
+                width: 90,
+                height: 90,
+                opacity: terminusShow ? 1 : 0,
+                transition: 'opacity 0.5s ease',
+              }}
+            >
+              <div
+                className="animate-ping absolute inset-0 rounded-full"
+                style={{ background: 'rgba(217,115,0,0.28)' }}
+              />
+            </div>
+
+            <div
+              className="absolute z-30 rounded-full"
+              style={{
+                left: 1655,
+                top: 475,
+                width: 90,
+                height: 90,
+                background: `linear-gradient(135deg, #D97300 0%, #DB1B0C 100%)`,
+                padding: 7,
+                opacity: terminusShow ? 1 : 0,
+                transform: terminusShow ? 'scale(1)' : 'scale(0.6)',
+                transition: 'opacity 0.5s ease 0.1s, transform 0.5s cubic-bezier(0.34,1.4,0.64,1) 0.1s',
+              }}
+            >
+              <div className="w-full h-full rounded-full bg-[var(--fipl-bg)] flex items-center justify-center">
+                <Hourglass className="w-10 h-10 text-[#D97300]" strokeWidth={2.2} />
+              </div>
+            </div>
+
+            <div
+              className="absolute z-20 text-center"
+              style={{
+                left: 1608,
+                top: 578,
+                width: 184,
+                opacity: terminusShow ? 1 : 0,
+                transform: terminusShow ? 'translateY(0)' : 'translateY(8px)',
+                transition: 'opacity 0.5s ease 0.3s, transform 0.5s ease 0.3s',
+              }}
+            >
+              <span
+                style={{
+                  color: '#D97300',
+                  fontSize: 11,
+                  fontWeight: 700,
+                  letterSpacing: '0.18em',
+                  textTransform: 'uppercase',
+                }}
+              >
+                — Timeline —
+              </span>
+            </div>
+          </>
+        )
+      })()}
 
       {milestones.map((m, idx) => {
         const cardShow = progress > (idx + 0.8) / 8

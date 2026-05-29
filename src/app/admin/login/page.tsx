@@ -28,117 +28,120 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex bg-gray-50 dark:bg-gray-950">
-      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
-        <div
-          className="absolute inset-0"
-          style={{ background: 'linear-gradient(135deg, #DB1B0C 0%, #D97300 100%)' }}
-        />
-        <div className="absolute inset-0 opacity-10">
-          <svg
-            className="w-full h-full"
-            viewBox="0 0 600 800"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <circle cx="300" cy="400" r="300" stroke="white" strokeWidth="1" />
-            <circle cx="300" cy="400" r="220" stroke="white" strokeWidth="1" />
-            <circle cx="300" cy="400" r="140" stroke="white" strokeWidth="1" />
-            <line x1="0" y1="400" x2="600" y2="400" stroke="white" strokeWidth="1" />
-            <line x1="300" y1="0" x2="300" y2="800" stroke="white" strokeWidth="1" />
-          </svg>
-        </div>
-        <div className="relative z-10 flex flex-col justify-between p-12 w-full">
-          <div className="w-32 h-12 bg-white/20 rounded-lg flex items-center justify-center">
-            <Image
-              src="/images/sustainability/logoimage.png"
-              alt="FIPL"
-              width={100}
-              height={36}
-              className="object-contain brightness-0 invert"
-            />
-          </div>
-          <div>
-            <h1 className="text-4xl font-bold text-white mb-4 leading-tight">
-              Content Management
-            </h1>
-            <p className="text-white/70 text-base leading-relaxed max-w-sm">
-              Manage news articles, media kits, job postings, site alerts and more from one place.
-            </p>
-            <div className="flex flex-wrap gap-3 mt-8">
-              {['News', 'Media', 'Jobs', 'Alerts', 'Submissions'].map((label) => (
-                <span
-                  key={label}
-                  className="px-3 py-1.5 rounded-full text-xs font-semibold text-white bg-white/15 border border-white/25"
-                >
-                  {label}
-                </span>
-              ))}
-            </div>
-          </div>
-          <p className="text-white/40 text-xs">
-            &copy; {new Date().getFullYear()} First Independent Power Limited
-          </p>
-        </div>
+    <div
+      className="min-h-screen flex items-center justify-center relative overflow-hidden px-4"
+      style={{ background: 'linear-gradient(135deg, #0d0d14 0%, #1a0808 50%, #0d0d14 100%)' }}
+    >
+      <div
+        className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full pointer-events-none"
+        style={{
+          background: 'radial-gradient(circle, rgba(219,27,12,0.35) 0%, transparent 70%)',
+          filter: 'blur(60px)',
+        }}
+      />
+      <div
+        className="absolute -bottom-40 -right-40 w-[600px] h-[600px] rounded-full pointer-events-none"
+        style={{
+          background: 'radial-gradient(circle, rgba(217,115,0,0.28) 0%, transparent 70%)',
+          filter: 'blur(60px)',
+        }}
+      />
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] rounded-full pointer-events-none"
+        style={{
+          background: 'radial-gradient(circle, rgba(219,27,12,0.06) 0%, transparent 65%)',
+          filter: 'blur(40px)',
+        }}
+      />
+
+      <div className="absolute inset-0 pointer-events-none opacity-[0.03]">
+        <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" strokeWidth="1" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#grid)" />
+        </svg>
       </div>
 
-      <div className="flex-1 flex flex-col items-center justify-center px-6 py-12">
-        <div className="w-full max-w-sm">
-          <div className="flex justify-center mb-8 lg:hidden">
+      <div
+        className="relative z-10 w-full max-w-md"
+        style={{
+          background: 'rgba(255,255,255,0.04)',
+          backdropFilter: 'blur(24px)',
+          WebkitBackdropFilter: 'blur(24px)',
+          border: '1px solid rgba(255,255,255,0.1)',
+          borderRadius: 24,
+          boxShadow:
+            '0 32px 64px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05), inset 0 1px 0 rgba(255,255,255,0.1)',
+          padding: '48px 40px',
+        }}
+      >
+        <div className="flex flex-col items-center mb-10">
+          <div
+            className="mb-6 p-3 rounded-2xl"
+            style={{
+              background: 'rgba(255,255,255,0.06)',
+              border: '1px solid rgba(255,255,255,0.1)',
+            }}
+          >
             <Image
               src="/images/sustainability/logoimage.png"
               alt="FIPL"
-              width={90}
-              height={34}
-              className="object-contain dark:brightness-0 dark:invert"
+              width={88}
+              height={32}
+              className="object-contain brightness-0 invert opacity-90"
             />
           </div>
+          <h1 className="text-2xl font-bold text-white mb-1.5 tracking-tight">Admin Portal</h1>
+          <p className="text-sm" style={{ color: 'rgba(255,255,255,0.45)' }}>
+            First Independent Power Limited
+          </p>
+        </div>
 
-          <div className="mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
-              Admin sign in
-            </h2>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              Enter your password to access the dashboard
-            </p>
-          </div>
-
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1.5">
-                Password
-              </label>
-              <div className="relative">
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Enter admin password"
-                  required
-                  autoFocus
-                  className="w-full border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:border-[#DB1B0C] focus:ring-2 focus:ring-[#DB1B0C]/10 transition-colors"
-                />
-                <div className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
-                  <svg
-                    className="w-4 h-4"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                  </svg>
-                </div>
-              </div>
-            </div>
-
-            {error && (
-              <div className="flex items-center gap-2 text-sm text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-900/40 rounded-lg px-3 py-2.5">
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label
+              className="block text-xs font-semibold mb-2"
+              style={{ color: 'rgba(255,255,255,0.6)' }}
+            >
+              Password
+            </label>
+            <div className="relative">
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter admin password"
+                required
+                autoFocus
+                style={{
+                  width: '100%',
+                  background: 'rgba(255,255,255,0.06)',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  borderRadius: 12,
+                  padding: '12px 44px 12px 16px',
+                  fontSize: 14,
+                  color: 'white',
+                  outline: 'none',
+                  transition: 'border-color 0.2s, box-shadow 0.2s',
+                }}
+                onFocus={(e) => {
+                  e.target.style.borderColor = 'rgba(219,27,12,0.7)'
+                  e.target.style.boxShadow = '0 0 0 3px rgba(219,27,12,0.15)'
+                }}
+                onBlur={(e) => {
+                  e.target.style.borderColor = 'rgba(255,255,255,0.1)'
+                  e.target.style.boxShadow = 'none'
+                }}
+              />
+              <div
+                className="absolute right-3.5 top-1/2 -translate-y-1/2"
+                style={{ color: 'rgba(255,255,255,0.3)' }}
+              >
                 <svg
-                  className="w-4 h-4 shrink-0"
+                  className="w-4 h-4"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -146,49 +149,82 @@ export default function AdminLoginPage() {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 >
-                  <circle cx="12" cy="12" r="10" />
-                  <line x1="12" y1="8" x2="12" y2="12" />
-                  <line x1="12" y1="16" x2="12.01" y2="16" />
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                 </svg>
-                {error}
               </div>
-            )}
+            </div>
+          </div>
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full py-3 rounded-xl font-semibold text-sm text-white transition-all disabled:opacity-60 disabled:cursor-not-allowed relative overflow-hidden"
-              style={{ background: 'linear-gradient(135deg, #DB1B0C 0%, #c41508 100%)' }}
+          {error && (
+            <div
+              className="flex items-center gap-2.5 text-sm rounded-xl px-4 py-3"
+              style={{
+                background: 'rgba(219,27,12,0.12)',
+                border: '1px solid rgba(219,27,12,0.3)',
+                color: '#ff8b82',
+              }}
             >
-              {loading ? (
-                <span className="flex items-center justify-center gap-2">
-                  <svg className="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none">
-                    <circle
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      strokeWidth="3"
-                      strokeOpacity="0.25"
-                    />
-                    <path
-                      d="M12 2a10 10 0 0 1 10 10"
-                      stroke="currentColor"
-                      strokeWidth="3"
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                  Signing in…
-                </span>
-              ) : (
-                'Sign In'
-              )}
-            </button>
-          </form>
+              <svg
+                className="w-4 h-4 shrink-0"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="8" x2="12" y2="12" />
+                <line x1="12" y1="16" x2="12.01" y2="16" />
+              </svg>
+              {error}
+            </div>
+          )}
 
-          <p className="mt-8 text-center text-xs text-gray-400 dark:text-gray-600">
-            First Independent Power Limited &mdash; Admin Portal
-          </p>
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full py-3.5 rounded-xl font-semibold text-sm text-white transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            style={{
+              background: loading
+                ? 'rgba(219,27,12,0.5)'
+                : 'linear-gradient(135deg, #DB1B0C 0%, #c41508 100%)',
+              boxShadow: loading ? 'none' : '0 4px 20px rgba(219,27,12,0.4)',
+              border: '1px solid rgba(255,255,255,0.1)',
+              marginTop: 8,
+            }}
+          >
+            {loading ? (
+              <span className="flex items-center justify-center gap-2">
+                <svg className="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none">
+                  <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" strokeOpacity="0.25" />
+                  <path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+                </svg>
+                Signing in…
+              </span>
+            ) : (
+              'Sign In'
+            )}
+          </button>
+        </form>
+
+        <div className="mt-8 pt-6" style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}>
+          <div className="flex justify-center gap-2 flex-wrap">
+            {['News', 'Media', 'Jobs', 'Alerts', 'Submissions'].map((label) => (
+              <span
+                key={label}
+                className="px-2.5 py-1 rounded-full text-[11px] font-medium"
+                style={{
+                  background: 'rgba(255,255,255,0.05)',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  color: 'rgba(255,255,255,0.4)',
+                }}
+              >
+                {label}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
     </div>

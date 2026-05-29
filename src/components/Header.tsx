@@ -155,7 +155,9 @@ export function Header() {
                 </Link>
               ),
             )}
-            <ThemeToggle className="ml-2" />
+            <ThemeToggle
+              className={`ml-2 ${transparent ? 'text-white hover:bg-white/10' : 'text-gray-700 dark:text-gray-200'}`}
+            />
           </nav>
 
           <div className="lg:hidden ml-auto flex items-center gap-1">

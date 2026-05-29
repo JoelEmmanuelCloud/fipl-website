@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { PowerPlantsHero } from '@/components/PageHeroes'
 import { Reveal } from '@/components/Reveal'
 import { IMAGES } from '@/lib/images'
+import WorkProcessSection from '@/components/WorkProcessSection'
 
 export const metadata: Metadata = { title: 'Power Plants & Operations' }
 
@@ -39,33 +40,6 @@ const plants = [
     desc: 'Eleme Power Station has 25MW currently available at the 75MW installed capacity. Plans are in progress to recover an additional 50MW by 2026. Commissioned Dec. 2023 Evacuation System: 33kV to Bilateral Customers. The plant has a provision for future evacuation at 132kV to the Grid.',
     supplier: 'Ohuru Trading Company',
     imageLeft: false,
-  },
-]
-
-const steps = [
-  {
-    num: '01',
-    title: 'Project Planning & Feasibility',
-    desc: 'We begin with in-depth research, feasibility studies, and stakeholder consultations to ensure every project is technically sound and commercially viable.',
-    image: IMAGES.plants.step1,
-  },
-  {
-    num: '02',
-    title: 'Engineering & Design',
-    desc: 'Our team develops innovative and sustainable engineering solutions, leveraging global best practices while tailoring designs to local realities.',
-    image: IMAGES.plants.step2,
-  },
-  {
-    num: '03',
-    title: 'Execution & Commissioning',
-    desc: 'From procurement to construction and testing, we deliver projects with strict adherence to safety, timelines, and quality standards.',
-    image: IMAGES.plants.step3,
-  },
-  {
-    num: '04',
-    title: 'Operation & Sustainability',
-    desc: 'Once commissioned, we ensure smooth operations, continuous optimization, and sustainable practices to maximize efficiency and community impact.',
-    image: IMAGES.plants.step4,
   },
 ]
 
@@ -191,66 +165,7 @@ export default function PowerPlantsPage() {
             </div>
           </Reveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[21px] lg:items-end">
-            {steps.map((step, i) => {
-              const isTop = i % 2 === 0
-              return (
-                <Reveal key={step.num} variant="up" delay={i * 0.1}>
-                  <div className="flex flex-col">
-                    {isTop ? (
-                      <>
-                        <div className="relative overflow-hidden h-[260px] rounded-tl-[200px] rounded-tr-[200px]">
-                          <Image src={step.image} alt={step.title} fill className="object-cover" />
-                        </div>
-                        <div className="relative z-10 flex justify-center -mt-[38px]">
-                          <div
-                            className="w-[76px] h-[76px] bg-[#D97300] rounded-full flex items-center justify-center shrink-0"
-                            style={{ border: '10px solid var(--fipl-bg)' }}
-                          >
-                            <span className="text-white font-bold text-xl leading-none">
-                              {step.num}
-                            </span>
-                          </div>
-                        </div>
-                        <div className="pt-5 text-center px-2">
-                          <h4 className="font-bold text-[var(--fipl-heading)] text-xl mb-3">
-                            {step.title}
-                          </h4>
-                          <p className="text-[var(--fipl-body)] leading-relaxed text-base">
-                            {step.desc}
-                          </p>
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <div className="text-center px-2 pb-5">
-                          <h4 className="font-bold text-[var(--fipl-heading)] text-xl mb-3">
-                            {step.title}
-                          </h4>
-                          <p className="text-[var(--fipl-body)] leading-relaxed text-base">
-                            {step.desc}
-                          </p>
-                        </div>
-                        <div className="relative z-10 flex justify-center">
-                          <div
-                            className="w-[76px] h-[76px] bg-[#D97300] rounded-full flex items-center justify-center shrink-0"
-                            style={{ border: '10px solid var(--fipl-bg)' }}
-                          >
-                            <span className="text-white font-bold text-xl leading-none">
-                              {step.num}
-                            </span>
-                          </div>
-                        </div>
-                        <div className="relative overflow-hidden h-[260px] rounded-bl-[200px] rounded-br-[200px] -mt-[38px]">
-                          <Image src={step.image} alt={step.title} fill className="object-cover" />
-                        </div>
-                      </>
-                    )}
-                  </div>
-                </Reveal>
-              )
-            })}
-          </div>
+          <WorkProcessSection />
         </div>
       </section>
     </div>

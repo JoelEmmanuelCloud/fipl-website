@@ -1,3 +1,6 @@
+import { createServerClient } from '@/lib/supabase-server'
+import type { NewsArticleRow } from '@/lib/database.types'
+
 export interface NewsArticle {
   id: string
   slug: string
@@ -11,116 +14,45 @@ export interface NewsArticle {
   image: string
 }
 
-export const articles: NewsArticle[] = [
-  {
-    id: '1',
-    slug: 'fipl-achieves-record-generation-output-q1-2024',
-    title: 'FIPL Achieves Record Generation Output in Q1 2024',
-    excerpt:
-      'First Independent Power Limited (FIPL) made history with 541 MW nameplate capacity across all four plants, marking a 25% increase from the previous quarter.',
-    content: `
-      <p>First Independent Power Limited (FIPL) is making history milestone records with 540 MW nameplate capacity across all four plants, maintaining a landmark record in the first quarter of the year, marking a 25% increase from the previous quarter.</p>
-      <p>This achievement underscores FIPL's commitment to operational excellence, continuous reinvestment, and strong partnerships with gas supply entities. According to the company's statement, the first quarter results were driven by significant improvements in plant availability and fuel supply reliability.</p>
-      <p>The company's CEO stated: "This record output is a testament to the dedication of our entire team and our relentless focus on operational excellence. We remain committed to delivering reliable power to Nigeria's industries and communities."</p>
-      <p>FIPL operates four gas turbine power plants — Afam, Omoku, Trans-Amadi, and Eleme — all situated in Rivers State, Nigeria, with a combined installed capacity of 541MW.</p>
-    `,
-    date: 'January 12, 2024',
-    dateISO: '2024-01-12',
-    category: 'Operations',
-    readTime: '5 min read',
-    image: '/images/news/article1.png',
-  },
-  {
-    id: '2',
-    slug: 'fipl-eligible-customers-expression-of-interest',
-    title: 'FiPL Eligible Customers Expression of Interest Form',
-    excerpt:
-      'FIPL invites eligible customers to register their expression of interest to receive electricity supply directly from our generation facilities.',
-    content: `
-      <p>First Independent Power Limited (FIPL) is inviting eligible industrial and commercial customers to submit their Expression of Interest (EOI) for direct electricity supply under the Eligible Customer initiative.</p>
-      <p>Under the Nigerian Electricity Supply Industry (NESI) framework, large electricity consumers who meet the specified thresholds can now procure power directly from generation companies like FIPL, bypassing traditional distribution channels.</p>
-      <p>Interested parties should meet the minimum load requirement of 2MW and have a credible payment history. Please complete and submit the EOI form through our official channels before the closing date.</p>
-    `,
-    date: 'January 2, 2024',
-    dateISO: '2024-01-02',
-    category: 'Updates',
-    readTime: '3 min read',
-    image: '/images/news/article2.png',
-  },
-  {
-    id: '3',
-    slug: 'fipl-vendor-registration-now-open',
-    title: 'FiPL Vendor Registration Now Open',
-    excerpt:
-      'FIPL has officially opened its Vendor Registration Programme for qualified suppliers and service providers seeking to partner with the company.',
-    content: `
-      <p>First Independent Power Limited (FIPL) is pleased to announce that our Vendor Registration Programme is now open for qualified businesses seeking to supply goods and services to our operations.</p>
-      <p>Eligible companies must hold a valid DUNS Number issued by Dun & Bradstreet and meet all documentary requirements including CAC registration, tax clearance certificates, and audited financial statements.</p>
-      <p>This registration is open year-round. Visit our Register With Us page for full requirements and the registration portal.</p>
-    `,
-    date: 'December 15, 2023',
-    dateISO: '2023-12-15',
-    category: 'Corporate',
-    readTime: '2 min read',
-    image: '/images/news/article3.png',
-  },
-  {
-    id: '4',
-    slug: 'fipl-ge-partnership-sustainable-power',
-    title: 'FIPL & General Electric Forge Partnership to Drive Sustainable Power Generation',
-    excerpt:
-      'FIPL and GE have signed a landmark strategic partnership to deploy advanced technologies that will boost generation efficiency and reduce emissions.',
-    content: `
-      <p>First Independent Power Limited (FIPL) and General Electric (GE) have entered into a landmark strategic partnership aimed at deploying cutting-edge technologies across FIPL's four power generation facilities in Rivers State, Nigeria.</p>
-      <p>The collaboration will focus on digital monitoring, predictive maintenance, and emissions optimisation — key pillars of FIPL's sustainability roadmap and commitment to the UN Sustainable Development Goals.</p>
-      <p>"This partnership represents a significant step forward in our journey to deliver world-class power generation while meeting our environmental commitments," said FIPL's CEO.</p>
-    `,
-    date: 'November 30, 2023',
-    dateISO: '2023-11-30',
-    category: 'Partnerships',
-    readTime: '4 min read',
-    image: '/images/news/article1.png',
-  },
-  {
-    id: '5',
-    slug: 'fipl-community-development-2023',
-    title: 'FIPL Invests ₦500M in Host Community Development in 2023',
-    excerpt:
-      "FIPL's CSR report reveals a ₦500M investment in education, healthcare, and rural electrification across Rivers State host communities in 2023.",
-    content: `
-      <p>First Independent Power Limited (FIPL) today released its 2023 Corporate Social Responsibility (CSR) report, highlighting over ₦500 million invested in community development initiatives across its host communities in Rivers State.</p>
-      <p>Key highlights include the award of 120 university scholarships, the construction of three new primary healthcare facilities, and the extension of electricity access to six previously unserved rural communities.</p>
-    `,
-    date: 'October 10, 2023',
-    dateISO: '2023-10-10',
-    category: 'Community',
-    readTime: '4 min read',
-    image: '/images/news/article2.png',
-  },
-  {
-    id: '6',
-    slug: 'fipl-hse-zero-lti-2023',
-    title: 'FIPL Records Zero Lost Time Injury for Full Year 2023',
-    excerpt:
-      "FIPL's HSE team has maintained an impeccable safety record, recording zero lost time injuries across all four plants throughout 2023.",
-    content: `
-      <p>First Independent Power Limited (FIPL) is proud to announce that it has achieved zero Lost Time Injuries (LTIs) across all four of its power generation facilities for the full calendar year 2023, a landmark health and safety milestone.</p>
-      <p>This achievement reflects the company's deep commitment to its "Safety First" culture and the rigorous implementation of its Health, Safety & Environment (HSE) Management System.</p>
-    `,
-    date: 'January 8, 2024',
-    dateISO: '2024-01-08',
-    category: 'Operations',
-    readTime: '3 min read',
-    image: '/images/news/article3.png',
-  },
-]
-
-export function getArticleBySlug(slug: string): NewsArticle | undefined {
-  return articles.find((a) => a.slug === slug)
+function mapRow(row: NewsArticleRow): NewsArticle {
+  return {
+    id: row.id,
+    slug: row.slug,
+    title: row.title,
+    excerpt: row.excerpt,
+    content: row.content,
+    date: row.date,
+    dateISO: row.date_iso,
+    category: row.category as NewsArticle['category'],
+    readTime: row.read_time,
+    image: row.image_url,
+  }
 }
 
-export function getRecentArticles(count = 7): NewsArticle[] {
-  return [...articles]
-    .sort((a, b) => new Date(b.dateISO).getTime() - new Date(a.dateISO).getTime())
-    .slice(0, count)
+export async function getAllArticles(): Promise<NewsArticle[]> {
+  const supabase = createServerClient()
+  const { data, error } = await supabase
+    .from('news_articles')
+    .select('*')
+    .order('date_iso', { ascending: false })
+  if (error) throw error
+  return (data as NewsArticleRow[]).map(mapRow)
+}
+
+export async function getArticleBySlug(slug: string): Promise<NewsArticle | undefined> {
+  const supabase = createServerClient()
+  const { data, error } = await supabase.from('news_articles').select('*').eq('slug', slug).single()
+  if (error || !data) return undefined
+  return mapRow(data as NewsArticleRow)
+}
+
+export async function getRecentArticles(count = 7): Promise<NewsArticle[]> {
+  const supabase = createServerClient()
+  const { data, error } = await supabase
+    .from('news_articles')
+    .select('*')
+    .order('date_iso', { ascending: false })
+    .limit(count)
+  if (error) throw error
+  return (data as NewsArticleRow[]).map(mapRow)
 }

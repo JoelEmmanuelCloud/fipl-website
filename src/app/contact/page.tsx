@@ -154,7 +154,7 @@ export default function ContactPage() {
       <section className="pb-0">
         <Reveal variant="fade" duration={1}>
           <div className="max-w-[1280px] mx-auto px-6">
-            <div className="overflow-hidden h-[260px] sm:h-[340px] md:h-[440px]">
+            <div className="overflow-hidden rounded-3xl h-[260px] sm:h-[340px] md:h-[440px]">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3975.5673856263!2d7.0135!3d4.8156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2s12+Circular+Road%2C+Port+Harcourt!5e0!3m2!1sen!2sng!4v1234567890"
                 className="w-full h-full border-0"
@@ -172,7 +172,7 @@ export default function ContactPage() {
         <div className="max-w-[1280px] mx-auto px-6">
           <Reveal variant="scale">
             <div
-              className="relative overflow-hidden grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 items-center p-6 sm:p-8 md:p-14"
+              className="relative overflow-hidden rounded-3xl grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 items-center p-6 sm:p-8 md:p-14"
               style={{ background: 'linear-gradient(269deg, #D97300 1%, #DB1B0C 100%)' }}
             >
               <div className="absolute left-0 bottom-0 h-full w-[200px] hidden lg:block pointer-events-none">

@@ -1,16 +1,8 @@
 import type { Metadata } from 'next'
-import dynamic from 'next/dynamic'
 import './globals.css'
-import { Header } from '@/components/Header'
-import { Footer } from '@/components/Footer'
-import { BackToTop } from '@/components/BackToTop'
-import { ChatWidget } from '@/components/ChatWidget'
 import { ThemeProvider } from '@/components/ThemeProvider'
-
-const SplashScreen = dynamic(
-  () => import('@/components/SplashScreen').then((m) => ({ default: m.SplashScreen })),
-  { ssr: false },
-)
+import SiteShell from '@/components/SiteShell'
+import { createServerClient } from '@/lib/supabase-server'
 
 export const metadata: Metadata = {
   title: {
@@ -26,7 +18,16 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export const revalidate = 60
+
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const supabase = createServerClient()
+  const { data: alerts } = await supabase
+    .from('alerts')
+    .select('id, title, message, type')
+    .eq('is_active', true)
+    .order('created_at', { ascending: false })
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="antialiased overflow-x-hidden bg-[var(--fipl-bg)] text-[var(--fipl-heading)]">
@@ -36,12 +37,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
         <ThemeProvider>
-          <SplashScreen />
-          <Header />
-          <main>{children}</main>
-          <Footer />
-          <BackToTop />
-          <ChatWidget />
+          <SiteShell alerts={alerts ?? []}>{children}</SiteShell>
         </ThemeProvider>
       </body>
     </html>

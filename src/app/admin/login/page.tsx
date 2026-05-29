@@ -57,24 +57,14 @@ export default function AdminLoginPage() {
             className="object-contain brightness-0 invert"
           />
           <div>
-            <h1 className="text-4xl font-bold text-white mb-4 leading-tight">
-              Content Management
+            <h1 className="text-3xl font-bold text-white mb-3 leading-tight">
+              Powering Nigeria&apos;s<br />energy story.
             </h1>
-            <p className="text-white/70 text-base leading-relaxed max-w-sm">
-              Manage news articles, media kits, job postings, site alerts and more from one place.
+            <p className="text-white/55 text-sm leading-relaxed">
+              Internal portal for managing content across the FIPL website.
             </p>
-            <div className="flex flex-wrap gap-3 mt-8">
-              {['News', 'Media', 'Jobs', 'Alerts', 'Submissions'].map((label) => (
-                <span
-                  key={label}
-                  className="px-3 py-1.5 rounded-full text-xs font-semibold text-white bg-white/15 border border-white/25"
-                >
-                  {label}
-                </span>
-              ))}
-            </div>
           </div>
-          <p className="text-white/40 text-xs">
+          <p className="text-white/30 text-xs">
             &copy; {new Date().getFullYear()} First Independent Power Limited
           </p>
         </div>

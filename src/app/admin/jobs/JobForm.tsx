@@ -50,8 +50,8 @@ export default function JobForm({ job }: Props) {
     setSaving(false)
   }
 
-  const inputCls = 'w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-[#DB1B0C] focus:ring-2 focus:ring-[#DB1B0C]/10'
-  const labelCls = 'block text-xs font-semibold text-gray-700 mb-1.5'
+  const inputCls = 'w-full border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-2.5 text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:border-[#DB1B0C] focus:ring-2 focus:ring-[#DB1B0C]/10'
+  const labelCls = 'block text-xs font-semibold text-gray-600 dark:text-gray-400 mb-1.5'
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
@@ -91,7 +91,7 @@ export default function JobForm({ job }: Props) {
         <label className={labelCls}>Requirements</label>
         <textarea name="requirements" value={form.requirements} onChange={handleChange} rows={5} className={inputCls} />
       </div>
-      {error && <p className="text-sm text-red-600">{error}</p>}
+      {error && <p className="text-sm text-red-600 dark:text-red-400">{error}</p>}
       <div className="flex items-center gap-3 pt-2">
         <button
           type="submit"
@@ -103,7 +103,7 @@ export default function JobForm({ job }: Props) {
         <button
           type="button"
           onClick={() => router.push('/admin/jobs')}
-          className="px-6 py-2.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 transition-colors"
+          className="px-6 py-2.5 rounded-lg text-sm font-medium text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white transition-colors"
         >
           Cancel
         </button>

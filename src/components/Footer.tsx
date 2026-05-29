@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { Logo } from '@/components/Logo'
+import PushSubscribeButton from '@/components/PushSubscribeButton'
 
 const quickLinks = [
   { href: '/', label: 'Home' },
@@ -86,6 +87,7 @@ export function Footer() {
                 </a>
               ))}
             </div>
+            <PushSubscribeButton />
           </div>
 
           <div>

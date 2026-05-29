@@ -8,6 +8,7 @@ import { ChatWidget } from '@/components/ChatWidget'
 import { ThemeProvider } from '@/components/ThemeProvider'
 import AlertBanner from '@/components/AlertBanner'
 import { createServerClient } from '@/lib/supabase-server'
+import ServiceWorkerRegistrar from '@/components/ServiceWorkerRegistrar'
 
 const SplashScreen = dynamic(
   () => import('@/components/SplashScreen').then((m) => ({ default: m.SplashScreen })),
@@ -47,6 +48,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           }}
         />
         <ThemeProvider>
+          <ServiceWorkerRegistrar />
           <SplashScreen />
           <AlertBanner alerts={alerts ?? []} />
           <Header />

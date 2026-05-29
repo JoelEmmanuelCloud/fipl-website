@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createServerClient } from '@/lib/supabase-server'
+import { notifyAllSubscribers } from '@/lib/push-notify'
 
 function isAuthorized(req: NextRequest): boolean {
   return req.cookies.get('admin_token')?.value === process.env.ADMIN_TOKEN
@@ -37,5 +38,13 @@ export async function POST(req: NextRequest) {
     .single()
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+
+  notifyAllSubscribers({
+    title: 'New from FIPL',
+    body: data.title,
+    url: `${process.env.NEXT_PUBLIC_SITE_URL ?? ''}/news/${data.slug}`,
+    tag: `article-${data.id}`,
+  }).catch(() => {})
+
   return NextResponse.json(data, { status: 201 })
 }

@@ -1,11 +1,19 @@
 import { createClient } from '@supabase/supabase-js'
+import { config } from 'dotenv'
 
-const URL = 'https://fjjwqfinfvjmsxbwrxsg.supabase.co'
-const ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZqandxZmluZnZqbXN4YndyeHNnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk5OTMxMzcsImV4cCI6MjA5NTU2OTEzN30.Fm-KuiNlIVqYhnCftkCQdCqPMJiFq0lBdhYB6P5PWXs'
-const SERVICE = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZqandxZmluZnZqbXN4YndyeHNnIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3OTk5MzEzNywiZXhwIjoyMDk1NTY5MTM3fQ.EBelQMlLYNcXa9wqO0ZMZ-HY9aNiwasSboo7y7azSqA'
+config({ path: '.env.local' })
 
-const anon = createClient(URL, ANON, { auth: { persistSession: false } })
-const srv = createClient(URL, SERVICE, { auth: { persistSession: false } })
+const anon = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+  { auth: { persistSession: false } },
+)
+
+const srv = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY,
+  { auth: { persistSession: false } },
+)
 
 let pass = 0
 let fail = 0

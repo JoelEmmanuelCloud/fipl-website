@@ -1,9 +1,13 @@
 import { createClient } from '@supabase/supabase-js'
+import { config } from 'dotenv'
 
-const URL = 'https://fjjwqfinfvjmsxbwrxsg.supabase.co'
-const SERVICE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZqandxZmluZnZqbXN4YndyeHNnIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3OTk5MzEzNywiZXhwIjoyMDk1NTY5MTM3fQ.EBelQMlLYNcXa9wqO0ZMZ-HY9aNiwasSboo7y7azSqA'
+config({ path: '.env.local' })
 
-const supabase = createClient(URL, SERVICE_KEY, { auth: { persistSession: false } })
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY,
+  { auth: { persistSession: false } },
+)
 
 async function run(label, fn) {
   process.stdout.write(label + ' … ')

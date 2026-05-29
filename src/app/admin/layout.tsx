@@ -27,12 +27,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   return (
     <ToastProvider>
-      <div className="min-h-screen flex bg-gray-50">
-        <aside className="w-56 shrink-0 bg-white border-r border-gray-200 flex flex-col">
-          <div className="px-5 py-5 border-b border-gray-100 flex items-center justify-between">
+      <div className="min-h-screen flex bg-gray-50 dark:bg-gray-950">
+        <aside className="w-56 shrink-0 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 flex flex-col">
+          <div className="px-5 py-5 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between">
             <div>
-              <span className="text-sm font-bold text-gray-900">FIPL Admin</span>
-              <div className="text-xs text-gray-400 mt-0.5">Content Management</div>
+              <span className="text-sm font-bold text-gray-900 dark:text-white">FIPL Admin</span>
+              <div className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">Content Management</div>
             </div>
             <AdminNotificationBell />
           </div>
@@ -46,7 +46,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   className={`flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                     active
                       ? 'bg-[#DB1B0C]/10 text-[#DB1B0C]'
-                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                      : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white'
                   }`}
                 >
                   {label}
@@ -54,10 +54,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               )
             })}
           </nav>
-          <div className="px-3 py-4 border-t border-gray-100">
+          <div className="px-3 py-4 border-t border-gray-100 dark:border-gray-800">
             <button
               onClick={handleLogout}
-              className="w-full flex items-center px-3 py-2 rounded-lg text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900 transition-colors"
+              className="w-full flex items-center px-3 py-2 rounded-lg text-sm font-medium text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white transition-colors"
             >
               Sign Out
             </button>

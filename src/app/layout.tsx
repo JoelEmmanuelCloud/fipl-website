@@ -1,19 +1,8 @@
 import type { Metadata } from 'next'
-import dynamic from 'next/dynamic'
 import './globals.css'
-import { Header } from '@/components/Header'
-import { Footer } from '@/components/Footer'
-import { BackToTop } from '@/components/BackToTop'
-import { ChatWidget } from '@/components/ChatWidget'
 import { ThemeProvider } from '@/components/ThemeProvider'
-import AlertBanner from '@/components/AlertBanner'
+import SiteShell from '@/components/SiteShell'
 import { createServerClient } from '@/lib/supabase-server'
-import ServiceWorkerRegistrar from '@/components/ServiceWorkerRegistrar'
-
-const SplashScreen = dynamic(
-  () => import('@/components/SplashScreen').then((m) => ({ default: m.SplashScreen })),
-  { ssr: false },
-)
 
 export const metadata: Metadata = {
   title: {
@@ -48,14 +37,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           }}
         />
         <ThemeProvider>
-          <ServiceWorkerRegistrar />
-          <SplashScreen />
-          <AlertBanner alerts={alerts ?? []} />
-          <Header />
-          <main>{children}</main>
-          <Footer />
-          <BackToTop />
-          <ChatWidget />
+          <SiteShell alerts={alerts ?? []}>{children}</SiteShell>
         </ThemeProvider>
       </body>
     </html>

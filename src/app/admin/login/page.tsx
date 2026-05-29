@@ -49,15 +49,13 @@ export default function AdminLoginPage() {
           </svg>
         </div>
         <div className="relative z-10 flex flex-col justify-between p-12 w-full">
-          <div className="w-32 h-12 bg-white/20 rounded-lg flex items-center justify-center">
-            <Image
-              src="/images/sustainability/logoimage.png"
-              alt="FIPL"
-              width={100}
-              height={36}
-              className="object-contain brightness-0 invert"
-            />
-          </div>
+          <Image
+            src="/images/sustainability/logoimage.png"
+            alt="FIPL"
+            width={110}
+            height={40}
+            className="object-contain brightness-0 invert"
+          />
           <div>
             <h1 className="text-4xl font-bold text-white mb-4 leading-tight">
               Content Management
@@ -90,7 +88,7 @@ export default function AdminLoginPage() {
               alt="FIPL"
               width={90}
               height={34}
-              className="object-contain dark:brightness-0 dark:invert"
+              className="object-contain"
             />
           </div>
 

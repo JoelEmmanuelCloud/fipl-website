@@ -154,7 +154,7 @@ export default function ContactPage() {
       <section className="pb-0">
         <Reveal variant="fade" duration={1}>
           <div className="max-w-[1280px] mx-auto px-6">
-            <div className="overflow-hidden h-[260px] sm:h-[340px] md:h-[440px]">
+            <div className="overflow-hidden rounded-3xl h-[260px] sm:h-[340px] md:h-[440px]">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3975.5673856263!2d7.0135!3d4.8156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2s12+Circular+Road%2C+Port+Harcourt!5e0!3m2!1sen!2sng!4v1234567890"
                 className="w-full h-full border-0"

@@ -17,10 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ArticlePage({ params }: Props) {
-  const [article, recent] = await Promise.all([
-    getArticleBySlug(params.slug),
-    getRecentArticles(6),
-  ])
+  const [article, recent] = await Promise.all([getArticleBySlug(params.slug), getRecentArticles(6)])
 
   if (!article) notFound()
 

@@ -148,7 +148,11 @@ export function ContactForm() {
             : 'bg-primary text-white hover:bg-primary-dark'
         }`}
       >
-        {status === 'loading' ? 'Sending…' : status === 'done' ? '✓ Message Sent!' : 'Submit Enquiry ↗'}
+        {status === 'loading'
+          ? 'Sending…'
+          : status === 'done'
+            ? '✓ Message Sent!'
+            : 'Submit Enquiry ↗'}
       </button>
     </form>
   )

@@ -27,7 +27,10 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
   const dismiss = useCallback((id: string) => {
     setToasts((prev) => prev.filter((t) => t.id !== id))
     const t = timers.current.get(id)
-    if (t) { clearTimeout(t); timers.current.delete(id) }
+    if (t) {
+      clearTimeout(t)
+      timers.current.delete(id)
+    }
   }, [])
 
   const toast = useCallback(
@@ -65,7 +68,15 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
               onClick={() => dismiss(t.id)}
               className="shrink-0 opacity-70 hover:opacity-100 transition-opacity"
             >
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <svg
+                className="w-4 h-4"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <path d="M18 6 6 18M6 6l12 12" />
               </svg>
             </button>

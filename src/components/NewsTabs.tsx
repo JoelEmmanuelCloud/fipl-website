@@ -110,7 +110,9 @@ export function NewsTabs({ articles, mediaKits }: Props) {
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-10">
               <div>
                 {paged.length === 0 ? (
-                  <p className="text-[var(--fipl-body)] text-sm py-8">No articles match your search.</p>
+                  <p className="text-[var(--fipl-body)] text-sm py-8">
+                    No articles match your search.
+                  </p>
                 ) : (
                   paged.map((article) => {
                     const isExternal = article.image.startsWith('http')
@@ -288,7 +290,9 @@ export function NewsTabs({ articles, mediaKits }: Props) {
                       )}
                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-end">
                         <div className="w-full px-3 py-2 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
-                          <div className="text-white text-xs font-semibold truncate">{item.title}</div>
+                          <div className="text-white text-xs font-semibold truncate">
+                            {item.title}
+                          </div>
                         </div>
                       </div>
                     </a>

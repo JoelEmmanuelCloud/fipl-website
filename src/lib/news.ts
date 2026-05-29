@@ -41,11 +41,7 @@ export async function getAllArticles(): Promise<NewsArticle[]> {
 
 export async function getArticleBySlug(slug: string): Promise<NewsArticle | undefined> {
   const supabase = createServerClient()
-  const { data, error } = await supabase
-    .from('news_articles')
-    .select('*')
-    .eq('slug', slug)
-    .single()
+  const { data, error } = await supabase.from('news_articles').select('*').eq('slug', slug).single()
   if (error || !data) return undefined
   return mapRow(data as NewsArticleRow)
 }

@@ -22,7 +22,10 @@ export default async function SubmissionsPage() {
       ) : (
         <div className="space-y-4">
           {submissions.map((s) => (
-            <div key={s.id} className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-5">
+            <div
+              key={s.id}
+              className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-5"
+            >
               <div className="flex items-start justify-between gap-4 mb-3">
                 <div>
                   <div className="font-semibold text-gray-900 dark:text-white text-sm">
@@ -49,7 +52,9 @@ export default async function SubmissionsPage() {
                   </div>
                 </div>
               </div>
-              <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-line">{s.message}</p>
+              <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-line">
+                {s.message}
+              </p>
             </div>
           ))}
         </div>

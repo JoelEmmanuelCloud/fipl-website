@@ -110,51 +110,112 @@ export default function ArticleForm({ article }: Props) {
     <form onSubmit={handleSubmit} className="space-y-5">
       <div>
         <label className={labelCls}>Title</label>
-        <input name="title" value={form.title} onChange={handleChange} required className={inputCls} />
+        <input
+          name="title"
+          value={form.title}
+          onChange={handleChange}
+          required
+          className={inputCls}
+        />
       </div>
       <div>
         <label className={labelCls}>Slug</label>
-        <input name="slug" value={form.slug} onChange={handleChange} required className={inputCls} />
+        <input
+          name="slug"
+          value={form.slug}
+          onChange={handleChange}
+          required
+          className={inputCls}
+        />
       </div>
       <div className="grid grid-cols-2 gap-4">
         <div>
           <label className={labelCls}>Category</label>
-          <select name="category" value={form.category} onChange={handleChange} className={inputCls}>
-            {CATEGORIES.map((c) => <option key={c}>{c}</option>)}
+          <select
+            name="category"
+            value={form.category}
+            onChange={handleChange}
+            className={inputCls}
+          >
+            {CATEGORIES.map((c) => (
+              <option key={c}>{c}</option>
+            ))}
           </select>
         </div>
         <div>
           <label className={labelCls}>Read Time</label>
-          <input name="read_time" value={form.read_time} onChange={handleChange} placeholder="5 min read" required className={inputCls} />
+          <input
+            name="read_time"
+            value={form.read_time}
+            onChange={handleChange}
+            placeholder="5 min read"
+            required
+            className={inputCls}
+          />
         </div>
       </div>
       <div className="grid grid-cols-2 gap-4">
         <div>
           <label className={labelCls}>Display Date</label>
-          <input name="date" value={form.date} onChange={handleChange} placeholder="January 12, 2024" required className={inputCls} />
+          <input
+            name="date"
+            value={form.date}
+            onChange={handleChange}
+            placeholder="January 12, 2024"
+            required
+            className={inputCls}
+          />
         </div>
         <div>
           <label className={labelCls}>Date (ISO)</label>
-          <input name="date_iso" type="date" value={form.date_iso} onChange={handleChange} required className={inputCls} />
+          <input
+            name="date_iso"
+            type="date"
+            value={form.date_iso}
+            onChange={handleChange}
+            required
+            className={inputCls}
+          />
         </div>
       </div>
       <div>
         <label className={labelCls}>Excerpt</label>
-        <textarea name="excerpt" value={form.excerpt} onChange={handleChange} rows={3} required className={inputCls} />
+        <textarea
+          name="excerpt"
+          value={form.excerpt}
+          onChange={handleChange}
+          rows={3}
+          required
+          className={inputCls}
+        />
       </div>
       <div>
         <label className={labelCls}>Content (HTML)</label>
-        <textarea name="content" value={form.content} onChange={handleChange} rows={12} required className={`${inputCls} font-mono text-xs`} />
+        <textarea
+          name="content"
+          value={form.content}
+          onChange={handleChange}
+          rows={12}
+          required
+          className={`${inputCls} font-mono text-xs`}
+        />
       </div>
       <div>
         <label className={labelCls}>Cover Image</label>
         {imagePreview && (
           <img src={imagePreview} alt="" className="w-full h-40 object-cover rounded-lg mb-3" />
         )}
-        <input type="file" accept="image/*" onChange={handleImageChange} className="text-sm text-gray-500 dark:text-gray-400" />
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleImageChange}
+          className="text-sm text-gray-500 dark:text-gray-400"
+        />
         {!imageFile && (
           <div className="mt-2">
-            <label className="text-xs text-gray-500 dark:text-gray-400 mb-1 block">Or paste image URL</label>
+            <label className="text-xs text-gray-500 dark:text-gray-400 mb-1 block">
+              Or paste image URL
+            </label>
             <input
               name="image_url"
               value={form.image_url}
@@ -172,7 +233,13 @@ export default function ArticleForm({ article }: Props) {
           disabled={saving}
           className="bg-[#DB1B0C] text-white font-semibold px-6 py-2.5 rounded-lg text-sm hover:bg-[#b81508] transition-colors disabled:opacity-60"
         >
-          {uploading ? 'Uploading…' : saving ? 'Saving…' : isEdit ? 'Save Changes' : 'Publish Article'}
+          {uploading
+            ? 'Uploading…'
+            : saving
+              ? 'Saving…'
+              : isEdit
+                ? 'Save Changes'
+                : 'Publish Article'}
         </button>
         <button
           type="button"

@@ -4,7 +4,16 @@ import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 
 interface NotificationData {
-  contacts: { count: number; recent: { id: string; first_name: string; last_name: string; subject: string | null; created_at: string }[] }
+  contacts: {
+    count: number
+    recent: {
+      id: string
+      first_name: string
+      last_name: string
+      subject: string | null
+      created_at: string
+    }[]
+  }
   subscribers: { count: number; recent: { id: string; email: string; subscribed_at: string }[] }
 }
 
@@ -57,8 +66,8 @@ export default function AdminNotificationBell() {
 
   const total = (data?.contacts.count ?? 0) + (data?.subscribers.count ?? 0)
   const newSince = data
-    ? (data.contacts.recent.filter((r) => new Date(r.created_at).getTime() > lastSeen).length +
-       data.subscribers.recent.filter((r) => new Date(r.subscribed_at).getTime() > lastSeen).length)
+    ? data.contacts.recent.filter((r) => new Date(r.created_at).getTime() > lastSeen).length +
+      data.subscribers.recent.filter((r) => new Date(r.subscribed_at).getTime() > lastSeen).length
     : 0
 
   return (
@@ -68,7 +77,15 @@ export default function AdminNotificationBell() {
         className="relative flex items-center justify-center w-8 h-8 rounded-lg hover:bg-gray-100 transition-colors"
         title="Notifications"
       >
-        <svg className="w-5 h-5 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <svg
+          className="w-5 h-5 text-gray-500"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
           <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
           <path d="M13.73 21a2 2 0 0 1-3.46 0" />
         </svg>
@@ -95,7 +112,15 @@ export default function AdminNotificationBell() {
                   <div key={c.id} className="px-4 py-3 hover:bg-gray-50 transition-colors">
                     <div className="flex items-start gap-2.5">
                       <div className="w-7 h-7 rounded-full bg-[#DB1B0C]/10 flex items-center justify-center shrink-0 mt-0.5">
-                        <svg className="w-3.5 h-3.5 text-[#DB1B0C]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <svg
+                          className="w-3.5 h-3.5 text-[#DB1B0C]"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
                           <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                           <polyline points="22,6 12,13 2,6" />
                         </svg>
@@ -104,9 +129,13 @@ export default function AdminNotificationBell() {
                         <div className="text-sm font-medium text-gray-800 truncate">
                           {c.first_name} {c.last_name}
                         </div>
-                        <div className="text-xs text-gray-400 truncate">{c.subject || 'General Enquiry'}</div>
+                        <div className="text-xs text-gray-400 truncate">
+                          {c.subject || 'General Enquiry'}
+                        </div>
                       </div>
-                      <span className="text-[10px] text-gray-400 shrink-0 mt-0.5">{timeAgo(c.created_at)}</span>
+                      <span className="text-[10px] text-gray-400 shrink-0 mt-0.5">
+                        {timeAgo(c.created_at)}
+                      </span>
                     </div>
                   </div>
                 ))}
@@ -114,7 +143,15 @@ export default function AdminNotificationBell() {
                   <div key={s.id} className="px-4 py-3 hover:bg-gray-50 transition-colors">
                     <div className="flex items-start gap-2.5">
                       <div className="w-7 h-7 rounded-full bg-green-100 flex items-center justify-center shrink-0 mt-0.5">
-                        <svg className="w-3.5 h-3.5 text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <svg
+                          className="w-3.5 h-3.5 text-green-600"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
                           <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                           <circle cx="12" cy="7" r="4" />
                         </svg>
@@ -123,7 +160,9 @@ export default function AdminNotificationBell() {
                         <div className="text-sm font-medium text-gray-800 truncate">{s.email}</div>
                         <div className="text-xs text-gray-400">Newsletter subscriber</div>
                       </div>
-                      <span className="text-[10px] text-gray-400 shrink-0 mt-0.5">{timeAgo(s.subscribed_at)}</span>
+                      <span className="text-[10px] text-gray-400 shrink-0 mt-0.5">
+                        {timeAgo(s.subscribed_at)}
+                      </span>
                     </div>
                   </div>
                 ))}

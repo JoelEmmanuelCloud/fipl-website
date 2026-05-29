@@ -82,7 +82,8 @@ export default function WorkProcessSection() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          transition: 'background 0.3s ease, transform 0.38s cubic-bezier(0.34,1.4,0.64,1), box-shadow 0.35s ease',
+          transition:
+            'background 0.3s ease, transform 0.38s cubic-bezier(0.34,1.4,0.64,1), box-shadow 0.35s ease',
           ...badge,
         }
 
@@ -104,17 +105,22 @@ export default function WorkProcessSection() {
                   <div
                     className="relative overflow-hidden h-[260px] rounded-tl-[200px] rounded-tr-[200px]"
                     style={{
-                      boxShadow: isHovered
-                        ? '0 24px 48px rgba(0,0,0,0.16)'
-                        : '0 0 0 rgba(0,0,0,0)',
+                      boxShadow: isHovered ? '0 24px 48px rgba(0,0,0,0.16)' : '0 0 0 rgba(0,0,0,0)',
                       transition: 'box-shadow 0.4s ease',
                     }}
                   >
-                    <Image src={step.image} alt={step.title} fill className="object-cover" style={imgStyle} />
+                    <Image
+                      src={step.image}
+                      alt={step.title}
+                      fill
+                      className="object-cover"
+                      style={imgStyle}
+                    />
                     <div
                       style={{
                         ...overlayStyle,
-                        background: 'linear-gradient(to bottom, transparent 50%, rgba(219,27,12,0.2) 100%)',
+                        background:
+                          'linear-gradient(to bottom, transparent 50%, rgba(219,27,12,0.2) 100%)',
                       }}
                     />
                   </div>
@@ -156,11 +162,18 @@ export default function WorkProcessSection() {
                       transition: 'box-shadow 0.4s ease',
                     }}
                   >
-                    <Image src={step.image} alt={step.title} fill className="object-cover" style={imgStyle} />
+                    <Image
+                      src={step.image}
+                      alt={step.title}
+                      fill
+                      className="object-cover"
+                      style={imgStyle}
+                    />
                     <div
                       style={{
                         ...overlayStyle,
-                        background: 'linear-gradient(to top, transparent 50%, rgba(219,27,12,0.2) 100%)',
+                        background:
+                          'linear-gradient(to top, transparent 50%, rgba(219,27,12,0.2) 100%)',
                       }}
                     />
                   </div>

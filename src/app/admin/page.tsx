@@ -134,7 +134,14 @@ export default async function AdminDashboard() {
                   ? 'text-white hover:opacity-90'
                   : 'bg-white dark:bg-gray-900 border-gray-100 dark:border-gray-800 hover:border-gray-200 dark:hover:border-gray-700 hover:shadow-sm'
               }`}
-              style={primary ? { background: 'linear-gradient(135deg, #DB1B0C 0%, #c41508 100%)', border: 'none' } : undefined}
+              style={
+                primary
+                  ? {
+                      background: 'linear-gradient(135deg, #DB1B0C 0%, #c41508 100%)',
+                      border: 'none',
+                    }
+                  : undefined
+              }
             >
               <div
                 className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${
@@ -148,10 +155,14 @@ export default async function AdminDashboard() {
                 ) : null}
               </div>
               <div>
-                <div className={`font-semibold text-sm ${primary ? 'text-white' : 'text-gray-800 dark:text-white'}`}>
+                <div
+                  className={`font-semibold text-sm ${primary ? 'text-white' : 'text-gray-800 dark:text-white'}`}
+                >
                   {label}
                 </div>
-                <div className={`text-[11px] mt-0.5 ${primary ? 'text-white/60' : 'text-gray-400 dark:text-gray-500'}`}>
+                <div
+                  className={`text-[11px] mt-0.5 ${primary ? 'text-white/60' : 'text-gray-400 dark:text-gray-500'}`}
+                >
                   {sub}
                 </div>
               </div>

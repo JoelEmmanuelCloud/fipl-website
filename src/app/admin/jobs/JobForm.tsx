@@ -24,7 +24,9 @@ export default function JobForm({ job }: Props) {
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
+  function handleChange(
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
+  ) {
     const { name, value } = e.target
     setForm((prev) => ({ ...prev, [name]: value }))
   }
@@ -50,7 +52,8 @@ export default function JobForm({ job }: Props) {
     setSaving(false)
   }
 
-  const inputCls = 'w-full border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-2.5 text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:border-[#DB1B0C] focus:ring-2 focus:ring-[#DB1B0C]/10'
+  const inputCls =
+    'w-full border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-2.5 text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:border-[#DB1B0C] focus:ring-2 focus:ring-[#DB1B0C]/10'
   const labelCls = 'block text-xs font-semibold text-gray-600 dark:text-gray-400 mb-1.5'
 
   return (
@@ -58,17 +61,34 @@ export default function JobForm({ job }: Props) {
       <div className="grid grid-cols-2 gap-4">
         <div>
           <label className={labelCls}>Job Title</label>
-          <input name="title" value={form.title} onChange={handleChange} required className={inputCls} />
+          <input
+            name="title"
+            value={form.title}
+            onChange={handleChange}
+            required
+            className={inputCls}
+          />
         </div>
         <div>
           <label className={labelCls}>Department</label>
-          <input name="department" value={form.department} onChange={handleChange} required className={inputCls} />
+          <input
+            name="department"
+            value={form.department}
+            onChange={handleChange}
+            required
+            className={inputCls}
+          />
         </div>
       </div>
       <div className="grid grid-cols-2 gap-4">
         <div>
           <label className={labelCls}>Location</label>
-          <input name="location" value={form.location} onChange={handleChange} className={inputCls} />
+          <input
+            name="location"
+            value={form.location}
+            onChange={handleChange}
+            className={inputCls}
+          />
         </div>
         <div>
           <label className={labelCls}>Employment Type</label>
@@ -81,15 +101,34 @@ export default function JobForm({ job }: Props) {
       </div>
       <div>
         <label className={labelCls}>Posted Date</label>
-        <input name="posted_date" type="date" value={form.posted_date} onChange={handleChange} required className={inputCls} />
+        <input
+          name="posted_date"
+          type="date"
+          value={form.posted_date}
+          onChange={handleChange}
+          required
+          className={inputCls}
+        />
       </div>
       <div>
         <label className={labelCls}>Job Description</label>
-        <textarea name="description" value={form.description} onChange={handleChange} rows={5} className={inputCls} />
+        <textarea
+          name="description"
+          value={form.description}
+          onChange={handleChange}
+          rows={5}
+          className={inputCls}
+        />
       </div>
       <div>
         <label className={labelCls}>Requirements</label>
-        <textarea name="requirements" value={form.requirements} onChange={handleChange} rows={5} className={inputCls} />
+        <textarea
+          name="requirements"
+          value={form.requirements}
+          onChange={handleChange}
+          rows={5}
+          className={inputCls}
+        />
       </div>
       {error && <p className="text-sm text-red-600 dark:text-red-400">{error}</p>}
       <div className="flex items-center gap-3 pt-2">

@@ -43,7 +43,6 @@ const plants = [
   },
 ]
 
-
 export default function PowerPlantsPage() {
   return (
     <div className="page-bolt-bg">

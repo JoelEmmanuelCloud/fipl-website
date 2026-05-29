@@ -79,7 +79,9 @@ export default function AlertManager({ initialAlerts }: { initialAlerts: Alert[]
   return (
     <div className="space-y-6">
       <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6">
-        <h2 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-4">Publish New Alert</h2>
+        <h2 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-4">
+          Publish New Alert
+        </h2>
         <form onSubmit={handleCreate} className="space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
@@ -128,29 +130,41 @@ export default function AlertManager({ initialAlerts }: { initialAlerts: Alert[]
 
       <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 overflow-hidden">
         <div className="px-5 py-3 border-b border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50">
-          <span className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">All Alerts</span>
+          <span className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+            All Alerts
+          </span>
         </div>
         {alerts.length === 0 ? (
-          <div className="p-8 text-center text-sm text-gray-400 dark:text-gray-500">No alerts. Publish one above.</div>
+          <div className="p-8 text-center text-sm text-gray-400 dark:text-gray-500">
+            No alerts. Publish one above.
+          </div>
         ) : (
           <div className="divide-y divide-gray-50 dark:divide-gray-800">
             {alerts.map((alert) => (
               <div key={alert.id} className="px-5 py-4 flex items-start gap-4">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-0.5">
-                    <span className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded ${TYPE_STYLES[alert.type]}`}>
+                    <span
+                      className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded ${TYPE_STYLES[alert.type]}`}
+                    >
                       {alert.type}
                     </span>
-                    <span className={`text-[10px] font-semibold px-2 py-0.5 rounded ${
-                      alert.is_active
-                        ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400'
-                        : 'bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400'
-                    }`}>
+                    <span
+                      className={`text-[10px] font-semibold px-2 py-0.5 rounded ${
+                        alert.is_active
+                          ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400'
+                          : 'bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400'
+                      }`}
+                    >
                       {alert.is_active ? 'Live' : 'Off'}
                     </span>
                   </div>
-                  <div className="font-semibold text-sm text-gray-900 dark:text-white">{alert.title}</div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 line-clamp-2">{alert.message}</div>
+                  <div className="font-semibold text-sm text-gray-900 dark:text-white">
+                    {alert.title}
+                  </div>
+                  <div className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 line-clamp-2">
+                    {alert.message}
+                  </div>
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
                   <button

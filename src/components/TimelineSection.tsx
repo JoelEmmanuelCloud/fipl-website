@@ -2,7 +2,16 @@
 
 import { useEffect, useRef, useState, ReactNode } from 'react'
 import Image from 'next/image'
-import { Power, Factory, TowerControl, Cpu, Leaf, Flame, GaugeCircle, Hourglass } from 'lucide-react'
+import {
+  Power,
+  Factory,
+  TowerControl,
+  Cpu,
+  Leaf,
+  Flame,
+  GaugeCircle,
+  Hourglass,
+} from 'lucide-react'
 import { Reveal } from '@/components/Reveal'
 
 interface Seg {
@@ -406,7 +415,8 @@ function ZigZagTimeline() {
                 padding: 7,
                 opacity: terminusShow ? 1 : 0,
                 transform: terminusShow ? 'scale(1)' : 'scale(0.6)',
-                transition: 'opacity 0.5s ease 0.1s, transform 0.5s cubic-bezier(0.34,1.4,0.64,1) 0.1s',
+                transition:
+                  'opacity 0.5s ease 0.1s, transform 0.5s cubic-bezier(0.34,1.4,0.64,1) 0.1s',
               }}
             >
               <div className="w-full h-full rounded-full bg-[var(--fipl-bg)] flex items-center justify-center">

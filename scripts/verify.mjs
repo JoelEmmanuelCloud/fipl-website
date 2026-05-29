@@ -32,13 +32,21 @@ async function check(label, fn) {
 console.log('\nPublic reads (anon key):')
 
 await check('news_articles readable', async () => {
-  const { data, error } = await anon.from('news_articles').select('slug').order('date_iso', { ascending: false })
+  const { data, error } = await anon
+    .from('news_articles')
+    .select('slug')
+    .order('date_iso', { ascending: false })
   if (error) throw error
   return `${data.length} articles`
 })
 
 await check('latest article slug', async () => {
-  const { data, error } = await anon.from('news_articles').select('slug').order('date_iso', { ascending: false }).limit(1).single()
+  const { data, error } = await anon
+    .from('news_articles')
+    .select('slug')
+    .order('date_iso', { ascending: false })
+    .limit(1)
+    .single()
   if (error) throw error
   return data.slug
 })
@@ -58,8 +66,14 @@ await check('media_kits readable', async () => {
 console.log('\nAdmin writes (service role):')
 
 await check('insert + delete test row in contact_submissions', async () => {
-  const { data, error } = await srv.from('contact_submissions')
-    .insert({ first_name: 'Test', last_name: 'User', email: 'test@verify.internal', message: 'verify' })
+  const { data, error } = await srv
+    .from('contact_submissions')
+    .insert({
+      first_name: 'Test',
+      last_name: 'User',
+      email: 'test@verify.internal',
+      message: 'verify',
+    })
     .select('id')
     .single()
   if (error) throw error
@@ -68,7 +82,9 @@ await check('insert + delete test row in contact_submissions', async () => {
 })
 
 await check('newsletter upsert', async () => {
-  await srv.from('newsletter_subscribers').upsert({ email: 'verify@internal.test' }, { onConflict: 'email' })
+  await srv
+    .from('newsletter_subscribers')
+    .upsert({ email: 'verify@internal.test' }, { onConflict: 'email' })
   await srv.from('newsletter_subscribers').delete().eq('email', 'verify@internal.test')
   return 'upsert + delete ok'
 })

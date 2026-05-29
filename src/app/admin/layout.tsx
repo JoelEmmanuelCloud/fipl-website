@@ -105,9 +105,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   }`}
                 >
                   <Icon className="w-4 h-4 shrink-0" strokeWidth={active ? 2.4 : 1.8} />
-                  {!collapsed && (
-                    <span className="truncate">{label}</span>
-                  )}
+                  {!collapsed && <span className="truncate">{label}</span>}
                 </Link>
               )
             })}

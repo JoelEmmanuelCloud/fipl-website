@@ -17,7 +17,10 @@ for (const name of BUCKETS) {
   if (error) {
     console.log(`  [MISSING] ${name} — creating...`)
     const { error: ce } = await supabase.storage.createBucket(name, { public: true })
-    if (ce) { console.error('  FAIL:', ce.message); process.exit(1) }
+    if (ce) {
+      console.error('  FAIL:', ce.message)
+      process.exit(1)
+    }
     console.log(`  [CREATED] ${name}`)
   } else {
     console.log(`  [OK] ${name} — public: ${data.public}`)
@@ -40,11 +43,17 @@ for (const bucket of BUCKETS) {
   const { error: upErr } = await supabase.storage
     .from(bucket)
     .upload(path, pixel, { contentType: 'image/png' })
-  if (upErr) { console.error(`  [FAIL] upload to ${bucket}:`, upErr.message); process.exit(1) }
+  if (upErr) {
+    console.error(`  [FAIL] upload to ${bucket}:`, upErr.message)
+    process.exit(1)
+  }
 
   const { data: urlData } = supabase.storage.from(bucket).getPublicUrl(path)
   const res = await fetch(urlData.publicUrl)
-  if (!res.ok) { console.error(`  [FAIL] public URL not reachable (${res.status})`); process.exit(1) }
+  if (!res.ok) {
+    console.error(`  [FAIL] public URL not reachable (${res.status})`)
+    process.exit(1)
+  }
 
   await supabase.storage.from(bucket).remove([path])
   console.log(`  [PASS] ${bucket}: upload → public read → delete ok`)

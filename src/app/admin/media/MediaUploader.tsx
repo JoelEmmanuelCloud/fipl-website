@@ -58,12 +58,19 @@ export default function MediaUploader() {
     <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
       <div>
         <label className={labelCls}>Title</label>
-        <input value={title} onChange={(e) => setTitle(e.target.value)} required className={inputCls} />
+        <input
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          required
+          className={inputCls}
+        />
       </div>
       <div>
         <label className={labelCls}>Category</label>
         <select value={category} onChange={(e) => setCategory(e.target.value)} className={inputCls}>
-          {CATEGORIES.map((c) => <option key={c}>{c}</option>)}
+          {CATEGORIES.map((c) => (
+            <option key={c}>{c}</option>
+          ))}
         </select>
       </div>
       <div>

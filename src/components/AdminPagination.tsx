@@ -9,7 +9,13 @@ interface Props {
   basePath: string
 }
 
-export default function AdminPagination({ page, totalPages, totalCount, pageSize, basePath }: Props) {
+export default function AdminPagination({
+  page,
+  totalPages,
+  totalCount,
+  pageSize,
+  basePath,
+}: Props) {
   if (totalPages <= 1) return null
 
   const from = (page - 1) * pageSize + 1

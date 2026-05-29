@@ -28,9 +28,7 @@ export default async function SubmissionsPage({
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-        Contact Submissions
-      </h1>
+      <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Contact Submissions</h1>
       {submissions.length === 0 ? (
         <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-10 text-center text-gray-400 dark:text-gray-500 text-sm">
           No submissions yet.
@@ -48,7 +46,10 @@ export default async function SubmissionsPage({
                     <div className="font-semibold text-gray-900 dark:text-white text-sm">
                       {s.first_name} {s.last_name}
                     </div>
-                    <a href={`mailto:${s.email}`} className="text-xs text-[#DB1B0C] hover:underline">
+                    <a
+                      href={`mailto:${s.email}`}
+                      className="text-xs text-[#DB1B0C] hover:underline"
+                    >
                       {s.email}
                     </a>
                   </div>

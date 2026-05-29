@@ -200,8 +200,8 @@ export default function AlertManager({ initialAlerts }: { initialAlerts: Alert[]
         {totalPages > 1 && (
           <div className="flex items-center justify-between px-5 py-3 border-t border-gray-100 dark:border-gray-800">
             <span className="text-xs text-gray-400 dark:text-gray-500 tabular-nums">
-              {(currentPage - 1) * PAGE_SIZE + 1}–
-              {Math.min(currentPage * PAGE_SIZE, alerts.length)} of {alerts.length}
+              {(currentPage - 1) * PAGE_SIZE + 1}–{Math.min(currentPage * PAGE_SIZE, alerts.length)}{' '}
+              of {alerts.length}
             </span>
             <div className="flex items-center gap-1">
               <button

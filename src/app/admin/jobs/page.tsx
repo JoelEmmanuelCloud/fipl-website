@@ -8,11 +8,7 @@ export const dynamic = 'force-dynamic'
 
 const PAGE_SIZE = 20
 
-export default async function AdminJobsPage({
-  searchParams,
-}: {
-  searchParams: { page?: string }
-}) {
+export default async function AdminJobsPage({ searchParams }: { searchParams: { page?: string } }) {
   const page = Math.max(1, parseInt(searchParams.page ?? '1', 10) || 1)
   const from = (page - 1) * PAGE_SIZE
   const to = from + PAGE_SIZE - 1

@@ -8,11 +8,7 @@ export const dynamic = 'force-dynamic'
 
 const PAGE_SIZE = 20
 
-export default async function AdminNewsPage({
-  searchParams,
-}: {
-  searchParams: { page?: string }
-}) {
+export default async function AdminNewsPage({ searchParams }: { searchParams: { page?: string } }) {
   const page = Math.max(1, parseInt(searchParams.page ?? '1', 10) || 1)
   const from = (page - 1) * PAGE_SIZE
   const to = from + PAGE_SIZE - 1
@@ -81,9 +77,7 @@ export default async function AdminNewsPage({
                         {a.category}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-gray-500 dark:text-gray-400 text-xs">
-                      {a.date}
-                    </td>
+                    <td className="px-4 py-3 text-gray-500 dark:text-gray-400 text-xs">{a.date}</td>
                     <td className="px-4 py-3">
                       <NewsArticleActions id={a.id} />
                     </td>

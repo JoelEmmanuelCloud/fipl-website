@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { revalidatePath } from 'next/cache'
 import { createServerClient } from '@/lib/supabase-server'
 
 function isAuthorized(req: NextRequest): boolean {
@@ -12,5 +13,6 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
   const supabase = createServerClient()
   const { error } = await supabase.from('media_kits').delete().eq('id', params.id)
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+  revalidatePath('/news')
   return NextResponse.json({ ok: true })
 }

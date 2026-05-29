@@ -16,6 +16,7 @@ import {
   ChevronRight,
 } from 'lucide-react'
 import AdminNotificationBell from '@/components/AdminNotificationBell'
+import AdminRefreshControl from '@/components/AdminRefreshControl'
 import { ToastProvider } from '@/components/AdminToast'
 import { ThemeToggle } from '@/components/ThemeToggle'
 
@@ -131,6 +132,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               {getPageTitle(pathname)}
             </span>
             <div className="flex items-center gap-1">
+              <AdminRefreshControl />
+              <div className="w-px h-4 bg-gray-100 dark:bg-gray-800 mx-1" />
               <ThemeToggle className="text-gray-400 dark:text-gray-400" />
               <AdminNotificationBell />
             </div>

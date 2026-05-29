@@ -2,7 +2,10 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useToast } from '@/components/AdminToast'
+
+const PAGE_SIZE = 10
 
 type AlertType = 'info' | 'warning' | 'critical'
 
@@ -27,6 +30,10 @@ export default function AlertManager({ initialAlerts }: { initialAlerts: Alert[]
   const [alerts, setAlerts] = useState(initialAlerts)
   const [form, setForm] = useState({ title: '', message: '', type: 'info' as AlertType })
   const [saving, setSaving] = useState(false)
+  const [currentPage, setCurrentPage] = useState(1)
+
+  const totalPages = Math.ceil(alerts.length / PAGE_SIZE)
+  const pagedAlerts = alerts.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE)
 
   async function handleCreate(e: React.FormEvent) {
     e.preventDefault()
@@ -39,6 +46,7 @@ export default function AlertManager({ initialAlerts }: { initialAlerts: Alert[]
     if (res.ok) {
       const created = await res.json()
       setAlerts((prev) => [created, ...prev])
+      setCurrentPage(1)
       setForm({ title: '', message: '', type: 'info' })
       toast('Alert published')
       router.refresh()
@@ -65,7 +73,12 @@ export default function AlertManager({ initialAlerts }: { initialAlerts: Alert[]
     if (!confirm('Delete this alert permanently?')) return
     const res = await fetch(`/api/admin/alerts/${id}`, { method: 'DELETE' })
     if (res.ok) {
-      setAlerts((prev) => prev.filter((a) => a.id !== id))
+      setAlerts((prev) => {
+        const next = prev.filter((a) => a.id !== id)
+        const maxPage = Math.max(1, Math.ceil(next.length / PAGE_SIZE))
+        setCurrentPage((p) => Math.min(p, maxPage))
+        return next
+      })
       toast('Alert deleted')
     } else {
       toast('Failed to delete', 'error')
@@ -140,7 +153,7 @@ export default function AlertManager({ initialAlerts }: { initialAlerts: Alert[]
           </div>
         ) : (
           <div className="divide-y divide-gray-50 dark:divide-gray-800">
-            {alerts.map((alert) => (
+            {pagedAlerts.map((alert) => (
               <div key={alert.id} className="px-5 py-4 flex items-start gap-4">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-0.5">
@@ -182,6 +195,33 @@ export default function AlertManager({ initialAlerts }: { initialAlerts: Alert[]
                 </div>
               </div>
             ))}
+          </div>
+        )}
+        {totalPages > 1 && (
+          <div className="flex items-center justify-between px-5 py-3 border-t border-gray-100 dark:border-gray-800">
+            <span className="text-xs text-gray-400 dark:text-gray-500 tabular-nums">
+              {(currentPage - 1) * PAGE_SIZE + 1}–{Math.min(currentPage * PAGE_SIZE, alerts.length)}{' '}
+              of {alerts.length}
+            </span>
+            <div className="flex items-center gap-1">
+              <button
+                onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                disabled={currentPage === 1}
+                className="w-8 h-8 flex items-center justify-center rounded-lg text-xs text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-800 dark:hover:text-white transition-colors disabled:text-gray-300 dark:disabled:text-gray-700 disabled:pointer-events-none"
+              >
+                <ChevronLeft className="w-3.5 h-3.5" strokeWidth={2} />
+              </button>
+              <span className="text-xs text-gray-500 dark:text-gray-400 tabular-nums px-1">
+                {currentPage} / {totalPages}
+              </span>
+              <button
+                onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                disabled={currentPage === totalPages}
+                className="w-8 h-8 flex items-center justify-center rounded-lg text-xs text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-800 dark:hover:text-white transition-colors disabled:text-gray-300 dark:disabled:text-gray-700 disabled:pointer-events-none"
+              >
+                <ChevronRight className="w-3.5 h-3.5" strokeWidth={2} />
+              </button>
+            </div>
           </div>
         )}
       </div>

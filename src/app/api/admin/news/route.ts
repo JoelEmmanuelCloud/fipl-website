@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { revalidatePath } from 'next/cache'
 import { createServerClient } from '@/lib/supabase-server'
 import { notifyAllSubscribers } from '@/lib/push-notify'
 
@@ -48,6 +49,9 @@ export async function POST(req: NextRequest) {
     .single()
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+
+  revalidatePath('/news')
+  revalidatePath('/news/[slug]', 'page')
 
   notifyAllSubscribers({
     title: 'New from FIPL',

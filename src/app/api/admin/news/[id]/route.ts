@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { revalidatePath } from 'next/cache'
 import { createServerClient } from '@/lib/supabase-server'
 
 function isAuthorized(req: NextRequest): boolean {
@@ -18,6 +19,8 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
     .select()
     .single()
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+  revalidatePath('/news')
+  revalidatePath('/news/[slug]', 'page')
   return NextResponse.json(data)
 }
 
@@ -28,5 +31,7 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
   const supabase = createServerClient()
   const { error } = await supabase.from('news_articles').delete().eq('id', params.id)
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+  revalidatePath('/news')
+  revalidatePath('/news/[slug]', 'page')
   return NextResponse.json({ ok: true })
 }

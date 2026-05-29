@@ -50,29 +50,42 @@ export default function MediaUploader() {
     setUploading(false)
   }
 
-  const inputCls = 'w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-[#DB1B0C] focus:ring-2 focus:ring-[#DB1B0C]/10'
+  const inputCls =
+    'w-full border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-2.5 text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:border-[#DB1B0C] focus:ring-2 focus:ring-[#DB1B0C]/10'
+  const labelCls = 'block text-xs font-semibold text-gray-600 dark:text-gray-400 mb-1.5'
 
   return (
     <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
       <div>
-        <label className="block text-xs font-semibold text-gray-700 mb-1.5">Title</label>
+        <label className={labelCls}>Title</label>
         <input value={title} onChange={(e) => setTitle(e.target.value)} required className={inputCls} />
       </div>
       <div>
-        <label className="block text-xs font-semibold text-gray-700 mb-1.5">Category</label>
+        <label className={labelCls}>Category</label>
         <select value={category} onChange={(e) => setCategory(e.target.value)} className={inputCls}>
           {CATEGORIES.map((c) => <option key={c}>{c}</option>)}
         </select>
       </div>
       <div>
-        <label className="block text-xs font-semibold text-gray-700 mb-1.5">File (image or PDF)</label>
-        <input type="file" accept="image/*,.pdf" onChange={(e) => setFile(e.target.files?.[0] ?? null)} required className="text-sm text-gray-600" />
+        <label className={labelCls}>File (image or PDF)</label>
+        <input
+          type="file"
+          accept="image/*,.pdf"
+          onChange={(e) => setFile(e.target.files?.[0] ?? null)}
+          required
+          className="text-sm text-gray-500 dark:text-gray-400"
+        />
       </div>
       <div>
-        <label className="block text-xs font-semibold text-gray-700 mb-1.5">Thumbnail (optional)</label>
-        <input type="file" accept="image/*" onChange={(e) => setThumbnail(e.target.files?.[0] ?? null)} className="text-sm text-gray-600" />
+        <label className={labelCls}>Thumbnail (optional)</label>
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(e) => setThumbnail(e.target.files?.[0] ?? null)}
+          className="text-sm text-gray-500 dark:text-gray-400"
+        />
       </div>
-      {error && <p className="col-span-2 text-sm text-red-600">{error}</p>}
+      {error && <p className="col-span-2 text-sm text-red-500 dark:text-red-400">{error}</p>}
       <div className="col-span-2">
         <button
           type="submit"

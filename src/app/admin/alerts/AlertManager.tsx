@@ -16,9 +16,9 @@ interface Alert {
 }
 
 const TYPE_STYLES: Record<AlertType, string> = {
-  info: 'bg-blue-100 text-blue-700',
-  warning: 'bg-orange-100 text-orange-700',
-  critical: 'bg-red-100 text-red-700',
+  info: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400',
+  warning: 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400',
+  critical: 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400',
 }
 
 export default function AlertManager({ initialAlerts }: { initialAlerts: Alert[] }) {
@@ -72,13 +72,14 @@ export default function AlertManager({ initialAlerts }: { initialAlerts: Alert[]
     }
   }
 
-  const inputCls = 'w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-[#DB1B0C] focus:ring-2 focus:ring-[#DB1B0C]/10'
-  const labelCls = 'block text-xs font-semibold text-gray-700 mb-1.5'
+  const inputCls =
+    'w-full border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-2.5 text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:border-[#DB1B0C] focus:ring-2 focus:ring-[#DB1B0C]/10'
+  const labelCls = 'block text-xs font-semibold text-gray-600 dark:text-gray-400 mb-1.5'
 
   return (
     <div className="space-y-6">
-      <div className="bg-white rounded-xl border border-gray-200 p-6">
-        <h2 className="text-sm font-semibold text-gray-700 mb-4">Publish New Alert</h2>
+      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6">
+        <h2 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-4">Publish New Alert</h2>
         <form onSubmit={handleCreate} className="space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
@@ -125,14 +126,14 @@ export default function AlertManager({ initialAlerts }: { initialAlerts: Alert[]
         </form>
       </div>
 
-      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-        <div className="px-5 py-3 border-b border-gray-100 bg-gray-50">
-          <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">All Alerts</span>
+      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 overflow-hidden">
+        <div className="px-5 py-3 border-b border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50">
+          <span className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">All Alerts</span>
         </div>
         {alerts.length === 0 ? (
-          <div className="p-8 text-center text-sm text-gray-400">No alerts. Publish one above.</div>
+          <div className="p-8 text-center text-sm text-gray-400 dark:text-gray-500">No alerts. Publish one above.</div>
         ) : (
-          <div className="divide-y divide-gray-50">
+          <div className="divide-y divide-gray-50 dark:divide-gray-800">
             {alerts.map((alert) => (
               <div key={alert.id} className="px-5 py-4 flex items-start gap-4">
                 <div className="flex-1 min-w-0">
@@ -140,23 +141,27 @@ export default function AlertManager({ initialAlerts }: { initialAlerts: Alert[]
                     <span className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded ${TYPE_STYLES[alert.type]}`}>
                       {alert.type}
                     </span>
-                    <span className={`text-[10px] font-semibold px-2 py-0.5 rounded ${alert.is_active ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'}`}>
+                    <span className={`text-[10px] font-semibold px-2 py-0.5 rounded ${
+                      alert.is_active
+                        ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400'
+                        : 'bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400'
+                    }`}>
                       {alert.is_active ? 'Live' : 'Off'}
                     </span>
                   </div>
-                  <div className="font-semibold text-sm text-gray-900">{alert.title}</div>
-                  <div className="text-xs text-gray-500 mt-0.5 line-clamp-2">{alert.message}</div>
+                  <div className="font-semibold text-sm text-gray-900 dark:text-white">{alert.title}</div>
+                  <div className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 line-clamp-2">{alert.message}</div>
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
                   <button
                     onClick={() => toggleActive(alert)}
-                    className="text-xs font-medium text-gray-600 hover:text-gray-900 px-3 py-1.5 rounded-lg hover:bg-gray-100 transition-colors"
+                    className="text-xs font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white px-3 py-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                   >
                     {alert.is_active ? 'Deactivate' : 'Activate'}
                   </button>
                   <button
                     onClick={() => handleDelete(alert.id)}
-                    className="text-xs font-medium text-red-500 hover:text-red-700 px-3 py-1.5 rounded-lg hover:bg-red-50 transition-colors"
+                    className="text-xs font-medium text-red-500 hover:text-red-700 dark:hover:text-red-400 px-3 py-1.5 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
                   >
                     Delete
                   </button>

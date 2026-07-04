@@ -39,6 +39,7 @@ interface CinematicHeroProps {
   minHeight?: string
   contentAlign?: 'center' | 'start' | 'end'
   overlay?: string
+  imagePosition?: string
 }
 
 const DEFAULT_OVERLAY =
@@ -50,6 +51,7 @@ export function CinematicHero({
   minHeight = 'min-h-[360px] md:min-h-[460px] lg:min-h-[520px]',
   contentAlign = 'center',
   overlay,
+  imagePosition = 'center',
 }: CinematicHeroProps) {
   const [ready, setReady] = useState(false)
 
@@ -68,7 +70,7 @@ export function CinematicHero({
         style={{
           backgroundImage: `url('${image}')`,
           backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          backgroundPosition: imagePosition,
           filter: 'brightness(0.68) contrast(1.08) saturate(0.78)',
         }}
       />

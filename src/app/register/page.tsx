@@ -82,7 +82,7 @@ export default function RegisterPage() {
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <Reveal variant="clip" duration={0.9}>
-              <div className="relative w-full h-[300px] md:h-[380px]">
+              <div className="relative w-full h-[300px] md:h-[380px] rounded-2xl overflow-hidden">
                 <Image
                   src={IMAGES.register.vendor}
                   alt="Vendor registration"

@@ -8,26 +8,26 @@ import { IMAGES } from '@/lib/images'
 const steps = [
   {
     num: '01',
-    title: 'Project Planning & Feasibility',
-    desc: 'We begin with in-depth research, feasibility studies, and stakeholder consultations to ensure every project is technically sound and commercially viable.',
+    title: 'Gas Supply',
+    desc: 'Our power generation process begins with a reliable supply of natural gas delivered through dedicated pipeline infrastructure. This fuel serves as the primary energy source, ensuring efficient, stable, and continuous electricity production.',
     image: IMAGES.plants.step1,
   },
   {
     num: '02',
-    title: 'Engineering & Design',
-    desc: 'Our team develops innovative and sustainable engineering solutions, leveraging global best practices while tailoring designs to local realities.',
+    title: 'GT Operations',
+    desc: 'At the heart of our plant are advanced Gas Turbines (GTs), where natural gas is combusted to produce mechanical energy. This energy drives generators that convert it into electrical power with high efficiency and operational reliability.',
     image: IMAGES.plants.step2,
   },
   {
     num: '03',
-    title: 'Execution & Commissioning',
-    desc: 'From procurement to construction and testing, we deliver projects with strict adherence to safety, timelines, and quality standards.',
+    title: 'Voltage Step-Up',
+    desc: 'The electricity generated is passed through step-up transformers that increase the voltage for efficient long-distance transmission. This minimizes energy losses and ensures power is delivered safely across the transmission network.',
     image: IMAGES.plants.step3,
   },
   {
     num: '04',
-    title: 'Operation & Sustainability',
-    desc: 'Once commissioned, we ensure smooth operations, continuous optimization, and sustainable practices to maximize efficiency and community impact.',
+    title: 'Connecting to the National Grid',
+    desc: 'The stepped-up electricity is transmitted through high-voltage transmission lines and integrated into the national grid, supplying homes, industries, businesses, and essential services with dependable power.',
     image: IMAGES.plants.step4,
   },
 ]

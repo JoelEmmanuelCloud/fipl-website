@@ -5,7 +5,7 @@ export type PlantSlug = 'omoku' | 'trans-amadi' | 'afam' | 'eleme'
 export type Plant = {
   slug: PlantSlug
   name: string
-  image: string
+  images: readonly string[]
   desc: string
   supplier: string
   imageLeft: boolean
@@ -15,32 +15,32 @@ export const plants: Plant[] = [
   {
     slug: 'omoku',
     name: 'Omoku Plant',
-    image: IMAGES.plants.omoku,
-    desc: 'The Omoku Power Plant is located beside the NAOC Gas Processing Plant in Obrikiri. It was commissioned in December 2006 and has six units of 25MW GE Nuovo Pignone heavy-duty gas turbines, totaling 150MW installed capacity. The plant generates power and transmits it to the national grid via its on-site 132KV switching facility through the Rumuosi Transmission Substation.',
+    images: IMAGES.plants.omoku,
+    desc: "Located in the heart of Rivers State's energy corridor, the Omoku Power Plant plays a strategic role in delivering reliable electricity to Nigeria's national grid. As one of the region's major power generation facilities, it strengthens grid stability while supporting industrial growth and economic development across the country. The Omoku Power Plant has an installed capacity of 150MW, comprising six 25MW GE Nuovo Pignone heavy-duty gas turbines. The plant generates electricity for the national grid through its on-site 132kV switching facility, which connects to the Rumuosi Transmission Substation. Strategically located adjacent to the NAOC Gas Processing Plant in Obrikom, the facility benefits from a reliable natural gas supply that supports efficient and continuous operations. Commissioned in 2006, the Omoku Power Plant remains one of FIPL's flagship assets, delivering dependable power through world-class operational standards.",
     supplier: 'Nigerian Agip Oil Company (NAOC)',
     imageLeft: true,
   },
   {
     slug: 'trans-amadi',
     name: 'Trans Amadi Plant',
-    image: IMAGES.plants.transAmadi,
-    desc: 'The Trans-Amadi Power Plant is sited in a land area of about 4 Hectares. It has a total installed capacity of 136MW. The plant was commissioned in 2 phases. Phase I consists of 3 x 12MW solar mars gas turbines commissioned in October 2002, while Phase II consists of 4 x 25 MW Nuovo Pignone frame 5 gas turbines commissioned in May 2019. The Power plant has the following facilities: 4 x 25MW GE Nuovo Pignone gas turbines, 3 x 11 MW GE solar mars gas turbines, control buildings, 4 x 36MVA transformers (11KV/132KV), 3 X 73MVA (33KV/132KV) transformers and is supported by 2 black start generators for island mode startup.',
-    supplier: 'Heirs Energies Limited',
+    images: IMAGES.plants.transAmadi,
+    desc: 'Situated within the industrial city of Port Harcourt, the Trans-Amadi Power Plant is a critical asset supporting commercial and industrial productivity in the Niger Delta. Its strategic location and flexible operating capability make it an important contributor to grid resilience and energy security. The plant occupies approximately four hectares and has a total installed capacity of 136MW. Developed in two phases, Phase I comprises three 12MW GE Solar Mars gas turbines, commissioned in 2002, while Phase II, commissioned in 2009, added four 25MW GE Nuovo Pignone Frame 5 gas turbines. The facility is equipped with 4 × 35MVA (11kV/33kV) transformers, 3 × 75MVA (33kV/132kV) transformers, dedicated control buildings, and two black-start generators that enable island-mode startup during system restoration. Natural gas is supplied by Shell Nigeria, ensuring efficient and reliable power generation for the national grid.',
+    supplier: 'Shell Nigeria',
     imageLeft: false,
   },
   {
     slug: 'afam',
     name: 'Afam Plant',
-    image: IMAGES.plants.afam,
-    desc: 'The Afam Power Plant is in Oyigbo LGA of Rivers State. It was commissioned in December 2011 with an installed GE (formerly Alstom) GT13E2 gas turbine of 180MW capacity Installed Capacity and 160MW, exporting an average of 3500MWH per day into the national grid. Evacuation System: 33kV/132kV.',
-    supplier: 'Ohuru Trading Company and Accugas Eleme',
+    images: IMAGES.plants.afam,
+    desc: "The Afam Power Plant is FIPL's largest generating station and a cornerstone of Nigeria's electricity infrastructure. Located within one of the country's most significant power generation hubs, the facility contributes substantially to grid reliability and supports the nation's growing energy needs through dependable, large-scale generation. With an installed capacity of 180MW, the plant is powered by a GE (formerly Alstom) GT13E2 gas turbine and exports an average of 3,500MWh of electricity daily to the national grid. Natural gas is supplied by Shell Nigeria, providing a dependable fuel source for efficient operations. Situated in Oyigbo Local Government Area of Rivers State, the plant forms part of a strategic energy cluster that underpins electricity generation in Nigeria.",
+    supplier: 'Shell Nigeria',
     imageLeft: true,
   },
   {
     slug: 'eleme',
     name: 'Eleme Plant',
-    image: IMAGES.plants.eleme,
-    desc: 'Eleme Power Station has 25MW currently available at the 75MW installed capacity. Plans are in progress to recover an additional 50MW by 2026. Commissioned Dec. 2023 Evacuation System: 33kV to Bilateral Customers. The plant has a provision for future evacuation at 132kV to the Grid.',
+    images: IMAGES.plants.eleme,
+    desc: "The Eleme Power Plant reflects FIPL's commitment to transforming energy infrastructure and unlocking new generation capacity. Positioned within one of Nigeria's foremost industrial corridors, the plant supports growing electricity demand while reinforcing power reliability for industries and communities. Originally a non-operational facility, the station was revitalized in 2001 when FIPL refurbished and commissioned a 20MW GE LM2500 gas turbine. As part of its long-term expansion strategy, FIPL replaced the legacy turbine with three 25MW GE Nuovo Pignone Frame 5 gas turbines, increasing the plant's installed capacity to 75MW. The project achieved hot commissioning in December 2023, representing another milestone in FIPL's continued investment in modern, efficient generation assets.",
     supplier: 'Ohuru Trading Company',
     imageLeft: false,
   },

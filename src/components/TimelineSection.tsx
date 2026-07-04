@@ -42,9 +42,9 @@ interface Milestone {
 
 const milestones: Milestone[] = [
   {
-    year: '1998',
-    title: 'Company Founded',
-    desc: "FIPL was established as part of the Sahara Group with a vision to transform Nigeria's power generation landscape.",
+    year: '2014',
+    title: 'A New Beginning',
+    desc: "FIPL assumed operations of its power generation assets, embarking on a journey to restore, modernize, and expand Nigeria's power infrastructure.",
     cardLeft: 75,
     cardTop: 760,
     dotLeft: 76,
@@ -62,9 +62,9 @@ const milestones: Milestone[] = [
     icon: <Power className="w-11 h-11 text-[#DB1B0C]" strokeWidth={2.4} />,
   },
   {
-    year: '2001',
-    title: 'Omoku Power Plant',
-    desc: 'Commissioned the Omoku Power Plant with 150MW installed capacity, delivering reliable power to Rivers State.',
+    year: '2016',
+    title: 'Expanding Generation and Grid Access',
+    desc: 'Restored GT02, growing Trans-Amadi exports to 88MW and Omoku capacity to 105MW.',
     cardLeft: 400,
     cardTop: 760,
     dotLeft: 386,
@@ -80,9 +80,9 @@ const milestones: Milestone[] = [
     icon: <Factory className="w-10 h-10 text-[#DB1B0C]" strokeWidth={2.4} />,
   },
   {
-    year: '2005',
-    title: 'Afam Power Plant',
-    desc: 'Successfully integrated the Afam Power Station, significantly increasing our generation capacity to 180MW.',
+    year: '2017',
+    title: 'Reviving Afam Plant',
+    desc: 'The Afam Plant, which was non-operational before the takeover, was successfully restored, strengthening overall generation capacity.',
     cardLeft: 290,
     cardTop: 10,
     dotLeft: 656,
@@ -98,9 +98,9 @@ const milestones: Milestone[] = [
     icon: <TowerControl className="w-10 h-10 text-[#DB1B0C]" strokeWidth={2.4} />,
   },
   {
-    year: '2010',
-    title: 'Trans Amadi Expansion',
-    desc: 'Developed the Trans-Amadi Gas Turbine Power Plant, strengthening our presence in Rivers State.',
+    year: '2018',
+    title: 'Major Technical Milestone',
+    desc: "Completed the Afam Plant's first turbine overhaul since commissioning, boosting reliability and performance.",
     cardLeft: 1000,
     cardTop: 10,
     dotLeft: 856,
@@ -116,9 +116,9 @@ const milestones: Milestone[] = [
     icon: <GaugeCircle className="w-10 h-10 text-[#DB1B0C]" strokeWidth={2.4} />,
   },
   {
-    year: '2015',
-    title: 'Eleme Integration',
-    desc: 'Added the Eleme Gas Turbine Power Plant to our portfolio, enhancing regional power supply.',
+    year: '2019',
+    title: 'Restoring Additional Assets',
+    desc: 'Returned GT03 and GT04 to service, completing the restoration of previously idle generating units and contributing an additional 240MW of available capacity.',
     cardLeft: 630,
     cardTop: 430,
     dotLeft: 1046,
@@ -135,9 +135,9 @@ const milestones: Milestone[] = [
     icon: <Flame className="w-10 h-10 text-[#DB1B0C]" strokeWidth={2.4} />,
   },
   {
-    year: '2020',
-    title: 'Sustainability Initiatives',
-    desc: 'Launched comprehensive environmental and sustainability programs across all four facilities.',
+    year: '2021',
+    title: 'Strengthening Energy Security',
+    desc: 'Built a dedicated gas pipeline to Accugas Ikot Abasi, securing a reliable alternative fuel supply.',
     cardLeft: 1139,
     cardTop: 760,
     dotLeft: 1156,
@@ -153,9 +153,9 @@ const milestones: Milestone[] = [
     icon: <Cpu className="w-10 h-10 text-[#DB1B0C]" strokeWidth={2.4} />,
   },
   {
-    year: '2024',
-    title: 'Digital Transformation',
-    desc: 'Advancing digital systems and smart grid integration across all power generation facilities.',
+    year: '2023',
+    title: 'Driving Growth and Reliability',
+    desc: 'Commissioned GTE3 at the Eleme Plant using in-house engineering, completed another major turbine overhaul at the Afam Plant, and signed a Long-Term Service Agreement with GE Vernova (2023–2031) for OEM-backed maintenance support.',
     cardLeft: 1430,
     cardTop: 150,
     dotLeft: 1346,
@@ -624,7 +624,7 @@ export function TimelineSection() {
               </svg>
             </span>
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[var(--fipl-heading)] mb-4">
-              A Legacy of Power &amp; Progress
+              Our Journey of Transformation
             </h2>
             <p className="text-[var(--fipl-body)] text-sm md:text-base leading-relaxed">
               From our founding to today, FIPL has consistently evolved to meet Nigeria&apos;s

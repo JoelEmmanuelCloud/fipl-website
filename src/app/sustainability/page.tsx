@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import Image from 'next/image'
 import { SustainabilityHero } from '@/components/PageHeroes'
 import { Reveal } from '@/components/Reveal'
@@ -7,23 +6,7 @@ import { IMAGES } from '@/lib/images'
 
 export const metadata: Metadata = { title: 'Sustainability & CSR' }
 
-function Check() {
-  return (
-    <svg
-      className="w-5 h-5 text-[#DB1B0C] shrink-0 mt-0.5"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M20 6L9 17l-5-5" />
-    </svg>
-  )
-}
-
-const esgCards = [
+const focusAreas = [
   {
     icon: (
       <svg
@@ -34,30 +17,13 @@ const esgCards = [
         strokeWidth="1.5"
       >
         <path
-          d="M20 6c-8 4-10 12-6 18 2 3 5 5 6 10 1-5 4-7 6-10 4-6 2-14-6-18z"
+          d="M20 34s-13-8-13-17a7 7 0 0113-3.5A7 7 0 0133 17c0 9-13 17-13 17z"
           strokeLinejoin="round"
         />
-        <line x1="20" y1="14" x2="20" y2="30" strokeLinecap="round" />
       </svg>
     ),
-    title: 'Environmental',
-    desc: 'Committed to reducing our carbon footprint, optimising energy efficiency, and implementing sustainable practices across all operations. We prioritise renewable energy and environmental stewardship.',
-  },
-  {
-    icon: (
-      <svg
-        className="w-10 h-10 text-[#DB1B0C]"
-        viewBox="0 0 40 40"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-      >
-        <circle cx="20" cy="14" r="6" />
-        <path d="M8 34c0-6.627 5.373-12 12-12s12 5.373 12 12" strokeLinecap="round" />
-      </svg>
-    ),
-    title: 'Social Impact',
-    desc: 'Empowering communities through education, healthcare, and economic initiatives. We invest in people, fostering inclusive growth and creating lasting positive change in society.',
+    title: 'Health',
+    desc: 'We are committed to the health and well-being of the people and community in which we operate.',
   },
   {
     icon: (
@@ -74,8 +40,27 @@ const esgCards = [
         <line x1="14" y1="26" x2="20" y2="26" strokeLinecap="round" />
       </svg>
     ),
-    title: 'Robust Government',
-    desc: 'Upholding the highest standards of transparency, ethics, and accountability. Our governance framework ensures responsible decision-making and builds trust with all stakeholders.',
+    title: 'Education',
+    desc: 'Our multiple education intervention schemes, including scholarships, seminars etc., restate our commitment to improving lives.',
+  },
+  {
+    icon: (
+      <svg
+        className="w-10 h-10 text-[#DB1B0C]"
+        viewBox="0 0 40 40"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      >
+        <path
+          d="M20 6c-8 4-10 12-6 18 2 3 5 5 6 10 1-5 4-7 6-10 4-6 2-14-6-18z"
+          strokeLinejoin="round"
+        />
+        <line x1="20" y1="14" x2="20" y2="30" strokeLinecap="round" />
+      </svg>
+    ),
+    title: 'Environment',
+    desc: 'We are environmentally aware and understand the importance of environmental protection and sustainability.',
   },
 ]
 
@@ -89,7 +74,7 @@ export default function SustainabilityPage() {
           <Reveal variant="up">
             <div className="text-center max-w-2xl mx-auto mb-12">
               <span className="inline-flex items-center gap-1.5 text-sm text-[#DB1B0C] mb-3">
-                ESG Commitment{' '}
+                We Care{' '}
                 <svg
                   width="13"
                   height="13"
@@ -101,17 +86,31 @@ export default function SustainabilityPage() {
                 </svg>
               </span>
               <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[var(--fipl-heading)] mb-4">
-                Environment, Social, and Governance (ESG)
+                We Care
               </h2>
+              <p className="text-[var(--fipl-body)] leading-relaxed text-base mb-4">
+                FIPL is conscious of the environment within which we operate, and we ensure that as
+                a socially responsible company, we embark on some community development projects
+                within our host communities to benefit the host community residents.
+              </p>
               <p className="text-[var(--fipl-body)] leading-relaxed text-base">
-                Our ESG framework reflects our promise to operate responsibly and transparently. We
-                are committed to minimising environmental impact, upholding ethical standards in
-                governance, and creating social impact that empowers people and communities.
+                At the heart of our business objectives lies an unwavering commitment to promoting
+                good corporate citizenship across the globe. This is achieved through FIPL
+                Foundation – the vehicle for our Corporate Social Responsibility (CSR) initiatives.
+                The activities of FIPL Foundation are aimed at empowering the communities where we
+                operate in a sustainable, transparent, and efficient manner.
               </p>
             </div>
           </Reveal>
+          <Reveal variant="up" delay={0.1}>
+            <div className="text-center mb-8">
+              <h3 className="text-xl md:text-2xl font-bold text-[var(--fipl-heading)]">
+                Focus Areas
+              </h3>
+            </div>
+          </Reveal>
           <div className="flex flex-col sm:flex-row items-stretch">
-            {esgCards.map((card, i) => (
+            {focusAreas.map((card, i) => (
               <div key={card.title} className="flex flex-1 items-stretch">
                 <Reveal variant="scale" delay={i * 0.15} className="flex-1">
                   <div className="text-center flex flex-col items-center gap-4 fipl-card-hover p-6">
@@ -126,7 +125,7 @@ export default function SustainabilityPage() {
                     <p className="text-[var(--fipl-body)] text-base leading-relaxed">{card.desc}</p>
                   </div>
                 </Reveal>
-                {i < esgCards.length - 1 && (
+                {i < focusAreas.length - 1 && (
                   <div
                     className="hidden sm:block w-px self-stretch flex-shrink-0"
                     style={{
@@ -150,41 +149,20 @@ export default function SustainabilityPage() {
                   Sustainability
                 </h2>
                 <p className="text-[var(--fipl-body)] mb-4 text-base leading-relaxed">
-                  Our operations &amp; maintenance philosophy and strategy has evolved and is
-                  aligned with:
+                  Our operations and maintenance philosophy is driven by efficiency, sustainability,
+                  and continuous improvement. We are committed to reducing carbon and fugitive
+                  emissions while exploring hardware upgrades and combined-cycle integration to
+                  enhance plant performance and reliability. Guided by ethical business practices,
+                  we continue to create shared value for our stakeholders and deliver sustainable
+                  growth.
                 </p>
-                <ul className="space-y-2.5 mb-6">
-                  {[
-                    'Improving efficiency through reducing carbon emissions',
-                    'Reducing fugitive emissions',
-                    'Explore hardware upgrade options, combine-cycle integration',
-                    'Maintained Ethical Practices that has fostered shared growth for us and our stakeholders',
-                  ].map((item) => (
-                    <li
-                      key={item}
-                      className="flex items-start gap-2.5 text-sm text-[var(--fipl-body)]"
-                    >
-                      <span className="text-[#DB1B0C] font-bold shrink-0 mt-0.5">→</span> {item}
-                    </li>
-                  ))}
-                </ul>
-                <p className="text-[var(--fipl-body)] mb-3 text-base">
-                  We have built strong relationships with host communities in areas of our operation
-                  by:
+                <p className="text-[var(--fipl-body)] text-base leading-relaxed">
+                  We have also built strong partnerships with our host communities through impactful
+                  development initiatives, including skills acquisition programs, scholarship
+                  schemes, and STEM education. By promoting local human capital integration and
+                  community participation in our projects, we continue to foster inclusive growth
+                  and long-term social impact.
                 </p>
-                <ul className="space-y-2.5">
-                  {[
-                    'Executing community development and high impact projects ranging from skills acquisitions, scholarship programs etc.',
-                    'Local human capital integration in projects, participation in special programs e.g STEM',
-                  ].map((item) => (
-                    <li
-                      key={item}
-                      className="flex items-start gap-2.5 text-sm text-[var(--fipl-body)]"
-                    >
-                      <span className="text-[#DB1B0C] font-bold shrink-0 mt-0.5">→</span> {item}
-                    </li>
-                  ))}
-                </ul>
               </div>
             </Reveal>
             <Reveal variant="fade" delay={0.15} duration={0.9}>
@@ -192,14 +170,14 @@ export default function SustainabilityPage() {
                 <div
                   className="absolute inset-0 bg-cover bg-center"
                   style={{
-                    backgroundImage: `url('${IMAGES.sustainability.nature}')`,
+                    backgroundImage: `url('${IMAGES.sustainability.governance}')`,
                     clipPath: 'polygon(10% 0, 100% 0, 100% 50%, 22% 50%)',
                   }}
                 />
                 <div
                   className="absolute inset-0 bg-cover bg-center"
                   style={{
-                    backgroundImage: `url('${IMAGES.sustainability.nature}')`,
+                    backgroundImage: `url('${IMAGES.sustainability.governance}')`,
                     clipPath: 'polygon(11% 50%, 100% 50%, 100% 100%, 22% 100%)',
                   }}
                 />
@@ -275,14 +253,14 @@ export default function SustainabilityPage() {
                 <div
                   className="absolute inset-0 bg-cover bg-center"
                   style={{
-                    backgroundImage: `url('${IMAGES.sustainability.governance}')`,
+                    backgroundImage: `url('${IMAGES.sustainability.nature}')`,
                     clipPath: 'polygon(10% 0, 100% 0, 100% 50%, 22% 50%)',
                   }}
                 />
                 <div
                   className="absolute inset-0 bg-cover bg-center"
                   style={{
-                    backgroundImage: `url('${IMAGES.sustainability.governance}')`,
+                    backgroundImage: `url('${IMAGES.sustainability.nature}')`,
                     clipPath: 'polygon(11% 50%, 100% 50%, 100% 100%, 22% 100%)',
                   }}
                 />
@@ -307,53 +285,25 @@ export default function SustainabilityPage() {
             </Reveal>
             <Reveal variant="right" delay={0.15}>
               <div>
-                <span className="inline-flex items-center gap-1.5 text-sm text-[#DB1B0C] mb-3">
-                  Our SDG Goals{' '}
-                  <svg
-                    width="13"
-                    height="13"
-                    viewBox="0 0 13 13"
-                    fill="currentColor"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path d="M7.5 0.5L1 7.5h5L4.5 12.5l7.5-8h-5z" />
-                  </svg>
-                </span>
                 <h2 className="text-2xl md:text-3xl font-bold text-[var(--fipl-heading)] mb-4">
-                  Our Commitment to SDG Goals
+                  Our SDG Goals
                 </h2>
-                <p className="text-[var(--fipl-body)] leading-relaxed mb-6 text-base">
-                  We align our projects with the United Nations Sustainable Development Goals
-                  (SDGs), ensuring our impact contributes to building a better future for all.
+                <p className="text-[var(--fipl-body)] leading-relaxed mb-4 text-base">
+                  At FIPL, sustainability is embedded in the way we operate. We align our business
+                  and community development initiatives with the United Nations Sustainable
+                  Development Goals (SDGs), ensuring our actions create lasting value for people,
+                  communities, and the environment.
                 </p>
-                <div className="space-y-4">
-                  {[
-                    {
-                      title: 'Affordable & Clean Energy',
-                      desc: 'We align our projects with the United Nations Sustainable Development Goals, ensuring our impact contributes to building a better future for all.',
-                    },
-                    {
-                      title: 'Quality Education',
-                      desc: 'Supporting educational programs, STEM initiatives, and scholarships to empower the next generation of leaders.',
-                    },
-                    {
-                      title: 'Decent Work & Economic Growth',
-                      desc: 'Creating employment opportunities and fostering economic development in communities where we operate.',
-                    },
-                  ].map(({ title, desc }, i) => (
-                    <Reveal key={title} variant="up" delay={i * 0.1}>
-                      <div className="flex items-start gap-3">
-                        <Check />
-                        <div>
-                          <h4 className="font-semibold text-[var(--fipl-heading)] text-sm mb-1">
-                            {title}
-                          </h4>
-                          <p className="text-sm text-[var(--fipl-body)] leading-relaxed">{desc}</p>
-                        </div>
-                      </div>
-                    </Reveal>
-                  ))}
-                </div>
+                <p className="text-[var(--fipl-body)] leading-relaxed text-base">
+                  Our commitment to affordable and clean energy is reflected in our efforts to
+                  provide reliable and efficient power while continuously improving environmental
+                  performance. Through our investment in quality education, we support STEM
+                  programs, scholarships, and learning opportunities that equip young people with
+                  the knowledge and skills to shape the future. We also promote decent work and
+                  economic growth by creating employment opportunities, developing local talent, and
+                  supporting initiatives that stimulate inclusive and sustainable economic
+                  development within our host communities.
+                </p>
               </div>
             </Reveal>
           </div>
@@ -392,46 +342,94 @@ export default function SustainabilityPage() {
                   <br />
                   Building Futures
                 </h2>
-                <p className="text-[var(--fipl-body)] leading-relaxed mb-6 text-base">
-                  We partner with our host communities to drive development initiatives in health,
-                  education, empowerment, and infrastructure.
+                <p className="text-[var(--fipl-body)] leading-relaxed mb-4 text-base">
+                  We partner with our host communities to drive sustainable development through
+                  impactful initiatives in health, education, empowerment, and infrastructure.
                 </p>
-                <div className="space-y-4 mb-8">
-                  {[
-                    {
-                      title: 'Rural Electrification Projects',
-                      desc: 'Providing electricity to underserved communities, enabling education, healthcare, and economic activities after dark.',
-                    },
-                    {
-                      title: 'STEM Education & Scholarship Programs',
-                      desc: 'Supporting students with scholarships, mentorship programs, and hands-on learning opportunities in science and technology.',
-                    },
-                    {
-                      title: 'Healthcare Access Programs',
-                      desc: 'Organizing medical camps, health screenings, and awareness campaigns to improve community health outcomes.',
-                    },
-                    {
-                      title: 'Youth Empowerment Initiatives',
-                      desc: 'Providing vocational training, skill development workshops, and entrepreneurial support for young people.',
-                    },
-                  ].map(({ title, desc }) => (
-                    <div key={title} className="flex items-start gap-3">
-                      <Check />
-                      <div>
-                        <h4 className="font-semibold text-[var(--fipl-heading)] text-sm mb-1">
-                          {title}
-                        </h4>
-                        <p className="text-sm text-[var(--fipl-body)] leading-relaxed">{desc}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <Link
-                  href="#"
-                  className="btn-shimmer inline-flex items-center gap-2 bg-[#DB1B0C] text-white font-semibold px-6 py-3 rounded-md hover:bg-[#b81508] transition-colors text-sm"
+                <p className="text-[var(--fipl-body)] leading-relaxed mb-4 text-base">
+                  Our community investment programmes include rural electrification projects that
+                  bring reliable electricity to underserved communities, enabling education,
+                  healthcare, and economic activities. We also support STEM education through
+                  scholarships, mentorship, and hands-on learning opportunities that inspire the
+                  next generation of innovators.
+                </p>
+                <p className="text-[var(--fipl-body)] leading-relaxed mb-6 text-base">
+                  Our healthcare access programmes provide medical outreach, health screenings, and
+                  awareness campaigns to improve community well-being, while our youth empowerment
+                  initiatives equip young people with vocational skills, entrepreneurship training,
+                  and the resources needed to build sustainable livelihoods.
+                </p>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-12 md:py-16 lg:py-20">
+        <div className="max-w-[1280px] mx-auto px-6">
+          <Reveal variant="up">
+            <div className="text-center max-w-2xl mx-auto mb-12">
+              <span className="inline-flex items-center gap-1.5 text-sm text-[#DB1B0C] mb-3">
+                Our Projects{' '}
+                <svg
+                  width="13"
+                  height="13"
+                  viewBox="0 0 13 13"
+                  fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  Export CSR Report ↗
-                </Link>
+                  <path d="M7.5 0.5L1 7.5h5L4.5 12.5l7.5-8h-5z" />
+                </svg>
+              </span>
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[var(--fipl-heading)]">
+                Making a Difference in Our Host Communities
+              </h2>
+            </div>
+          </Reveal>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
+            <Reveal variant="left">
+              <div>
+                <div className="relative w-full h-[240px] md:h-[300px] rounded-2xl overflow-hidden mb-6">
+                  <Image
+                    src={IMAGES.sustainability.projectHealth}
+                    alt="FIPL Health Fair for Obrikom Community"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <h3 className="text-xl font-bold text-[var(--fipl-heading)] mb-3">
+                  Health Fair (Health is Wealth)
+                </h3>
+                <p className="text-[var(--fipl-body)] leading-relaxed text-base">
+                  We organized a health fair for the Obrikom Community residents tagged
+                  &ldquo;Health is Wealth&rdquo;, where up to 200 people were given basic health
+                  education, vital signs checks, eye checks and mild corrective lenses, anti-malaria
+                  treatments for pregnant women, and mosquito nets to use at home.
+                </p>
+              </div>
+            </Reveal>
+
+            <Reveal variant="right" delay={0.1}>
+              <div>
+                <div className="relative w-full h-[240px] md:h-[300px] rounded-2xl overflow-hidden mb-6">
+                  <Image
+                    src={IMAGES.sustainability.projectSchool}
+                    alt="Renovation of UBE Primary School, Obrikom"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <h3 className="text-xl font-bold text-[var(--fipl-heading)] mb-3">
+                  Renovation of UBE Primary School
+                </h3>
+                <p className="text-[var(--fipl-body)] leading-relaxed text-base">
+                  The UBE Primary School Obrikom, which was previously in a deplorable state with
+                  open roofs, broken doors and windows, no boards, and broken furniture, and no
+                  toilets, received an intervention from FIPL as the entire school block was
+                  renovated, furniture was provided, and a block of six toilets was built and
+                  commissioned in January 2019.
+                </p>
               </div>
             </Reveal>
           </div>

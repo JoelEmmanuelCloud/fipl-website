@@ -16,12 +16,12 @@ export function SplashScreen() {
 
   useEffect(() => {
     if (!textReady) return
-    const t1 = setTimeout(() => setLifting(true), 3200)
+    const t1 = setTimeout(() => setLifting(true), 4600)
     const t2 = setTimeout(() => {
       setDone(true)
       markSplashDone()
       window.dispatchEvent(new CustomEvent(SPLASH_EVENT))
-    }, 3550)
+    }, 4950)
     return () => {
       clearTimeout(t1)
       clearTimeout(t2)

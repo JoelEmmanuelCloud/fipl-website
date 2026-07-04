@@ -15,11 +15,10 @@ interface Slide {
 
 const SLIDES: Slide[] = [
   {
-    type: 'video',
-    src: '/videos/hero.mp4',
-    poster: '/images/home/backgroundimage.png',
-    line1: ['Committed', 'to'],
-    line2: ['Efficient', 'Power', 'Generation'],
+    type: 'image',
+    src: '/images/hero/FIPL6318.jpg',
+    line1: ['Our', 'People'],
+    line2: ['Power', 'the', 'Nation'],
   },
   {
     type: 'image',
@@ -28,10 +27,11 @@ const SLIDES: Slide[] = [
     line2: ["Nigeria's", 'Energy', 'Future'],
   },
   {
-    type: 'image',
-    src: '/images/hero/FIPL6318.jpg',
-    line1: ['Our', 'People'],
-    line2: ['Power', 'the', 'Nation'],
+    type: 'video',
+    src: '/videos/hero.mp4',
+    poster: '/images/home/backgroundimage.png',
+    line1: ['Committed', 'to'],
+    line2: ['Efficient', 'and', 'Sustainable', 'Power', 'Generation'],
   },
 ]
 

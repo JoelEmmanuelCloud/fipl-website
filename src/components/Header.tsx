@@ -14,13 +14,8 @@ type NavItem =
   | { label: string; href?: never; children: Child[] }
 
 const NAV: NavItem[] = [
-  {
-    label: 'Company',
-    children: [
-      { href: '/about', label: 'About Us' },
-      { href: '/sustainability', label: 'Sustainability & CSR' },
-    ],
-  },
+  { label: 'About Us', href: '/about' },
+  { label: 'Sustainability & CSR', href: '/sustainability' },
   {
     label: 'Power Plants',
     children: [

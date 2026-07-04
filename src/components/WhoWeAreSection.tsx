@@ -86,55 +86,40 @@ export function WhoWeAreSection() {
                 color: 'var(--fipl-body)',
               }}
             >
-              First Independent Power Limited (FIPL) is a leader in responsible and sustainable
-              power generation in Nigeria. Strategically located in Rivers State, we operate four
-              cutting-edge gas turbine power plants in Trans-Amadi Port-Harcourt, Afam, Omoku, and
-              Eleme, with a combined capacity of 541MW.
+              First Independent Power Company Limited (FIPL) is a leading Nigerian power generation
+              company committed to delivering reliable, responsible, and sustainable energy. We
+              operate four gas turbine power plants in Trans-Amadi, Afam, Omoku, and Eleme, with a
+              combined installed capacity of 541MW.
             </p>
             <p
+              className="mb-3"
               style={{
                 fontFamily: 'Arial, sans-serif',
                 fontWeight: 400,
                 fontSize: '14px',
                 lineHeight: '22px',
                 color: 'var(--fipl-body)',
-                marginBottom: '8px',
               }}
             >
-              FIPL operates four world-class thermal power plants Such as:
+              Driven by operational excellence, engineering innovation, and continuous investment in
+              our assets and people, we provide dependable power that supports industries,
+              businesses, and communities while contributing to Nigeria&apos;s energy future.
             </p>
-            <div
-              className="grid grid-cols-2 gap-x-6 sm:gap-x-12 lg:gap-x-24 gap-y-1 mb-5"
-              style={{ width: 'fit-content' }}
+            <p
+              className="mb-5"
+              style={{
+                fontFamily: 'Arial, sans-serif',
+                fontWeight: 400,
+                fontSize: '14px',
+                lineHeight: '22px',
+                color: 'var(--fipl-body)',
+              }}
             >
-              {['Afam Plant', 'Omoku Plant', 'Trans-Amadi Plant', 'Eleme Plant'].map((plant) => (
-                <div key={plant} className="flex items-center gap-1.5">
-                  <span
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      width: '16px',
-                      height: '16px',
-                      borderRadius: '0 8px 8px 0',
-                      backgroundColor: '#E03027',
-                      flexShrink: 0,
-                    }}
-                  >
-                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                      <path
-                        d="M2 5L4 7L8 3"
-                        stroke="white"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </span>
-                  <span className="text-[12px] text-[var(--fipl-heading)] font-bold">{plant}</span>
-                </div>
-              ))}
-            </div>
+              Since assuming operations in 2014, FIPL has consistently restored critical power
+              assets, expanded generation capacity, and strengthened infrastructure to enhance grid
+              reliability. Our commitment to excellence and sustainability continues to drive
+              lasting value for our stakeholders and the nation&apos;s power sector.
+            </p>
             <Link
               href="/about"
               className="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white font-semibold text-[12px] px-4 py-2 rounded-md transition-colors"

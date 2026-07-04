@@ -12,21 +12,6 @@ export function AboutHero() {
       overlay="linear-gradient(to right, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.72) 38%, rgba(0,0,0,0.22) 75%, rgba(0,0,0,0.08) 100%)"
       renderContent={(ready) => (
         <div className="w-full max-w-[1280px] mx-auto px-6 pb-14 md:pb-20 lg:pb-24">
-          {ready && (
-            <p
-              style={{
-                fontSize: 11,
-                fontWeight: 700,
-                letterSpacing: '0.28em',
-                textTransform: 'uppercase',
-                color: '#DB1B0C',
-                marginBottom: 16,
-                animation: 'heroBadgeIn 0.5s ease 0.3s both',
-              }}
-            >
-              Since 2006
-            </p>
-          )}
           <h1
             style={{
               fontFamily: 'Arial',
@@ -475,6 +460,7 @@ export function RegisterHero() {
       minHeight="min-h-[420px] md:min-h-[520px] lg:min-h-[640px]"
       contentAlign="center"
       overlay="linear-gradient(to bottom, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.22) 45%, rgba(0,0,0,0.72) 100%)"
+      imagePosition="center top"
       renderContent={(ready) => (
         <div className="w-full max-w-[1280px] mx-auto px-6 py-16 text-center">
           {ready && (

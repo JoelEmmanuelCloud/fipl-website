@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PowerPlantsHero } from '@/components/PageHeroes'
+import { PlantSlideshow } from '@/components/PlantSlideshow'
 import { Reveal } from '@/components/Reveal'
 import WorkProcessSection from '@/components/WorkProcessSection'
 import { plants } from '@/lib/plants-data'
@@ -64,24 +65,7 @@ export default function PowerPlantsPage() {
                 className={`flex flex-col ${plant.imageLeft ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-0 bg-[var(--fipl-bg)] shadow-sm border border-[var(--fipl-border)] fipl-card-hover`}
               >
                 <div className="lg:w-[420px] shrink-0 overflow-hidden relative h-[240px] md:h-[280px] lg:self-stretch">
-                  <div
-                    className="absolute inset-0 bg-cover bg-center"
-                    style={{
-                      backgroundImage: `url('${plant.image}')`,
-                      clipPath: plant.imageLeft
-                        ? 'polygon(0 0, 90% 0, 78% 50%, 0 50%)'
-                        : 'polygon(10% 0, 100% 0, 100% 50%, 22% 50%)',
-                    }}
-                  />
-                  <div
-                    className="absolute inset-0 bg-cover bg-center"
-                    style={{
-                      backgroundImage: `url('${plant.image}')`,
-                      clipPath: plant.imageLeft
-                        ? 'polygon(0 50%, 89% 50%, 78% 100%, 0 100%)'
-                        : 'polygon(11% 50%, 100% 50%, 100% 100%, 22% 100%)',
-                    }}
-                  />
+                  <PlantSlideshow images={plant.images} imageLeft={plant.imageLeft} />
                 </div>
                 <div className="flex-1 p-7 md:p-8 lg:p-10 flex flex-col justify-center">
                   <h3 className="text-xl md:text-2xl font-bold text-[#D97300] mb-4">

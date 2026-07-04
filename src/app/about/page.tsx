@@ -15,21 +15,9 @@ export const dynamic = 'force-dynamic'
 const fallbackTestimonials = [
   {
     quote:
-      "FIPL's commitment to reliable power generation has been transformational. Their professionalism and expertise ensure seamless project execution every time.",
-    name: 'Sarah L.',
-    role: 'Lahore, Pakistan',
-  },
-  {
-    quote:
-      'Working with FIPL over the years has shown us what true dedication to power reliability looks like. They have consistently exceeded expectations on every project.',
-    name: 'James T.',
-    role: 'CEO of Red Button',
-  },
-  {
-    quote:
-      'The level of technical expertise and customer focus that FIPL brings to the table is unmatched in the Nigerian power sector. A truly world-class organisation.',
-    name: 'Chukwudi O.',
-    role: 'Director, Lagos Industries Ltd',
+      'Working at FIPL has been quite exciting and greatly insightful. My enthusiasm for growth has been met with overwhelming support and opportunities to develop in more ways than I could ever imagine.',
+    name: 'Godwin Emmanuel',
+    role: 'FIPL Staff',
   },
 ]
 
@@ -145,18 +133,22 @@ export default async function AboutPage() {
                   Our Purpose, Our Promise
                 </h2>
                 <p className="text-[var(--fipl-body)] leading-[1.75] text-base mb-4">
-                  First Independent Power Limited is a company in the business of power generation
-                  in Nigeria located in Rivers State. We own and operate 4 gas turbine power plants
-                  within Rivers State located in Trans-Amadi Port-Harcourt, Afam, Omoku and Eleme.
+                  First Independent Power Company Limited (FIPL) is a leading Nigerian power
+                  generation company committed to delivering reliable, responsible, and sustainable
+                  energy. We operate four gas turbine power plants in Trans-Amadi, Afam, Omoku, and
+                  Eleme, with a combined installed capacity of 541MW.
+                </p>
+                <p className="text-[var(--fipl-body)] leading-[1.75] text-base mb-4">
+                  Driven by operational excellence, engineering innovation, and continuous
+                  investment in our assets and people, we provide dependable power that supports
+                  industries, businesses, and communities while contributing to Nigeria&apos;s
+                  energy future.
                 </p>
                 <p className="text-[var(--fipl-body)] leading-[1.75] text-base">
-                  FIPL currently has a combined installed capacity of 541MW. FIPL has a vision of
-                  being the largest and most stable power generation company in the South-South
-                  region of the country while contributing significantly the power grid of Nigeria
-                  and thereby catalyzing the socio-economic growth of the nation. In FIPL, we have a
-                  very dynamic team of intelligent, driven and innovative young men and women who
-                  continually work to ensure that the vision of the business is progressively
-                  realized.
+                  Since assuming operations in 2014, FIPL has consistently restored critical power
+                  assets, expanded generation capacity, and strengthened infrastructure to enhance
+                  grid reliability. Our commitment to excellence and sustainability continues to
+                  drive lasting value for our stakeholders and the nation&apos;s power sector.
                 </p>
               </div>
             </Reveal>
@@ -253,18 +245,6 @@ export default async function AboutPage() {
         <div className="relative z-10 max-w-[1280px] mx-auto px-6">
           <Reveal variant="up">
             <div className="flex flex-col items-center text-center mb-12">
-              <span className="inline-flex items-center gap-2 text-sm text-white mb-3">
-                Our Values{' '}
-                <svg
-                  width="13"
-                  height="13"
-                  viewBox="0 0 13 13"
-                  fill="currentColor"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M7.5 0.5L1 7.5h5L4.5 12.5l7.5-8h-5z" />
-                </svg>
-              </span>
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Our Core Values</h2>
               <p className="text-white/80 text-base leading-relaxed max-w-[685px]">
                 We are driven by a deep commitment to integrity, ensuring transparency and
@@ -341,18 +321,6 @@ export default async function AboutPage() {
         <div className="max-w-[1280px] mx-auto px-6">
           <Reveal variant="up">
             <div className="flex flex-col items-center text-center mb-10">
-              <span className="inline-flex items-center gap-2 text-sm text-[#DB1B0C] mb-3">
-                More{' '}
-                <svg
-                  width="13"
-                  height="13"
-                  viewBox="0 0 13 13"
-                  fill="currentColor"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M7.5 0.5L1 7.5h5L4.5 12.5l7.5-8h-5z" />
-                </svg>
-              </span>
               <h2 className="text-3xl md:text-4xl font-bold text-[var(--fipl-heading)] mb-3">
                 Meet The CEO
               </h2>
@@ -457,10 +425,7 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      <TestimonialsBlock
-        testimonials={testimonials}
-        heading={'What Our Stakeholders\nSay About Us.'}
-      />
+      <TestimonialsBlock testimonials={testimonials} heading={'Our FIPL Story.'} />
     </div>
   )
 }

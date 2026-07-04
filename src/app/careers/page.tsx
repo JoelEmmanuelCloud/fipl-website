@@ -10,22 +10,6 @@ import type { JobRow } from '@/lib/database.types'
 export const metadata: Metadata = { title: 'Careers' }
 export const revalidate = 300
 
-function Check() {
-  return (
-    <svg
-      className="w-5 h-5 text-[#DB1B0C] shrink-0 mt-0.5"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M20 6L9 17l-5-5" />
-    </svg>
-  )
-}
-
 const evpCards = [
   {
     icon: (
@@ -148,7 +132,7 @@ export default async function CareersPage() {
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <Reveal variant="clip" duration={0.9}>
-              <div className="relative w-full h-[320px] md:h-[400px] lg:h-[460px]">
+              <div className="relative w-full h-[320px] md:h-[400px] lg:h-[460px] rounded-2xl overflow-hidden">
                 <Image src={IMAGES.careers.team} alt="FIPL team" fill className="object-cover" />
               </div>
             </Reveal>
@@ -167,36 +151,21 @@ export default async function CareersPage() {
                   </svg>
                 </span>
                 <h2 className="text-2xl md:text-3xl font-bold text-[var(--fipl-heading)] mb-4">
-                  What Drives Us
+                  Working in FIPL
                 </h2>
                 <p className="text-[var(--fipl-body)] leading-relaxed mb-6 text-base">
-                  Our work is guided by values that define who we are and how we operate — ensuring
-                  that every watt of energy we generate comes from a place of excellence and
-                  responsibility.
+                  FIPL is an active, can-do environment built on a diverse team united by a common
+                  goal of productivity, solutions, and results, with opportunities open to anyone
+                  who can deliver regardless of gender. We work with our people individually and
+                  collectively, offering challenging roles and opportunities for growth as they
+                  contribute to our corporate objectives.
                 </p>
-                <div className="space-y-4">
-                  {[
-                    { title: 'Integrity', desc: "We do what's right, always." },
-                    { title: 'Innovation', desc: 'We challenge limits and improve continuously.' },
-                    { title: 'Safety', desc: 'We put people and environment first.' },
-                    {
-                      title: 'Collaboration & Sustainability',
-                      desc: 'We achieve more, together and are committed to lasting impact.',
-                    },
-                  ].map(({ title, desc }, i) => (
-                    <Reveal key={title} variant="up" delay={i * 0.08}>
-                      <div className="flex items-start gap-3">
-                        <Check />
-                        <div>
-                          <span className="font-semibold text-[var(--fipl-heading)] text-sm">
-                            {title}
-                          </span>
-                          <p className="text-sm text-[var(--fipl-body)] mt-0.5">{desc}</p>
-                        </div>
-                      </div>
-                    </Reveal>
-                  ))}
-                </div>
+                <p className="text-[var(--fipl-body)] leading-relaxed text-base">
+                  Our values guide everything we do: integrity means we do what&apos;s right,
+                  always; innovation drives us to challenge limits and improve continuously; safety
+                  puts people and the environment first; and collaboration and sustainability mean
+                  we achieve more together and remain committed to lasting impact.
+                </p>
               </div>
             </Reveal>
           </div>

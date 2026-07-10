@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
+import { ArrowUpRight } from 'lucide-react'
 import { FaqSection } from '@/components/FaqSection'
 import { CounterStats } from '@/components/CounterStats'
 import { WhoWeAreSection } from '@/components/WhoWeAreSection'
@@ -309,7 +310,7 @@ export default function HomePage() {
               href="/sustainability"
               className="inline-flex items-center gap-2 bg-white text-primary font-semibold text-sm px-6 py-3 rounded-md hover:bg-gray-100 transition-colors"
             >
-              Learn More ↗
+              Learn More <ArrowUpRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
@@ -366,7 +367,7 @@ export default function HomePage() {
                 href="/careers"
                 className="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white font-semibold text-sm px-6 py-3 rounded-md transition-colors"
               >
-                Explore Opportunities ↗
+                Explore Opportunities <ArrowUpRight className="w-4 h-4" />
               </Link>
               <p className="text-[var(--fipl-body)] text-[13px] leading-relaxed mt-6">
                 <span className="font-semibold text-[var(--fipl-heading)]">Head Office:</span> 70/72

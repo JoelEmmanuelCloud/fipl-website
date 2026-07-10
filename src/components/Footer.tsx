@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { ArrowUpRight } from 'lucide-react'
 import { Logo } from '@/components/Logo'
 import PushSubscribeButton from '@/components/PushSubscribeButton'
 import { plants as powerPlants } from '@/lib/plants-data'
@@ -104,7 +105,7 @@ export function Footer() {
                       className="text-[13.5px] transition-colors flex items-center gap-1.5 group"
                       style={{ color: '#888' }}
                     >
-                      <span style={{ color: '#F47820', fontSize: '11px' }}>↗</span>
+                      <ArrowUpRight style={{ color: '#F47820' }} className="w-3 h-3 shrink-0" />
                       <span className="group-hover:text-accent transition-colors">{label}</span>
                     </a>
                   ) : (
@@ -113,7 +114,7 @@ export function Footer() {
                       className="text-[13.5px] transition-colors flex items-center gap-1.5 group"
                       style={{ color: '#888' }}
                     >
-                      <span style={{ color: '#F47820', fontSize: '11px' }}>↗</span>
+                      <ArrowUpRight style={{ color: '#F47820' }} className="w-3 h-3 shrink-0" />
                       <span className="group-hover:text-accent transition-colors">{label}</span>
                     </Link>
                   )}
@@ -134,7 +135,7 @@ export function Footer() {
                     className="text-[13.5px] transition-colors flex items-center gap-1.5 group"
                     style={{ color: '#888' }}
                   >
-                    <span style={{ color: '#F47820', fontSize: '11px' }}>↗</span>
+                    <ArrowUpRight style={{ color: '#F47820' }} className="w-3 h-3 shrink-0" />
                     <span className="group-hover:text-accent transition-colors">{label}</span>
                   </Link>
                 </li>

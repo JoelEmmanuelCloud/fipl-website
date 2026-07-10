@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { ArrowUpRight } from 'lucide-react'
 
 export function ContactForm() {
   const [form, setForm] = useState({
@@ -142,17 +143,21 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={status === 'loading'}
-        className={`w-full py-3.5 rounded-lg font-semibold text-sm transition-colors disabled:opacity-60 ${
+        className={`w-full py-3.5 rounded-lg font-semibold text-sm transition-colors disabled:opacity-60 inline-flex items-center justify-center gap-1.5 ${
           status === 'done'
             ? 'bg-green-600 text-white'
             : 'bg-primary text-white hover:bg-primary-dark'
         }`}
       >
-        {status === 'loading'
-          ? 'Sending…'
-          : status === 'done'
-            ? '✓ Message Sent!'
-            : 'Submit Enquiry ↗'}
+        {status === 'loading' ? (
+          'Sending…'
+        ) : status === 'done' ? (
+          '✓ Message Sent!'
+        ) : (
+          <>
+            Submit Enquiry <ArrowUpRight className="w-4 h-4" />
+          </>
+        )}
       </button>
     </form>
   )
@@ -190,11 +195,19 @@ export function SubscribeForm() {
       <button
         type="submit"
         disabled={status === 'loading'}
-        className={`px-5 py-3 rounded-lg font-semibold text-sm shrink-0 transition-colors disabled:opacity-60 ${
+        className={`px-5 py-3 rounded-lg font-semibold text-sm shrink-0 transition-colors disabled:opacity-60 inline-flex items-center justify-center gap-1.5 ${
           status === 'done' ? 'bg-green-500 text-white' : 'bg-white text-primary hover:bg-gray-100'
         }`}
       >
-        {status === 'loading' ? '…' : status === 'done' ? '✓ Subscribed!' : 'Subscribe ↗'}
+        {status === 'loading' ? (
+          '…'
+        ) : status === 'done' ? (
+          '✓ Subscribed!'
+        ) : (
+          <>
+            Subscribe <ArrowUpRight className="w-4 h-4" />
+          </>
+        )}
       </button>
     </form>
   )

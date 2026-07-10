@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
+import { ArrowUpRight } from 'lucide-react'
 import { CareersHero } from '@/components/PageHeroes'
 import { Reveal } from '@/components/Reveal'
 import { IMAGES } from '@/lib/images'
@@ -268,7 +269,7 @@ export default async function CareersPage() {
                       href={`/apply/${job.id}`}
                       className="inline-flex items-center gap-1 text-sm font-semibold text-[#DB1B0C] mt-4 hover:gap-2 transition-all"
                     >
-                      Apply Now ↗
+                      Apply Now <ArrowUpRight className="w-3.5 h-3.5" />
                     </Link>
                   </div>
                 </Reveal>

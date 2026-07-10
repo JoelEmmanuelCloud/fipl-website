@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
+import { ArrowUpRight } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { IMAGES } from '@/lib/images'
 
@@ -124,7 +125,7 @@ export function WhoWeAreSection() {
               href="/about"
               className="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white font-semibold text-[12px] px-4 py-2 rounded-md transition-colors"
             >
-              Learn More About Us ↗
+              Learn More About Us <ArrowUpRight className="w-3.5 h-3.5" />
             </Link>
           </div>
         </div>

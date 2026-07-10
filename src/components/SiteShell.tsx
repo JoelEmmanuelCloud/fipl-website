@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { ChatWidget } from '@/components/ChatWidget'
+import { ScrollToTopButton } from '@/components/ScrollToTopButton'
 import AlertBanner from '@/components/AlertBanner'
 import ServiceWorkerRegistrar from '@/components/ServiceWorkerRegistrar'
 
@@ -42,6 +43,7 @@ export default function SiteShell({
       <Header />
       <main>{children}</main>
       <Footer />
+      <ScrollToTopButton />
       <ChatWidget />
     </>
   )

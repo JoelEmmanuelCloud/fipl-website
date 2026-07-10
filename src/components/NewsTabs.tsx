@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
+import { ArrowUpRight } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import type { NewsArticle } from '@/lib/news'
 import type { MediaKitRow } from '@/lib/database.types'
@@ -189,7 +190,7 @@ export function NewsTabs({ articles, mediaKits }: Props) {
                             href={`/news/${article.slug}`}
                             className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#DB1B0C] hover:gap-3 transition-all"
                           >
-                            Reading More ↗
+                            Reading More <ArrowUpRight className="w-3.5 h-3.5" />
                           </Link>
                         </div>
                       </article>
@@ -403,15 +404,6 @@ export function NewsTabs({ articles, mediaKits }: Props) {
                 <span className="text-sm font-semibold text-[var(--fipl-heading)] truncate">
                   {selected.title}
                 </span>
-                <a
-                  href={selected.file_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  download
-                  className="shrink-0 inline-flex items-center gap-1 text-xs font-semibold text-[#DB1B0C] hover:underline"
-                >
-                  Download ↗
-                </a>
               </div>
             </div>
           </div>

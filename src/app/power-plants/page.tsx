@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { ArrowUpRight } from 'lucide-react'
 import { PowerPlantsHero } from '@/components/PageHeroes'
 import { PlantSlideshow } from '@/components/PlantSlideshow'
 import { Reveal } from '@/components/Reveal'
@@ -44,7 +45,7 @@ export default function PowerPlantsPage() {
                 href={`/power-plants/${plants[0].slug}`}
                 className="btn-shimmer inline-flex items-center gap-2 bg-[#DB1B0C] text-white font-semibold px-6 py-3 rounded-md hover:bg-[#b81508] transition-colors text-sm whitespace-nowrap"
               >
-                Explore All Plants ↗
+                Explore All Plants <ArrowUpRight className="w-4 h-4" />
               </Link>
             </Reveal>
           </div>
@@ -81,7 +82,7 @@ export default function PowerPlantsPage() {
                     {plant.supplier}
                   </p>
                   <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#DB1B0C]">
-                    View Plant Details ↗
+                    View Plant Details <ArrowUpRight className="w-4 h-4" />
                   </span>
                 </div>
               </Link>

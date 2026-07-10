@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { ArrowUpRight } from 'lucide-react'
 import { getAllArticles } from '@/lib/news'
 import { NewsTabs } from '@/components/NewsTabs'
 import { NewsHero } from '@/components/PageHeroes'
@@ -90,7 +91,7 @@ export default async function NewsPage() {
                         href={`/news/${article.slug}`}
                         className="font-semibold text-[#DB1B0C] inline-flex items-center gap-1 hover:gap-2 transition-all text-xs"
                       >
-                        Read More ↗
+                        Read More <ArrowUpRight className="w-3.5 h-3.5" />
                       </Link>
                     </div>
                   </div>

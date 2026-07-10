@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
+import { ArrowUpRight } from 'lucide-react'
 import { Accordion } from '@/components/Accordion'
 import { RegisterHero } from '@/components/PageHeroes'
 import { Reveal } from '@/components/Reveal'
@@ -127,7 +128,7 @@ export default function RegisterPage() {
                   href="#registration"
                   className="btn-shimmer inline-flex items-center gap-2 bg-[#DB1B0C] text-white font-semibold px-7 py-3.5 rounded-md hover:bg-[#b81508] transition-colors"
                 >
-                  Register With Us ↗
+                  Register With Us <ArrowUpRight className="w-4 h-4" />
                 </Link>
               </div>
             </Reveal>
@@ -177,7 +178,7 @@ export default function RegisterPage() {
                 href="#"
                 className="btn-shimmer inline-flex items-center gap-2 bg-[#DB1B0C] text-white font-semibold px-7 py-3.5 rounded-md hover:bg-[#b81508] transition-colors"
               >
-                Click Here to View Vendor Registration Category ↗
+                Click Here to View Vendor Registration Category <ArrowUpRight className="w-4 h-4" />
               </Link>
             </div>
           </Reveal>
@@ -301,7 +302,7 @@ export default function RegisterPage() {
                   href="mailto:vendorsupport@fipl-ng.com"
                   className="btn-shimmer inline-flex items-center gap-2 bg-white text-[#DB1B0C] font-bold px-8 py-3.5 rounded-md hover:bg-gray-100 transition-colors mb-3"
                 >
-                  Click to Register with Us ↗
+                  Click to Register with Us <ArrowUpRight className="w-4 h-4" />
                 </Link>
                 <p className="text-white/80 text-sm">Signed: Management</p>
               </div>

@@ -2,6 +2,7 @@
 
 import { useState, useRef } from 'react'
 import Link from 'next/link'
+import { ArrowUpRight } from 'lucide-react'
 
 const inputCls =
   'w-full border border-[var(--fipl-border)] rounded-lg px-4 py-3 text-sm bg-[var(--fipl-bg)] text-[var(--fipl-heading)] placeholder:text-[var(--fipl-body)] focus:outline-none focus:border-[#DB1B0C] focus:ring-2 focus:ring-[#DB1B0C]/10'
@@ -251,10 +252,16 @@ export default function ApplicationForm({ jobId, jobTitle }: { jobId: string; jo
       <button
         type="submit"
         disabled={status === 'loading'}
-        className="w-full py-3.5 rounded-lg font-semibold text-sm text-white transition-colors disabled:opacity-60 hover:opacity-90"
+        className="w-full py-3.5 rounded-lg font-semibold text-sm text-white transition-colors disabled:opacity-60 hover:opacity-90 inline-flex items-center justify-center gap-1.5"
         style={{ background: 'linear-gradient(135deg, #DB1B0C 0%, #D97300 100%)' }}
       >
-        {status === 'loading' ? 'Submitting…' : 'Submit Application ↗'}
+        {status === 'loading' ? (
+          'Submitting…'
+        ) : (
+          <>
+            Submit Application <ArrowUpRight className="w-4 h-4" />
+          </>
+        )}
       </button>
     </form>
   )

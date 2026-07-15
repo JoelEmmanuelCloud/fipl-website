@@ -13,6 +13,9 @@ import type { HomeContent, PageContentRow } from '@/lib/database.types'
 
 export const metadata: Metadata = {
   title: 'Home – First Independent Power Limited (FIPL)',
+  description:
+    'FIPL operates four world-class gas turbine power plants in Trans-Amadi, Afam, Omoku, and Eleme with a combined installed capacity of 541MW, delivering reliable, sustainable energy across Nigeria.',
+  alternates: { canonical: '/' },
 }
 export const dynamic = 'force-dynamic'
 

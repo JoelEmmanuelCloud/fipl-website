@@ -8,7 +8,12 @@ import { createServerClient } from '@/lib/supabase-server'
 import { defaultCareersContent } from '@/lib/page-content-defaults'
 import type { CareersContent, JobRow, PageContentRow } from '@/lib/database.types'
 
-export const metadata: Metadata = { title: 'Careers' }
+export const metadata: Metadata = {
+  title: 'Careers',
+  description:
+    'Join FIPL and help power Nigeria’s industrial and economic growth. Explore open roles across engineering, plant operations, administration, and management.',
+  alternates: { canonical: '/careers' },
+}
 export const dynamic = 'force-dynamic'
 
 const evpIcons = [

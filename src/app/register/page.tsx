@@ -10,7 +10,12 @@ import { createServerClient } from '@/lib/supabase-server'
 import { defaultRegisterContent } from '@/lib/page-content-defaults'
 import type { PageContentRow, RegisterContent } from '@/lib/database.types'
 
-export const metadata: Metadata = { title: 'Register With Us – Vendor Programme' }
+export const metadata: Metadata = {
+  title: 'Register With Us – Vendor Programme',
+  description:
+    'Register as a FIPL vendor through our Dun & Bradstreet-backed programme. Learn the requirements, required documents, and how to obtain a DUNS Number.',
+  alternates: { canonical: '/register' },
+}
 export const dynamic = 'force-dynamic'
 
 const accordionItems = [

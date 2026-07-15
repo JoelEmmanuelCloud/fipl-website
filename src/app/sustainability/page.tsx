@@ -7,7 +7,12 @@ import { createServerClient } from '@/lib/supabase-server'
 import { defaultSustainabilityContent } from '@/lib/page-content-defaults'
 import type { PageContentRow, SustainabilityContent } from '@/lib/database.types'
 
-export const metadata: Metadata = { title: 'Sustainability & CSR' }
+export const metadata: Metadata = {
+  title: 'Sustainability & CSR',
+  description:
+    'FIPL’s commitment to health, education, and environmental protection through the FIPL Foundation, host community development, and alignment with the UN Sustainable Development Goals.',
+  alternates: { canonical: '/sustainability' },
+}
 export const dynamic = 'force-dynamic'
 
 const focusIcons = [

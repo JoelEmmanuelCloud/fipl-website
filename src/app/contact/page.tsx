@@ -8,7 +8,12 @@ import { createServerClient } from '@/lib/supabase-server'
 import { defaultContactContent } from '@/lib/page-content-defaults'
 import type { ContactContent, PageContentRow } from '@/lib/database.types'
 
-export const metadata: Metadata = { title: 'Contact Us' }
+export const metadata: Metadata = {
+  title: 'Contact Us',
+  description:
+    'Get in touch with First Independent Power Limited (FIPL) — head office address, phone, email, and business hours for our Port Harcourt office.',
+  alternates: { canonical: '/contact' },
+}
 export const dynamic = 'force-dynamic'
 
 const contactIcons = [

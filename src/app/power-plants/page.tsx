@@ -10,7 +10,12 @@ import { createServerClient } from '@/lib/supabase-server'
 import { defaultPowerPlantsContent } from '@/lib/page-content-defaults'
 import type { PageContentRow, PowerPlantsContent } from '@/lib/database.types'
 
-export const metadata: Metadata = { title: 'Power Plants & Operations' }
+export const metadata: Metadata = {
+  title: 'Power Plants & Operations',
+  description:
+    'FIPL owns and operates four gas turbine power plants in Trans-Amadi, Afam, Omoku, and Eleme, Rivers State, with a combined installed capacity of 541MW.',
+  alternates: { canonical: '/power-plants' },
+}
 export const dynamic = 'force-dynamic'
 
 export default async function PowerPlantsPage() {

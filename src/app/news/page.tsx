@@ -10,7 +10,12 @@ import { createServerClient } from '@/lib/supabase-server'
 import { defaultNewsContent } from '@/lib/page-content-defaults'
 import type { MediaKitRow, NewsContent, PageContentRow } from '@/lib/database.types'
 
-export const metadata: Metadata = { title: 'News & Media' }
+export const metadata: Metadata = {
+  title: 'News & Media',
+  description:
+    'The latest news, updates, and industry insights from First Independent Power Limited (FIPL), plus downloadable media kits.',
+  alternates: { canonical: '/news' },
+}
 export const dynamic = 'force-dynamic'
 
 const insightImages = [IMAGES.news.insight1, IMAGES.news.insight2, IMAGES.news.insight3]

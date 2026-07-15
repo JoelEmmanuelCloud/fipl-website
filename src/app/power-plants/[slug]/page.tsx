@@ -14,12 +14,31 @@ export function generateStaticParams() {
   return plants.map((plant) => ({ slug: plant.slug }))
 }
 
+function truncate(text: string, maxLength: number): string {
+  if (text.length <= maxLength) return text
+  return text.slice(0, text.lastIndexOf(' ', maxLength)) + '…'
+}
+
 export function generateMetadata({ params }: Props): Metadata {
   const plant = getPlantBySlug(params.slug)
   if (!plant) return { title: 'Power Plant' }
+  const description = truncate(plant.desc, 160)
   return {
     title: `${plant.name} | Power Plants`,
-    description: plant.desc,
+    description,
+    alternates: { canonical: `/power-plants/${plant.slug}` },
+    openGraph: {
+      type: 'website',
+      title: `${plant.name} | FIPL Power Plants`,
+      description,
+      images: [{ url: plant.images[0], width: 1200, height: 675, alt: plant.name }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${plant.name} | FIPL Power Plants`,
+      description,
+      images: [plant.images[0]],
+    },
   }
 }
 

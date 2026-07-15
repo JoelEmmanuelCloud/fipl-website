@@ -10,7 +10,12 @@ import { createServerClient } from '@/lib/supabase-server'
 import { defaultAboutContent } from '@/lib/page-content-defaults'
 import type { AboutContent, PageContentRow, TestimonialRow } from '@/lib/database.types'
 
-export const metadata: Metadata = { title: 'About Us' }
+export const metadata: Metadata = {
+  title: 'About Us',
+  description:
+    'Learn about First Independent Power Limited (FIPL) — our purpose, vision, mission, core values, and a decade of restoring and expanding power generation in Rivers State, Nigeria.',
+  alternates: { canonical: '/about' },
+}
 export const dynamic = 'force-dynamic'
 
 const fallbackTestimonials = [

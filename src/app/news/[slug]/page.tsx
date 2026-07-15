@@ -13,7 +13,24 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const article = await getArticleBySlug(params.slug)
   if (!article) return {}
-  return { title: article.title, description: article.excerpt }
+  return {
+    title: article.title,
+    description: article.excerpt,
+    alternates: { canonical: `/news/${article.slug}` },
+    openGraph: {
+      type: 'article',
+      title: article.title,
+      description: article.excerpt,
+      publishedTime: article.dateISO,
+      images: [{ url: article.image, width: 1200, height: 675, alt: article.title }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: article.title,
+      description: article.excerpt,
+      images: [article.image],
+    },
+  }
 }
 
 export default async function ArticlePage({ params }: Props) {
@@ -25,8 +42,32 @@ export default async function ArticlePage({ params }: Props) {
 
   const isExternalImage = article.image.startsWith('http')
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://fipl-ng.com'
+  const articleJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'NewsArticle',
+    headline: article.title,
+    description: article.excerpt,
+    image: [article.image],
+    datePublished: article.dateISO,
+    author: { '@type': 'Organization', name: 'First Independent Power Limited' },
+    publisher: {
+      '@type': 'Organization',
+      name: 'First Independent Power Limited',
+      logo: {
+        '@type': 'ImageObject',
+        url: `${siteUrl}/images/sustainability/logoimage.png`,
+      },
+    },
+    mainEntityOfPage: `${siteUrl}/news/${article.slug}`,
+  }
+
   return (
     <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
       <section
         className="relative min-h-[420px] flex items-end bg-gray-800 bg-no-repeat bg-cover bg-center pb-12"
         style={{ backgroundImage: `url('${article.image}')` }}

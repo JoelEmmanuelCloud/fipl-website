@@ -1,6 +1,11 @@
+import type { Metadata } from 'next'
 import { cookies } from 'next/headers'
 import { verifySession } from '@/lib/admin-auth'
 import AdminShell from './AdminShell'
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+}
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const cookieStore = cookies()

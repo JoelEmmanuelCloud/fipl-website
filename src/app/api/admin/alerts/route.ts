@@ -1,12 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createServerClient } from '@/lib/supabase-server'
-
-function isAuthorized(req: NextRequest): boolean {
-  return req.cookies.get('admin_token')?.value === process.env.ADMIN_TOKEN
-}
+import { requireRole } from '@/lib/admin-auth'
 
 export async function GET(req: NextRequest) {
-  if (!isAuthorized(req)) {
+  if (!requireRole(req, ['owner', 'content'])) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
   const supabase = createServerClient()
@@ -19,7 +16,7 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  if (!isAuthorized(req)) {
+  if (!requireRole(req, ['owner', 'content'])) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
   const { title, message, type } = await req.json()

@@ -1,10 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { revalidatePath } from 'next/cache'
 import { createServerClient } from '@/lib/supabase-server'
-
-function isAuthorized(req: NextRequest): boolean {
-  return req.cookies.get('admin_token')?.value === process.env.ADMIN_TOKEN
-}
+import { requireRole } from '@/lib/admin-auth'
 
 const EDITABLE_FIELDS = [
   'slug',
@@ -19,7 +16,7 @@ const EDITABLE_FIELDS = [
 ] as const
 
 export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
-  if (!isAuthorized(req)) {
+  if (!requireRole(req, ['owner', 'content'])) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
   const body = await req.json()
@@ -48,7 +45,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
 }
 
 export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
-  if (!isAuthorized(req)) {
+  if (!requireRole(req, ['owner', 'content'])) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
   const supabase = createServerClient()

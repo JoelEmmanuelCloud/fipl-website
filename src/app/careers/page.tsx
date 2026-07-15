@@ -4,76 +4,75 @@ import Image from 'next/image'
 import { ArrowUpRight } from 'lucide-react'
 import { CareersHero } from '@/components/PageHeroes'
 import { Reveal } from '@/components/Reveal'
-import { IMAGES } from '@/lib/images'
 import { createServerClient } from '@/lib/supabase-server'
-import type { JobRow } from '@/lib/database.types'
+import { defaultCareersContent } from '@/lib/page-content-defaults'
+import type { CareersContent, JobRow, PageContentRow } from '@/lib/database.types'
 
 export const metadata: Metadata = { title: 'Careers' }
-export const revalidate = 300
+export const dynamic = 'force-dynamic'
 
-const evpCards = [
-  {
-    icon: (
-      <svg
-        className="w-8 h-8 text-[#DB1B0C]"
-        viewBox="0 0 32 32"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-      >
-        <path d="M16 4l4 8h8l-6.5 5 2.5 8.5L16 21l-8 4.5 2.5-8.5L4 12h8z" strokeLinejoin="round" />
-      </svg>
-    ),
-    title: 'Growth Opportunity',
-    desc: 'We prioritise career development through our performance-based promotions, robust learning interventions, talent mobility programs, cross-functional projects and higher-level responsibilities that align with personal career objectives.',
-  },
-  {
-    icon: (
-      <svg
-        className="w-8 h-8 text-[#DB1B0C]"
-        viewBox="0 0 32 32"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-      >
-        <path d="M16 28C22.627 28 28 22.627 28 16S22.627 4 16 4 4 9.373 4 16s5.373 12 12 12z" />
-        <path d="M12 12c1-3 7-3 8 0s-2 5-4 6c-2-1-5-3-4-6z" />
-      </svg>
-    ),
-    title: 'Culture',
-    desc: 'Our inclusive culture is imbued with family values, originality, mutual respect, integrity, open and honest communication.',
-  },
-  {
-    icon: (
-      <svg
-        className="w-8 h-8 text-[#DB1B0C]"
-        viewBox="0 0 32 32"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-      >
-        <circle cx="10" cy="12" r="5" />
-        <circle cx="22" cy="12" r="5" />
-        <path
-          d="M2 28c0-4.418 3.582-8 8-8M22 20c4.418 0 8 3.582 8 8M16 20c3.314 0 6 2.686 6 6"
-          strokeLinecap="round"
-        />
-      </svg>
-    ),
-    title: 'Collaboration',
-    desc: 'Networking is a fundamental aspect of our cross-functional collaborations. We offer our employees a strong sense of purpose and support them with the resources to succeed.',
-  },
+const evpIcons = [
+  <svg
+    key="growth"
+    className="w-8 h-8 text-[#DB1B0C]"
+    viewBox="0 0 32 32"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.5"
+  >
+    <path d="M16 4l4 8h8l-6.5 5 2.5 8.5L16 21l-8 4.5 2.5-8.5L4 12h8z" strokeLinejoin="round" />
+  </svg>,
+  <svg
+    key="culture"
+    className="w-8 h-8 text-[#DB1B0C]"
+    viewBox="0 0 32 32"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.5"
+  >
+    <path d="M16 28C22.627 28 28 22.627 28 16S22.627 4 16 4 4 9.373 4 16s5.373 12 12 12z" />
+    <path d="M12 12c1-3 7-3 8 0s-2 5-4 6c-2-1-5-3-4-6z" />
+  </svg>,
+  <svg
+    key="collaboration"
+    className="w-8 h-8 text-[#DB1B0C]"
+    viewBox="0 0 32 32"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.5"
+  >
+    <circle cx="10" cy="12" r="5" />
+    <circle cx="22" cy="12" r="5" />
+    <path
+      d="M2 28c0-4.418 3.582-8 8-8M22 20c4.418 0 8 3.582 8 8M16 20c3.314 0 6 2.686 6 6"
+      strokeLinecap="round"
+    />
+  </svg>,
 ]
 
 export default async function CareersPage() {
   const supabase = createServerClient()
-  const { data } = await supabase
-    .from('jobs')
-    .select('*')
-    .eq('is_active', true)
-    .order('posted_date', { ascending: false })
+  const [{ data }, { data: pageRow }] = await Promise.all([
+    supabase
+      .from('jobs')
+      .select('*')
+      .eq('is_active', true)
+      .order('posted_date', { ascending: false }),
+    supabase.from('page_content').select('content').eq('page', 'careers').maybeSingle(),
+  ])
 
   const jobs = (data ?? []) as JobRow[]
+  const stored = (pageRow as Pick<PageContentRow, 'content'> | null)?.content as
+    | Partial<CareersContent>
+    | undefined
+  const whyJoin = stored?.whyJoin ?? defaultCareersContent.whyJoin
+  const evpCards = (stored?.evpCards ?? defaultCareersContent.evpCards).map((c, i) => ({
+    ...c,
+    icon: evpIcons[i],
+  }))
+  const workingInFipl = stored?.workingInFipl ?? defaultCareersContent.workingInFipl
+  const talentPool = stored?.talentPool ?? defaultCareersContent.talentPool
+  const ctaCard = stored?.ctaCard ?? defaultCareersContent.ctaCard
 
   return (
     <div className="page-bolt-bg">
@@ -97,15 +96,11 @@ export default async function CareersPage() {
                   </svg>
                 </span>
                 <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[var(--fipl-heading)]">
-                  Why Join FIPL
+                  {whyJoin.heading}
                 </h2>
               </div>
               <p className="text-[var(--fipl-body)] leading-relaxed text-base max-w-5xl mx-auto">
-                First Independent Power Limited is passionate about supporting employees&apos;
-                aspirations by providing limitless opportunities, a growth enabling and
-                collaborative work environment. Our human capital strategies are centred around
-                staff engagement, motivation, productivity and job satisfaction. At FIPL, our EVP
-                tagline is Growth-Opportunity. Culture. Collaboration.
+                {whyJoin.body}
               </p>
             </div>
           </Reveal>
@@ -134,7 +129,7 @@ export default async function CareersPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <Reveal variant="clip" duration={0.9}>
               <div className="relative w-full h-[320px] md:h-[400px] lg:h-[460px] rounded-2xl overflow-hidden">
-                <Image src={IMAGES.careers.team} alt="FIPL team" fill className="object-cover" />
+                <Image src={workingInFipl.image} alt="FIPL team" fill className="object-cover" />
               </div>
             </Reveal>
             <Reveal variant="right" delay={0.15}>
@@ -152,20 +147,13 @@ export default async function CareersPage() {
                   </svg>
                 </span>
                 <h2 className="text-2xl md:text-3xl font-bold text-[var(--fipl-heading)] mb-4">
-                  Working in FIPL
+                  {workingInFipl.heading}
                 </h2>
                 <p className="text-[var(--fipl-body)] leading-relaxed mb-6 text-base">
-                  FIPL is an active, can-do environment built on a diverse team united by a common
-                  goal of productivity, solutions, and results, with opportunities open to anyone
-                  who can deliver regardless of gender. We work with our people individually and
-                  collectively, offering challenging roles and opportunities for growth as they
-                  contribute to our corporate objectives.
+                  {workingInFipl.body1}
                 </p>
                 <p className="text-[var(--fipl-body)] leading-relaxed text-base">
-                  Our values guide everything we do: integrity means we do what&apos;s right,
-                  always; innovation drives us to challenge limits and improve continuously; safety
-                  puts people and the environment first; and collaboration and sustainability mean
-                  we achieve more together and remain committed to lasting impact.
+                  {workingInFipl.body2}
                 </p>
               </div>
             </Reveal>
@@ -190,11 +178,9 @@ export default async function CareersPage() {
                 </svg>
               </span>
               <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[var(--fipl-heading)] mb-4">
-                We are committed to lasting impact
+                {talentPool.heading}
               </h2>
-              <p className="text-[var(--fipl-body)] leading-relaxed text-base">
-                Explore roles across engineering, plant operations, administration, and management.
-              </p>
+              <p className="text-[var(--fipl-body)] leading-relaxed text-base">{talentPool.body}</p>
             </div>
           </Reveal>
 
@@ -284,12 +270,9 @@ export default async function CareersPage() {
                 style={{ background: 'linear-gradient(269deg, #D97300 1%, #DB1B0C 100%)' }}
               >
                 <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">
-                  Don&apos;t See Your Role?
+                  {ctaCard.heading}
                 </h3>
-                <p className="text-white/85 mb-8 max-w-lg mx-auto text-base">
-                  We&apos;re always looking for talented individuals. Join our talent pool and
-                  we&apos;ll reach out when opportunities match your skills.
-                </p>
+                <p className="text-white/85 mb-8 max-w-lg mx-auto text-base">{ctaCard.body}</p>
                 <span className="inline-flex items-center gap-2 bg-white/15 border border-white/30 text-white font-semibold px-7 py-3.5 rounded-md cursor-default select-none">
                   <svg
                     className="w-4 h-4"

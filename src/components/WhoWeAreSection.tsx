@@ -1,14 +1,20 @@
 'use client'
 
+import { Fragment } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowUpRight } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
-import { IMAGES } from '@/lib/images'
+import type { HomeContent } from '@/lib/database.types'
 
-export function WhoWeAreSection() {
+interface Props {
+  content: HomeContent['whoWeAre']
+}
+
+export function WhoWeAreSection({ content }: Props) {
   const ref = useRef<HTMLDivElement>(null)
   const [visible, setVisible] = useState(false)
+  const headingLines = content.heading.split('\n')
 
   useEffect(() => {
     const el = ref.current
@@ -51,7 +57,7 @@ export function WhoWeAreSection() {
             />
             <div className="relative h-[300px] md:h-[340px] lg:h-[380px] rounded-xl overflow-hidden">
               <Image
-                src={IMAGES.home.whoWeAre}
+                src={content.image}
                 alt="FIPL workers inside a power plant"
                 fill
                 className="object-cover object-bottom"
@@ -67,12 +73,15 @@ export function WhoWeAreSection() {
             }}
           >
             <p className="text-[10px] font-bold uppercase tracking-widest text-primary mb-2">
-              Who We Are ⚡
+              {content.eyebrow}
             </p>
             <h2 className="text-[18px] md:text-[20px] lg:text-[22px] font-bold text-[var(--fipl-heading)] leading-snug mb-3">
-              A Trusted Energy Partner
-              <br />
-              Shaping Nigeria&apos;s Future.
+              {headingLines.map((line, i) => (
+                <Fragment key={i}>
+                  {line}
+                  {i < headingLines.length - 1 && <br />}
+                </Fragment>
+              ))}
             </h2>
             <p
               className="mb-3"
@@ -87,10 +96,7 @@ export function WhoWeAreSection() {
                 color: 'var(--fipl-body)',
               }}
             >
-              First Independent Power Company Limited (FIPL) is a leading Nigerian power generation
-              company committed to delivering reliable, responsible, and sustainable energy. We
-              operate four gas turbine power plants in Trans-Amadi, Afam, Omoku, and Eleme, with a
-              combined installed capacity of 541MW.
+              {content.body1}
             </p>
             <p
               className="mb-3"
@@ -102,9 +108,7 @@ export function WhoWeAreSection() {
                 color: 'var(--fipl-body)',
               }}
             >
-              Driven by operational excellence, engineering innovation, and continuous investment in
-              our assets and people, we provide dependable power that supports industries,
-              businesses, and communities while contributing to Nigeria&apos;s energy future.
+              {content.body2}
             </p>
             <p
               className="mb-5"
@@ -116,16 +120,13 @@ export function WhoWeAreSection() {
                 color: 'var(--fipl-body)',
               }}
             >
-              Since assuming operations in 2014, FIPL has consistently restored critical power
-              assets, expanded generation capacity, and strengthened infrastructure to enhance grid
-              reliability. Our commitment to excellence and sustainability continues to drive
-              lasting value for our stakeholders and the nation&apos;s power sector.
+              {content.body3}
             </p>
             <Link
               href="/about"
               className="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white font-semibold text-[12px] px-4 py-2 rounded-md transition-colors"
             >
-              Learn More About Us <ArrowUpRight className="w-3.5 h-3.5" />
+              {content.ctaLabel} <ArrowUpRight className="w-3.5 h-3.5" />
             </Link>
           </div>
         </div>

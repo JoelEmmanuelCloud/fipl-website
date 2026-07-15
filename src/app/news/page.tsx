@@ -7,7 +7,8 @@ import { NewsHero } from '@/components/PageHeroes'
 import { Reveal } from '@/components/Reveal'
 import { IMAGES } from '@/lib/images'
 import { createServerClient } from '@/lib/supabase-server'
-import type { MediaKitRow } from '@/lib/database.types'
+import { defaultNewsContent } from '@/lib/page-content-defaults'
+import type { MediaKitRow, NewsContent, PageContentRow } from '@/lib/database.types'
 
 export const metadata: Metadata = { title: 'News & Media' }
 export const dynamic = 'force-dynamic'
@@ -15,13 +16,18 @@ export const dynamic = 'force-dynamic'
 const insightImages = [IMAGES.news.insight1, IMAGES.news.insight2, IMAGES.news.insight3]
 
 export default async function NewsPage() {
-  const [articles, mediaResult] = await Promise.all([
+  const [articles, mediaResult, pageResult] = await Promise.all([
     getAllArticles(),
     createServerClient().from('media_kits').select('*').order('created_at', { ascending: false }),
+    createServerClient().from('page_content').select('content').eq('page', 'news').maybeSingle(),
   ])
 
   const mediaKits = (mediaResult.data ?? []) as MediaKitRow[]
   const insights = articles.slice(0, 3)
+  const stored = (pageResult.data as Pick<PageContentRow, 'content'> | null)?.content as
+    | Partial<NewsContent>
+    | undefined
+  const insightsSection = stored?.insights ?? defaultNewsContent.insights
 
   return (
     <div className="page-bolt-bg">
@@ -34,7 +40,7 @@ export default async function NewsPage() {
           <Reveal variant="up">
             <div className="text-center max-w-xl mx-auto mb-10">
               <span className="inline-flex items-center gap-1.5 text-sm text-[#DB1B0C] mb-3">
-                News &amp; Blog{' '}
+                {insightsSection.eyebrow}{' '}
                 <svg
                   width="13"
                   height="13"
@@ -46,7 +52,7 @@ export default async function NewsPage() {
                 </svg>
               </span>
               <h2 className="text-2xl md:text-3xl font-bold text-[var(--fipl-heading)]">
-                Insights, Updates &amp; Industry News
+                {insightsSection.heading}
               </h2>
             </div>
           </Reveal>

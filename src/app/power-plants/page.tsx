@@ -6,10 +6,27 @@ import { PlantSlideshow } from '@/components/PlantSlideshow'
 import { Reveal } from '@/components/Reveal'
 import WorkProcessSection from '@/components/WorkProcessSection'
 import { plants } from '@/lib/plants-data'
+import { createServerClient } from '@/lib/supabase-server'
+import { defaultPowerPlantsContent } from '@/lib/page-content-defaults'
+import type { PageContentRow, PowerPlantsContent } from '@/lib/database.types'
 
 export const metadata: Metadata = { title: 'Power Plants & Operations' }
+export const dynamic = 'force-dynamic'
 
-export default function PowerPlantsPage() {
+export default async function PowerPlantsPage() {
+  const supabase = createServerClient()
+  const { data } = await supabase
+    .from('page_content')
+    .select('content')
+    .eq('page', 'power-plants')
+    .maybeSingle()
+
+  const stored = (data as Pick<PageContentRow, 'content'> | null)?.content as
+    | Partial<PowerPlantsContent>
+    | undefined
+  const intro = stored?.intro ?? defaultPowerPlantsContent.intro
+  const workProcess = stored?.workProcess ?? defaultPowerPlantsContent.workProcess
+
   return (
     <div className="page-bolt-bg">
       <PowerPlantsHero />
@@ -31,21 +48,16 @@ export default function PowerPlantsPage() {
                 </svg>
               </span>
               <h2 className="text-2xl md:text-3xl font-bold text-[var(--fipl-heading)] mb-4">
-                Our Power Plants
+                {intro.heading}
               </h2>
-              <p className="text-[var(--fipl-body)] leading-relaxed text-base">
-                First Independent Power Limited is a company in the business of power generation in
-                Nigeria located in Rivers State. We own and operate 4 gas turbine power plants
-                within Rivers State located in Trans-Amadi Port-Harcourt, Afam, Omoku and Eleme.
-                FIPL currently has a combined installed capacity of 541MW.
-              </p>
+              <p className="text-[var(--fipl-body)] leading-relaxed text-base">{intro.body}</p>
             </Reveal>
             <Reveal variant="fade" delay={0.2} className="shrink-0">
               <Link
                 href={`/power-plants/${plants[0].slug}`}
                 className="btn-shimmer inline-flex items-center gap-2 bg-[#DB1B0C] text-white font-semibold px-6 py-3 rounded-md hover:bg-[#b81508] transition-colors text-sm whitespace-nowrap"
               >
-                Explore All Plants <ArrowUpRight className="w-4 h-4" />
+                {intro.ctaLabel} <ArrowUpRight className="w-4 h-4" />
               </Link>
             </Reveal>
           </div>
@@ -108,11 +120,10 @@ export default function PowerPlantsPage() {
                 </svg>
               </span>
               <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[var(--fipl-heading)] mb-4">
-                How We Power Nigeria
+                {workProcess.heading}
               </h2>
               <p className="text-[var(--fipl-body)] leading-relaxed text-base">
-                Our approach ensures every project is executed with precision, safety, and
-                sustainability at the core.
+                {workProcess.body}
               </p>
             </div>
           </Reveal>

@@ -106,9 +106,20 @@ create table if not exists testimonials (
 alter table testimonials enable row level security;
 create policy "Public read active testimonials" on testimonials for select using (is_active = true);
 
+create table if not exists page_content (
+  page text primary key,
+  content jsonb not null default '{}',
+  updated_at timestamptz default now()
+);
+
+alter table page_content enable row level security;
+create policy "Public read page content" on page_content for select using (true);
+
 insert into storage.buckets (id, name, public) values ('news-images', 'news-images', true) on conflict do nothing;
 insert into storage.buckets (id, name, public) values ('media-kit-assets', 'media-kit-assets', true) on conflict do nothing;
 insert into storage.buckets (id, name, public) values ('job-applications', 'job-applications', true) on conflict do nothing;
+insert into storage.buckets (id, name, public) values ('page-content', 'page-content', true) on conflict do nothing;
 create policy "Public read news images" on storage.objects for select using (bucket_id = 'news-images');
 create policy "Public read media assets" on storage.objects for select using (bucket_id = 'media-kit-assets');
 create policy "Public read job application files" on storage.objects for select using (bucket_id = 'job-applications');
+create policy "Public read page content assets" on storage.objects for select using (bucket_id = 'page-content');

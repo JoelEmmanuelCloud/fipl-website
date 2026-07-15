@@ -27,6 +27,9 @@ yarn-error.log*
 .env*.local
 .env
 
+# contains plaintext admin passwords
+docs/admin-dashboard-guide.md
+
 # vercel
 .vercel
 

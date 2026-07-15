@@ -7,7 +7,8 @@ import { AboutHero } from '@/components/PageHeroes'
 import { Reveal } from '@/components/Reveal'
 import { IMAGES } from '@/lib/images'
 import { createServerClient } from '@/lib/supabase-server'
-import type { TestimonialRow } from '@/lib/database.types'
+import { defaultAboutContent } from '@/lib/page-content-defaults'
+import type { AboutContent, PageContentRow, TestimonialRow } from '@/lib/database.types'
 
 export const metadata: Metadata = { title: 'About Us' }
 export const dynamic = 'force-dynamic'
@@ -21,88 +22,108 @@ const fallbackTestimonials = [
   },
 ]
 
-const values = [
-  {
-    icon: (
-      <svg viewBox="0 0 40 40" className="w-10 h-10" fill="none" stroke="white" strokeWidth="2">
-        <path d="M20 4L6 9v9c0 9 6 17 14 19 8-2 14-10 14-19V9L20 4z" strokeLinejoin="round" />
-        <path d="M14 20l4 4 8-8" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
-    title: 'Safety',
-    desc: 'We ensure safety in all areas of our operation.',
-  },
-  {
-    icon: (
-      <svg viewBox="0 0 40 40" className="w-10 h-10" fill="none" stroke="white" strokeWidth="2">
-        <rect x="8" y="14" width="24" height="18" rx="2" />
-        <path d="M14 14v-4a6 6 0 0112 0v4" strokeLinecap="round" />
-        <circle cx="20" cy="23" r="3" />
-      </svg>
-    ),
-    title: 'Professionalism',
-    desc: 'To deliver on all our endeavors with the highest level of professionalism.',
-  },
-  {
-    icon: (
-      <svg viewBox="0 0 40 40" className="w-10 h-10" fill="none" stroke="white" strokeWidth="2">
-        <path d="M20 4c-4 6-10 10-10 16a10 10 0 0020 0c0-6-6-10-10-16z" strokeLinejoin="round" />
-        <line x1="20" y1="20" x2="20" y2="28" strokeLinecap="round" />
-      </svg>
-    ),
-    title: 'Integrity',
-    desc: 'To maintain integrity through discipline in all our actions.',
-  },
-  {
-    icon: (
-      <svg viewBox="0 0 40 40" className="w-10 h-10" fill="none" stroke="white" strokeWidth="2">
-        <path d="M8 28c2-4 6-5 10-6l2-1 2 1c4 1 8 2 10 6" strokeLinecap="round" />
-        <circle cx="20" cy="14" r="6" />
-        <path d="M6 36c1-2 3-3 5-3M34 36c-1-2-3-3-5-3" strokeLinecap="round" />
-        <circle cx="9" cy="22" r="4" />
-        <circle cx="31" cy="22" r="4" />
-      </svg>
-    ),
-    title: 'Commitment to Stakeholders',
-    desc: 'To maintain our commitment to delivering quality service to all our stakeholders.',
-  },
-  {
-    icon: (
-      <svg viewBox="0 0 40 40" className="w-10 h-10" fill="none" stroke="white" strokeWidth="2">
-        <path
-          d="M20 6c-8 4-10 12-6 18 2 3 5 5 6 10 1-5 4-7 6-10 4-6 2-14-6-18z"
-          strokeLinejoin="round"
-        />
-        <line x1="20" y1="14" x2="20" y2="34" strokeLinecap="round" strokeDasharray="2 3" />
-      </svg>
-    ),
-    title: 'Environmental Consciousness',
-    desc: 'To ensure all our operations are environmentally friendly.',
-  },
-  {
-    icon: (
-      <svg viewBox="0 0 40 40" className="w-10 h-10" fill="none" stroke="white" strokeWidth="2">
-        <rect x="12" y="6" width="16" height="28" rx="4" />
-        <path d="M12 20h16" strokeLinecap="round" />
-        <path d="M18 28h4" strokeLinecap="round" />
-        <path d="M16 3h8" strokeLinecap="round" />
-      </svg>
-    ),
-    title: 'Sustainability',
-    desc: 'To ensure our operations drive long-term environmental and social sustainability.',
-  },
+const valueIcons = [
+  <svg
+    key="safety"
+    viewBox="0 0 40 40"
+    className="w-10 h-10"
+    fill="none"
+    stroke="white"
+    strokeWidth="2"
+  >
+    <path d="M20 4L6 9v9c0 9 6 17 14 19 8-2 14-10 14-19V9L20 4z" strokeLinejoin="round" />
+    <path d="M14 20l4 4 8-8" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>,
+  <svg
+    key="professionalism"
+    viewBox="0 0 40 40"
+    className="w-10 h-10"
+    fill="none"
+    stroke="white"
+    strokeWidth="2"
+  >
+    <rect x="8" y="14" width="24" height="18" rx="2" />
+    <path d="M14 14v-4a6 6 0 0112 0v4" strokeLinecap="round" />
+    <circle cx="20" cy="23" r="3" />
+  </svg>,
+  <svg
+    key="integrity"
+    viewBox="0 0 40 40"
+    className="w-10 h-10"
+    fill="none"
+    stroke="white"
+    strokeWidth="2"
+  >
+    <path d="M20 4c-4 6-10 10-10 16a10 10 0 0020 0c0-6-6-10-10-16z" strokeLinejoin="round" />
+    <line x1="20" y1="20" x2="20" y2="28" strokeLinecap="round" />
+  </svg>,
+  <svg
+    key="stakeholders"
+    viewBox="0 0 40 40"
+    className="w-10 h-10"
+    fill="none"
+    stroke="white"
+    strokeWidth="2"
+  >
+    <path d="M8 28c2-4 6-5 10-6l2-1 2 1c4 1 8 2 10 6" strokeLinecap="round" />
+    <circle cx="20" cy="14" r="6" />
+    <path d="M6 36c1-2 3-3 5-3M34 36c-1-2-3-3-5-3" strokeLinecap="round" />
+    <circle cx="9" cy="22" r="4" />
+    <circle cx="31" cy="22" r="4" />
+  </svg>,
+  <svg
+    key="environment"
+    viewBox="0 0 40 40"
+    className="w-10 h-10"
+    fill="none"
+    stroke="white"
+    strokeWidth="2"
+  >
+    <path
+      d="M20 6c-8 4-10 12-6 18 2 3 5 5 6 10 1-5 4-7 6-10 4-6 2-14-6-18z"
+      strokeLinejoin="round"
+    />
+    <line x1="20" y1="14" x2="20" y2="34" strokeLinecap="round" strokeDasharray="2 3" />
+  </svg>,
+  <svg
+    key="sustainability"
+    viewBox="0 0 40 40"
+    className="w-10 h-10"
+    fill="none"
+    stroke="white"
+    strokeWidth="2"
+  >
+    <rect x="12" y="6" width="16" height="28" rx="4" />
+    <path d="M12 20h16" strokeLinecap="round" />
+    <path d="M18 28h4" strokeLinecap="round" />
+    <path d="M16 3h8" strokeLinecap="round" />
+  </svg>,
 ]
 
 export default async function AboutPage() {
   const supabase = createServerClient()
-  const { data } = await supabase
-    .from('testimonials')
-    .select('quote, name, role')
-    .eq('is_active', true)
-    .order('created_at', { ascending: false })
+  const [{ data }, { data: pageRow }] = await Promise.all([
+    supabase
+      .from('testimonials')
+      .select('quote, name, role')
+      .eq('is_active', true)
+      .order('created_at', { ascending: false }),
+    supabase.from('page_content').select('content').eq('page', 'about').maybeSingle(),
+  ])
 
   const rows = (data ?? []) as Pick<TestimonialRow, 'quote' | 'name' | 'role'>[]
   const testimonials = rows.length > 0 ? rows : fallbackTestimonials
+
+  const stored = (pageRow as Pick<PageContentRow, 'content'> | null)?.content as
+    | Partial<AboutContent>
+    | undefined
+  const purpose = stored?.purpose ?? defaultAboutContent.purpose
+  const vision = stored?.vision ?? defaultAboutContent.vision
+  const mission = stored?.mission ?? defaultAboutContent.mission
+  const coreValues = stored?.coreValues ?? defaultAboutContent.coreValues
+  const ceo = stored?.ceo ?? defaultAboutContent.ceo
+  const integrity = stored?.integrity ?? defaultAboutContent.integrity
+  const values = coreValues.map((v, i) => ({ ...v, icon: valueIcons[i] }))
 
   return (
     <div className="page-bolt-bg">
@@ -118,7 +139,7 @@ export default async function AboutPage() {
             <Reveal variant="left">
               <div>
                 <span className="inline-flex items-center gap-1.5 text-sm font-normal text-[#DB1B0C] mb-3">
-                  We are FIPL{' '}
+                  {purpose.eyebrow}{' '}
                   <svg
                     width="13"
                     height="13"
@@ -130,26 +151,15 @@ export default async function AboutPage() {
                   </svg>
                 </span>
                 <h2 className="text-3xl md:text-4xl font-bold text-[var(--fipl-heading)] mb-6">
-                  Our Purpose, Our Promise
+                  {purpose.heading}
                 </h2>
                 <p className="text-[var(--fipl-body)] leading-[1.75] text-base mb-4">
-                  First Independent Power Company Limited (FIPL) is a leading Nigerian power
-                  generation company committed to delivering reliable, responsible, and sustainable
-                  energy. We operate four gas turbine power plants in Trans-Amadi, Afam, Omoku, and
-                  Eleme, with a combined installed capacity of 541MW.
+                  {purpose.body1}
                 </p>
                 <p className="text-[var(--fipl-body)] leading-[1.75] text-base mb-4">
-                  Driven by operational excellence, engineering innovation, and continuous
-                  investment in our assets and people, we provide dependable power that supports
-                  industries, businesses, and communities while contributing to Nigeria&apos;s
-                  energy future.
+                  {purpose.body2}
                 </p>
-                <p className="text-[var(--fipl-body)] leading-[1.75] text-base">
-                  Since assuming operations in 2014, FIPL has consistently restored critical power
-                  assets, expanded generation capacity, and strengthened infrastructure to enhance
-                  grid reliability. Our commitment to excellence and sustainability continues to
-                  drive lasting value for our stakeholders and the nation&apos;s power sector.
-                </p>
+                <p className="text-[var(--fipl-body)] leading-[1.75] text-base">{purpose.body3}</p>
               </div>
             </Reveal>
 
@@ -157,17 +167,17 @@ export default async function AboutPage() {
               <div className="flex flex-row lg:flex-col gap-8 lg:gap-14 lg:pt-20 lg:pl-10 lg:border-l lg:border-[var(--fipl-border)] shrink-0">
                 <div>
                   <div className="flex items-end gap-0.5 text-[38px] sm:text-[48px] lg:text-[56px] font-extrabold leading-none text-[#D97300]">
-                    <AnimatedNumber value={541} />
+                    <AnimatedNumber value={parseInt(purpose.stat1Value, 10) || 0} />
                     <span>+</span>
                   </div>
-                  <p className="text-sm text-[var(--fipl-secondary)] mt-4">MW Installed Capacity</p>
+                  <p className="text-sm text-[var(--fipl-secondary)] mt-4">{purpose.stat1Label}</p>
                 </div>
                 <div>
                   <div className="flex items-end gap-0.5 text-[38px] sm:text-[48px] lg:text-[56px] font-extrabold leading-none text-[#D97300]">
-                    <AnimatedNumber value={10} />
+                    <AnimatedNumber value={parseInt(purpose.stat2Value, 10) || 0} />
                     <span>+</span>
                   </div>
-                  <p className="text-sm text-[var(--fipl-secondary)] mt-4">Years Experiences</p>
+                  <p className="text-sm text-[var(--fipl-secondary)] mt-4">{purpose.stat2Label}</p>
                 </div>
               </div>
             </Reveal>
@@ -192,7 +202,7 @@ export default async function AboutPage() {
                   </svg>
                 ),
                 title: 'Our Vision',
-                body: 'To be the provider of choice wherever energy is consumed.',
+                body: vision.body,
               },
               {
                 icon: (
@@ -211,7 +221,7 @@ export default async function AboutPage() {
                   </svg>
                 ),
                 title: 'Our Mission',
-                body: 'To transform through sustainable and reliable innovation in energy generation, connecting lives and positively impacting livelihoods.',
+                body: mission.body,
               },
             ].map((card, i) => (
               <Reveal key={card.title} variant="scale" delay={i * 0.15}>
@@ -322,11 +332,9 @@ export default async function AboutPage() {
           <Reveal variant="up">
             <div className="flex flex-col items-center text-center mb-10">
               <h2 className="text-3xl md:text-4xl font-bold text-[var(--fipl-heading)] mb-3">
-                Meet The CEO
+                {ceo.heading}
               </h2>
-              <p className="text-[var(--fipl-body)] text-base">
-                A video address from our Chief Executive Officer
-              </p>
+              <p className="text-[var(--fipl-body)] text-base">{ceo.subheading}</p>
             </div>
           </Reveal>
 
@@ -389,23 +397,18 @@ export default async function AboutPage() {
               </div>
               <div className="flex-1">
                 <h3 className="text-xl md:text-2xl font-bold text-white mb-3">
-                  Integrity &amp; Transparency
+                  {integrity.heading}
                 </h3>
-                <p className="text-white/70 text-sm leading-relaxed max-w-2xl">
-                  First Independent Power Company Limited is committed to integrity and
-                  transparency. If you have concerns about unethical conduct, fraud or misconduct,
-                  you can submit a confidential tip-off report anonymously through our independent
-                  reporting platform powered by Deloitte.
-                </p>
+                <p className="text-white/70 text-sm leading-relaxed max-w-2xl">{integrity.body}</p>
               </div>
               <a
-                href="https://tip-offs.deloitte.com.ng/"
+                href={integrity.buttonUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-sm text-white transition-opacity hover:opacity-80"
                 style={{ background: 'linear-gradient(135deg, #DB1B0C, #D97300)' }}
               >
-                Submit a Report
+                {integrity.buttonLabel}
                 <svg
                   viewBox="0 0 24 24"
                   className="w-4 h-4"

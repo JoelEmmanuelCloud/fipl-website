@@ -6,8 +6,12 @@ import { Accordion } from '@/components/Accordion'
 import { RegisterHero } from '@/components/PageHeroes'
 import { Reveal } from '@/components/Reveal'
 import { IMAGES } from '@/lib/images'
+import { createServerClient } from '@/lib/supabase-server'
+import { defaultRegisterContent } from '@/lib/page-content-defaults'
+import type { PageContentRow, RegisterContent } from '@/lib/database.types'
 
 export const metadata: Metadata = { title: 'Register With Us – Vendor Programme' }
+export const dynamic = 'force-dynamic'
 
 const accordionItems = [
   {
@@ -74,7 +78,20 @@ const accordionItems = [
   },
 ]
 
-export default function RegisterPage() {
+export default async function RegisterPage() {
+  const supabase = createServerClient()
+  const { data } = await supabase
+    .from('page_content')
+    .select('content')
+    .eq('page', 'register')
+    .maybeSingle()
+
+  const stored = (data as Pick<PageContentRow, 'content'> | null)?.content as
+    | Partial<RegisterContent>
+    | undefined
+  const intro = stored?.intro ?? defaultRegisterContent.intro
+  const duns = stored?.duns ?? defaultRegisterContent.duns
+
   return (
     <div className="page-bolt-bg">
       <RegisterHero />
@@ -107,28 +124,19 @@ export default function RegisterPage() {
                   </svg>
                 </span>
                 <h2 className="text-2xl md:text-3xl font-bold text-[var(--fipl-heading)] mb-5">
-                  Vendor Registration Program
+                  {intro.heading}
                 </h2>
                 <p className="text-[var(--fipl-body)] leading-relaxed mb-4 text-base">
-                  In our bid to enhance our business relationship with our vendors and ensure that
-                  their operations are guided professionally with the highest form of standards,{' '}
-                  <strong className="text-[var(--fipl-heading)]">
-                    we require all existing and intending vendors to register with FIPL.
-                  </strong>{' '}
-                  The services of a globally reputable company, Dun &amp; Bradstreet, have been
-                  engaged to support FIPL in this exercise.
+                  {intro.body1}
                 </p>
                 <p className="text-[var(--fipl-body)] leading-relaxed mb-7 text-base">
-                  The company shall review vendor&apos;s documents, conduct office, workshop, and
-                  business premises inspection to validate vendor&apos;s claims on the registration
-                  document. Upon satisfactory review, the company shall be issued a{' '}
-                  <strong className="text-[var(--fipl-heading)]">DUNS Number Certificate.</strong>
+                  {intro.body2}
                 </p>
                 <Link
                   href="#registration"
                   className="btn-shimmer inline-flex items-center gap-2 bg-[#DB1B0C] text-white font-semibold px-7 py-3.5 rounded-md hover:bg-[#b81508] transition-colors"
                 >
-                  Register With Us <ArrowUpRight className="w-4 h-4" />
+                  {intro.ctaLabel} <ArrowUpRight className="w-4 h-4" />
                 </Link>
               </div>
             </Reveal>
@@ -153,22 +161,16 @@ export default function RegisterPage() {
                 </svg>
               </span>
               <h2 className="text-2xl md:text-3xl font-bold text-[var(--fipl-heading)]">
-                What is a DUNS Number?
+                {duns.heading}
               </h2>
             </div>
           </Reveal>
           <Reveal variant="fade" delay={0.1}>
             <p className="text-[var(--fipl-body)] leading-relaxed mb-4 text-base text-center">
-              A DUNS Number is a unique business status number that is provided only to companies
-              that are certified to have met acceptable vendor registration requirements. The number
-              gives the company the benefit of being part of a global database of credible companies
-              that have been certified by Dun &amp; Bradstreet, and the number can be quoted in all
-              your correspondence with any company both locally and globally.
+              {duns.body1}
             </p>
             <p className="text-[var(--fipl-body)] leading-relaxed mb-10 text-base text-center">
-              Companies who have paid the stipulated registration fee will be contacted by Dun &amp;
-              Bradstreet and required to provide some documents for the registration exercise. See
-              below.
+              {duns.body2}
             </p>
           </Reveal>
 
@@ -178,7 +180,7 @@ export default function RegisterPage() {
                 href="#"
                 className="btn-shimmer inline-flex items-center gap-2 bg-[#DB1B0C] text-white font-semibold px-7 py-3.5 rounded-md hover:bg-[#b81508] transition-colors"
               >
-                Click Here to View Vendor Registration Category <ArrowUpRight className="w-4 h-4" />
+                {duns.ctaLabel} <ArrowUpRight className="w-4 h-4" />
               </Link>
             </div>
           </Reveal>

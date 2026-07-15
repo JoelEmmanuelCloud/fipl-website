@@ -2,6 +2,7 @@
 
 import { Fragment, useEffect, useRef, useState } from 'react'
 import { isSplashDone, SPLASH_EVENT } from '@/lib/splashState'
+import type { HeroSlideContent } from '@/lib/database.types'
 
 const DURATION = 7000
 
@@ -13,27 +14,9 @@ interface Slide {
   line2: string[]
 }
 
-const SLIDES: Slide[] = [
-  {
-    type: 'image',
-    src: '/images/hero/FIPL6318.jpg',
-    line1: ['Our', 'People'],
-    line2: ['Power', 'the', 'Nation'],
-  },
-  {
-    type: 'image',
-    src: '/images/hero/FIPL6305.jpg',
-    line1: ['Engineering'],
-    line2: ["Nigeria's", 'Energy', 'Future'],
-  },
-  {
-    type: 'video',
-    src: '/videos/hero.mp4',
-    poster: '/images/home/backgroundimage.png',
-    line1: ['Committed', 'to'],
-    line2: ['Efficient', 'and', 'Sustainable', 'Power', 'Generation'],
-  },
-]
+interface Props {
+  slides: HeroSlideContent[]
+}
 
 const ChevronLeft = () => (
   <svg
@@ -105,7 +88,15 @@ function SlideText({ slide }: { slide: Slide }) {
   )
 }
 
-export function HeroSlideshow() {
+export function HeroSlideshow({ slides: rawSlides }: Props) {
+  const SLIDES: Slide[] = rawSlides.map((s) => ({
+    type: s.type,
+    src: s.src,
+    poster: s.poster || undefined,
+    line1: s.line1.split(' ').filter(Boolean),
+    line2: s.line2.split(' ').filter(Boolean),
+  }))
+
   const [current, setCurrent] = useState(0)
   const [textReady, setTextReady] = useState(false)
   const [textKey, setTextKey] = useState(0)
@@ -126,7 +117,7 @@ export function HeroSlideshow() {
     if (!textReady) return
     timerRef.current = setTimeout(() => goTo((current + 1) % SLIDES.length), DURATION)
     return () => clearTimeout(timerRef.current)
-  }, [current, textReady])
+  }, [current, textReady, SLIDES.length])
 
   const goTo = (idx: number) => {
     clearTimeout(timerRef.current)

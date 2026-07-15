@@ -4,86 +4,88 @@ import { ContactForm } from '@/components/ContactForms'
 import { ContactHero } from '@/components/PageHeroes'
 import { Reveal } from '@/components/Reveal'
 import { IMAGES } from '@/lib/images'
+import { createServerClient } from '@/lib/supabase-server'
+import { defaultContactContent } from '@/lib/page-content-defaults'
+import type { ContactContent, PageContentRow } from '@/lib/database.types'
 
 export const metadata: Metadata = { title: 'Contact Us' }
+export const dynamic = 'force-dynamic'
 
-const contactItems = [
-  {
-    icon: (
-      <svg
-        className="w-5 h-5 text-[#DB1B0C]"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
-        <circle cx="12" cy="9" r="2.5" />
-      </svg>
-    ),
-    label: 'Head Office:',
-    value:
-      '12 Circular Road, Presidential Estate, Off Aba Road, Port-Harcourt, Rivers State, Nigeria.',
-  },
-  {
-    icon: (
-      <svg
-        className="w-5 h-5 text-[#DB1B0C]"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.69 12a19.79 19.79 0 01-3.07-8.67A2 2 0 013.6 1.18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.91 8.77a16 16 0 006 6l.86-.86a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7a2 2 0 011.72 2.03z" />
-      </svg>
-    ),
-    label: 'Phone:',
-    value: '+234 (0) 1262 0375',
-  },
-  {
-    icon: (
-      <svg
-        className="w-5 h-5 text-[#DB1B0C]"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-        <polyline points="22,6 12,13 2,6" />
-      </svg>
-    ),
-    label: 'Email:',
-    value: 'info@fipl-ng.com',
-    href: 'mailto:info@fipl-ng.com',
-  },
-  {
-    icon: (
-      <svg
-        className="w-5 h-5 text-[#DB1B0C]"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <circle cx="12" cy="12" r="10" />
-        <polyline points="12 6 12 12 16 14" />
-      </svg>
-    ),
-    label: 'Business Hours',
-    value: 'Monday – Friday: 8:00 AM – 5:00 PM\nSaturday & Sunday: Closed',
-  },
+const contactIcons = [
+  <svg
+    key="office"
+    className="w-5 h-5 text-[#DB1B0C]"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.8"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
+    <circle cx="12" cy="9" r="2.5" />
+  </svg>,
+  <svg
+    key="phone"
+    className="w-5 h-5 text-[#DB1B0C]"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.8"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.69 12a19.79 19.79 0 01-3.07-8.67A2 2 0 013.6 1.18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.91 8.77a16 16 0 006 6l.86-.86a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7a2 2 0 011.72 2.03z" />
+  </svg>,
+  <svg
+    key="email"
+    className="w-5 h-5 text-[#DB1B0C]"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.8"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+    <polyline points="22,6 12,13 2,6" />
+  </svg>,
+  <svg
+    key="hours"
+    className="w-5 h-5 text-[#DB1B0C]"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.8"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <circle cx="12" cy="12" r="10" />
+    <polyline points="12 6 12 12 16 14" />
+  </svg>,
 ]
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const supabase = createServerClient()
+  const { data } = await supabase
+    .from('page_content')
+    .select('content')
+    .eq('page', 'contact')
+    .maybeSingle()
+
+  const stored = (data as Pick<PageContentRow, 'content'> | null)?.content as
+    | Partial<ContactContent>
+    | undefined
+  const getInTouch = stored?.getInTouch ?? defaultContactContent.getInTouch
+  const newsletter = stored?.newsletter ?? defaultContactContent.newsletter
+  const contactItems = (stored?.contactItems ?? defaultContactContent.contactItems).map(
+    (item, i) => ({
+      ...item,
+      icon: contactIcons[i],
+      href: item.label === 'Email:' ? `mailto:${item.value}` : undefined,
+    }),
+  )
+
   return (
     <div className="page-bolt-bg">
       <ContactHero />
@@ -106,11 +108,10 @@ export default function ContactPage() {
                   </svg>
                 </span>
                 <h2 className="text-2xl md:text-3xl font-bold text-[var(--fipl-heading)] mb-3">
-                  Get in Touch with Us
+                  {getInTouch.heading}
                 </h2>
                 <p className="text-[var(--fipl-body)] leading-relaxed mb-8 text-base">
-                  Our team is ready to provide answers, offer solutions, and start your journey
-                  toward success.
+                  {getInTouch.body}
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -197,11 +198,9 @@ export default function ContactPage() {
                   </svg>
                 </span>
                 <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
-                  Subscribe For All The Top News!
+                  {newsletter.heading}
                 </h2>
-                <p className="text-white/80 text-sm leading-relaxed">
-                  Learn how we can serve you better with our daily newsletter.
-                </p>
+                <p className="text-white/80 text-sm leading-relaxed">{newsletter.body}</p>
               </div>
               <div className="relative z-10">
                 <span className="inline-flex items-center gap-2 bg-white/15 border border-white/30 text-white font-semibold px-6 py-3 rounded-md cursor-default select-none">

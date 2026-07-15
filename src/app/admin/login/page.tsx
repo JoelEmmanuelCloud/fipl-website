@@ -1,11 +1,9 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 
 export default function AdminLoginPage() {
-  const router = useRouter()
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
@@ -21,7 +19,7 @@ export default function AdminLoginPage() {
       body: JSON.stringify({ password }),
     })
     if (res.ok) {
-      router.push('/admin')
+      window.location.href = '/admin'
     } else {
       setError('Incorrect password. Please try again.')
       setLoading(false)

@@ -231,12 +231,20 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="py-4 text-center text-[13px]" style={{ color: '#555' }}>
-        Copyright &copy; 2025{' '}
-        <Link href="/" className="hover:underline" style={{ color: '#F47820' }}>
-          FIPL
+      <div
+        className="py-4 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-center text-[13px]"
+        style={{ color: '#555' }}
+      >
+        <span>
+          Copyright &copy; 2025{' '}
+          <Link href="/" className="hover:underline" style={{ color: '#F47820' }}>
+            FIPL
+          </Link>
+          . All Rights Reserved.
+        </span>
+        <Link href="/cookie-policy" className="hover:underline hover:text-white transition-colors">
+          Cookie Policy
         </Link>
-        . All Rights Reserved.
       </div>
     </footer>
   )

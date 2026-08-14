@@ -7,6 +7,7 @@ import { Footer } from '@/components/Footer'
 import { ChatWidget } from '@/components/ChatWidget'
 import { ScrollToTopButton } from '@/components/ScrollToTopButton'
 import AlertBanner from '@/components/AlertBanner'
+import CookieConsent from '@/components/CookieConsent'
 import ServiceWorkerRegistrar from '@/components/ServiceWorkerRegistrar'
 
 const SplashScreen = dynamic(
@@ -45,6 +46,7 @@ export default function SiteShell({
       <Footer />
       <ScrollToTopButton />
       <ChatWidget />
+      <CookieConsent />
     </>
   )
 }

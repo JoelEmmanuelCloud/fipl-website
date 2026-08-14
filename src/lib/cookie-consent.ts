@@ -28,9 +28,7 @@ export function createConsentState(
 
 export function readCookieConsent(): CookieConsentState | null {
   if (typeof document === 'undefined') return null
-  const match = document.cookie.match(
-    new RegExp(`(?:^|; )${COOKIE_CONSENT_NAME}=([^;]*)`),
-  )
+  const match = document.cookie.match(new RegExp(`(?:^|; )${COOKIE_CONSENT_NAME}=([^;]*)`))
   if (!match) return null
   try {
     const parsed = JSON.parse(decodeURIComponent(match[1])) as CookieConsentState

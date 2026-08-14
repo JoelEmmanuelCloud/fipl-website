@@ -24,8 +24,7 @@ const CATEGORIES: {
   {
     key: 'marketing',
     label: 'Marketing Cookies',
-    description:
-      'Used to measure the effectiveness of outreach and campaigns across our channels.',
+    description: 'Used to measure the effectiveness of outreach and campaigns across our channels.',
   },
 ]
 
@@ -124,54 +123,54 @@ export default function CookieConsent() {
   return (
     <>
       {!consent && (
-      <div
-        role="dialog"
-        aria-live="polite"
-        aria-label="Cookie consent"
-        className="fixed inset-x-0 bottom-0 z-[80] animate-in slide-in-from-bottom-4 fade-in duration-300"
-      >
-        <div className="border-t border-[var(--fipl-border)] bg-[var(--fipl-bg)] shadow-[0_-4px_24px_rgba(0,0,0,0.08)]">
-          <div className="max-w-[1280px] mx-auto px-6 py-5 flex flex-col lg:flex-row lg:items-center gap-4">
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-semibold text-[var(--fipl-heading)] mb-1">
-                We value your privacy
-              </p>
-              <p className="text-[13px] leading-relaxed text-[var(--fipl-body)]">
-                We use cookies to keep the site secure, remember your preferences, and understand
-                how it&apos;s used. You can accept all cookies, reject non-essential ones, or
-                manage your preferences. Read our{' '}
-                <Link href="/cookie-policy" className="underline hover:text-primary">
-                  Cookie Policy
-                </Link>{' '}
-                to learn more.
-              </p>
-            </div>
-            <div className="flex flex-wrap items-center gap-2.5 shrink-0">
-              <button
-                type="button"
-                onClick={openPreferences}
-                className="px-4 py-2.5 rounded-lg text-sm font-semibold border border-[var(--fipl-border)] text-[var(--fipl-heading)] hover:bg-[var(--fipl-surface)] transition-colors"
-              >
-                Manage Preferences
-              </button>
-              <button
-                type="button"
-                onClick={rejectNonEssential}
-                className="px-4 py-2.5 rounded-lg text-sm font-semibold border border-[var(--fipl-border)] text-[var(--fipl-heading)] hover:bg-[var(--fipl-surface)] transition-colors"
-              >
-                Reject Non-Essential
-              </button>
-              <button
-                type="button"
-                onClick={acceptAll}
-                className="px-4 py-2.5 rounded-lg text-sm font-semibold bg-primary text-white hover:bg-primary-dark transition-colors"
-              >
-                Accept All
-              </button>
+        <div
+          role="dialog"
+          aria-live="polite"
+          aria-label="Cookie consent"
+          className="fixed inset-x-0 bottom-0 z-[80] animate-in slide-in-from-bottom-4 fade-in duration-300"
+        >
+          <div className="border-t border-[var(--fipl-border)] bg-[var(--fipl-bg)] shadow-[0_-4px_24px_rgba(0,0,0,0.08)]">
+            <div className="max-w-[1280px] mx-auto px-6 py-5 flex flex-col lg:flex-row lg:items-center gap-4">
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold text-[var(--fipl-heading)] mb-1">
+                  We value your privacy
+                </p>
+                <p className="text-[13px] leading-relaxed text-[var(--fipl-body)]">
+                  We use cookies to keep the site secure, remember your preferences, and understand
+                  how it&apos;s used. You can accept all cookies, reject non-essential ones, or
+                  manage your preferences. Read our{' '}
+                  <Link href="/cookie-policy" className="underline hover:text-primary">
+                    Cookie Policy
+                  </Link>{' '}
+                  to learn more.
+                </p>
+              </div>
+              <div className="flex flex-wrap items-center gap-2.5 shrink-0">
+                <button
+                  type="button"
+                  onClick={openPreferences}
+                  className="px-4 py-2.5 rounded-lg text-sm font-semibold border border-[var(--fipl-border)] text-[var(--fipl-heading)] hover:bg-[var(--fipl-surface)] transition-colors"
+                >
+                  Manage Preferences
+                </button>
+                <button
+                  type="button"
+                  onClick={rejectNonEssential}
+                  className="px-4 py-2.5 rounded-lg text-sm font-semibold border border-[var(--fipl-border)] text-[var(--fipl-heading)] hover:bg-[var(--fipl-surface)] transition-colors"
+                >
+                  Reject Non-Essential
+                </button>
+                <button
+                  type="button"
+                  onClick={acceptAll}
+                  className="px-4 py-2.5 rounded-lg text-sm font-semibold bg-primary text-white hover:bg-primary-dark transition-colors"
+                >
+                  Accept All
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
       )}
 
       {preferencesOpen && (
@@ -215,8 +214,7 @@ export default function CookieConsent() {
                       Necessary Cookies
                     </p>
                     <p className="text-xs text-[var(--fipl-body)] mt-1 leading-relaxed">
-                      Required for core functionality like navigation and security. Always
-                      active.
+                      Required for core functionality like navigation and security. Always active.
                     </p>
                   </div>
                   <Toggle checked disabled label="Necessary Cookies" />
@@ -238,9 +236,7 @@ export default function CookieConsent() {
                     <Toggle
                       checked={draft[category.key]}
                       label={category.label}
-                      onChange={(value) =>
-                        setDraft((prev) => ({ ...prev, [category.key]: value }))
-                      }
+                      onChange={(value) => setDraft((prev) => ({ ...prev, [category.key]: value }))}
                     />
                   </div>
                 ))}

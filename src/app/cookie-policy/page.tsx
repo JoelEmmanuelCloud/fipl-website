@@ -32,9 +32,9 @@ export default function CookiePolicyPage() {
 
           <h2>What are cookies?</h2>
           <p>
-            Cookies are small text files placed on your device when you visit a website. They
-            allow the site to recognise your device, remember your preferences, and understand
-            how the site is used.
+            Cookies are small text files placed on your device when you visit a website. They allow
+            the site to recognise your device, remember your preferences, and understand how the
+            site is used.
           </p>
 
           <h2>Categories of cookies we use</h2>
@@ -44,9 +44,9 @@ export default function CookiePolicyPage() {
               including navigation, security, and session management. These cannot be disabled.
             </li>
             <li>
-              <strong>Analytics cookies</strong> — help us understand how visitors interact with
-              the site so we can improve content, layout, and performance. These are only set
-              with your consent.
+              <strong>Analytics cookies</strong> — help us understand how visitors interact with the
+              site so we can improve content, layout, and performance. These are only set with your
+              consent.
             </li>
             <li>
               <strong>Marketing cookies</strong> — used to measure the reach and effectiveness of
@@ -63,14 +63,14 @@ export default function CookiePolicyPage() {
 
           <h2>Managing cookies in your browser</h2>
           <p>
-            Most browsers also let you block or delete cookies through their settings. Doing so
-            may affect how parts of the site function.
+            Most browsers also let you block or delete cookies through their settings. Doing so may
+            affect how parts of the site function.
           </p>
 
           <h2>Changes to this policy</h2>
           <p>
-            We may update this Cookie Policy from time to time to reflect changes in the cookies
-            we use or for legal or regulatory reasons. Any changes will be posted on this page.
+            We may update this Cookie Policy from time to time to reflect changes in the cookies we
+            use or for legal or regulatory reasons. Any changes will be posted on this page.
           </p>
 
           <h2>Contact us</h2>

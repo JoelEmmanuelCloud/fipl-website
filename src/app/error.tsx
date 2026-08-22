@@ -32,7 +32,7 @@ export default function Error({
           </svg>
         </div>
         <h1 className="text-xl font-bold text-[var(--fipl-heading)] mb-3">
-          We're having trouble loading this page
+          We&apos;re having trouble loading this page
         </h1>
         <p className="text-sm text-[var(--fipl-body)] mb-8">
           Our systems are temporarily unavailable. Please try again in a moment.

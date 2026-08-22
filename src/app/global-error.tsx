@@ -30,7 +30,7 @@ export default function GlobalError({
         >
           <div style={{ maxWidth: '420px', textAlign: 'center' }}>
             <h1 style={{ fontSize: '20px', fontWeight: 700, marginBottom: '12px' }}>
-              We're having trouble loading this page
+              We&apos;re having trouble loading this page
             </h1>
             <p style={{ fontSize: '14px', color: '#797979', marginBottom: '28px' }}>
               Our systems are temporarily unavailable. Please try again in a moment.

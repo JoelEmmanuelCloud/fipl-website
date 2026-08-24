@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { revalidatePath } from 'next/cache'
-import { createServerClient } from '@/lib/supabase-server'
+import { query, queryOne } from '@/lib/db'
 import { requireRole } from '@/lib/admin-auth'
+import type { NewsArticleRow } from '@/lib/database.types'
 
 const EDITABLE_FIELDS = [
   'slug',
@@ -29,28 +30,45 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
     return NextResponse.json({ error: 'No fields to update' }, { status: 400 })
   }
 
-  const supabase = createServerClient()
-  const { data, error } = await supabase
-    .from('news_articles')
-    .update(update)
-    .eq('id', params.id)
-    .select()
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
-  if (!data || data.length === 0) {
+  const setClause = Object.keys(update)
+    .map((field) => `${field} = ?`)
+    .join(', ')
+
+  try {
+    await query(`update news_articles set ${setClause} where id = ?`, [
+      ...Object.values(update),
+      params.id,
+    ])
+  } catch (error) {
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : 'Update failed' },
+      { status: 500 },
+    )
+  }
+
+  const row = await queryOne<NewsArticleRow>('select * from news_articles where id = ?', [
+    params.id,
+  ])
+  if (!row) {
     return NextResponse.json({ error: 'Article not found' }, { status: 404 })
   }
   revalidatePath('/news')
   revalidatePath('/news/[slug]', 'page')
-  return NextResponse.json(data[0])
+  return NextResponse.json(row)
 }
 
 export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
   if (!requireRole(req, ['owner', 'content'])) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
-  const supabase = createServerClient()
-  const { error } = await supabase.from('news_articles').delete().eq('id', params.id)
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+  try {
+    await query('delete from news_articles where id = ?', [params.id])
+  } catch (error) {
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : 'Delete failed' },
+      { status: 500 },
+    )
+  }
   revalidatePath('/news')
   revalidatePath('/news/[slug]', 'page')
   return NextResponse.json({ ok: true })

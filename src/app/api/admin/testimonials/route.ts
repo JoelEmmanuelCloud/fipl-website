@@ -1,19 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { revalidatePath } from 'next/cache'
-import { createServerClient } from '@/lib/supabase-server'
+import { randomUUID } from 'crypto'
+import { query, queryOne } from '@/lib/db'
 import { requireRole } from '@/lib/admin-auth'
+import type { TestimonialRow } from '@/lib/database.types'
 
 export async function GET(req: NextRequest) {
   if (!requireRole(req, ['owner', 'content'])) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
-  const supabase = createServerClient()
-  const { data, error } = await supabase
-    .from('testimonials')
-    .select('*')
-    .order('created_at', { ascending: false })
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
-  return NextResponse.json(data)
+  const rows = await query<TestimonialRow>('select * from testimonials order by created_at desc')
+  return NextResponse.json(rows)
 }
 
 export async function POST(req: NextRequest) {
@@ -27,14 +24,21 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Quote, name, and role are required' }, { status: 400 })
   }
 
-  const supabase = createServerClient()
-  const { data, error } = await supabase
-    .from('testimonials')
-    .insert({ quote, name, role, is_active: is_active ?? true })
-    .select()
-    .single()
+  const id = randomUUID()
 
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+  try {
+    await query(
+      `insert into testimonials (id, quote, name, role, is_active) values (?, ?, ?, ?, ?)`,
+      [id, quote, name, role, is_active ?? true],
+    )
+  } catch (error) {
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : 'Insert failed' },
+      { status: 500 },
+    )
+  }
+
+  const data = await queryOne<TestimonialRow>('select * from testimonials where id = ?', [id])
   revalidatePath('/about')
   return NextResponse.json(data, { status: 201 })
 }

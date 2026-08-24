@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createServerClient } from '@/lib/supabase-server'
+import { query, queryOne } from '@/lib/db'
 import { requireRole } from '@/lib/admin-auth'
+import type { JobApplicationRow } from '@/lib/database.types'
 
 const PAGE_SIZE = 20
 
@@ -12,25 +13,21 @@ export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url)
   const page = Math.max(1, parseInt(searchParams.get('page') ?? '1', 10) || 1)
   const status = searchParams.get('status') || null
-  const from = (page - 1) * PAGE_SIZE
-  const to = from + PAGE_SIZE - 1
+  const offset = (page - 1) * PAGE_SIZE
 
-  const supabase = createServerClient()
-  let query = supabase
-    .from('job_applications')
-    .select('*', { count: 'exact' })
-    .order('created_at', { ascending: false })
-    .range(from, to)
+  const whereClause = status ? 'where status = ?' : ''
+  const whereParams = status ? [status] : []
 
-  if (status) {
-    query = query.eq('status', status)
-  }
+  const [data, countRow] = await Promise.all([
+    query<JobApplicationRow>(
+      `select * from job_applications ${whereClause} order by created_at desc limit ? offset ?`,
+      [...whereParams, PAGE_SIZE, offset],
+    ),
+    queryOne<{ count: number }>(
+      `select count(*) as count from job_applications ${whereClause}`,
+      whereParams,
+    ),
+  ])
 
-  const { data, count, error } = await query
-
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 })
-  }
-
-  return NextResponse.json({ data, count })
+  return NextResponse.json({ data, count: countRow?.count ?? 0 })
 }

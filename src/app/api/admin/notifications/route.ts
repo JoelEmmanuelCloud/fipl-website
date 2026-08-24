@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createServerClient } from '@/lib/supabase-server'
+import { query, queryOne } from '@/lib/db'
 import { requireRole } from '@/lib/admin-auth'
 
 export async function GET(req: NextRequest) {
@@ -9,33 +9,34 @@ export async function GET(req: NextRequest) {
 
   const since = new Date()
   since.setDate(since.getDate() - 7)
-  const sinceISO = since.toISOString()
 
-  const supabase = createServerClient()
-
-  const [contactResult, subscriberResult] = await Promise.all([
-    supabase
-      .from('contact_submissions')
-      .select('id, first_name, last_name, subject, created_at', { count: 'exact' })
-      .gte('created_at', sinceISO)
-      .order('created_at', { ascending: false })
-      .limit(5),
-    supabase
-      .from('newsletter_subscribers')
-      .select('id, email, subscribed_at', { count: 'exact' })
-      .gte('subscribed_at', sinceISO)
-      .order('subscribed_at', { ascending: false })
-      .limit(5),
+  const [contactCount, contactRecent, subscriberCount, subscriberRecent] = await Promise.all([
+    queryOne<{ count: number }>(
+      'select count(*) as count from contact_submissions where created_at >= ?',
+      [since],
+    ),
+    query<{ id: string; first_name: string; last_name: string; subject: string | null; created_at: string }>(
+      'select id, first_name, last_name, subject, created_at from contact_submissions where created_at >= ? order by created_at desc limit 5',
+      [since],
+    ),
+    queryOne<{ count: number }>(
+      'select count(*) as count from newsletter_subscribers where subscribed_at >= ?',
+      [since],
+    ),
+    query<{ id: string; email: string; subscribed_at: string }>(
+      'select id, email, subscribed_at from newsletter_subscribers where subscribed_at >= ? order by subscribed_at desc limit 5',
+      [since],
+    ),
   ])
 
   return NextResponse.json({
     contacts: {
-      count: contactResult.count ?? 0,
-      recent: contactResult.data ?? [],
+      count: contactCount?.count ?? 0,
+      recent: contactRecent,
     },
     subscribers: {
-      count: subscriberResult.count ?? 0,
-      recent: subscriberResult.data ?? [],
+      count: subscriberCount?.count ?? 0,
+      recent: subscriberRecent,
     },
   })
 }

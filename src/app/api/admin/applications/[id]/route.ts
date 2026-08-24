@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createServerClient } from '@/lib/supabase-server'
+import { query } from '@/lib/db'
 import { requireRole } from '@/lib/admin-auth'
 
 const VALID_STATUSES = ['pending', 'reviewed', 'shortlisted', 'rejected']
@@ -15,11 +15,13 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
     return NextResponse.json({ error: 'Invalid status' }, { status: 400 })
   }
 
-  const supabase = createServerClient()
-  const { error } = await supabase.from('job_applications').update({ status }).eq('id', params.id)
-
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 })
+  try {
+    await query('update job_applications set status = ? where id = ?', [status, params.id])
+  } catch (error) {
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : 'Update failed' },
+      { status: 500 },
+    )
   }
 
   return NextResponse.json({ ok: true })
@@ -29,8 +31,13 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
   if (!requireRole(req, ['owner', 'hr'])) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
-  const supabase = createServerClient()
-  const { error } = await supabase.from('job_applications').delete().eq('id', params.id)
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+  try {
+    await query('delete from job_applications where id = ?', [params.id])
+  } catch (error) {
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : 'Delete failed' },
+      { status: 500 },
+    )
+  }
   return NextResponse.json({ ok: true })
 }

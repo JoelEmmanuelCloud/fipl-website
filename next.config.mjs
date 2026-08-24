@@ -7,6 +7,8 @@ const nextConfig = {
     staleTimes: {
       dynamic: 0,
     },
+    cpus: 1,
+    workerThreads: false,
   },
 }
 export default nextConfig

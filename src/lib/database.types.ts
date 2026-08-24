@@ -73,6 +73,15 @@ export type TestimonialRow = {
   created_at: string
 }
 
+export type AlertRow = {
+  id: string
+  title: string
+  message: string
+  type: 'info' | 'warning' | 'critical'
+  is_active: boolean
+  created_at: string
+}
+
 export type HeroSlideContent = {
   type: 'image' | 'video'
   src: string
@@ -200,5 +209,11 @@ export type NewsContent = {
 export type PageContentRow = {
   page: string
   content: Record<string, unknown>
+  updated_at: string
+}
+
+export type PageContentRawRow = {
+  page: string
+  content: string
   updated_at: string
 }

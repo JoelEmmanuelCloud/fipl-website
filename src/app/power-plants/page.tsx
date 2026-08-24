@@ -6,9 +6,9 @@ import { PlantSlideshow } from '@/components/PlantSlideshow'
 import { Reveal } from '@/components/Reveal'
 import WorkProcessSection from '@/components/WorkProcessSection'
 import { plants } from '@/lib/plants-data'
-import { createServerClient } from '@/lib/supabase-server'
+import { queryOne } from '@/lib/db'
 import { defaultPowerPlantsContent } from '@/lib/page-content-defaults'
-import type { PageContentRow, PowerPlantsContent } from '@/lib/database.types'
+import type { PageContentRawRow, PowerPlantsContent } from '@/lib/database.types'
 
 export const metadata: Metadata = {
   title: 'Power Plants & Operations',
@@ -19,14 +19,11 @@ export const metadata: Metadata = {
 export const dynamic = 'force-dynamic'
 
 export default async function PowerPlantsPage() {
-  const supabase = createServerClient()
-  const { data } = await supabase
-    .from('page_content')
-    .select('content')
-    .eq('page', 'power-plants')
-    .maybeSingle()
+  const row = await queryOne<PageContentRawRow>('select content from page_content where page = ?', [
+    'power-plants',
+  ])
 
-  const stored = (data as Pick<PageContentRow, 'content'> | null)?.content as
+  const stored = (row ? JSON.parse(row.content) : undefined) as
     | Partial<PowerPlantsContent>
     | undefined
   const intro = stored?.intro ?? defaultPowerPlantsContent.intro

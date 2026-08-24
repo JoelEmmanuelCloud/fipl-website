@@ -4,9 +4,9 @@ import { ContactForm } from '@/components/ContactForms'
 import { ContactHero } from '@/components/PageHeroes'
 import { Reveal } from '@/components/Reveal'
 import { IMAGES } from '@/lib/images'
-import { createServerClient } from '@/lib/supabase-server'
+import { queryOne } from '@/lib/db'
 import { defaultContactContent } from '@/lib/page-content-defaults'
-import type { ContactContent, PageContentRow } from '@/lib/database.types'
+import type { ContactContent, PageContentRawRow } from '@/lib/database.types'
 
 export const metadata: Metadata = {
   title: 'Contact Us',
@@ -71,16 +71,11 @@ const contactIcons = [
 ]
 
 export default async function ContactPage() {
-  const supabase = createServerClient()
-  const { data } = await supabase
-    .from('page_content')
-    .select('content')
-    .eq('page', 'contact')
-    .maybeSingle()
+  const row = await queryOne<PageContentRawRow>('select content from page_content where page = ?', [
+    'contact',
+  ])
 
-  const stored = (data as Pick<PageContentRow, 'content'> | null)?.content as
-    | Partial<ContactContent>
-    | undefined
+  const stored = (row ? JSON.parse(row.content) : undefined) as Partial<ContactContent> | undefined
   const getInTouch = stored?.getInTouch ?? defaultContactContent.getInTouch
   const newsletter = stored?.newsletter ?? defaultContactContent.newsletter
   const contactItems = (stored?.contactItems ?? defaultContactContent.contactItems).map(

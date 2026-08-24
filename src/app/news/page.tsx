@@ -6,9 +6,9 @@ import { NewsTabs } from '@/components/NewsTabs'
 import { NewsHero } from '@/components/PageHeroes'
 import { Reveal } from '@/components/Reveal'
 import { IMAGES } from '@/lib/images'
-import { createServerClient } from '@/lib/supabase-server'
+import { query, queryOne } from '@/lib/db'
 import { defaultNewsContent } from '@/lib/page-content-defaults'
-import type { MediaKitRow, NewsContent, PageContentRow } from '@/lib/database.types'
+import type { MediaKitRow, NewsContent, PageContentRawRow } from '@/lib/database.types'
 
 export const metadata: Metadata = {
   title: 'News & Media',
@@ -21,15 +21,14 @@ export const dynamic = 'force-dynamic'
 const insightImages = [IMAGES.news.insight1, IMAGES.news.insight2, IMAGES.news.insight3]
 
 export default async function NewsPage() {
-  const [articles, mediaResult, pageResult] = await Promise.all([
+  const [articles, mediaKits, pageRow] = await Promise.all([
     getAllArticles(),
-    createServerClient().from('media_kits').select('*').order('created_at', { ascending: false }),
-    createServerClient().from('page_content').select('content').eq('page', 'news').maybeSingle(),
+    query<MediaKitRow>('select * from media_kits order by created_at desc'),
+    queryOne<PageContentRawRow>('select content from page_content where page = ?', ['news']),
   ])
 
-  const mediaKits = (mediaResult.data ?? []) as MediaKitRow[]
   const insights = articles.slice(0, 3)
-  const stored = (pageResult.data as Pick<PageContentRow, 'content'> | null)?.content as
+  const stored = (pageRow ? JSON.parse(pageRow.content) : undefined) as
     | Partial<NewsContent>
     | undefined
   const insightsSection = stored?.insights ?? defaultNewsContent.insights

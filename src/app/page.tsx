@@ -7,9 +7,9 @@ import { FaqSection } from '@/components/FaqSection'
 import { CounterStats } from '@/components/CounterStats'
 import { WhoWeAreSection } from '@/components/WhoWeAreSection'
 import { HeroSlideshow } from '@/components/HeroSlideshow'
-import { createServerClient } from '@/lib/supabase-server'
+import { queryOne } from '@/lib/db'
 import { defaultHomeContent } from '@/lib/page-content-defaults'
-import type { HomeContent, PageContentRow } from '@/lib/database.types'
+import type { HomeContent, PageContentRawRow } from '@/lib/database.types'
 
 export const metadata: Metadata = {
   title: 'Home – First Independent Power Limited (FIPL)',
@@ -151,15 +151,11 @@ const faqs = [
 ]
 
 export default async function HomePage() {
-  const supabase = createServerClient()
-  const { data } = await supabase
-    .from('page_content')
-    .select('content')
-    .eq('page', 'home')
-    .maybeSingle()
+  const row = await queryOne<PageContentRawRow>('select content from page_content where page = ?', [
+    'home',
+  ])
 
-  const row = data as Pick<PageContentRow, 'content'> | null
-  const content = row?.content as Partial<HomeContent> | undefined
+  const content = (row ? JSON.parse(row.content) : undefined) as Partial<HomeContent> | undefined
   const hero = content?.hero ?? defaultHomeContent.hero
   const whoWeAre = content?.whoWeAre ?? defaultHomeContent.whoWeAre
   const sustainabilityCta = content?.sustainabilityCta ?? defaultHomeContent.sustainabilityCta

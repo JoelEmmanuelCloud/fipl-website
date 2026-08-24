@@ -3,9 +3,9 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import { SustainabilityHero } from '@/components/PageHeroes'
 import { Reveal } from '@/components/Reveal'
-import { createServerClient } from '@/lib/supabase-server'
+import { queryOne } from '@/lib/db'
 import { defaultSustainabilityContent } from '@/lib/page-content-defaults'
-import type { PageContentRow, SustainabilityContent } from '@/lib/database.types'
+import type { PageContentRawRow, SustainabilityContent } from '@/lib/database.types'
 
 export const metadata: Metadata = {
   title: 'Sustainability & CSR',
@@ -59,14 +59,11 @@ const focusIcons = [
 ]
 
 export default async function SustainabilityPage() {
-  const supabase = createServerClient()
-  const { data } = await supabase
-    .from('page_content')
-    .select('content')
-    .eq('page', 'sustainability')
-    .maybeSingle()
+  const row = await queryOne<PageContentRawRow>('select content from page_content where page = ?', [
+    'sustainability',
+  ])
 
-  const stored = (data as Pick<PageContentRow, 'content'> | null)?.content as
+  const stored = (row ? JSON.parse(row.content) : undefined) as
     | Partial<SustainabilityContent>
     | undefined
   const weCare = stored?.weCare ?? defaultSustainabilityContent.weCare

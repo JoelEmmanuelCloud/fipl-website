@@ -1,5 +1,5 @@
 import { getWebpush } from '@/lib/webpush'
-import { createServerClient } from '@/lib/supabase-server'
+import { query } from '@/lib/db'
 
 interface PushPayload {
   title: string
@@ -8,10 +8,16 @@ interface PushPayload {
   tag?: string
 }
 
+interface PushSubscriptionRow {
+  id: string
+  endpoint: string
+  p256dh: string
+  auth: string
+}
+
 export async function notifyAllSubscribers(payload: PushPayload) {
-  const supabase = createServerClient()
-  const { data: subscriptions } = await supabase.from('push_subscriptions').select('*')
-  if (!subscriptions || subscriptions.length === 0) return
+  const subscriptions = await query<PushSubscriptionRow>('select * from push_subscriptions')
+  if (subscriptions.length === 0) return
 
   const expiredIds: string[] = []
   const webpush = getWebpush()
@@ -33,6 +39,9 @@ export async function notifyAllSubscribers(payload: PushPayload) {
   )
 
   if (expiredIds.length > 0) {
-    await supabase.from('push_subscriptions').delete().in('id', expiredIds)
+    await query(
+      `delete from push_subscriptions where id in (${expiredIds.map(() => '?').join(',')})`,
+      expiredIds,
+    )
   }
 }

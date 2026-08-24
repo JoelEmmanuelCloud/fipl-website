@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { createServerClient } from '@/lib/supabase-server'
+import { queryOne } from '@/lib/db'
 import type { JobRow } from '@/lib/database.types'
 import ApplicationForm from './ApplicationForm'
 
@@ -12,29 +12,20 @@ export async function generateMetadata({
 }: {
   params: { jobId: string }
 }): Promise<Metadata> {
-  const supabase = createServerClient()
-  const { data } = await supabase
-    .from('jobs')
-    .select('title')
-    .eq('id', params.jobId)
-    .eq('is_active', true)
-    .single()
+  const row = await queryOne<Pick<JobRow, 'title'>>(
+    'select title from jobs where id = ? and is_active = true',
+    [params.jobId],
+  )
 
-  return { title: data ? `Apply — ${data.title}` : 'Apply' }
+  return { title: row ? `Apply — ${row.title}` : 'Apply' }
 }
 
 export default async function ApplyPage({ params }: { params: { jobId: string } }) {
-  const supabase = createServerClient()
-  const { data } = await supabase
-    .from('jobs')
-    .select('*')
-    .eq('id', params.jobId)
-    .eq('is_active', true)
-    .single()
+  const job = await queryOne<JobRow>('select * from jobs where id = ? and is_active = true', [
+    params.jobId,
+  ])
 
-  if (!data) notFound()
-
-  const job = data as JobRow
+  if (!job) notFound()
 
   return (
     <div className="min-h-screen bg-[var(--fipl-bg)]">

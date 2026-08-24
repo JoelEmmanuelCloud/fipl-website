@@ -6,9 +6,9 @@ import { Accordion } from '@/components/Accordion'
 import { RegisterHero } from '@/components/PageHeroes'
 import { Reveal } from '@/components/Reveal'
 import { IMAGES } from '@/lib/images'
-import { createServerClient } from '@/lib/supabase-server'
+import { queryOne } from '@/lib/db'
 import { defaultRegisterContent } from '@/lib/page-content-defaults'
-import type { PageContentRow, RegisterContent } from '@/lib/database.types'
+import type { PageContentRawRow, RegisterContent } from '@/lib/database.types'
 
 export const metadata: Metadata = {
   title: 'Register With Us – Vendor Programme',
@@ -84,16 +84,11 @@ const accordionItems = [
 ]
 
 export default async function RegisterPage() {
-  const supabase = createServerClient()
-  const { data } = await supabase
-    .from('page_content')
-    .select('content')
-    .eq('page', 'register')
-    .maybeSingle()
+  const row = await queryOne<PageContentRawRow>('select content from page_content where page = ?', [
+    'register',
+  ])
 
-  const stored = (data as Pick<PageContentRow, 'content'> | null)?.content as
-    | Partial<RegisterContent>
-    | undefined
+  const stored = (row ? JSON.parse(row.content) : undefined) as Partial<RegisterContent> | undefined
   const intro = stored?.intro ?? defaultRegisterContent.intro
   const duns = stored?.duns ?? defaultRegisterContent.duns
 

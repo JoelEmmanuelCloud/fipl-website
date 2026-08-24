@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import './globals.css'
 import { ThemeProvider } from '@/components/ThemeProvider'
 import SiteShell from '@/components/SiteShell'
-import { createServerClient } from '@/lib/supabase-server'
+import { query, queryOne } from '@/lib/db'
 import { defaultContactContent } from '@/lib/page-content-defaults'
-import type { ContactContent, PageContentRow } from '@/lib/database.types'
+import type { AlertRow, ContactContent, PageContentRawRow } from '@/lib/database.types'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://fipl-ng.com'
 const defaultDescription =
@@ -61,18 +61,17 @@ export const metadata: Metadata = {
 
 export const revalidate = 60
 
+export const dynamic = 'force-dynamic'
+
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const supabase = createServerClient()
-  const [{ data: alerts }, { data: contactRow }] = await Promise.all([
-    supabase
-      .from('alerts')
-      .select('id, title, message, type')
-      .eq('is_active', true)
-      .order('created_at', { ascending: false }),
-    supabase.from('page_content').select('content').eq('page', 'contact').maybeSingle(),
+  const [alerts, contactRow] = await Promise.all([
+    query<Pick<AlertRow, 'id' | 'title' | 'message' | 'type'>>(
+      'select id, title, message, type from alerts where is_active = true order by created_at desc',
+    ),
+    queryOne<PageContentRawRow>('select content from page_content where page = ?', ['contact']),
   ])
 
-  const contactStored = (contactRow as Pick<PageContentRow, 'content'> | null)?.content as
+  const contactStored = (contactRow ? JSON.parse(contactRow.content) : undefined) as
     | Partial<ContactContent>
     | undefined
   const contactItems = contactStored?.contactItems ?? defaultContactContent.contactItems
@@ -115,7 +114,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
         <ThemeProvider>
-          <SiteShell alerts={alerts ?? []}>{children}</SiteShell>
+          <SiteShell alerts={alerts}>{children}</SiteShell>
         </ThemeProvider>
       </body>
     </html>

@@ -1,4 +1,4 @@
-import { createServerClient } from '@/lib/supabase-server'
+import { query, queryOne } from '@/lib/db'
 import type { NewsArticleRow } from '@/lib/database.types'
 
 export interface NewsArticle {
@@ -30,29 +30,19 @@ function mapRow(row: NewsArticleRow): NewsArticle {
 }
 
 export async function getAllArticles(): Promise<NewsArticle[]> {
-  const supabase = createServerClient()
-  const { data, error } = await supabase
-    .from('news_articles')
-    .select('*')
-    .order('date_iso', { ascending: false })
-  if (error) throw error
-  return (data as NewsArticleRow[]).map(mapRow)
+  const rows = await query<NewsArticleRow>('select * from news_articles order by date_iso desc')
+  return rows.map(mapRow)
 }
 
 export async function getArticleBySlug(slug: string): Promise<NewsArticle | undefined> {
-  const supabase = createServerClient()
-  const { data, error } = await supabase.from('news_articles').select('*').eq('slug', slug).single()
-  if (error || !data) return undefined
-  return mapRow(data as NewsArticleRow)
+  const row = await queryOne<NewsArticleRow>('select * from news_articles where slug = ?', [slug])
+  return row ? mapRow(row) : undefined
 }
 
 export async function getRecentArticles(count = 7): Promise<NewsArticle[]> {
-  const supabase = createServerClient()
-  const { data, error } = await supabase
-    .from('news_articles')
-    .select('*')
-    .order('date_iso', { ascending: false })
-    .limit(count)
-  if (error) throw error
-  return (data as NewsArticleRow[]).map(mapRow)
+  const rows = await query<NewsArticleRow>(
+    'select * from news_articles order by date_iso desc limit ?',
+    [count],
+  )
+  return rows.map(mapRow)
 }

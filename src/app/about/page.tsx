@@ -6,9 +6,9 @@ import { TimelineSection } from '@/components/TimelineSection'
 import { AboutHero } from '@/components/PageHeroes'
 import { Reveal } from '@/components/Reveal'
 import { IMAGES } from '@/lib/images'
-import { createServerClient } from '@/lib/supabase-server'
+import { query, queryOne } from '@/lib/db'
 import { defaultAboutContent } from '@/lib/page-content-defaults'
-import type { AboutContent, PageContentRow, TestimonialRow } from '@/lib/database.types'
+import type { AboutContent, PageContentRawRow, TestimonialRow } from '@/lib/database.types'
 
 export const metadata: Metadata = {
   title: 'About Us',
@@ -106,20 +106,16 @@ const valueIcons = [
 ]
 
 export default async function AboutPage() {
-  const supabase = createServerClient()
-  const [{ data }, { data: pageRow }] = await Promise.all([
-    supabase
-      .from('testimonials')
-      .select('quote, name, role')
-      .eq('is_active', true)
-      .order('created_at', { ascending: false }),
-    supabase.from('page_content').select('content').eq('page', 'about').maybeSingle(),
+  const [rows, pageRow] = await Promise.all([
+    query<Pick<TestimonialRow, 'quote' | 'name' | 'role'>>(
+      'select quote, name, role from testimonials where is_active = true order by created_at desc',
+    ),
+    queryOne<PageContentRawRow>('select content from page_content where page = ?', ['about']),
   ])
 
-  const rows = (data ?? []) as Pick<TestimonialRow, 'quote' | 'name' | 'role'>[]
   const testimonials = rows.length > 0 ? rows : fallbackTestimonials
 
-  const stored = (pageRow as Pick<PageContentRow, 'content'> | null)?.content as
+  const stored = (pageRow ? JSON.parse(pageRow.content) : undefined) as
     | Partial<AboutContent>
     | undefined
   const purpose = stored?.purpose ?? defaultAboutContent.purpose

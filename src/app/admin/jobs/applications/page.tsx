@@ -1,4 +1,4 @@
-import { createServerClient } from '@/lib/supabase-server'
+import { query } from '@/lib/db'
 import type { JobApplicationRow } from '@/lib/database.types'
 import Link from 'next/link'
 import { Suspense } from 'react'
@@ -29,46 +29,42 @@ export default async function ApplicationsPage({
   const statusFilter = searchParams.status ?? ''
   const q = searchParams.q ?? ''
   const from = (page - 1) * PAGE_SIZE
-  const to = from + PAGE_SIZE - 1
 
-  const supabase = createServerClient()
-  let query = supabase.from('job_applications').select('*', { count: 'exact' })
-  if (statusFilter) query = query.eq('status', statusFilter)
-  if (q) query = query.or(`first_name.ilike.%${q}%,last_name.ilike.%${q}%,job_title.ilike.%${q}%`)
-  const { data, count } = await query.order('created_at', { ascending: false }).range(from, to)
+  const conditions: string[] = []
+  const params: unknown[] = []
+  if (statusFilter) {
+    conditions.push('status = ?')
+    params.push(statusFilter)
+  }
+  if (q) {
+    conditions.push('(first_name like ? or last_name like ? or job_title like ?)')
+    params.push(`%${q}%`, `%${q}%`, `%${q}%`)
+  }
+  const where = conditions.length > 0 ? `where ${conditions.join(' and ')}` : ''
 
-  const applications = (data ?? []) as JobApplicationRow[]
-  const totalCount = count ?? 0
+  const [countRows, applications, statusGroups] = await Promise.all([
+    query<{ count: number }>(`select count(*) as count from job_applications ${where}`, params),
+    query<JobApplicationRow>(
+      `select * from job_applications ${where} order by created_at desc limit ? offset ?`,
+      [...params, PAGE_SIZE, from],
+    ),
+    query<{ status: string; count: number }>(
+      'select status, count(*) as count from job_applications group by status',
+    ),
+  ])
+
+  const totalCount = countRows[0]?.count ?? 0
   const totalPages = Math.ceil(totalCount / PAGE_SIZE)
 
-  const [pendingRes, reviewedRes, shortlistedRes, rejectedRes] = await Promise.all([
-    supabase
-      .from('job_applications')
-      .select('id', { count: 'exact', head: true })
-      .eq('status', 'pending'),
-    supabase
-      .from('job_applications')
-      .select('id', { count: 'exact', head: true })
-      .eq('status', 'reviewed'),
-    supabase
-      .from('job_applications')
-      .select('id', { count: 'exact', head: true })
-      .eq('status', 'shortlisted'),
-    supabase
-      .from('job_applications')
-      .select('id', { count: 'exact', head: true })
-      .eq('status', 'rejected'),
-  ])
-  const statusCounts = {
-    '':
-      (pendingRes.count ?? 0) +
-      (reviewedRes.count ?? 0) +
-      (shortlistedRes.count ?? 0) +
-      (rejectedRes.count ?? 0),
-    pending: pendingRes.count ?? 0,
-    reviewed: reviewedRes.count ?? 0,
-    shortlisted: shortlistedRes.count ?? 0,
-    rejected: rejectedRes.count ?? 0,
+  const statusCounts = { pending: 0, reviewed: 0, shortlisted: 0, rejected: 0 }
+  for (const row of statusGroups) {
+    if (row.status in statusCounts) {
+      statusCounts[row.status as keyof typeof statusCounts] = row.count
+    }
+  }
+  const allStatusCounts = {
+    '': Object.values(statusCounts).reduce((a, b) => a + b, 0),
+    ...statusCounts,
   }
 
   const filterParams = new URLSearchParams()
@@ -102,7 +98,7 @@ export default async function ApplicationsPage({
             return `/admin/jobs/applications${p.size ? `?${p}` : ''}`
           })()
           const active = statusFilter === value
-          const cnt = statusCounts[value as keyof typeof statusCounts] ?? 0
+          const cnt = allStatusCounts[value as keyof typeof allStatusCounts] ?? 0
           return (
             <Link
               key={value}

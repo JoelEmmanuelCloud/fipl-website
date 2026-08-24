@@ -1,4 +1,4 @@
-import { createServerClient } from '@/lib/supabase-server'
+import { query } from '@/lib/db'
 import Link from 'next/link'
 import AdminPagination from '@/components/AdminPagination'
 import AlertActions from './AlertActions'
@@ -40,15 +40,20 @@ export default async function AdminAlertsPage({
   const page = Math.max(1, parseInt(searchParams.page ?? '1', 10) || 1)
   const type = searchParams.type ?? ''
   const from = (page - 1) * PAGE_SIZE
-  const to = from + PAGE_SIZE - 1
 
-  const supabase = createServerClient()
-  let query = supabase.from('alerts').select('*', { count: 'exact' })
-  if (type) query = query.eq('type', type)
-  const { data, count } = await query.order('created_at', { ascending: false }).range(from, to)
+  const where = type ? 'where type = ?' : ''
+  const params = type ? [type] : []
 
-  const alerts = (data ?? []) as AlertRow[]
-  const totalCount = count ?? 0
+  const [countRows, alerts] = await Promise.all([
+    query<{ count: number }>(`select count(*) as count from alerts ${where}`, params),
+    query<AlertRow>(`select * from alerts ${where} order by created_at desc limit ? offset ?`, [
+      ...params,
+      PAGE_SIZE,
+      from,
+    ]),
+  ])
+
+  const totalCount = countRows[0]?.count ?? 0
   const totalPages = Math.ceil(totalCount / PAGE_SIZE)
   const paginationBase = `/admin/alerts${type ? `?type=${type}` : ''}`
 

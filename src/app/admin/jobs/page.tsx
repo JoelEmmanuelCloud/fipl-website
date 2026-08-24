@@ -1,4 +1,4 @@
-import { createServerClient } from '@/lib/supabase-server'
+import { query } from '@/lib/db'
 import type { JobRow } from '@/lib/database.types'
 import Link from 'next/link'
 import { Suspense } from 'react'
@@ -28,17 +28,30 @@ export default async function AdminJobsPage({
   const status = searchParams.status ?? ''
   const q = searchParams.q ?? ''
   const from = (page - 1) * PAGE_SIZE
-  const to = from + PAGE_SIZE - 1
 
-  const supabase = createServerClient()
-  let query = supabase.from('jobs').select('*', { count: 'exact' })
-  if (status === 'active') query = query.eq('is_active', true)
-  if (status === 'closed') query = query.eq('is_active', false)
-  if (q) query = query.ilike('title', `%${q}%`)
-  const { data, count } = await query.order('created_at', { ascending: false }).range(from, to)
+  const conditions: string[] = []
+  const params: unknown[] = []
+  if (status === 'active') {
+    conditions.push('is_active = 1')
+  } else if (status === 'closed') {
+    conditions.push('is_active = 0')
+  }
+  if (q) {
+    conditions.push('title like ?')
+    params.push(`%${q}%`)
+  }
+  const where = conditions.length > 0 ? `where ${conditions.join(' and ')}` : ''
 
-  const jobs = (data ?? []) as JobRow[]
-  const totalCount = count ?? 0
+  const [countRows, jobs] = await Promise.all([
+    query<{ count: number }>(`select count(*) as count from jobs ${where}`, params),
+    query<JobRow>(`select * from jobs ${where} order by created_at desc limit ? offset ?`, [
+      ...params,
+      PAGE_SIZE,
+      from,
+    ]),
+  ])
+
+  const totalCount = countRows[0]?.count ?? 0
   const totalPages = Math.ceil(totalCount / PAGE_SIZE)
 
   const filterParams = new URLSearchParams()

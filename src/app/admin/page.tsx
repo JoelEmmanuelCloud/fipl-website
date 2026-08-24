@@ -1,4 +1,4 @@
-import { createServerClient } from '@/lib/supabase-server'
+import { query } from '@/lib/db'
 import Link from 'next/link'
 import nextDynamic from 'next/dynamic'
 import { Newspaper, ImageIcon, Briefcase, Mail, FileText, Plus, Bell } from 'lucide-react'
@@ -35,7 +35,6 @@ function getLast6Months() {
 }
 
 async function getDashboardData() {
-  const supabase = createServerClient()
   const months = getLast6Months()
   const fromDate = `${months[0].key}-01`
 
@@ -50,37 +49,47 @@ async function getDashboardData() {
     recentSubmissions,
     recentApplications,
   ] = await Promise.all([
-    supabase.from('news_articles').select('id', { count: 'exact', head: true }),
-    supabase.from('jobs').select('id', { count: 'exact', head: true }),
-    supabase.from('media_kits').select('id', { count: 'exact', head: true }),
-    supabase.from('contact_submissions').select('id', { count: 'exact', head: true }),
-    supabase
-      .from('job_applications')
-      .select('id', { count: 'exact', head: true })
-      .eq('status', 'pending'),
-    supabase.from('news_articles').select('date_iso').gte('date_iso', fromDate),
-    supabase.from('job_applications').select('status'),
-    supabase
-      .from('contact_submissions')
-      .select('id, first_name, last_name, subject, created_at')
-      .order('created_at', { ascending: false })
-      .limit(5),
-    supabase
-      .from('job_applications')
-      .select('id, first_name, last_name, job_title, status, created_at')
-      .order('created_at', { ascending: false })
-      .limit(5),
+    query<{ count: number }>('select count(*) as count from news_articles'),
+    query<{ count: number }>('select count(*) as count from jobs'),
+    query<{ count: number }>('select count(*) as count from media_kits'),
+    query<{ count: number }>('select count(*) as count from contact_submissions'),
+    query<{ count: number }>(
+      "select count(*) as count from job_applications where status = 'pending'",
+    ),
+    query<{ date_iso: string }>('select date_iso from news_articles where date_iso >= ?', [
+      fromDate,
+    ]),
+    query<{ status: string }>('select status from job_applications'),
+    query<{
+      id: string
+      first_name: string
+      last_name: string
+      subject: string | null
+      created_at: string
+    }>(
+      'select id, first_name, last_name, subject, created_at from contact_submissions order by created_at desc limit 5',
+    ),
+    query<{
+      id: string
+      first_name: string
+      last_name: string
+      job_title: string
+      status: string
+      created_at: string
+    }>(
+      'select id, first_name, last_name, job_title, status, created_at from job_applications order by created_at desc limit 5',
+    ),
   ])
 
   const countsByMonth: Record<string, number> = Object.fromEntries(months.map((m) => [m.key, 0]))
-  for (const row of articleDates.data ?? []) {
+  for (const row of articleDates) {
     const key = row.date_iso.slice(0, 7)
     if (key in countsByMonth) countsByMonth[key]++
   }
   const chartData = months.map((m) => ({ month: m.label, articles: countsByMonth[m.key] }))
 
   const pipeline = { pending: 0, reviewed: 0, shortlisted: 0, rejected: 0 }
-  for (const row of allApplications.data ?? []) {
+  for (const row of allApplications) {
     if (row.status in pipeline) pipeline[row.status as keyof typeof pipeline]++
   }
   const pipelineSegments = [
@@ -92,14 +101,14 @@ async function getDashboardData() {
   const pipelineTotal = Object.values(pipeline).reduce((a, b) => a + b, 0)
 
   const feedItems = [
-    ...(recentSubmissions.data ?? []).map((s) => ({
+    ...recentSubmissions.map((s) => ({
       id: `sub-${s.id}`,
       type: 'submission' as const,
       name: `${s.first_name} ${s.last_name}`,
       detail: s.subject ?? 'Contact inquiry',
       createdAt: s.created_at,
     })),
-    ...(recentApplications.data ?? []).map((a) => ({
+    ...recentApplications.map((a) => ({
       id: `app-${a.id}`,
       type: 'application' as const,
       name: `${a.first_name} ${a.last_name}`,
@@ -113,11 +122,11 @@ async function getDashboardData() {
 
   return {
     counts: {
-      articles: articlesCount.count ?? 0,
-      jobs: jobsCount.count ?? 0,
-      media: mediaCount.count ?? 0,
-      submissions: submissionsCount.count ?? 0,
-      applications: applicationsCount.count ?? 0,
+      articles: articlesCount[0]?.count ?? 0,
+      jobs: jobsCount[0]?.count ?? 0,
+      media: mediaCount[0]?.count ?? 0,
+      submissions: submissionsCount[0]?.count ?? 0,
+      applications: applicationsCount[0]?.count ?? 0,
     },
     chartData,
     pipelineSegments,

@@ -1,20 +1,22 @@
-import { createServerClient } from '@/lib/supabase-server'
+import { queryOne } from '@/lib/db'
 import { defaultSustainabilityContent } from '@/lib/page-content-defaults'
-import type { PageContentRow, SustainabilityContent } from '@/lib/database.types'
+import type { SustainabilityContent } from '@/lib/database.types'
 import SustainabilityContentForm from './SustainabilityContentForm'
 
 export const dynamic = 'force-dynamic'
 
-export default async function AdminSustainabilityPagePage() {
-  const supabase = createServerClient()
-  const { data } = await supabase
-    .from('page_content')
-    .select('*')
-    .eq('page', 'sustainability')
-    .maybeSingle()
+interface PageContentRawRow {
+  page: string
+  content: string
+  updated_at: string
+}
 
-  const row = data as PageContentRow | null
-  const stored = row?.content as Partial<SustainabilityContent> | undefined
+export default async function AdminSustainabilityPagePage() {
+  const row = await queryOne<PageContentRawRow>('select * from page_content where page = ?', [
+    'sustainability',
+  ])
+
+  const stored = row ? (JSON.parse(row.content) as Partial<SustainabilityContent>) : undefined
   const content: SustainabilityContent = {
     weCare: stored?.weCare ?? defaultSustainabilityContent.weCare,
     focusAreas: stored?.focusAreas ?? defaultSustainabilityContent.focusAreas,

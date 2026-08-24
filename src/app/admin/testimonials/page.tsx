@@ -1,4 +1,4 @@
-import { createServerClient } from '@/lib/supabase-server'
+import { query } from '@/lib/db'
 import type { TestimonialRow } from '@/lib/database.types'
 import Link from 'next/link'
 import AdminPagination from '@/components/AdminPagination'
@@ -16,17 +16,16 @@ export default async function AdminTestimonialsPage({
 }) {
   const page = Math.max(1, parseInt(searchParams.page ?? '1', 10) || 1)
   const from = (page - 1) * PAGE_SIZE
-  const to = from + PAGE_SIZE - 1
 
-  const supabase = createServerClient()
-  const { data, count } = await supabase
-    .from('testimonials')
-    .select('*', { count: 'exact' })
-    .order('created_at', { ascending: false })
-    .range(from, to)
+  const [countRows, testimonials] = await Promise.all([
+    query<{ count: number }>('select count(*) as count from testimonials'),
+    query<TestimonialRow>('select * from testimonials order by created_at desc limit ? offset ?', [
+      PAGE_SIZE,
+      from,
+    ]),
+  ])
 
-  const testimonials = (data ?? []) as TestimonialRow[]
-  const totalCount = count ?? 0
+  const totalCount = countRows[0]?.count ?? 0
   const totalPages = Math.ceil(totalCount / PAGE_SIZE)
 
   return (

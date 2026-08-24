@@ -1,4 +1,4 @@
-import { createServerClient } from '@/lib/supabase-server'
+import { queryOne } from '@/lib/db'
 import type { TestimonialRow } from '@/lib/database.types'
 import Link from 'next/link'
 import { ChevronLeft } from 'lucide-react'
@@ -8,11 +8,10 @@ import { notFound } from 'next/navigation'
 export const dynamic = 'force-dynamic'
 
 export default async function EditTestimonialPage({ params }: { params: { id: string } }) {
-  const supabase = createServerClient()
-  const { data } = await supabase.from('testimonials').select('*').eq('id', params.id).single()
-  if (!data) notFound()
-
-  const testimonial = data as TestimonialRow
+  const testimonial = await queryOne<TestimonialRow>('select * from testimonials where id = ?', [
+    params.id,
+  ])
+  if (!testimonial) notFound()
 
   return (
     <div className="space-y-5">

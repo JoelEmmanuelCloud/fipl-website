@@ -1,4 +1,4 @@
-import { createServerClient } from '@/lib/supabase-server'
+import { queryOne } from '@/lib/db'
 import type { JobRow } from '@/lib/database.types'
 import Link from 'next/link'
 import { ChevronLeft } from 'lucide-react'
@@ -8,11 +8,8 @@ import { notFound } from 'next/navigation'
 export const dynamic = 'force-dynamic'
 
 export default async function EditJobPage({ params }: { params: { id: string } }) {
-  const supabase = createServerClient()
-  const { data } = await supabase.from('jobs').select('*').eq('id', params.id).single()
-  if (!data) notFound()
-
-  const job = data as JobRow
+  const job = await queryOne<JobRow>('select * from jobs where id = ?', [params.id])
+  if (!job) notFound()
 
   return (
     <div className="space-y-5">

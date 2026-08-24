@@ -1,16 +1,22 @@
-import { createServerClient } from '@/lib/supabase-server'
+import { queryOne } from '@/lib/db'
 import { defaultHomeContent } from '@/lib/page-content-defaults'
-import type { HomeContent, PageContentRow } from '@/lib/database.types'
+import type { HomeContent } from '@/lib/database.types'
 import HomeContentForm from './HomeContentForm'
 
 export const dynamic = 'force-dynamic'
 
-export default async function AdminHomePagePage() {
-  const supabase = createServerClient()
-  const { data } = await supabase.from('page_content').select('*').eq('page', 'home').maybeSingle()
+interface PageContentRawRow {
+  page: string
+  content: string
+  updated_at: string
+}
 
-  const row = data as PageContentRow | null
-  const stored = row?.content as Partial<HomeContent> | undefined
+export default async function AdminHomePagePage() {
+  const row = await queryOne<PageContentRawRow>('select * from page_content where page = ?', [
+    'home',
+  ])
+
+  const stored = row ? (JSON.parse(row.content) as Partial<HomeContent>) : undefined
   const content: HomeContent = {
     hero: stored?.hero ?? defaultHomeContent.hero,
     whoWeAre: stored?.whoWeAre ?? defaultHomeContent.whoWeAre,

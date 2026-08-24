@@ -1,20 +1,22 @@
-import { createServerClient } from '@/lib/supabase-server'
+import { queryOne } from '@/lib/db'
 import { defaultPowerPlantsContent } from '@/lib/page-content-defaults'
-import type { PageContentRow, PowerPlantsContent } from '@/lib/database.types'
+import type { PowerPlantsContent } from '@/lib/database.types'
 import PowerPlantsContentForm from './PowerPlantsContentForm'
 
 export const dynamic = 'force-dynamic'
 
-export default async function AdminPowerPlantsPagePage() {
-  const supabase = createServerClient()
-  const { data } = await supabase
-    .from('page_content')
-    .select('*')
-    .eq('page', 'power-plants')
-    .maybeSingle()
+interface PageContentRawRow {
+  page: string
+  content: string
+  updated_at: string
+}
 
-  const row = data as PageContentRow | null
-  const stored = row?.content as Partial<PowerPlantsContent> | undefined
+export default async function AdminPowerPlantsPagePage() {
+  const row = await queryOne<PageContentRawRow>('select * from page_content where page = ?', [
+    'power-plants',
+  ])
+
+  const stored = row ? (JSON.parse(row.content) as Partial<PowerPlantsContent>) : undefined
   const content: PowerPlantsContent = {
     intro: stored?.intro ?? defaultPowerPlantsContent.intro,
     workProcess: stored?.workProcess ?? defaultPowerPlantsContent.workProcess,

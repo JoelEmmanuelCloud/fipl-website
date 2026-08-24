@@ -1,4 +1,4 @@
-import { createServerClient } from '@/lib/supabase-server'
+import { queryOne } from '@/lib/db'
 import type { NewsArticleRow } from '@/lib/database.types'
 import Link from 'next/link'
 import { ChevronLeft } from 'lucide-react'
@@ -8,11 +8,10 @@ import { notFound } from 'next/navigation'
 export const dynamic = 'force-dynamic'
 
 export default async function EditArticlePage({ params }: { params: { id: string } }) {
-  const supabase = createServerClient()
-  const { data } = await supabase.from('news_articles').select('*').eq('id', params.id).single()
-  if (!data) notFound()
-
-  const article = data as NewsArticleRow
+  const article = await queryOne<NewsArticleRow>('select * from news_articles where id = ?', [
+    params.id,
+  ])
+  if (!article) notFound()
 
   return (
     <div className="space-y-5">

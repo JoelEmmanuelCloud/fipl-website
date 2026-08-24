@@ -1,20 +1,22 @@
-import { createServerClient } from '@/lib/supabase-server'
+import { queryOne } from '@/lib/db'
 import { defaultCareersContent } from '@/lib/page-content-defaults'
-import type { CareersContent, PageContentRow } from '@/lib/database.types'
+import type { CareersContent } from '@/lib/database.types'
 import CareersContentForm from './CareersContentForm'
 
 export const dynamic = 'force-dynamic'
 
-export default async function AdminCareersPagePage() {
-  const supabase = createServerClient()
-  const { data } = await supabase
-    .from('page_content')
-    .select('*')
-    .eq('page', 'careers')
-    .maybeSingle()
+interface PageContentRawRow {
+  page: string
+  content: string
+  updated_at: string
+}
 
-  const row = data as PageContentRow | null
-  const stored = row?.content as Partial<CareersContent> | undefined
+export default async function AdminCareersPagePage() {
+  const row = await queryOne<PageContentRawRow>('select * from page_content where page = ?', [
+    'careers',
+  ])
+
+  const stored = row ? (JSON.parse(row.content) as Partial<CareersContent>) : undefined
   const content: CareersContent = {
     whyJoin: stored?.whyJoin ?? defaultCareersContent.whyJoin,
     evpCards: stored?.evpCards ?? defaultCareersContent.evpCards,

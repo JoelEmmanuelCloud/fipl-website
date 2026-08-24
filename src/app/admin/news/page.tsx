@@ -1,4 +1,4 @@
-import { createServerClient } from '@/lib/supabase-server'
+import { query } from '@/lib/db'
 import type { NewsArticleRow } from '@/lib/database.types'
 import Link from 'next/link'
 import { Suspense } from 'react'
@@ -29,16 +29,28 @@ export default async function AdminNewsPage({
   const category = searchParams.category ?? ''
   const q = searchParams.q ?? ''
   const from = (page - 1) * PAGE_SIZE
-  const to = from + PAGE_SIZE - 1
 
-  const supabase = createServerClient()
-  let query = supabase.from('news_articles').select('*', { count: 'exact' })
-  if (category) query = query.eq('category', category)
-  if (q) query = query.ilike('title', `%${q}%`)
-  const { data, count } = await query.order('date_iso', { ascending: false }).range(from, to)
+  const conditions: string[] = []
+  const params: unknown[] = []
+  if (category) {
+    conditions.push('category = ?')
+    params.push(category)
+  }
+  if (q) {
+    conditions.push('title like ?')
+    params.push(`%${q}%`)
+  }
+  const where = conditions.length > 0 ? `where ${conditions.join(' and ')}` : ''
 
-  const articles = (data ?? []) as NewsArticleRow[]
-  const totalCount = count ?? 0
+  const [countRows, articles] = await Promise.all([
+    query<{ count: number }>(`select count(*) as count from news_articles ${where}`, params),
+    query<NewsArticleRow>(
+      `select * from news_articles ${where} order by date_iso desc limit ? offset ?`,
+      [...params, PAGE_SIZE, from],
+    ),
+  ])
+
+  const totalCount = countRows[0]?.count ?? 0
   const totalPages = Math.ceil(totalCount / PAGE_SIZE)
 
   const filterParams = new URLSearchParams()

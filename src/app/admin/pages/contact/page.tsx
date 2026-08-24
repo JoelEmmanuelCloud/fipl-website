@@ -1,20 +1,22 @@
-import { createServerClient } from '@/lib/supabase-server'
+import { queryOne } from '@/lib/db'
 import { defaultContactContent } from '@/lib/page-content-defaults'
-import type { ContactContent, PageContentRow } from '@/lib/database.types'
+import type { ContactContent } from '@/lib/database.types'
 import ContactContentForm from './ContactContentForm'
 
 export const dynamic = 'force-dynamic'
 
-export default async function AdminContactPagePage() {
-  const supabase = createServerClient()
-  const { data } = await supabase
-    .from('page_content')
-    .select('*')
-    .eq('page', 'contact')
-    .maybeSingle()
+interface PageContentRawRow {
+  page: string
+  content: string
+  updated_at: string
+}
 
-  const row = data as PageContentRow | null
-  const stored = row?.content as Partial<ContactContent> | undefined
+export default async function AdminContactPagePage() {
+  const row = await queryOne<PageContentRawRow>('select * from page_content where page = ?', [
+    'contact',
+  ])
+
+  const stored = row ? (JSON.parse(row.content) as Partial<ContactContent>) : undefined
   const content: ContactContent = {
     getInTouch: stored?.getInTouch ?? defaultContactContent.getInTouch,
     contactItems: stored?.contactItems ?? defaultContactContent.contactItems,

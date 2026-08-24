@@ -1,4 +1,4 @@
-import { createServerClient } from '@/lib/supabase-server'
+import { query } from '@/lib/db'
 import type { ContactSubmissionRow } from '@/lib/database.types'
 import { Suspense } from 'react'
 import Link from 'next/link'
@@ -29,18 +29,28 @@ export default async function SubmissionsPage({
   const q = searchParams.q ?? ''
   const subject = searchParams.subject ?? ''
   const from = (page - 1) * PAGE_SIZE
-  const to = from + PAGE_SIZE - 1
 
-  const supabase = createServerClient()
-  let query = supabase.from('contact_submissions').select('*', { count: 'exact' })
-  if (subject) query = query.eq('subject', subject)
-  if (q) {
-    query = query.or(`first_name.ilike.%${q}%,last_name.ilike.%${q}%,email.ilike.%${q}%`)
+  const conditions: string[] = []
+  const params: unknown[] = []
+  if (subject) {
+    conditions.push('subject = ?')
+    params.push(subject)
   }
-  const { data, count } = await query.order('created_at', { ascending: false }).range(from, to)
+  if (q) {
+    conditions.push('(first_name like ? or last_name like ? or email like ?)')
+    params.push(`%${q}%`, `%${q}%`, `%${q}%`)
+  }
+  const where = conditions.length > 0 ? `where ${conditions.join(' and ')}` : ''
 
-  const submissions = (data ?? []) as ContactSubmissionRow[]
-  const totalCount = count ?? 0
+  const [countRows, submissions] = await Promise.all([
+    query<{ count: number }>(`select count(*) as count from contact_submissions ${where}`, params),
+    query<ContactSubmissionRow>(
+      `select * from contact_submissions ${where} order by created_at desc limit ? offset ?`,
+      [...params, PAGE_SIZE, from],
+    ),
+  ])
+
+  const totalCount = countRows[0]?.count ?? 0
   const totalPages = Math.ceil(totalCount / PAGE_SIZE)
 
   const filterParams = new URLSearchParams()

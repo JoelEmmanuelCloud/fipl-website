@@ -1,16 +1,22 @@
-import { createServerClient } from '@/lib/supabase-server'
+import { queryOne } from '@/lib/db'
 import { defaultNewsContent } from '@/lib/page-content-defaults'
-import type { NewsContent, PageContentRow } from '@/lib/database.types'
+import type { NewsContent } from '@/lib/database.types'
 import NewsContentForm from './NewsContentForm'
 
 export const dynamic = 'force-dynamic'
 
-export default async function AdminNewsPageContentPage() {
-  const supabase = createServerClient()
-  const { data } = await supabase.from('page_content').select('*').eq('page', 'news').maybeSingle()
+interface PageContentRawRow {
+  page: string
+  content: string
+  updated_at: string
+}
 
-  const row = data as PageContentRow | null
-  const stored = row?.content as Partial<NewsContent> | undefined
+export default async function AdminNewsPageContentPage() {
+  const row = await queryOne<PageContentRawRow>('select * from page_content where page = ?', [
+    'news',
+  ])
+
+  const stored = row ? (JSON.parse(row.content) as Partial<NewsContent>) : undefined
   const content: NewsContent = {
     insights: stored?.insights ?? defaultNewsContent.insights,
   }

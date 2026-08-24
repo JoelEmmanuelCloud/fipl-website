@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createServerClient } from '@/lib/supabase-server'
+import { randomUUID } from 'crypto'
+import { query } from '@/lib/db'
 import { sendContactNotification } from '@/lib/email'
 
 export async function POST(req: NextRequest) {
@@ -10,16 +11,13 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
   }
 
-  const supabase = createServerClient()
-  const { error } = await supabase.from('contact_submissions').insert({
-    first_name: firstName,
-    last_name: lastName,
-    email,
-    subject: subject || null,
-    message,
-  })
-
-  if (error) {
+  try {
+    await query(
+      `insert into contact_submissions (id, first_name, last_name, email, subject, message)
+       values (?, ?, ?, ?, ?, ?)`,
+      [randomUUID(), firstName, lastName, email, subject || null, message],
+    )
+  } catch {
     return NextResponse.json({ error: 'Failed to submit' }, { status: 500 })
   }
 

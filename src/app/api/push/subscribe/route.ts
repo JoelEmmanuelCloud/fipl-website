@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createServerClient } from '@/lib/supabase-server'
+import { randomUUID } from 'crypto'
+import { query } from '@/lib/db'
 
 export async function POST(req: NextRequest) {
   const body = await req.json()
@@ -9,11 +10,17 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Invalid subscription' }, { status: 400 })
   }
 
-  const supabase = createServerClient()
-  const { error } = await supabase
-    .from('push_subscriptions')
-    .upsert({ endpoint, p256dh: keys.p256dh, auth: keys.auth }, { onConflict: 'endpoint' })
-
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+  try {
+    await query(
+      `insert into push_subscriptions (id, endpoint, p256dh, auth) values (?, ?, ?, ?)
+       on duplicate key update p256dh = values(p256dh), auth = values(auth)`,
+      [randomUUID(), endpoint, keys.p256dh, keys.auth],
+    )
+  } catch (error) {
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : 'Failed to subscribe' },
+      { status: 500 },
+    )
+  }
   return NextResponse.json({ ok: true })
 }

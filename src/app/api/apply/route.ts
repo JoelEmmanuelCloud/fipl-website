@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createServerClient } from '@/lib/supabase-server'
+import { randomUUID } from 'crypto'
+import { query } from '@/lib/db'
+import { saveUpload } from '@/lib/upload'
 import { sendApplicationNotification } from '@/lib/email'
 
 export async function POST(req: NextRequest) {
@@ -25,35 +27,26 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'CV must be under 5MB' }, { status: 400 })
   }
 
-  const supabase = createServerClient()
-
   const filename = `${Date.now()}-${Math.random().toString(36).slice(2)}.pdf`
   const buffer = await cvFile.arrayBuffer()
 
-  const { error: uploadError } = await supabase.storage
-    .from('job-applications')
-    .upload(filename, buffer, { contentType: 'application/pdf', upsert: false })
-
-  if (uploadError) {
+  let cvUrl: string
+  try {
+    cvUrl = await saveUpload('job-applications', filename, buffer)
+  } catch {
     return NextResponse.json({ error: 'Failed to upload CV' }, { status: 500 })
   }
 
-  const { data: urlData } = supabase.storage.from('job-applications').getPublicUrl(filename)
-  const cvUrl = urlData.publicUrl
+  const id = randomUUID()
 
-  const { error } = await supabase.from('job_applications').insert({
-    job_id: jobId,
-    job_title: jobTitle,
-    first_name: firstName,
-    last_name: lastName,
-    email,
-    phone,
-    cover_letter: coverLetter,
-    cv_url: cvUrl,
-    status: 'pending',
-  })
-
-  if (error) {
+  try {
+    await query(
+      `insert into job_applications
+        (id, job_id, job_title, first_name, last_name, email, phone, cover_letter, cv_url, status)
+       values (?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending')`,
+      [id, jobId, jobTitle, firstName, lastName, email, phone, coverLetter, cvUrl],
+    )
+  } catch {
     return NextResponse.json({ error: 'Failed to submit application' }, { status: 500 })
   }
 

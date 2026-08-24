@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createServerClient } from '@/lib/supabase-server'
+import { randomUUID } from 'crypto'
+import { query, queryOne } from '@/lib/db'
 import { sendSubscriberNotification } from '@/lib/email'
 
 export async function POST(req: NextRequest) {
@@ -10,18 +11,24 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Invalid email' }, { status: 400 })
   }
 
-  const supabase = createServerClient()
-  const { error, data } = await supabase
-    .from('newsletter_subscribers')
-    .upsert({ email }, { onConflict: 'email' })
-    .select('subscribed_at')
-    .single()
-
-  if (error) {
+  let subscribedAt: string
+  try {
+    await query(
+      `insert into newsletter_subscribers (id, email) values (?, ?)
+       on duplicate key update email = email`,
+      [randomUUID(), email],
+    )
+    const row = await queryOne<{ subscribed_at: string }>(
+      'select subscribed_at from newsletter_subscribers where email = ?',
+      [email],
+    )
+    if (!row) throw new Error('Row not found after upsert')
+    subscribedAt = row.subscribed_at
+  } catch {
     return NextResponse.json({ error: 'Failed to subscribe' }, { status: 500 })
   }
 
-  const isNew = Math.abs(Date.now() - new Date(data.subscribed_at).getTime()) < 5000
+  const isNew = Math.abs(Date.now() - new Date(subscribedAt).getTime()) < 5000
   if (isNew) {
     sendSubscriberNotification(email).catch(() => {})
   }

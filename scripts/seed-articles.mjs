@@ -1,13 +1,5 @@
-import { createClient } from '@supabase/supabase-js'
-import { config } from 'dotenv'
-
-config({ path: '.env.local' })
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY,
-  { auth: { persistSession: false } },
-)
+import { randomUUID } from 'crypto'
+import { pool, query } from './db.mjs'
 
 const articles = [
   {
@@ -90,15 +82,33 @@ const articles = [
   },
 ]
 
-const { data, error } = await supabase
-  .from('news_articles')
-  .upsert(articles, { onConflict: 'slug' })
-  .select('slug')
+console.log(`Upserting ${articles.length} news articles…`)
 
-if (error) {
-  console.error('Seed failed:', error.message)
-  process.exit(1)
+for (const a of articles) {
+  await query(
+    `insert into news_articles
+      (id, slug, title, excerpt, content, date, date_iso, category, read_time, image_url)
+     values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+     on duplicate key update
+       title = values(title), excerpt = values(excerpt), content = values(content),
+       date = values(date), date_iso = values(date_iso), category = values(category),
+       read_time = values(read_time), image_url = values(image_url)`,
+    [
+      randomUUID(),
+      a.slug,
+      a.title,
+      a.excerpt,
+      a.content,
+      a.date,
+      a.date_iso,
+      a.category,
+      a.read_time,
+      a.image_url,
+    ],
+  )
 }
 
-console.log(`Seeded ${data.length} articles:`)
-data.forEach((r) => console.log(' -', r.slug))
+console.log(`Seeded ${articles.length} articles:`)
+articles.forEach((a) => console.log(' -', a.slug))
+
+await pool.end()

@@ -1,13 +1,17 @@
-import { createClient } from '@supabase/supabase-js'
-import { config } from 'dotenv'
+import { pool } from './db.mjs'
 
-config({ path: '.env.local' })
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY,
-  { auth: { persistSession: false } },
-)
+const TABLES = [
+  'news_articles',
+  'jobs',
+  'job_applications',
+  'media_kits',
+  'contact_submissions',
+  'newsletter_subscribers',
+  'testimonials',
+  'alerts',
+  'page_content',
+  'push_subscriptions',
+]
 
 async function run(label, fn) {
   process.stdout.write(label + ' … ')
@@ -20,29 +24,11 @@ async function run(label, fn) {
   }
 }
 
-await run('news_articles', async () => {
-  const { error } = await supabase.from('news_articles').select('id').limit(1)
-  if (error) throw error
-})
-
-await run('media_kits', async () => {
-  const { error } = await supabase.from('media_kits').select('id').limit(1)
-  if (error) throw error
-})
-
-await run('jobs', async () => {
-  const { error } = await supabase.from('jobs').select('id').limit(1)
-  if (error) throw error
-})
-
-await run('contact_submissions', async () => {
-  const { error } = await supabase.from('contact_submissions').select('id').limit(1)
-  if (error) throw error
-})
-
-await run('newsletter_subscribers', async () => {
-  const { error } = await supabase.from('newsletter_subscribers').select('id').limit(1)
-  if (error) throw error
-})
+for (const table of TABLES) {
+  await run(table, async () => {
+    await pool.query(`select 1 from ${table} limit 1`)
+  })
+}
 
 console.log('\nAll tables reachable.')
+await pool.end()

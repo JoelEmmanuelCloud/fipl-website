@@ -1,16 +1,5 @@
-import dotenv from 'dotenv'
-import { fileURLToPath } from 'url'
-import { dirname, join } from 'path'
-import { createClient } from '@supabase/supabase-js'
-
-const __dirname = dirname(fileURLToPath(import.meta.url))
-dotenv.config({ path: join(__dirname, '..', '.env.local') })
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY,
-  { auth: { persistSession: false } },
-)
+import { randomUUID } from 'crypto'
+import { pool, query } from './db.mjs'
 
 function img(seed, w, h) {
   return `https://picsum.photos/seed/${seed}/${w}/${h}.jpg`
@@ -43,29 +32,26 @@ const items = [
   makeItem('Primary Health Centre Handover', 'FIPL Foundation', 'fipl-health-centre'),
 ]
 
-const { data: existing, error: readError } = await supabase.from('media_kits').select('title')
-
-if (readError) {
-  console.error('Error reading existing media:', readError.message)
-  process.exit(1)
-}
-
-const existingTitles = new Set((existing ?? []).map((r) => r.title))
+const existing = await query('select title from media_kits')
+const existingTitles = new Set(existing.map((r) => r.title))
 const toInsert = items.filter((i) => !existingTitles.has(i.title))
 
 if (toInsert.length === 0) {
   console.log('All media items already exist — nothing to insert.')
+  await pool.end()
   process.exit(0)
 }
 
 console.log(`Inserting ${toInsert.length} media item(s)…`)
 
-const { data, error } = await supabase.from('media_kits').insert(toInsert).select('title, category')
-
-if (error) {
-  console.error('Error:', error.message)
-  process.exit(1)
+for (const item of toInsert) {
+  await query(
+    'insert into media_kits (id, title, category, file_url, thumbnail_url) values (?, ?, ?, ?, ?)',
+    [randomUUID(), item.title, item.category, item.file_url, item.thumbnail_url],
+  )
 }
 
-console.log(`\nDone — ${data.length} media item(s) inserted:\n`)
-data.forEach((m) => console.log(`  ✓ [${m.category}] ${m.title}`))
+console.log(`\nDone — ${toInsert.length} media item(s) inserted:\n`)
+toInsert.forEach((m) => console.log(`  ✓ [${m.category}] ${m.title}`))
+
+await pool.end()

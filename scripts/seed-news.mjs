@@ -1,16 +1,5 @@
-import dotenv from 'dotenv'
-import { fileURLToPath } from 'url'
-import { dirname, join } from 'path'
-import { createClient } from '@supabase/supabase-js'
-
-const __dirname = dirname(fileURLToPath(import.meta.url))
-dotenv.config({ path: join(__dirname, '..', '.env.local') })
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY,
-  { auth: { persistSession: false } },
-)
+import { randomUUID } from 'crypto'
+import { pool, query } from './db.mjs'
 
 const articles = [
   {
@@ -301,15 +290,31 @@ const withImages = articles.map((a) => ({
 
 console.log(`Upserting ${withImages.length} news articles…`)
 
-const { data, error } = await supabase
-  .from('news_articles')
-  .upsert(withImages, { onConflict: 'slug' })
-  .select('slug, title')
-
-if (error) {
-  console.error('Error:', error.message)
-  process.exit(1)
+for (const a of withImages) {
+  await query(
+    `insert into news_articles
+      (id, slug, title, excerpt, content, date, date_iso, category, read_time, image_url)
+     values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+     on duplicate key update
+       title = values(title), excerpt = values(excerpt), content = values(content),
+       date = values(date), date_iso = values(date_iso), category = values(category),
+       read_time = values(read_time), image_url = values(image_url)`,
+    [
+      randomUUID(),
+      a.slug,
+      a.title,
+      a.excerpt,
+      a.content,
+      a.date,
+      a.date_iso,
+      a.category,
+      a.read_time,
+      a.image_url,
+    ],
+  )
 }
 
-console.log(`\nDone — ${data.length} article(s) upserted:\n`)
-data.forEach((a) => console.log(`  ✓ ${a.title}`))
+console.log(`\nDone — ${withImages.length} article(s) upserted:\n`)
+withImages.forEach((a) => console.log(`  ✓ ${a.title}`))
+
+await pool.end()

@@ -1,16 +1,5 @@
-import dotenv from 'dotenv'
-import { fileURLToPath } from 'url'
-import { dirname, join } from 'path'
-import { createClient } from '@supabase/supabase-js'
-
-const __dirname = dirname(fileURLToPath(import.meta.url))
-dotenv.config({ path: join(__dirname, '..', '.env.local') })
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY,
-  { auth: { persistSession: false } },
-)
+import { randomUUID } from 'crypto'
+import { pool, query } from './db.mjs'
 
 const PHC = 'Port Harcourt, Rivers State'
 
@@ -193,30 +182,38 @@ const jobs = [
   },
 ]
 
-const { data: existing, error: readError } = await supabase.from('jobs').select('title')
-if (readError) {
-  console.error('Error reading existing jobs:', readError.message)
-  process.exit(1)
-}
-
-const existingTitles = new Set((existing ?? []).map((r) => r.title))
+const existing = await query('select title from jobs')
+const existingTitles = new Set(existing.map((r) => r.title))
 const toInsert = jobs.filter((j) => !existingTitles.has(j.title))
 
 if (toInsert.length === 0) {
   console.log('All jobs already exist — nothing to insert.')
+  await pool.end()
   process.exit(0)
 }
 
 console.log(`Inserting ${toInsert.length} job(s)…`)
 
-const { data, error } = await supabase
-  .from('jobs')
-  .insert(toInsert)
-  .select('title, type, is_active')
-if (error) {
-  console.error('Error:', error.message)
-  process.exit(1)
+for (const j of toInsert) {
+  await query(
+    `insert into jobs
+      (id, title, department, location, type, description, requirements, posted_date, is_active)
+     values (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    [
+      randomUUID(),
+      j.title,
+      j.department,
+      j.location,
+      j.type,
+      j.description,
+      j.requirements,
+      j.posted_date,
+      j.is_active,
+    ],
+  )
 }
 
-console.log(`\nDone — ${data.length} job(s) inserted:\n`)
-data.forEach((j) => console.log(`  ✓ [${j.type}${j.is_active ? '' : ', closed'}] ${j.title}`))
+console.log(`\nDone — ${toInsert.length} job(s) inserted:\n`)
+toInsert.forEach((j) => console.log(`  ✓ [${j.type}${j.is_active ? '' : ', closed'}] ${j.title}`))
+
+await pool.end()

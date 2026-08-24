@@ -1,16 +1,4 @@
-import dotenv from 'dotenv'
-import { fileURLToPath } from 'url'
-import { dirname, join } from 'path'
-import { createClient } from '@supabase/supabase-js'
-
-const __dirname = dirname(fileURLToPath(import.meta.url))
-dotenv.config({ path: join(__dirname, '..', '.env.local') })
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY,
-  { auth: { persistSession: false } },
-)
+import { pool, query } from './db.mjs'
 
 const pages = [
   {
@@ -329,15 +317,15 @@ const pages = [
 
 console.log(`Upserting ${pages.length} page content row(s)…`)
 
-const { data, error } = await supabase
-  .from('page_content')
-  .upsert(pages, { onConflict: 'page' })
-  .select('page')
-
-if (error) {
-  console.error('Error:', error.message)
-  process.exit(1)
+for (const p of pages) {
+  await query(
+    `insert into page_content (page, content) values (?, ?)
+     on duplicate key update content = values(content), updated_at = current_timestamp`,
+    [p.page, JSON.stringify(p.content)],
+  )
 }
 
-console.log(`\nDone — ${data.length} row(s) upserted:\n`)
-data.forEach((p) => console.log(`  ✓ ${p.page}`))
+console.log(`\nDone — ${pages.length} row(s) upserted:\n`)
+pages.forEach((p) => console.log(`  ✓ ${p.page}`))
+
+await pool.end()

@@ -1,19 +1,7 @@
-import { createClient } from '@supabase/supabase-js'
-import { config } from 'dotenv'
-
-config({ path: '.env.local' })
-
-const anon = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-  { auth: { persistSession: false } },
-)
-
-const srv = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY,
-  { auth: { persistSession: false } },
-)
+import { randomUUID } from 'crypto'
+import { mkdir, access } from 'fs/promises'
+import path from 'path'
+import { pool, query } from './db.mjs'
 
 let pass = 0
 let fail = 0
@@ -29,79 +17,62 @@ async function check(label, fn) {
   }
 }
 
-console.log('\nPublic reads (anon key):')
+console.log('\nPublic reads:')
 
 await check('news_articles readable', async () => {
-  const { data, error } = await anon
-    .from('news_articles')
-    .select('slug')
-    .order('date_iso', { ascending: false })
-  if (error) throw error
-  return `${data.length} articles`
+  const rows = await query('select slug from news_articles order by date_iso desc')
+  return `${rows.length} articles`
 })
 
 await check('latest article slug', async () => {
-  const { data, error } = await anon
-    .from('news_articles')
-    .select('slug')
-    .order('date_iso', { ascending: false })
-    .limit(1)
-    .single()
-  if (error) throw error
-  return data.slug
+  const rows = await query('select slug from news_articles order by date_iso desc limit 1')
+  if (rows.length === 0) throw new Error('no articles found')
+  return rows[0].slug
 })
 
 await check('jobs readable', async () => {
-  const { data, error } = await anon.from('jobs').select('id')
-  if (error) throw error
-  return `${data.length} jobs`
+  const rows = await query('select id from jobs')
+  return `${rows.length} jobs`
 })
 
 await check('media_kits readable', async () => {
-  const { data, error } = await anon.from('media_kits').select('id')
-  if (error) throw error
-  return `${data.length} media kits`
+  const rows = await query('select id from media_kits')
+  return `${rows.length} media kits`
 })
 
-console.log('\nAdmin writes (service role):')
+console.log('\nAdmin writes:')
 
 await check('insert + delete test row in contact_submissions', async () => {
-  const { data, error } = await srv
-    .from('contact_submissions')
-    .insert({
-      first_name: 'Test',
-      last_name: 'User',
-      email: 'test@verify.internal',
-      message: 'verify',
-    })
-    .select('id')
-    .single()
-  if (error) throw error
-  await srv.from('contact_submissions').delete().eq('id', data.id)
+  const id = randomUUID()
+  await query(
+    `insert into contact_submissions (id, first_name, last_name, email, message)
+     values (?, 'Test', 'User', 'test@verify.internal', 'verify')`,
+    [id],
+  )
+  await query('delete from contact_submissions where id = ?', [id])
   return 'write + delete ok'
 })
 
 await check('newsletter upsert', async () => {
-  await srv
-    .from('newsletter_subscribers')
-    .upsert({ email: 'verify@internal.test' }, { onConflict: 'email' })
-  await srv.from('newsletter_subscribers').delete().eq('email', 'verify@internal.test')
+  const id = randomUUID()
+  await query(
+    `insert into newsletter_subscribers (id, email) values (?, 'verify@internal.test')
+     on duplicate key update email = email`,
+    [id],
+  )
+  await query('delete from newsletter_subscribers where email = ?', ['verify@internal.test'])
   return 'upsert + delete ok'
 })
 
-console.log('\nStorage:')
+console.log('\nLocal file storage:')
 
-await check('news-images bucket public', async () => {
-  const { data } = srv.storage.from('news-images').getPublicUrl('test.png')
-  if (!data?.publicUrl) throw new Error('no public URL')
-  return 'public URL resolvable'
-})
-
-await check('media-kit-assets bucket public', async () => {
-  const { data } = srv.storage.from('media-kit-assets').getPublicUrl('test.png')
-  if (!data?.publicUrl) throw new Error('no public URL')
-  return 'public URL resolvable'
+await check('public/uploads is writable', async () => {
+  const dir = path.join(process.cwd(), 'public', 'uploads', 'verify')
+  await mkdir(dir, { recursive: true })
+  await access(dir)
+  return dir
 })
 
 console.log(`\n${pass + fail} checks — ${pass} passed, ${fail} failed\n`)
+await pool.end()
 if (fail > 0) process.exit(1)

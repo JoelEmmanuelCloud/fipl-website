@@ -1,16 +1,5 @@
-import dotenv from 'dotenv'
-import { fileURLToPath } from 'url'
-import { dirname, join } from 'path'
-import { createClient } from '@supabase/supabase-js'
-
-const __dirname = dirname(fileURLToPath(import.meta.url))
-dotenv.config({ path: join(__dirname, '..', '.env.local') })
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY,
-  { auth: { persistSession: false } },
-)
+import { randomUUID } from 'crypto'
+import { pool, query } from './db.mjs'
 
 const testimonials = [
   {
@@ -36,27 +25,26 @@ const testimonials = [
   },
 ]
 
-const { data: existing, error: readError } = await supabase.from('testimonials').select('name')
-if (readError) {
-  console.error('Error reading existing testimonials:', readError.message)
-  process.exit(1)
-}
-
-const existingNames = new Set((existing ?? []).map((r) => r.name))
+const existing = await query('select name from testimonials')
+const existingNames = new Set(existing.map((r) => r.name))
 const toInsert = testimonials.filter((t) => !existingNames.has(t.name))
 
 if (toInsert.length === 0) {
   console.log('All testimonials already exist — nothing to insert.')
+  await pool.end()
   process.exit(0)
 }
 
 console.log(`Inserting ${toInsert.length} testimonial(s)…`)
 
-const { data, error } = await supabase.from('testimonials').insert(toInsert).select('name, role')
-if (error) {
-  console.error('Error:', error.message)
-  process.exit(1)
+for (const t of toInsert) {
+  await query(
+    'insert into testimonials (id, quote, name, role, is_active) values (?, ?, ?, ?, ?)',
+    [randomUUID(), t.quote, t.name, t.role, t.is_active],
+  )
 }
 
-console.log(`\nDone — ${data.length} testimonial(s) inserted:\n`)
-data.forEach((t) => console.log(`  ✓ ${t.name} — ${t.role}`))
+console.log(`\nDone — ${toInsert.length} testimonial(s) inserted:\n`)
+toInsert.forEach((t) => console.log(`  ✓ ${t.name} — ${t.role}`))
+
+await pool.end()

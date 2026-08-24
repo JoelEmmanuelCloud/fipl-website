@@ -1,16 +1,5 @@
-import dotenv from 'dotenv'
-import { fileURLToPath } from 'url'
-import { dirname, join } from 'path'
-import { createClient } from '@supabase/supabase-js'
-
-const __dirname = dirname(fileURLToPath(import.meta.url))
-dotenv.config({ path: join(__dirname, '..', '.env.local') })
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY,
-  { auth: { persistSession: false } },
-)
+import { randomUUID } from 'crypto'
+import { pool, query } from './db.mjs'
 
 const submissions = [
   {
@@ -78,34 +67,28 @@ const submissions = [
   },
 ]
 
-const { data: existing, error: readError } = await supabase
-  .from('contact_submissions')
-  .select('message')
-
-if (readError) {
-  console.error('Error reading existing submissions:', readError.message)
-  process.exit(1)
-}
-
-const existingMessages = new Set((existing ?? []).map((r) => r.message))
+const existing = await query('select message from contact_submissions')
+const existingMessages = new Set(existing.map((r) => r.message))
 const toInsert = submissions.filter((s) => !existingMessages.has(s.message))
 
 if (toInsert.length === 0) {
   console.log('All submissions already exist — nothing to insert.')
+  await pool.end()
   process.exit(0)
 }
 
 console.log(`Inserting ${toInsert.length} submission(s)…`)
 
-const { data, error } = await supabase
-  .from('contact_submissions')
-  .insert(toInsert)
-  .select('first_name, last_name, subject')
-
-if (error) {
-  console.error('Error:', error.message)
-  process.exit(1)
+for (const s of toInsert) {
+  await query(
+    `insert into contact_submissions
+      (id, first_name, last_name, email, subject, message, created_at)
+     values (?, ?, ?, ?, ?, ?, ?)`,
+    [randomUUID(), s.first_name, s.last_name, s.email, s.subject, s.message, new Date(s.created_at)],
+  )
 }
 
-console.log(`\nDone — ${data.length} submission(s) inserted:\n`)
-data.forEach((s) => console.log(`  ✓ [${s.subject}] ${s.first_name} ${s.last_name}`))
+console.log(`\nDone — ${toInsert.length} submission(s) inserted:\n`)
+toInsert.forEach((s) => console.log(`  ✓ [${s.subject}] ${s.first_name} ${s.last_name}`))
+
+await pool.end()

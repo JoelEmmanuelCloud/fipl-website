@@ -168,9 +168,16 @@ export default async function HomePage() {
   const overlayTitleLines = hero.overlay.title.split('\n')
   const communityHeadingLines = communityBanner.heading.split('\n')
 
+  const heroHeadline = hero.slides[0]
+    ? [...hero.slides[0].line1.split(' '), ...hero.slides[0].line2.split(' ')]
+        .filter(Boolean)
+        .join(' ')
+    : 'First Independent Power Limited'
+
   return (
     <>
       <section className="relative h-[600px] md:h-[660px] lg:h-[740px] bg-gray-900">
+        <h1 className="sr-only">{heroHeadline}</h1>
         <HeroSlideshow slides={hero.slides} />
       </section>
 

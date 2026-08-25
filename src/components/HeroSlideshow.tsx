@@ -57,8 +57,9 @@ function SlideText({ slide }: { slide: Slide }) {
 
   return (
     <div>
-      <h1
+      <p
         className="text-white text-center"
+        aria-hidden="true"
         style={{
           fontFamily: 'Arial',
           fontWeight: 700,
@@ -82,7 +83,7 @@ function SlideText({ slide }: { slide: Slide }) {
             </Fragment>
           ))}
         </span>
-      </h1>
+      </p>
       <div key={allLen} className="hero-scan-line" />
     </div>
   )

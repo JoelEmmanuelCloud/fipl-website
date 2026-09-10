@@ -8,19 +8,19 @@ The site serves the public-facing corporate presence (about, plants, sustainabil
 
 ## Tech Stack
 
-| Layer | Technology |
-|---|---|
-| Framework | Next.js 14 (App Router), React 18, TypeScript |
-| Styling | Tailwind CSS, shadcn/ui, class-variance-authority |
-| Database & Storage | Supabase (Postgres, Row Level Security, Storage buckets) |
-| Auth | Custom cookie-session admin auth (role-based, no third-party IdP) |
-| Email | Resend |
-| Push Notifications | Web Push (VAPID) |
-| AI Chat Assistant | Google Gemini (`gemini-2.5-flash`) |
-| Charts | Recharts |
-| Rich Text | Tiptap |
-| Linting/Formatting | ESLint, Prettier |
-| CI | GitHub Actions |
+| Layer              | Technology                                                        |
+| ------------------ | ----------------------------------------------------------------- |
+| Framework          | Next.js 14 (App Router), React 18, TypeScript                     |
+| Styling            | Tailwind CSS, shadcn/ui, class-variance-authority                 |
+| Database & Storage | Supabase (Postgres, Row Level Security, Storage buckets)          |
+| Auth               | Custom cookie-session admin auth (role-based, no third-party IdP) |
+| Email              | Resend                                                            |
+| Push Notifications | Web Push (VAPID)                                                  |
+| AI Chat Assistant  | Google Gemini (`gemini-2.5-flash`)                                |
+| Charts             | Recharts                                                          |
+| Rich Text          | Tiptap                                                            |
+| Linting/Formatting | ESLint, Prettier                                                  |
+| CI                 | GitHub Actions                                                    |
 
 ## Architecture
 
@@ -104,18 +104,18 @@ cp .env.local.example .env.local
 
 Fill in `.env.local`:
 
-| Variable | Required | Purpose |
-|---|---|---|
-| `NEXT_PUBLIC_SUPABASE_URL` | Yes | Supabase project URL |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Yes | Supabase anon key (client reads) |
-| `SUPABASE_SERVICE_ROLE_KEY` | Yes | Supabase service-role key (server writes, bypasses RLS) |
-| `ADMIN_PASSWORD_OWNER` / `ADMIN_TOKEN_OWNER` | Yes | Owner-role admin login and session secret |
-| `ADMIN_PASSWORD_CONTENT` / `ADMIN_TOKEN_CONTENT` | Yes | Content-role admin login and session secret |
-| `ADMIN_PASSWORD_HR` / `ADMIN_TOKEN_HR` | Yes | HR-role admin login and session secret |
-| `NEXT_PUBLIC_SITE_URL` | Yes | Canonical site URL (metadata, sitemap, OG tags) |
-| `GOOGLE_GEMINI_API_KEY` | For chat widget | Gemini API key powering `/api/chat` |
-| `RESEND_API_KEY` | For email notifications | Resend API key for contact/application emails |
-| `NEXT_PUBLIC_VAPID_PUBLIC_KEY` / `VAPID_PRIVATE_KEY` / `VAPID_EMAIL` | For push notifications | Web Push VAPID keypair and contact email |
+| Variable                                                             | Required                | Purpose                                                 |
+| -------------------------------------------------------------------- | ----------------------- | ------------------------------------------------------- |
+| `NEXT_PUBLIC_SUPABASE_URL`                                           | Yes                     | Supabase project URL                                    |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY`                                      | Yes                     | Supabase anon key (client reads)                        |
+| `SUPABASE_SERVICE_ROLE_KEY`                                          | Yes                     | Supabase service-role key (server writes, bypasses RLS) |
+| `ADMIN_PASSWORD_OWNER` / `ADMIN_TOKEN_OWNER`                         | Yes                     | Owner-role admin login and session secret               |
+| `ADMIN_PASSWORD_CONTENT` / `ADMIN_TOKEN_CONTENT`                     | Yes                     | Content-role admin login and session secret             |
+| `ADMIN_PASSWORD_HR` / `ADMIN_TOKEN_HR`                               | Yes                     | HR-role admin login and session secret                  |
+| `NEXT_PUBLIC_SITE_URL`                                               | Yes                     | Canonical site URL (metadata, sitemap, OG tags)         |
+| `GOOGLE_GEMINI_API_KEY`                                              | For chat widget         | Gemini API key powering `/api/chat`                     |
+| `RESEND_API_KEY`                                                     | For email notifications | Resend API key for contact/application emails           |
+| `NEXT_PUBLIC_VAPID_PUBLIC_KEY` / `VAPID_PRIVATE_KEY` / `VAPID_EMAIL` | For push notifications  | Web Push VAPID keypair and contact email                |
 
 Provision the database schema:
 
@@ -146,15 +146,15 @@ Visit `http://localhost:3000`. Admin console is at `/admin/login`.
 
 ## Scripts
 
-| Command | Description |
-|---|---|
-| `npm run dev` | Start the Next.js dev server |
-| `npm run build` | Production build |
-| `npm run start` | Serve the production build |
-| `npm run lint` | Run `next lint` |
-| `npm run format` | Format the codebase with Prettier |
-| `npm run format:check` | Check formatting without writing |
-| `npm run seed:*` | Seed Supabase tables from `scripts/` |
+| Command                | Description                          |
+| ---------------------- | ------------------------------------ |
+| `npm run dev`          | Start the Next.js dev server         |
+| `npm run build`        | Production build                     |
+| `npm run start`        | Serve the production build           |
+| `npm run lint`         | Run `next lint`                      |
+| `npm run format`       | Format the codebase with Prettier    |
+| `npm run format:check` | Check formatting without writing     |
+| `npm run seed:*`       | Seed Supabase tables from `scripts/` |
 
 ## Project Structure
 
